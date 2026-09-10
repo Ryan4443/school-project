@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sugarcane 3D Experience | By Ryan and Adarsh</title>
+  <title>Sugarcane 3D Masterpiece | By Ryan and Adarsh</title>
   
-  <!-- Fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
       --bg-dark: #030d07;
       
       /* Refined 3D Layered Glassmorphism */
-      --glass-base: rgba(10, 30, 20, 0.78);
+      --glass-base: rgba(10, 30, 20, 0.80);
       --glass-border: rgba(255, 255, 255, 0.22);
       --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.35);
       --glass-3d-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 25px rgba(16, 185, 129, 0.18);
@@ -63,7 +63,6 @@
       cursor: grabbing;
     }
 
-    /* Cinematic Depth Vignette */
     .vignette {
       position: absolute;
       top: 0;
@@ -72,7 +71,7 @@
       height: 100%;
       pointer-events: none;
       z-index: 2;
-      background: radial-gradient(circle at 50% 48%, transparent 50%, rgba(1, 8, 4, 0.75) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 48%, rgba(1, 8, 4, 0.78) 100%);
     }
 
     /* Spatial HUD Grid */
@@ -86,7 +85,7 @@
       pointer-events: none;
       display: grid;
       grid-template-rows: auto 1fr auto;
-      padding: 24px 32px;
+      padding: 22px 30px;
       gap: 16px;
     }
 
@@ -138,7 +137,7 @@
       box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
     }
 
-    /* Center Quick Dossier Navigation */
+    /* Quick Dossier Navigation */
     .center-nav {
       display: flex;
       align-items: center;
@@ -356,6 +355,54 @@
       box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
     }
 
+    /* Growth Phase Morph Slider Card */
+    .growth-stage-dock {
+      background: var(--glass-base);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel), 0 8px 24px rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stage-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .growth-timeline-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .growth-step-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .growth-step-btn.active {
+      background: rgba(52, 211, 153, 0.25);
+      border-color: var(--emerald-glow);
+      color: #fff;
+    }
+
     /* Right Anatomy Inspection Deck */
     .right-deck {
       width: 310px;
@@ -500,19 +547,19 @@
       padding: 0 6px;
     }
 
-    /* Floating 3D Definition Card (Shown when ANY part is clicked) */
+    /* Floating 3D Definition Card */
     .part-definition-card {
       position: absolute;
-      bottom: 85px;
+      bottom: 82px;
       left: 50%;
       transform: translateX(-50%) translateY(20px) scale(0.95);
-      background: rgba(8, 28, 18, 0.94);
+      background: rgba(8, 28, 18, 0.95);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 1.5px solid var(--emerald-glow);
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), var(--glass-bevel), 0 0 35px rgba(52, 211, 153, 0.4);
       border-radius: 22px;
-      padding: 20px 24px;
+      padding: 18px 24px;
       width: 520px;
       max-width: 90vw;
       z-index: 60;
@@ -554,7 +601,7 @@
 
     .def-title {
       font-family: var(--font-heading);
-      font-size: 1.25rem;
+      font-size: 1.22rem;
       font-weight: 800;
       color: #ffffff;
     }
@@ -620,7 +667,7 @@
       gap: 6px;
     }
 
-    /* Modals Overlay (Class 10 CBSE Content) */
+    /* Modals Overlay */
     .modal-veil {
       position: fixed;
       top: 0;
@@ -649,7 +696,7 @@
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-bevel), 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(16, 185, 129, 0.25);
       border-radius: 28px;
-      width: 820px;
+      width: 840px;
       max-width: 90vw;
       max-height: 85vh;
       overflow-y: auto;
@@ -736,7 +783,7 @@
       font-weight: 600;
     }
 
-    /* Comparison Matrix */
+    /* Comparison & State Map Grids */
     .table-box {
       width: 100%;
       border-collapse: collapse;
@@ -754,6 +801,18 @@
       background: rgba(16, 185, 129, 0.25);
       color: #fff;
       font-family: var(--font-heading);
+    }
+
+    .state-rank-badge {
+      display: inline-block;
+      background: rgba(52, 211, 153, 0.2);
+      border: 1px solid var(--emerald-glow);
+      color: #a7f3d0;
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      margin-right: 6px;
     }
 
     /* Quiz Widget */
@@ -797,23 +856,11 @@
       color: #fca5a5 !important;
     }
 
-    /* 3D Target Pinpoint Tooltip */
-    #pointAnnotation {
-      position: absolute;
-      background: rgba(6, 26, 16, 0.92);
-      border: 1px solid var(--emerald-glow);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(52, 211, 153, 0.4);
-      padding: 6px 14px;
-      border-radius: 9999px;
-      color: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 700;
-      pointer-events: none;
-      transform: translate(-50%, -130%);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      z-index: 50;
-      white-space: nowrap;
+    /* Print Revision Notes Styling */
+    @media print {
+      body * { visibility: hidden; }
+      .modal-sheet-3d, .modal-sheet-3d * { visibility: visible; }
+      .modal-sheet-3d { position: absolute; left: 0; top: 0; width: 100%; color: #000; background: #fff !important; }
     }
   </style>
 </head>
@@ -823,10 +870,7 @@
   <canvas id="webgl"></canvas>
   <div class="vignette"></div>
 
-  <!-- 3D Hotspot Hover Label -->
-  <div id="pointAnnotation">Click Part to Inspect</div>
-
-  <!-- Interactive 3D Part Definition Card (Pops up when clicking any part) -->
+  <!-- Interactive 3D Part Definition Card -->
   <div class="part-definition-card interactive" id="partDefCard">
     <div class="def-header">
       <div class="def-title-group">
@@ -862,18 +906,19 @@
           <path d="M12 2v20M8 5h8M7 10h10M8 15h8M9 19h6"/>
         </svg>
         <span class="brand-title">By Ryan and Adarsh</span>
-        <span class="author-pill">Class 10 Agriculture</span>
+        <span class="author-pill">Class 10 Masterpiece</span>
       </div>
 
-      <!-- Quick Dossier Tabs -->
+      <!-- Quick Dossier Tabs (With Indian State Distribution Map!) -->
       <nav class="center-nav">
         <button class="hud-action-btn" onclick="openModal('climateModal')">Climate & Soil</button>
+        <button class="hud-action-btn" onclick="openModal('mapModal')">🗺️ India State Distribution</button>
         <button class="hud-action-btn" onclick="openModal('comparisonModal')">North vs South</button>
         <button class="hud-action-btn" onclick="openModal('byproductsModal')">By-Products</button>
-        <button class="hud-action-btn" onclick="openModal('quizModal')">Class 10 Quiz</button>
+        <button class="hud-action-btn" onclick="openModal('quizModal')">Board Quiz</button>
       </nav>
 
-      <!-- Rebalanced Graphics Tier Selector -->
+      <!-- Graphics Quality Selector -->
       <div class="gfx-dock">
         <span class="gfx-title">⚡ Render Tier:</span>
         <button class="gfx-pill-btn" id="tierStandard" onclick="setGraphicsTier('standard')" title="Low GPU usage, fast frame rates">Standard</button>
@@ -920,6 +965,20 @@
             <button class="crop-pill-btn" onclick="setCrop(2)">Officinarum</button>
             <button class="crop-pill-btn" onclick="setCrop(3)">Barberi</button>
             <button class="crop-pill-btn" onclick="setCrop(4)">Co 1148</button>
+          </div>
+        </div>
+
+        <!-- Interactive Crop Growth Stage Morph Dock -->
+        <div class="growth-stage-dock">
+          <div class="stage-label-row">
+            <span>🌱 Growth Life-Cycle Morph:</span>
+            <span id="stageName" style="color: #a7f3d0;">Ripening / Harvest (100%)</span>
+          </div>
+          <div class="growth-timeline-btns">
+            <button class="growth-step-btn" onclick="setGrowthStage(0.35, 'Sett Germination')">Sett (1-2m)</button>
+            <button class="growth-step-btn" onclick="setGrowthStage(0.6, 'Tillering')">Tillering (4-5m)</button>
+            <button class="growth-step-btn" onclick="setGrowthStage(0.85, 'Elongation')">Elongation (8m)</button>
+            <button class="growth-step-btn active" onclick="setGrowthStage(1.0, 'Ripening / Harvest')">Harvest (12m)</button>
           </div>
         </div>
       </div>
@@ -991,6 +1050,16 @@
           <span>360° Auto-Orbit</span>
         </button>
 
+        <button class="dock-btn" onclick="toggleFullscreen()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+          <span>Classroom Fullscreen</span>
+        </button>
+
         <button class="dock-btn" onclick="resetView()">
           <span>Reset Camera</span>
         </button>
@@ -1039,6 +1108,58 @@
           <div class="board-badge">★ Exam Point: Crushing must occur within 24h</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- India State Distribution Modal (CBSE Board Map Work Essential!) -->
+  <div class="modal-veil" id="mapModal" onclick="checkClose(event, 'mapModal')">
+    <div class="modal-sheet-3d">
+      <button class="close-icon-btn" onclick="closeModal('mapModal')">&times;</button>
+      <h2 class="m-title">Major Sugarcane Producing States of India</h2>
+      <p class="m-sub">CBSE Class 10 Geography Board Map Identification Work</p>
+
+      <table class="table-box">
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>Agricultural Distinctiveness</th>
+            <th>Key Irrigation & Soil</th>
+            <th>Board Map Importance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Uttar Pradesh</strong></td>
+            <td><span class="state-rank-badge">Rank 1 in Area</span> Largest producer of sugarcane in India; concentrated in Western UP & Meerut-Muzaffarnagar belt.</td>
+            <td>Deep fertile Ganga-Yamuna alluvial soil; intensive tubewell and canal irrigation.</td>
+            <td>★ Must-mark state on India Outline Map for Sugarcane.</td>
+          </tr>
+          <tr>
+            <td><strong>Maharashtra</strong></td>
+            <td><span class="state-rank-badge">Rank 1 in Sugar</span> Pioneer of farmer-owned cooperative sugar mills with superior sucrose recovery per ton.</td>
+            <td>Black basaltic regur soil with high moisture retention; Godavari-Krishna basin canals.</td>
+            <td>★ Core focus for cooperative agro-based industry questions.</td>
+          </tr>
+          <tr>
+            <td><strong>Tamil Nadu</strong></td>
+            <td><span class="state-rank-badge">Highest Yield/Ha</span> Tropical maritime climate produces the highest per-hectare cane yield in the country.</td>
+            <td>Cauvery delta and well irrigation; free from frost hazards.</td>
+            <td>★ Highlighted for long crushing seasons (Oct - May).</td>
+          </tr>
+          <tr>
+            <td><strong>Karnataka & AP</strong></td>
+            <td>Major Peninsular producers in Mandya, Belagavi, and Godavari delta districts.</td>
+            <td>Red and black loams; Tungabhadra and Krishna irrigation projects.</td>
+            <td>★ Key Peninsular producing belt.</td>
+          </tr>
+          <tr>
+            <td><strong>Bihar & Punjab</strong></td>
+            <td>Northern belt producers benefiting from perennial Himalayan river networks.</td>
+            <td>Alluvial plains; extensive canal networks.</td>
+            <td>★ Northern subtropical growing tract.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -1119,19 +1240,19 @@
     <div class="modal-sheet-3d">
       <button class="close-icon-btn" onclick="closeModal('quizModal')">&times;</button>
       <h2 class="m-title">Class 10 Agriculture Quiz</h2>
-      <p class="m-sub" id="qNum">Question 1 of 4</p>
+      <p class="m-sub" id="qNum">Question 1 of 5</p>
       
       <div class="quiz-card" id="qText">What is the optimal temperature range required for sugarcane cultivation?</div>
       <div id="qOpts"></div>
 
       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px;">
-        <span id="scoreTracker" style="color: #a7f3d0; font-weight: 700;">Score: 0 / 4</span>
+        <span id="scoreTracker" style="color: #a7f3d0; font-weight: 700;">Score: 0 / 5</span>
         <button class="hud-action-btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">Next Question &rarr;</button>
       </div>
     </div>
   </div>
 
-  <!-- Three.js Engine with Full 3D Clickable Raycasting & Speech -->
+  <!-- Three.js Engine -->
   <script>
     const CROPS = [
       {
@@ -1143,7 +1264,7 @@
         height: "3.8 m",
         zone: "Subtropical",
         maturity: "10-12 Mo",
-        baseColor: [212, 155, 66],      // Golden Amber
+        baseColor: [212, 155, 66],
         waxColor: [242, 235, 218],
         nodeColor: [138, 98, 31],
         pithColor: [252, 248, 240],
@@ -1161,7 +1282,7 @@
         height: "4.2 m",
         zone: "Peninsular South",
         maturity: "12-14 Mo",
-        baseColor: [46, 133, 64],       // Emerald Green
+        baseColor: [46, 133, 64],
         waxColor: [225, 242, 228],
         nodeColor: [29, 88, 42],
         pithColor: [248, 252, 248],
@@ -1179,7 +1300,7 @@
         height: "4.6 m",
         zone: "Tropical Coastal",
         maturity: "14-16 Mo",
-        baseColor: [102, 34, 73],       // Noble Maroon/Purple
+        baseColor: [102, 34, 73],
         waxColor: [228, 198, 215],
         nodeColor: [61, 18, 43],
         pithColor: [255, 250, 252],
@@ -1197,7 +1318,7 @@
         height: "2.8 m",
         zone: "Indo-Gangetic Plain",
         maturity: "9-10 Mo",
-        baseColor: [155, 154, 56],      // Hardy Olive-Yellow
+        baseColor: [155, 154, 56],
         waxColor: [223, 222, 180],
         nodeColor: [107, 106, 34],
         pithColor: [246, 245, 230],
@@ -1215,7 +1336,7 @@
         height: "3.5 m",
         zone: "North-West India",
         maturity: "12-13 Mo",
-        baseColor: [79, 119, 86],       // Frosted Sage Green
+        baseColor: [79, 119, 86],
         waxColor: [207, 224, 211],
         nodeColor: [49, 78, 54],
         pithColor: [244, 248, 245],
@@ -1226,7 +1347,6 @@
       }
     ];
 
-    // Master Dictionary of Part Definitions
     const PART_DEFINITIONS = {
       'rind': {
         icon: '🎋',
@@ -1276,6 +1396,27 @@
     let isDissected = false;
     let currentTier = 'balanced';
     let currentActivePartKey = null;
+    let currentGrowthScale = 1.0;
+
+    // Web Audio Synthesizer (Instant Glass Chime, zero audio asset files needed!)
+    let audioCtx = null;
+    function playChime(freq = 520, type = 'sine') {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.36);
+      } catch(e) {}
+    }
 
     // WebGL Canvas & Scene
     const canvas = document.getElementById('webgl');
@@ -1304,7 +1445,7 @@
     controls.autoRotateSpeed = 0.8;
     controls.target.set(0, 1.35, 0);
 
-    // Studio Illumination
+    // Dynamic Studio Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
@@ -1322,6 +1463,25 @@
     const coldFill = new THREE.DirectionalLight(0x6ee7b7, 0.85);
     coldFill.position.set(0, -6, 5);
     scene.add(coldFill);
+
+    // Floating Atmospheric Motes / Pollen Particles
+    const particleGeo = new THREE.BufferGeometry();
+    const particleCount = 140;
+    const posArray = new Float32Array(particleCount * 3);
+    for (let p = 0; p < particleCount * 3; p += 3) {
+      posArray[p] = (Math.random() - 0.5) * 12;
+      posArray[p + 1] = Math.random() * 8 - 1;
+      posArray[p + 2] = (Math.random() - 0.5) * 12;
+    }
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const particleMat = new THREE.PointsMaterial({
+      size: 0.045,
+      color: 0x34d399,
+      transparent: true,
+      opacity: 0.55
+    });
+    const particles = new THREE.Points(particleGeo, particleMat);
+    scene.add(particles);
 
     // Texture Cache
     const textureCache = {};
@@ -1472,7 +1632,7 @@
     ring.position.y = -1.61;
     scene.add(ring);
 
-    // Sugarcane Plant 3D Assembly
+    // Sugarcane Plant Group
     const caneGroup = new THREE.Group();
     scene.add(caneGroup);
 
@@ -1481,7 +1641,7 @@
     let partPositions = {};
     const clickableMeshes = [];
 
-    // Build 3D Plant Model
+    // Build 3D Sugarcane Model
     function buildSugarcane(cropIdx, tier) {
       while (caneGroup.children.length > 0) {
         caneGroup.remove(caneGroup.children[0]);
@@ -1564,7 +1724,7 @@
         });
       }
 
-      // Root Cluster
+      // Root Stool
       const rootCount = tier === 'standard' ? 6 : (tier === 'balanced' ? 10 : 14);
       const rootMat = new THREE.MeshStandardMaterial({ color: 0x4a3525, roughness: 0.9 });
       for (let b = 0; b < rootCount; b++) {
@@ -1600,7 +1760,6 @@
           segGroup.add(cylMesh);
           clickableMeshes.push(cylMesh);
         } else {
-          // Transverse Cutaway
           const sliceGeo = new THREE.CylinderGeometry(r * 0.96, r, len * 0.94, radialSegs, 1, false, 0, Math.PI * 1.5);
           const sliceMesh = new THREE.Mesh(sliceGeo, skinMat);
           if (tier !== 'standard') sliceMesh.castShadow = true;
@@ -1704,6 +1863,7 @@
     // Set Graphics Tier
     function setGraphicsTier(tier) {
       currentTier = tier;
+      playChime(640);
 
       document.getElementById('tierStandard').classList.toggle('active', tier === 'standard');
       document.getElementById('tierBalanced').classList.toggle('active', tier === 'balanced');
@@ -1731,6 +1891,7 @@
     // Set Crop Variety
     function setCrop(idx) {
       currentCropIdx = idx;
+      playChime(580);
       const data = CROPS[idx];
 
       document.querySelectorAll('.crop-pill-btn').forEach((btn, i) => {
@@ -1748,12 +1909,30 @@
 
       buildSugarcane(idx, currentTier);
 
-      caneGroup.scale.set(0.2, 0.2, 0.2);
-      gsap.to(caneGroup.scale, { x: 1, y: 1, z: 1, duration: 0.35, ease: "back.out(1.2)" });
+      caneGroup.scale.set(0.2, 0.2 * currentGrowthScale, 0.2);
+      gsap.to(caneGroup.scale, { x: 1, y: currentGrowthScale, z: 1, duration: 0.35, ease: "back.out(1.2)" });
+    }
+
+    // Growth Stage Morph Slider Logic
+    function setGrowthStage(scaleY, stageTitle) {
+      currentGrowthScale = scaleY;
+      playChime(440 + scaleY * 300);
+
+      document.getElementById('stageName').textContent = `${stageTitle} (${Math.round(scaleY * 100)}%)`;
+      document.querySelectorAll('.growth-step-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.includes(stageTitle.split(' ')[0]));
+      });
+
+      gsap.to(caneGroup.scale, {
+        y: scaleY,
+        duration: 0.6,
+        ease: "power2.out"
+      });
     }
 
     // Hotspot Card Focus (Right Panel)
     function focusHotspot(partKey) {
+      playChime(720);
       const keyMap = {
         'internode': 'rind',
         'node': 'node',
@@ -1793,7 +1972,6 @@
     const mouse = new THREE.Vector2();
 
     window.addEventListener('click', (event) => {
-      // Ignore clicks on HUD interactive elements
       if (event.target.closest('.interactive') || event.target.closest('.modal-veil')) return;
 
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -1803,6 +1981,7 @@
       const intersects = raycaster.intersectObjects(clickableMeshes, true);
 
       if (intersects.length > 0) {
+        playChime(680);
         const hit = intersects[0];
         let obj = hit.object;
         while (obj && !obj.userData.partKey && obj.parent) {
@@ -1813,7 +1992,6 @@
           const partKey = obj.userData.partKey;
           displayPartDefinition(partKey);
 
-          // Subtle camera nudge towards clicked spot
           controls.autoRotate = false;
           document.getElementById('orbitBtn').classList.remove('active');
 
@@ -1825,7 +2003,6 @@
             ease: "power2.out"
           });
 
-          // Highlight mesh briefly with emissive flash
           if (hit.object.material && hit.object.material.emissive) {
             const origColor = hit.object.material.emissive.getHex();
             hit.object.material.emissive.setHex(0x34d399);
@@ -1852,10 +2029,8 @@
       const card = document.getElementById('partDefCard');
       card.classList.add('active');
 
-      // Update right deck active state
       document.querySelectorAll('.anatomy-card-3d').forEach(c => c.classList.remove('active'));
 
-      // Automatically speak the definition aloud!
       speakText(`${def.title}. ${def.body} ${def.exam.replace('★', '')}`);
     }
 
@@ -1864,7 +2039,6 @@
       if (window.speechSynthesis) window.speechSynthesis.cancel();
     }
 
-    // Web Speech API: Speak Definition
     function speakCurrentDef() {
       if (!currentActivePartKey) return;
       const def = PART_DEFINITIONS[currentActivePartKey];
@@ -1875,7 +2049,7 @@
 
     function speakText(text) {
       if (!window.speechSynthesis) return;
-      window.speechSynthesis.cancel(); // Stop prior speech
+      window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 1.0;
       utterance.pitch = 1.0;
@@ -1886,6 +2060,7 @@
     // Dissection Toggle
     function toggleDissection() {
       isDissected = !isDissected;
+      playChime(isDissected ? 600 : 480);
       const btn = document.getElementById('dissectBtn');
       btn.classList.toggle('active', isDissected);
 
@@ -1903,11 +2078,23 @@
     // Auto Orbit
     function toggleOrbit() {
       controls.autoRotate = !controls.autoRotate;
+      playChime(controls.autoRotate ? 550 : 450);
       document.getElementById('orbitBtn').classList.toggle('active', controls.autoRotate);
+    }
+
+    // Fullscreen Toggle (Great for Classrooms)
+    function toggleFullscreen() {
+      playChime(620);
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
     }
 
     // Reset View
     function resetView() {
+      playChime(500);
       gsap.to(camera.position, { x: 0, y: 1.8, z: 8.8, duration: 0.6, ease: "power2.out" });
       gsap.to(controls.target, { x: 0, y: 1.35, z: 0, duration: 0.6, ease: "power2.out" });
       closeDefCard();
@@ -1916,6 +2103,7 @@
 
     // Modals
     function openModal(id) {
+      playChime(560);
       document.getElementById(id).classList.add('open');
       controls.autoRotate = false;
       document.getElementById('orbitBtn').classList.remove('active');
@@ -1930,12 +2118,17 @@
       if (e.target.id === id) closeModal(id);
     }
 
-    // Class 10 Quiz
+    // 5-Question CBSE Class 10 Board Quiz
     const QUIZ = [
       {
         q: "What is the optimal temperature range required for sugarcane cultivation?",
         opts: ["10°C to 15°C", "21°C to 27°C", "35°C to 45°C", "15°C to 20°C"],
         ans: 1
+      },
+      {
+        q: "Which state is the largest producer of sugarcane in India?",
+        opts: ["Maharashtra", "Tamil Nadu", "Uttar Pradesh", "Karnataka"],
+        ans: 2
       },
       {
         q: "Why has the sugar industry shifted towards Peninsular South India?",
@@ -1987,10 +2180,12 @@
 
       if (selected === correct) {
         buttons[selected].classList.add('correct');
+        playChime(880);
         quizScore++;
       } else {
         buttons[selected].classList.add('wrong');
         buttons[correct].classList.add('correct');
+        playChime(320, 'sawtooth');
       }
 
       document.getElementById('scoreTracker').textContent = `Score: ${quizScore} / ${QUIZ.length}`;
@@ -2003,7 +2198,7 @@
         renderQuiz();
       } else {
         document.getElementById('qText').textContent = `🎉 Quiz Completed! You scored ${quizScore} out of ${QUIZ.length}!`;
-        document.getElementById('qOpts').innerHTML = '<p style="color:#a7f3d0; padding:12px 0;">Excellent understanding of the CBSE Class 10 Sugarcane Agriculture syllabus!</p>';
+        document.getElementById('qOpts').innerHTML = '<p style="color:#a7f3d0; padding:12px 0;">Outstanding mastery of the CBSE Class 10 Sugarcane Agriculture syllabus!</p>';
         document.getElementById('nextBtn').style.display = 'none';
       }
     }
@@ -2020,11 +2215,14 @@
         leaf.rotation.z = Math.sin(time * 1.5 + i) * 0.045;
       });
 
+      // Subtle particle float
+      particles.rotation.y = time * 0.02;
+
       controls.update();
       renderer.render(scene, camera);
     }
 
-    // Window Resize
+    // Desktop Window Resize
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -2035,6 +2233,7 @@
     window.addEventListener('keydown', (e) => {
       if (e.key === 'r' || e.key === 'R') toggleOrbit();
       if (e.key === 'd' || e.key === 'D') toggleDissection();
+      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
       if (e.key === '1') setGraphicsTier('standard');
       if (e.key === '2') setGraphicsTier('balanced');
       if (e.key === '3') setGraphicsTier('cinematic');
@@ -2044,7 +2243,7 @@
       }
     });
 
-    // Initialize in Balanced Tier
+    // Initial Load (Boots smoothly in Balanced tier by default)
     setGraphicsTier('balanced');
     renderQuiz();
     animate();
