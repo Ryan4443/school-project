@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sugarcane 3D Immersive Experience | By Ryan and Adarsh</title>
-  <!-- Google Fonts -->
+  <title>Sugarcane 3D Interactive World | By Ryan and Adarsh</title>
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Three.js and OrbitControls -->
+  <!-- Three.js, OrbitControls, GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-  <!-- GSAP for buttery smooth camera and 3D transforms -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
   <style>
     :root {
-      --primary-emerald: #10b981;
-      --accent-glow: #34d399;
-      --accent-gold: #fbbf24;
-      --glass-bg: rgba(10, 35, 22, 0.72);
-      --glass-border: rgba(255, 255, 255, 0.18);
-      --glass-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 12px 36px rgba(0, 0, 0, 0.45);
-      --font-display: 'Outfit', sans-serif;
+      --emerald: #10b981;
+      --emerald-glow: #34d399;
+      --gold: #fbbf24;
+      --bg-dark: #06170e;
+      --glass-panel: rgba(12, 38, 25, 0.78);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+      --font-heading: 'Outfit', sans-serif;
       --font-body: 'Plus Jakarta Sans', sans-serif;
-      --font-serif: 'Playfair Display', serif;
     }
 
     * {
@@ -35,17 +35,16 @@
       user-select: none;
     }
 
-    html, body {
+    body, html {
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      background: #04120a;
+      background: var(--bg-dark);
       font-family: var(--font-body);
-      color: #ffffff;
+      color: #fff;
     }
 
-    /* 3D WebGL Canvas */
-    #webgl-canvas {
+    #webgl {
       position: absolute;
       top: 0;
       left: 0;
@@ -55,8 +54,8 @@
       outline: none;
     }
 
-    /* Immersive UI Overlay Layer */
-    .ui-layer {
+    /* UI Layout Layer */
+    .hud-layer {
       position: absolute;
       top: 0;
       left: 0;
@@ -67,14 +66,14 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 24px 36px;
+      padding: 24px 32px;
     }
 
     .interactive {
       pointer-events: auto;
     }
 
-    /* Top Navigation Bar */
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
@@ -82,12 +81,12 @@
       width: 100%;
     }
 
-    .brand-glass-pill {
-      background: var(--glass-bg);
+    .brand-badge {
+      background: var(--glass-panel);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-specular);
+      box-shadow: var(--glass-shadow);
       border-radius: 9999px;
       padding: 10px 24px;
       display: flex;
@@ -96,40 +95,38 @@
     }
 
     .brand-title {
-      font-family: var(--font-display);
+      font-family: var(--font-heading);
       font-weight: 800;
       font-size: 1.15rem;
       letter-spacing: 0.5px;
-      color: #ffffff;
-      text-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
     }
 
-    .author-tag {
+    .tag-pill {
       background: linear-gradient(135deg, #10b981, #059669);
       color: #fff;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       padding: 3px 10px;
       border-radius: 9999px;
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
     }
 
-    .header-nav {
+    .nav-bar {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .hud-btn {
-      background: var(--glass-bg);
+    .glass-btn {
+      background: var(--glass-panel);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-specular);
-      color: #ffffff;
-      font-family: var(--font-display);
+      box-shadow: var(--glass-shadow);
+      color: #fff;
+      font-family: var(--font-heading);
       font-weight: 700;
       font-size: 0.88rem;
       padding: 10px 20px;
@@ -138,120 +135,113 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.25s cubic-bezier(0.18, 0.9, 0.3, 1);
+      transition: all 0.2s ease;
     }
 
-    .hud-btn:hover {
-      border-color: var(--accent-glow);
-      box-shadow: 0 0 25px rgba(52, 211, 153, 0.5), var(--glass-specular);
+    .glass-btn:hover {
+      border-color: var(--emerald-glow);
+      box-shadow: 0 0 25px rgba(52, 211, 153, 0.4), var(--glass-shadow);
       transform: translateY(-2px);
       background: rgba(16, 52, 34, 0.88);
     }
 
-    .hud-btn.active {
+    .glass-btn.active {
       background: linear-gradient(135deg, #10b981, #059669);
       border-color: rgba(255, 255, 255, 0.4);
-      box-shadow: 0 0 30px rgba(52, 211, 153, 0.6);
+      box-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
     }
 
-    /* Left Floating Variety Showcase Deck */
-    .left-dock {
+    /* Left Control Deck */
+    .left-panel {
       position: absolute;
-      left: 36px;
+      left: 32px;
       top: 50%;
       transform: translateY(-50%);
-      width: 380px;
+      width: 360px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
 
-    .glass-card {
-      background: var(--glass-bg);
+    .card {
+      background: var(--glass-panel);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-specular);
-      border-radius: 28px;
-      padding: 26px 28px;
-      transition: all 0.3s ease;
+      box-shadow: var(--glass-shadow);
+      border-radius: 26px;
+      padding: 24px;
     }
 
-    .variety-badge {
-      display: inline-block;
+    .badge-sub {
       font-size: 0.72rem;
       font-weight: 800;
-      letter-spacing: 2px;
+      letter-spacing: 1.8px;
       text-transform: uppercase;
-      color: var(--accent-glow);
-      background: rgba(52, 211, 153, 0.15);
-      border: 1px solid rgba(52, 211, 153, 0.35);
-      padding: 4px 12px;
-      border-radius: 9999px;
-      margin-bottom: 8px;
+      color: var(--emerald-glow);
+      display: inline-block;
+      margin-bottom: 6px;
     }
 
-    .variety-name {
-      font-family: var(--font-display);
-      font-size: 2.3rem;
+    .crop-name {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
       font-weight: 900;
       line-height: 1.1;
-      margin-bottom: 4px;
-      letter-spacing: 0.5px;
+      margin-bottom: 2px;
     }
 
-    .variety-botanical {
-      font-family: var(--font-serif);
+    .crop-scientific {
       font-style: italic;
       color: #a7f3d0;
-      font-size: 1.05rem;
-      margin-bottom: 14px;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
     }
 
-    .variety-desc {
+    .crop-desc {
       color: #cbd5e1;
-      font-size: 0.92rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      margin-bottom: 18px;
     }
 
-    .specs-grid {
+    .stats-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
-    .spec-item {
+    .stat-box {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 14px;
       padding: 10px 14px;
     }
 
-    .spec-label {
-      font-size: 0.7rem;
+    .stat-lbl {
+      font-size: 0.68rem;
       color: #94a3b8;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       font-weight: 700;
     }
 
-    .spec-val {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
+    .stat-num {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
       font-weight: 800;
-      color: var(--accent-glow);
+      color: var(--emerald-glow);
     }
 
-    .variety-selector-row {
+    .variety-pills {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
 
-    .var-thumb-btn {
+    .v-pill {
       flex: 1;
-      background: rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--glass-border);
       color: #fff;
       padding: 8px 4px;
@@ -263,79 +253,118 @@
       transition: all 0.2s ease;
     }
 
-    .var-thumb-btn:hover {
+    .v-pill:hover {
       background: rgba(52, 211, 153, 0.25);
-      border-color: var(--accent-glow);
+      border-color: var(--emerald-glow);
     }
 
-    .var-thumb-btn.active {
+    .v-pill.active {
       background: linear-gradient(135deg, #10b981, #059669);
       border-color: #34d399;
-      box-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
+      box-shadow: 0 0 15px rgba(52, 211, 153, 0.45);
     }
 
-    /* 3D Viewport Controls (Bottom Center) */
-    .viewport-toolbar {
+    /* Right Inspection Deck: Clear Anatomy Hotspots */
+    .right-panel {
       position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--glass-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-specular);
-      border-radius: 9999px;
-      padding: 8px 16px;
+      right: 32px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 320px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 12px;
     }
 
-    .tool-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #ffffff;
-      padding: 8px 16px;
-      border-radius: 9999px;
-      font-size: 0.82rem;
-      font-weight: 700;
+    .hotspot-card {
+      background: var(--glass-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      border-radius: 20px;
+      padding: 16px 18px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
+      gap: 14px;
+      transition: all 0.25s ease;
     }
 
-    .tool-btn:hover {
-      background: rgba(52, 211, 153, 0.3);
-      border-color: var(--accent-glow);
-      transform: scale(1.05);
+    .hotspot-card:hover {
+      border-color: var(--emerald-glow);
+      background: rgba(16, 52, 34, 0.9);
+      transform: translateX(-4px);
     }
 
-    .tool-btn.active {
-      background: #10b981;
+    .hotspot-card.active {
       border-color: #34d399;
-      box-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
+      background: rgba(16, 185, 129, 0.3);
+      box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
     }
 
-    .controls-hint {
-      font-size: 0.75rem;
+    .hotspot-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(52, 211, 153, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .hotspot-info h4 {
+      font-family: var(--font-heading);
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+
+    .hotspot-info p {
+      font-size: 0.78rem;
       color: #94a3b8;
+      line-height: 1.35;
+    }
+
+    /* Bottom Toolbar */
+    .bottom-bar {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--glass-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      border-radius: 9999px;
+      padding: 8px 18px;
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 0 10px;
     }
 
-    /* Modal Dossier Overlay (Climate, Comparison, By-products, Quiz) */
+    .hint-text {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 8px;
+    }
+
+    /* Modal Overlay (Fluent & Simple) */
     .modal-veil {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(2, 10, 5, 0.85);
+      background: rgba(3, 15, 8, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       z-index: 100;
@@ -344,7 +373,7 @@
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s cubic-bezier(0.18, 0.9, 0.3, 1);
+      transition: opacity 0.25s ease;
     }
 
     .modal-veil.open {
@@ -352,31 +381,31 @@
       pointer-events: auto;
     }
 
-    .modal-box {
-      background: rgba(10, 38, 24, 0.94);
+    .modal-sheet {
+      background: rgba(10, 36, 22, 0.96);
       border: 1px solid var(--glass-border);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), var(--glass-specular);
-      border-radius: 32px;
-      width: 860px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), var(--glass-shadow);
+      border-radius: 28px;
+      width: 820px;
       max-width: 90vw;
       max-height: 85vh;
       overflow-y: auto;
-      padding: 36px 42px;
+      padding: 34px 38px;
       position: relative;
-      transform: scale(0.92) translateY(20px);
-      transition: all 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
+      transform: scale(0.94);
+      transition: transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
     }
 
-    .modal-veil.open .modal-box {
-      transform: scale(1) translateY(0);
+    .modal-veil.open .modal-sheet {
+      transform: scale(1);
     }
 
-    .close-modal-btn {
+    .close-btn {
       position: absolute;
-      top: 24px;
-      right: 24px;
-      width: 40px;
-      height: 40px;
+      top: 22px;
+      right: 22px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -385,454 +414,522 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       transition: all 0.2s ease;
     }
 
-    .close-modal-btn:hover {
-      background: rgba(239, 68, 68, 0.7);
+    .close-btn:hover {
+      background: #ef4444;
       border-color: #ef4444;
       transform: rotate(90deg);
     }
 
-    .modal-title {
-      font-family: var(--font-display);
-      font-size: 2.2rem;
-      font-weight: 900;
-      color: #fff;
-      margin-bottom: 6px;
+    .m-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 4px;
     }
 
-    .modal-subtitle {
-      font-size: 0.95rem;
-      color: var(--accent-glow);
-      margin-bottom: 24px;
+    .m-sub {
+      font-size: 0.88rem;
+      color: var(--emerald-glow);
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       font-weight: 700;
+      margin-bottom: 22px;
     }
 
-    /* Content Grids inside Modals */
-    .grid-cards {
+    .m-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-top: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
     }
 
-    .inner-card {
+    .m-box {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 22px;
+      border-radius: 18px;
+      padding: 20px;
     }
 
-    .inner-card h4 {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      margin-bottom: 8px;
+    .m-box h4 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      margin-bottom: 6px;
       color: #fff;
     }
 
-    .inner-card p {
+    .m-box p {
       color: #cbd5e1;
-      font-size: 0.92rem;
-      line-height: 1.6;
+      font-size: 0.88rem;
+      line-height: 1.5;
     }
 
-    .exam-tag {
-      margin-top: 12px;
-      color: var(--accent-gold);
-      font-size: 0.8rem;
+    .board-badge {
+      margin-top: 10px;
+      color: var(--gold);
+      font-size: 0.78rem;
       font-weight: 600;
     }
 
     /* Comparison Table */
-    .glass-table {
+    .table-box {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 14px;
+      margin-top: 10px;
     }
 
-    .glass-table th, .glass-table td {
-      padding: 14px 18px;
+    .table-box th, .table-box td {
+      padding: 12px 16px;
       text-align: left;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
     }
 
-    .glass-table th {
+    .table-box th {
       background: rgba(16, 185, 129, 0.25);
-      color: #ffffff;
-      font-family: var(--font-display);
-      font-size: 1.05rem;
+      color: #fff;
+      font-family: var(--font-heading);
     }
 
-    /* Quiz styling */
-    .quiz-question {
-      font-size: 1.25rem;
-      font-family: var(--font-display);
+    /* Quiz */
+    .quiz-card {
+      font-size: 1.2rem;
+      font-family: var(--font-heading);
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .quiz-options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .quiz-opt {
+    .q-opt {
       background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 14px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 12px 18px;
       border-radius: 14px;
       color: #fff;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       cursor: pointer;
+      margin-bottom: 8px;
+      display: block;
+      width: 100%;
       text-align: left;
       transition: all 0.2s ease;
     }
 
-    .quiz-opt:hover {
+    .q-opt:hover {
       background: rgba(52, 211, 153, 0.25);
-      border-color: var(--accent-glow);
+      border-color: var(--emerald-glow);
     }
 
-    .quiz-opt.correct {
+    .q-opt.correct {
       background: rgba(16, 185, 129, 0.5) !important;
       border-color: #10b981 !important;
       color: #a7f3d0 !important;
       font-weight: 700;
     }
 
-    .quiz-opt.wrong {
+    .q-opt.wrong {
       background: rgba(239, 68, 68, 0.45) !important;
       border-color: #ef4444 !important;
       color: #fca5a5 !important;
+    }
+
+    /* Floating 3D Tooltip Label */
+    #pointAnnotation {
+      position: absolute;
+      background: rgba(6, 26, 16, 0.92);
+      border: 1px solid var(--emerald-glow);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(52, 211, 153, 0.4);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      pointer-events: none;
+      transform: translate(-50%, -130%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: 50;
+      white-space: nowrap;
     }
   </style>
 </head>
 <body>
 
   <!-- WebGL 3D Canvas -->
-  <canvas id="webgl-canvas"></canvas>
+  <canvas id="webgl"></canvas>
 
-  <!-- Desktop HUD Overlay -->
-  <div class="ui-layer">
+  <!-- 3D Hotspot Label -->
+  <div id="pointAnnotation">Node & Bud</div>
+
+  <!-- HUD Interface -->
+  <div class="hud-layer">
     
     <!-- Header -->
     <header class="interactive">
-      <div class="brand-glass-pill">
+      <div class="brand-badge">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5">
           <path d="M12 2v20M8 5h8M7 10h10M8 15h8M9 19h6"/>
         </svg>
         <span class="brand-title">By Ryan and Adarsh</span>
-        <span class="author-tag">Class 10 3D World</span>
+        <span class="tag-pill">Class 10 Agriculture</span>
       </div>
 
-      <nav class="header-nav">
-        <button class="hud-btn" onclick="openModal('climateModal')">
-          <span>Climate & Soil</span>
-        </button>
-        <button class="hud-btn" onclick="openModal('comparisonModal')">
-          <span>North vs South</span>
-        </button>
-        <button class="hud-btn" onclick="openModal('byproductsModal')">
-          <span>By-Products</span>
-        </button>
-        <button class="hud-btn" onclick="openModal('quizModal')">
-          <span>Class 10 Quiz</span>
-        </button>
-      </nav>
+      <div class="nav-bar">
+        <button class="glass-btn" onclick="openModal('climateModal')">Climate & Soil</button>
+        <button class="glass-btn" onclick="openModal('comparisonModal')">North vs South</button>
+        <button class="glass-btn" onclick="openModal('byproductsModal')">By-Products</button>
+        <button class="glass-btn" onclick="openModal('quizModal')">Class 10 Quiz</button>
+      </div>
     </header>
 
-    <!-- Left Variety Deck -->
-    <div class="left-dock interactive">
-      <div class="glass-card">
-        <span class="variety-badge" id="cardBadge">Commercial Hybrid</span>
-        <h1 class="variety-name" id="cardName">Co 0238</h1>
-        <p class="variety-botanical" id="cardBotanical">Karan 4 &bull; Early Maturing</p>
-        <p class="variety-desc" id="cardDesc">
-          Revolutionized North Indian sugarcane production with unprecedented sucrose density and thick, robust cane diameter.
+    <!-- Left Crop Switcher Panel -->
+    <div class="left-panel interactive">
+      <div class="card">
+        <span class="badge-sub" id="cBadge">High-Yielding Commercial</span>
+        <h1 class="crop-name" id="cName">Co 0238</h1>
+        <p class="crop-scientific" id="cScientific">Karan 4 &bull; Early Maturing</p>
+        <p class="crop-desc" id="cDesc">
+          A blockbuster variety that transformed North Indian sugar mills with massive stalk girth, high sucrose juice, and early maturity.
         </p>
 
-        <div class="specs-grid">
-          <div class="spec-item">
-            <div class="spec-label">Sugar Content</div>
-            <div class="spec-val" id="cardSucrose">17.8%</div>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-lbl">Sucrose Density</div>
+            <div class="stat-num" id="cSucrose">17.8%</div>
           </div>
-          <div class="spec-item">
-            <div class="spec-label">Avg Height</div>
-            <div class="spec-val" id="cardHeight">3.8 m</div>
+          <div class="stat-box">
+            <div class="stat-lbl">Average Height</div>
+            <div class="stat-num" id="cHeight">3.8 m</div>
           </div>
-          <div class="spec-item">
-            <div class="spec-label">Zone</div>
-            <div class="spec-val" id="cardZone">Subtropical</div>
+          <div class="stat-box">
+            <div class="stat-lbl">Target Region</div>
+            <div class="stat-num" id="cZone">Subtropical</div>
           </div>
-          <div class="spec-item">
-            <div class="spec-label">Maturity</div>
-            <div class="spec-val" id="cardMaturity">10-12 Mo</div>
+          <div class="stat-box">
+            <div class="stat-lbl">Crop Duration</div>
+            <div class="stat-num" id="cMaturity">10-12 Mo</div>
           </div>
         </div>
 
-        <div class="variety-selector-row">
-          <button class="var-thumb-btn active" onclick="switchVariety(0)">Co 0238</button>
-          <button class="var-thumb-btn" onclick="switchVariety(1)">Co 86032</button>
-          <button class="var-thumb-btn" onclick="switchVariety(2)">Officinarum</button>
-          <button class="var-thumb-btn" onclick="switchVariety(3)">Barberi</button>
-          <button class="var-thumb-btn" onclick="switchVariety(4)">Co 1148</button>
+        <div class="variety-pills">
+          <button class="v-pill active" onclick="setCrop(0)">Co 0238</button>
+          <button class="v-pill" onclick="setCrop(1)">Co 86032</button>
+          <button class="v-pill" onclick="setCrop(2)">Officinarum</button>
+          <button class="v-pill" onclick="setCrop(3)">Barberi</button>
+          <button class="v-pill" onclick="setCrop(4)">Co 1148</button>
         </div>
       </div>
     </div>
 
-    <!-- Viewport Bottom Controls -->
-    <div class="viewport-toolbar interactive">
-      <button class="tool-btn" id="explodeBtn" onclick="toggleExplode()">
+    <!-- Right Anatomy Hotspots Panel (Every Part Clearly Visible) -->
+    <div class="right-panel interactive">
+      
+      <div class="hotspot-card" onclick="focusPart('internode')">
+        <div class="hotspot-icon">🎋</div>
+        <div class="hotspot-info">
+          <h4>Internode & Sweet Pith</h4>
+          <p>Tough rind encasing sucrose-rich spongy vascular parenchyma.</p>
+        </div>
+      </div>
+
+      <div class="hotspot-card" onclick="focusPart('node')">
+        <div class="hotspot-icon">🌱</div>
+        <div class="hotspot-info">
+          <h4>Node Ring & Eye Bud</h4>
+          <p>Swollen ring containing root primordia & vegetative bud.</p>
+        </div>
+      </div>
+
+      <div class="hotspot-card" onclick="focusPart('wax')">
+        <div class="hotspot-icon">✨</div>
+        <div class="hotspot-info">
+          <h4>Wax Bloom Band</h4>
+          <p>Protective white waxy layer preventing moisture evaporation.</p>
+        </div>
+      </div>
+
+      <div class="hotspot-card" onclick="focusPart('slice')">
+        <div class="hotspot-icon">🔬</div>
+        <div class="hotspot-info">
+          <h4>Internal Cross-Section</h4>
+          <p>Transverse sliced view revealing fibrous bundles & juice cells.</p>
+        </div>
+      </div>
+
+      <div class="hotspot-card" onclick="focusPart('crown')">
+        <div class="hotspot-icon">🍃</div>
+        <div class="hotspot-info">
+          <h4>Crown Leaves & Canopy</h4>
+          <p>Arching photosynthetic blades with distinct pale midrib.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="bottom-bar interactive">
+      <button class="glass-btn" id="dissectBtn" onclick="toggleDissection()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <circle cx="12" cy="12" r="3"></circle>
-          <path d="M12 2v3m0 14v3M2 12h3m14 0h3"></path>
+          <path d="M4 12h16M12 4v16"/>
         </svg>
-        <span>Explode Anatomy</span>
+        <span>Dissect Internodes</span>
       </button>
-      <button class="tool-btn" id="rotateBtn" onclick="toggleAutoRotate()">
+
+      <button class="glass-btn" id="orbitBtn" onclick="toggleOrbit()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
         </svg>
-        <span>Auto-Orbit</span>
+        <span>360° Auto-Orbit</span>
       </button>
-      <button class="tool-btn" onclick="resetCamera()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-          <path d="M3 3v5h5"></path>
-        </svg>
-        <span>Reset View</span>
+
+      <button class="glass-btn" onclick="resetView()">
+        <span>Reset Camera</span>
       </button>
-      <div class="controls-hint">
-        <span>🖱️ Left-Click: Orbit 360°</span>
+
+      <div class="hint-text">
+        <span>🖱️ Left-Click: 360° Orbit</span>
         <span>•</span>
         <span>🖱️ Right-Click: Pan</span>
         <span>•</span>
-        <span>📜 Scroll: Zoom</span>
+        <span>📜 Scroll: Zoom In/Out</span>
       </div>
     </div>
 
   </div>
 
   <!-- Climate Modal -->
-  <div class="modal-veil" id="climateModal" onclick="closeOnVeil(event, 'climateModal')">
-    <div class="modal-box">
-      <button class="close-modal-btn" onclick="closeModal('climateModal')">&times;</button>
-      <h2 class="modal-title">Climate & Soil Requirements</h2>
-      <p class="modal-subtitle">CBSE Class 10 Board Essentials</p>
+  <div class="modal-veil" id="climateModal" onclick="checkClose(event, 'climateModal')">
+    <div class="modal-sheet">
+      <button class="close-btn" onclick="closeModal('climateModal')">&times;</button>
+      <h2 class="m-title">Climate & Soil Requirements</h2>
+      <p class="m-sub">CBSE Class 10 Social Science &bull; Agriculture</p>
       
-      <div class="grid-cards">
-        <div class="inner-card">
+      <div class="m-grid">
+        <div class="m-box">
           <h4>🌡️ Temperature</h4>
-          <p>Requires a hot and humid climate with temperatures between <strong>21°C to 27°C</strong>. Severe frost arrests growth, while excessive heat during ripening reduces juice content.</p>
-          <div class="exam-tag">★ Board Point: Frost is fatal to the crop</div>
+          <p>Thrives in a hot and humid tropical/subtropical climate with temperature between <strong>21°C to 27°C</strong>. Severe frost arrests stem elongation.</p>
+          <div class="board-badge">★ Exam Point: Frost damages sucrose yield</div>
         </div>
-        <div class="inner-card">
-          <h4>🌧️ Annual Rainfall</h4>
-          <p>Needs an annual rainfall of <strong>75 cm to 100 cm</strong>. In regions of low rainfall, intensive canal or tubewell irrigation is compulsory.</p>
-          <div class="exam-tag">★ Board Point: Irrigation essential in dry periods</div>
+
+        <div class="m-box">
+          <h4>🌧️ Rainfall & Moisture</h4>
+          <p>Annual rainfall of <strong>75 cm to 100 cm</strong>. In dry tracts of UP, Haryana, and Maharashtra, extensive canal and drip irrigation is essential.</p>
+          <div class="board-badge">★ Exam Point: Irrigation required in dry spells</div>
         </div>
-        <div class="inner-card">
-          <h4>🌱 Soil & Terrain</h4>
-          <p>Can grow on a variety of soils: deep rich alluvial soils, black soils, and loams with high moisture-retention capacity and proper drainage.</p>
-          <div class="exam-tag">★ Board Point: Flat plains facilitate irrigation</div>
+
+        <div class="m-box">
+          <h4>🌱 Soil & Topography</h4>
+          <p>Grows vigorously on deep rich alluvial soils of Indo-Gangetic plains and well-drained black regur soils of Peninsular India.</p>
+          <div class="board-badge">★ Exam Point: Flat land enables easy transport</div>
         </div>
-        <div class="inner-card">
-          <h4>👨‍🌾 Labour Requirement</h4>
-          <p>Highly labour-intensive crop requiring cheap manual labour from planting, hoeing, and weeding to cutting and harvesting.</p>
-          <div class="exam-tag">★ Board Point: Stalks must be crushed within 24h</div>
+
+        <div class="m-box">
+          <h4>👨‍🌾 Manual Labour</h4>
+          <p>Highly labour-intensive crop requiring cheap manual labour for sowing setts, earthing up, harvesting, and rapid mill delivery within 24h.</p>
+          <div class="board-badge">★ Exam Point: Crushing must occur within 24h</div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Comparison Modal -->
-  <div class="modal-veil" id="comparisonModal" onclick="closeOnVeil(event, 'comparisonModal')">
-    <div class="modal-box">
-      <button class="close-modal-btn" onclick="closeModal('comparisonModal')">&times;</button>
-      <h2 class="modal-title">North India vs South India</h2>
-      <p class="modal-subtitle">Why the Sugar Industry Shifted to the South</p>
+  <div class="modal-veil" id="comparisonModal" onclick="checkClose(event, 'comparisonModal')">
+    <div class="modal-sheet">
+      <button class="close-btn" onclick="closeModal('comparisonModal')">&times;</button>
+      <h2 class="m-title">North India vs South India</h2>
+      <p class="m-sub">Geographical Shift of the Sugar Industry</p>
 
-      <table class="glass-table">
+      <table class="table-box">
         <thead>
           <tr>
-            <th>Factor</th>
+            <th>Parameter</th>
             <th>North India (Subtropical)</th>
-            <th>Peninsular South (Tropical)</th>
+            <th>South India (Tropical Peninsular)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Climate</strong></td>
-            <td>Extreme summer heat & severe winter frost hamper cane yield.</td>
-            <td>Maritime tropical climate free from frost; ideal for vegetative growth.</td>
+            <td><strong>Climatic Conditions</strong></td>
+            <td>Extreme summer heat and cold winter frost restrict cane maturity.</td>
+            <td>Equable maritime climate free from frost; ideal year-round growth.</td>
           </tr>
           <tr>
-            <td><strong>Sucrose Content</strong></td>
-            <td>Lower juice and sugar content due to dry winds during ripening.</td>
-            <td>Significantly higher sucrose concentration due to sustained coastal humidity.</td>
+            <td><strong>Sucrose Recovery</strong></td>
+            <td>Lower sugar recovery (9% - 10%) due to dry desiccating winds.</td>
+            <td>Higher sugar recovery (11% - 12.5%) due to coastal humidity.</td>
           </tr>
           <tr>
             <td><strong>Crushing Season</strong></td>
-            <td>Shorter crushing window (typically November to February: 4 months).</td>
-            <td>Much longer crushing season (October to May: 7-8 months), keeping mills profitable.</td>
+            <td>Short crushing season: only 4 months (November to February).</td>
+            <td>Longer crushing season: 7 to 8 months (October to May).</td>
           </tr>
           <tr>
-            <td><strong>Mill Ownership</strong></td>
-            <td>Dominated by private mills with outdated processing machinery.</td>
-            <td>Well-organized cooperative sugar mills with modern, energy-efficient equipment.</td>
+            <td><strong>Sugar Mill Structure</strong></td>
+            <td>Predominantly older private mills with outdated machinery.</td>
+            <td>Highly successful cooperative sugar factories owned by farmers.</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Byproducts Modal -->
-  <div class="modal-veil" id="byproductsModal" onclick="closeOnVeil(event, 'byproductsModal')">
-    <div class="modal-box">
-      <button class="close-modal-btn" onclick="closeModal('byproductsModal')">&times;</button>
-      <h2 class="modal-title">Industrial Uses & By-Products</h2>
-      <p class="modal-subtitle">Circular Bio-Economy in Sugar Mills</p>
+  <!-- By-Products Modal -->
+  <div class="modal-veil" id="byproductsModal" onclick="checkClose(event, 'byproductsModal')">
+    <div class="modal-sheet">
+      <button class="close-btn" onclick="closeModal('byproductsModal')">&times;</button>
+      <h2 class="m-title">Industrial Uses & By-Products</h2>
+      <p class="m-sub">Circular Economy in Sugar Refining</p>
       
-      <div class="grid-cards">
-        <div class="inner-card">
-          <h4>🌾 Bagasse (Crushed Fiber)</h4>
-          <p>The dry pulpy fibrous residue left after extracting juice. Used as clean biofuel to power mill boilers and raw material for eco-paper and cardboard manufacturing.</p>
+      <div class="m-grid">
+        <div class="m-box">
+          <h4>🌾 Bagasse (Residual Fiber)</h4>
+          <p>The fibrous pulp remaining after crushing cane stalks. Serves as green biofuel generating steam and power for mills, and raw pulp for paper/cardboard.</p>
         </div>
-        <div class="inner-card">
-          <h4>🍯 Molasses (Dark Syrup)</h4>
-          <p>Thick, dark syrup separated during sugar crystallization. Crucial feedstock for distilleries producing industrial alcohol, rum, and green ethanol for fuel blending.</p>
+
+        <div class="m-box">
+          <h4>🍯 Molasses (Cane Treacle)</h4>
+          <p>Viscous syrup separated during sugar crystallization. Essential raw material for fermentation distilleries producing industrial alcohol, rum, and fuel ethanol.</p>
         </div>
-        <div class="inner-card">
+
+        <div class="m-box">
           <h4>🧪 Press Mud (Filter Cake)</h4>
-          <p>The residue from juice filtration. Rich in organic matter, nitrogen, phosphorus, and calcium; widely utilized as natural organic fertilizer for farms.</p>
+          <p>Mineral and organic sediment filtered from raw cane juice. Rich in nitrogen, phosphorus, and humic acid; recycled as excellent soil conditioner.</p>
         </div>
-        <div class="inner-card">
-          <h4>🍃 Green Cane Tops</h4>
-          <p>Nutritious green crown foliage collected during field harvest, providing essential cattle fodder for rural livestock.</p>
+
+        <div class="m-box">
+          <h4>🍃 Green Tops & Leaves</h4>
+          <p>Harvested foliage stripped from cane tops in the field, supplying valuable nutritious green fodder for rural dairy livestock.</p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Quiz Modal -->
-  <div class="modal-veil" id="quizModal" onclick="closeOnVeil(event, 'quizModal')">
-    <div class="modal-box">
-      <button class="close-modal-btn" onclick="closeModal('quizModal')">&times;</button>
-      <h2 class="modal-title">Class 10 Board Exam Quiz</h2>
-      <p class="modal-subtitle" id="quizProgress">Question 1 of 4</p>
+  <div class="modal-veil" id="quizModal" onclick="checkClose(event, 'quizModal')">
+    <div class="modal-sheet">
+      <button class="close-btn" onclick="closeModal('quizModal')">&times;</button>
+      <h2 class="m-title">Class 10 Agriculture Quiz</h2>
+      <p class="m-sub" id="qNum">Question 1 of 4</p>
       
-      <div class="quiz-question" id="quizQ">What is the optimal temperature range required for sugarcane cultivation?</div>
-      <div class="quiz-options" id="quizOptions"></div>
-      
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-        <span id="quizScoreText" style="color: #a7f3d0; font-weight: 700;">Score: 0</span>
-        <button class="hud-btn" id="nextQBtn" onclick="nextQuestion()" style="display:none;">Next Question &rarr;</button>
+      <div class="quiz-card" id="qText">What is the optimal temperature range required for sugarcane cultivation?</div>
+      <div id="qOpts"></div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px;">
+        <span id="scoreTracker" style="color: #a7f3d0; font-weight: 700;">Score: 0 / 4</span>
+        <button class="glass-btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">Next Question &rarr;</button>
       </div>
     </div>
   </div>
 
-  <!-- 3D Three.js Engine Script -->
+  <!-- Three.js 3D Engine -->
   <script>
-    // Variety Database
-    const VARIETIES = [
+    // Crop Varieties with Anatomical Nuances
+    const CROPS = [
       {
         name: "Co 0238",
-        badge: "Commercial Hybrid",
-        botanical: "Karan 4 • Early Maturing",
-        desc: "Revolutionized North Indian sugarcane production with unprecedented sucrose density and thick, robust cane diameter.",
+        badge: "High-Yielding Commercial",
+        scientific: "Karan 4 • Early Maturing",
+        desc: "A blockbuster variety that transformed North Indian sugar mills with massive stalk girth, high sucrose juice, and early maturity.",
         sucrose: "17.8%",
         height: "3.8 m",
         zone: "Subtropical",
         maturity: "10-12 Mo",
-        color: 0xc8963e,      // Golden amber
-        nodeColor: 0x8b6508,
-        radius: 0.38,
-        segments: 6,
-        leafScale: 1.15
+        rindColor: 0xd49b42,      // Golden Amber
+        nodeColor: 0x8a621f,
+        waxColor: 0xeadcc2,
+        pithColor: 0xfaf5eb,
+        radius: 0.40,
+        segCount: 7,
+        segLen: 0.62,
+        leafSpan: 1.15
       },
       {
         name: "Co 86032",
         badge: "Tropical Champion",
-        botanical: "Nayana • High Ratooning",
-        desc: "The undisputed backbone of South Indian sugar mills in Tamil Nadu and Maharashtra, famous for sustained juice recovery.",
+        scientific: "Nayana • High Ratoonability",
+        desc: "The premier cultivar of South India (Tamil Nadu, Maharashtra), characterized by erect lush green canes, dense wax bloom, and heavy ratooning.",
         sucrose: "19.2%",
         height: "4.2 m",
-        zone: "Tropical",
+        zone: "Peninsular South",
         maturity: "12-14 Mo",
-        color: 0x228b22,      // Lush Forest Green
-        nodeColor: 0x145214,
-        radius: 0.35,
-        segments: 7,
-        leafScale: 1.25
+        rindColor: 0x2e8540,      // Emerald Forest Green
+        nodeColor: 0x1d582a,
+        waxColor: 0xdff0e2,
+        pithColor: 0xf6fbf6,
+        radius: 0.36,
+        segCount: 8,
+        segLen: 0.60,
+        leafSpan: 1.25
       },
       {
         name: "S. officinarum",
-        badge: "Noble Cane",
-        botanical: "Tropical Giant",
-        desc: "Native to the South Pacific. Features heavy purple rind, exceptionally high sugar, low fiber, but susceptible to winter frost.",
+        badge: "Noble Giant",
+        scientific: "Tropical Noble Cane",
+        desc: "Native to the South Pacific. Exceptionally thick purple-red stalks, high sucrose content, low fiber, but sensitive to North Indian cold.",
         sucrose: "20.5%",
-        height: "4.8 m",
-        zone: "Equatorial",
+        height: "4.6 m",
+        zone: "Tropical Coastal",
         maturity: "14-16 Mo",
-        color: 0x6b2d5c,      // Purple Red Noble
-        nodeColor: 0x3d1733,
-        radius: 0.44,
-        segments: 8,
-        leafScale: 1.35
+        rindColor: 0x662249,      // Deep Royal Purple / Maroon
+        nodeColor: 0x3d122b,
+        waxColor: 0xe3c5d6,
+        pithColor: 0xfffafa,
+        radius: 0.46,
+        segCount: 8,
+        segLen: 0.65,
+        leafSpan: 1.35
       },
       {
         name: "S. barberi",
         badge: "Indigenous Hardy",
-        botanical: "North Indian Cane",
-        desc: "Indigenous to the Gangetic plains. Slender, fibrous stalks capable of surviving harsh subtropical winters and dry winds.",
+        scientific: "North Indian Indigenous",
+        desc: "Native to the fertile Gangetic plain. Slender, tough, fibrous stems that withstand extreme summer heat and severe winter frost.",
         sucrose: "12.4%",
-        height: "2.9 m",
-        zone: "Gangetic Plain",
+        height: "2.8 m",
+        zone: "Indo-Gangetic Plain",
         maturity: "9-10 Mo",
-        color: 0xb5a642,      // Yellow-green hardy
-        nodeColor: 0x706720,
-        radius: 0.26,
-        segments: 6,
-        leafScale: 0.95
+        rindColor: 0x9b9a38,      // Hardy Olive Yellow-Green
+        nodeColor: 0x6b6a22,
+        waxColor: 0xdfdeb3,
+        pithColor: 0xf5f4e4,
+        radius: 0.28,
+        segCount: 6,
+        segLen: 0.54,
+        leafSpan: 0.95
       },
       {
         name: "Co 1148",
-        badge: "Late Maturing",
-        botanical: "Frost Resistant",
-        desc: "A reliable late-season performer across Western UP and Haryana, exhibiting tremendous resistance to waterlogging and red rot.",
+        badge: "Frost Resistant",
+        scientific: "Late Maturing Generalist",
+        desc: "A hardy late-season cultivar grown across Haryana and Western UP, highly resistant to flooding, red rot disease, and cold snaps.",
         sucrose: "15.6%",
         height: "3.5 m",
-        zone: "North-West",
+        zone: "North-West India",
         maturity: "12-13 Mo",
-        color: 0x4a7c59,      // Frosted Sage Green
-        nodeColor: 0x2e4e37,
-        radius: 0.34,
-        segments: 6,
-        leafScale: 1.1
+        rindColor: 0x4f7756,      // Frosted Sage Green
+        nodeColor: 0x314e36,
+        waxColor: 0xcfe0d3,
+        pithColor: 0xf3f8f4,
+        radius: 0.35,
+        segCount: 7,
+        segLen: 0.58,
+        leafSpan: 1.10
       }
     ];
 
-    let currentVarietyIdx = 0;
-    let isExploded = false;
+    let currentCropIdx = 0;
+    let isDissected = false;
 
-    // Three.js Scene Setup
-    const canvas = document.getElementById('webgl-canvas');
+    // WebGL Scene
+    const canvas = document.getElementById('webgl');
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x05160d);
-    scene.fog = new THREE.FogExp2(0x05160d, 0.045);
+    scene.background = new THREE.Color(0x06170e);
+    scene.fog = new THREE.FogExp2(0x06170e, 0.045);
 
-    // Camera
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 1.8, 8.5);
+    camera.position.set(0, 1.8, 8.2);
 
-    // Renderer
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -841,375 +938,461 @@
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.15;
 
-    // Orbit Controls
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
-    controls.maxPolarAngle = Math.PI / 2 - 0.05; // Don't go below ground
-    controls.minDistance = 3.5;
+    controls.maxPolarAngle = Math.PI / 2 - 0.04;
+    controls.minDistance = 2.5;
     controls.maxDistance = 14;
     controls.autoRotate = true;
     controls.autoRotateSpeed = 1.2;
-    controls.target.set(0, 1.2, 0);
+    controls.target.set(0, 1.4, 0);
 
-    // Lighting Setup
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
-    scene.add(ambientLight);
+    // Studio Lighting
+    const ambLight = new THREE.AmbientLight(0xffffff, 0.85);
+    scene.add(ambLight);
 
-    const sunLight = new THREE.DirectionalLight(0xa7f3d0, 1.8);
-    sunLight.position.set(6, 12, 8);
-    sunLight.castShadow = true;
-    sunLight.shadow.mapSize.width = 2048;
-    sunLight.shadow.mapSize.height = 2048;
-    sunLight.shadow.camera.near = 0.5;
-    sunLight.shadow.camera.far = 25;
-    sunLight.shadow.camera.left = -6;
-    sunLight.shadow.camera.right = 6;
-    sunLight.shadow.camera.top = 6;
-    sunLight.shadow.camera.bottom = -6;
-    scene.add(sunLight);
+    const keyLight = new THREE.DirectionalLight(0xa7f3d0, 1.8);
+    keyLight.position.set(6, 12, 7);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.set(2048, 2048);
+    scene.add(keyLight);
 
-    // Secondary Warm Rim Light
-    const rimLight = new THREE.DirectionalLight(0xfbbf24, 1.2);
-    rimLight.position.set(-8, 6, -6);
-    scene.add(rimLight);
+    const fillLight = new THREE.DirectionalLight(0xfbbf24, 1.1);
+    fillLight.position.set(-7, 6, -5);
+    scene.add(fillLight);
 
-    // Ground Pedestal (Rich Agricultural Soil)
-    const groundGeo = new THREE.CylinderGeometry(4.2, 4.6, 0.4, 64);
-    const groundMat = new THREE.MeshStandardMaterial({
-      color: 0x162c1e,
-      roughness: 0.85,
-      metalness: 0.1
-    });
-    const ground = new THREE.Mesh(groundGeo, groundMat);
-    ground.position.y = -1.8;
-    ground.receiveShadow = true;
-    scene.add(ground);
+    // Soil Pedestal
+    const soilGeo = new THREE.CylinderGeometry(4.2, 4.5, 0.35, 64);
+    const soilMat = new THREE.MeshStandardMaterial({ color: 0x122418, roughness: 0.9, metalness: 0.1 });
+    const soil = new THREE.Mesh(soilGeo, soilMat);
+    soil.position.y = -1.8;
+    soil.receiveShadow = true;
+    scene.add(soil);
 
-    // Glowing Concentric Ring on Soil
-    const ringGeo = new THREE.RingGeometry(3.5, 3.58, 64);
+    // Glowing Concentric Guide Ring
+    const ringGeo = new THREE.RingGeometry(3.6, 3.68, 64);
     const ringMat = new THREE.MeshBasicMaterial({ color: 0x34d399, side: THREE.DoubleSide });
-    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-    ringMesh.rotation.x = -Math.PI / 2;
-    ringMesh.position.y = -1.59;
-    scene.add(ringMesh);
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.y = -1.61;
+    scene.add(ring);
 
-    // 3D Stalk Plant Group
-    const plantGroup = new THREE.Group();
-    scene.add(plantGroup);
+    // Main Sugarcane Plant 3D Assembly
+    const caneGroup = new THREE.Group();
+    scene.add(caneGroup);
 
-    let stalkSegments = [];
+    let segments = [];
     let crownLeaves = [];
+    let partPositions = {};
 
-    // Helper: Build Procedural 3D Sugarcane Model
-    function buildSugarcane(data) {
-      // Clear previous meshes
-      while (plantGroup.children.length > 0) {
-        const obj = plantGroup.children[0];
-        plantGroup.remove(obj);
+    // Procedural Texture Generator for Fibrous Stalk Rind & Wax
+    function createRindCanvasTexture() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, 512, 512);
+
+      // Fine vertical vascular fiber lines
+      for (let i = 0; i < 400; i++) {
+        ctx.fillStyle = `rgba(0,0,0,${Math.random() * 0.08})`;
+        ctx.fillRect(Math.random() * 512, 0, 1 + Math.random() * 2, 512);
       }
-      stalkSegments = [];
+      return new THREE.CanvasTexture(canvas);
+    }
+    const rindTexture = createRindCanvasTexture();
+    rindTexture.wrapS = THREE.RepeatWrapping;
+    rindTexture.wrapT = THREE.RepeatWrapping;
+    rindTexture.repeat.set(2, 4);
+
+    // Build Realistic 3D Sugarcane Model
+    function buildCrop3D(data) {
+      while (caneGroup.children.length > 0) {
+        caneGroup.remove(caneGroup.children[0]);
+      }
+      segments = [];
       crownLeaves = [];
 
-      const segCount = data.segments;
-      const segHeight = 0.58;
-      const radius = data.radius;
       const startY = -1.5;
+      const count = data.segCount;
+      const r = data.radius;
+      const len = data.segLen;
 
-      // Stalk Material
-      const stalkMat = new THREE.MeshStandardMaterial({
-        color: data.color,
-        roughness: 0.38,
-        metalness: 0.15,
-        bumpScale: 0.05
-      });
-
-      // Node Ring Material
-      const nodeMat = new THREE.MeshStandardMaterial({
-        color: data.nodeColor,
-        roughness: 0.6,
-        metalness: 0.1
-      });
-
-      // Build Segments
-      for (let i = 0; i < segCount; i++) {
-        const segGroup = new THREE.Group();
-        const yPos = startY + i * segHeight;
-
-        // Internode Cylinder
-        const cylGeo = new THREE.CylinderGeometry(
-          radius * (1 - i * 0.015),
-          radius * (1 - (i - 0.2) * 0.015),
-          segHeight * 0.94,
-          32
+      // Base Root Cluster (Roots and Stool)
+      const rootMat = new THREE.MeshStandardMaterial({ color: 0x5c4033, roughness: 0.9 });
+      for (let b = 0; b < 12; b++) {
+        const rootCurve = new THREE.CubicBezierCurve3(
+          new THREE.Vector3(0, startY + 0.1, 0),
+          new THREE.Vector3(Math.cos(b) * 0.3, startY, Math.sin(b) * 0.3),
+          new THREE.Vector3(Math.cos(b) * 0.8, startY - 0.2, Math.sin(b) * 0.8),
+          new THREE.Vector3(Math.cos(b) * 1.4, startY - 0.3, Math.sin(b) * 1.4)
         );
-        const cylMesh = new THREE.Mesh(cylGeo, stalkMat);
-        cylMesh.castShadow = true;
-        cylMesh.receiveShadow = true;
-        segGroup.add(cylMesh);
-
-        // Bulging Node Ring
-        const ringTorusGeo = new THREE.TorusGeometry(radius * (1.04 - i * 0.015), 0.045, 16, 32);
-        const ringTorusMesh = new THREE.Mesh(ringTorusGeo, nodeMat);
-        ringTorusMesh.rotation.x = Math.PI / 2;
-        ringTorusMesh.position.y = segHeight * 0.47;
-        segGroup.add(ringTorusMesh);
-
-        // Store initial positions for explode effect
-        segGroup.position.set(0, yPos + segHeight / 2, 0);
-        segGroup.userData = {
-          defaultY: yPos + segHeight / 2,
-          explodedY: (yPos + segHeight / 2) + (i - segCount / 2) * 0.45,
-          index: i
-        };
-
-        plantGroup.add(segGroup);
-        stalkSegments.push(segGroup);
+        const rootGeo = new THREE.TubeGeometry(rootCurve, 12, 0.025, 6, false);
+        const rootMesh = new THREE.Mesh(rootGeo, rootMat);
+        rootMesh.castShadow = true;
+        caneGroup.add(rootMesh);
       }
 
-      // Arching Crown Leaves
-      const topY = startY + segCount * segHeight;
-      const leafCount = 9;
-      const leafMat = new THREE.MeshStandardMaterial({
-        color: 0x10b981,
-        roughness: 0.45,
-        side: THREE.DoubleSide
+      // Materials
+      const rindMat = new THREE.MeshStandardMaterial({
+        color: data.rindColor,
+        roughness: 0.32,
+        metalness: 0.15,
+        map: rindTexture
       });
 
+      const nodeMat = new THREE.MeshStandardMaterial({
+        color: data.nodeColor,
+        roughness: 0.65,
+        metalness: 0.08
+      });
+
+      const waxMat = new THREE.MeshStandardMaterial({
+        color: data.waxColor,
+        roughness: 0.8,
+        metalness: 0.05
+      });
+
+      const pithMat = new THREE.MeshStandardMaterial({
+        color: data.pithColor,
+        roughness: 0.4,
+        metalness: 0.02
+      });
+
+      // Construct Segments with Nodes, Eyes, and Cutaway Slice
+      for (let i = 0; i < count; i++) {
+        const segGroup = new THREE.Group();
+        const yCenter = startY + (i + 0.5) * len;
+
+        // Is this the cross-section demo segment? (segment index 2)
+        const isSlicedSegment = (i === 2);
+
+        if (!isSlicedSegment) {
+          // Standard full cylinder internode
+          const cylGeo = new THREE.CylinderGeometry(r * 0.97, r, len * 0.95, 32);
+          const cylMesh = new THREE.Mesh(cylGeo, rindMat);
+          cylMesh.castShadow = true;
+          cylMesh.receiveShadow = true;
+          segGroup.add(cylMesh);
+        } else {
+          // Anatomical Sliced Cutaway: 270-degree outer rind revealing 90-degree internal pith!
+          const sliceGeo = new THREE.CylinderGeometry(r * 0.97, r, len * 0.95, 32, 1, false, 0, Math.PI * 1.5);
+          const sliceMesh = new THREE.Mesh(sliceGeo, rindMat);
+          sliceMesh.castShadow = true;
+          segGroup.add(sliceMesh);
+
+          // Internal White Juicy Pith Core
+          const pithGeo = new THREE.CylinderGeometry(r * 0.94, r * 0.96, len * 0.93, 24, 1, false, Math.PI * 1.5, Math.PI * 0.5);
+          const pithMesh = new THREE.Mesh(pithGeo, pithMat);
+          pithMesh.castShadow = true;
+          segGroup.add(pithMesh);
+
+          // Pith End Caps (revealing fibrous vascular dots)
+          const capGeo = new THREE.CircleGeometry(r * 0.96, 24);
+          const capMesh = new THREE.Mesh(capGeo, pithMat);
+          capMesh.rotation.x = -Math.PI / 2;
+          capMesh.position.y = len * 0.47;
+          segGroup.add(capMesh);
+
+          partPositions['slice'] = new THREE.Vector3(0, yCenter, 0);
+        }
+
+        // Swollen Node Ring
+        const ringGeo = new THREE.TorusGeometry(r * 1.02, 0.042, 16, 32);
+        const ringMesh = new THREE.Mesh(ringGeo, nodeMat);
+        ringMesh.rotation.x = Math.PI / 2;
+        ringMesh.position.y = len * 0.47;
+        segGroup.add(ringMesh);
+
+        // Vegetative Eye Bud (Alternating on nodes)
+        const budGeo = new THREE.ConeGeometry(0.06, 0.12, 12);
+        const budMesh = new THREE.Mesh(budGeo, nodeMat);
+        const angle = i % 2 === 0 ? 0 : Math.PI;
+        budMesh.position.set(Math.cos(angle) * (r * 1.02), len * 0.48, Math.sin(angle) * (r * 1.02));
+        budMesh.rotation.z = angle === 0 ? -Math.PI / 3 : Math.PI / 3;
+        segGroup.add(budMesh);
+
+        // White Waxy Bloom Ring below node
+        const waxGeo = new THREE.CylinderGeometry(r * 0.98, r * 0.99, len * 0.22, 32);
+        const waxMesh = new THREE.Mesh(waxGeo, waxMat);
+        waxMesh.position.y = len * 0.34;
+        segGroup.add(waxMesh);
+
+        segGroup.position.set(0, yCenter, 0);
+        segGroup.userData = {
+          defaultY: yCenter,
+          dissectedY: yCenter + (i - count / 2) * 0.55
+        };
+
+        caneGroup.add(segGroup);
+        segments.push(segGroup);
+
+        if (i === 1) partPositions['wax'] = new THREE.Vector3(0, yCenter + len * 0.34, 0);
+        if (i === 3) partPositions['node'] = new THREE.Vector3(0, yCenter + len * 0.47, 0);
+        if (i === 4) partPositions['internode'] = new THREE.Vector3(0, yCenter, 0);
+      }
+
+      // Arching Foliage Canopy (Crown Leaves)
+      const topY = startY + count * len;
+      partPositions['crown'] = new THREE.Vector3(0, topY + 0.8, 0);
+
+      const leafCount = 11;
+      const leafMat = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.45, side: THREE.DoubleSide });
+
       for (let j = 0; j < leafCount; j++) {
-        const leafCurve = new THREE.CubicBezierCurve3(
+        const curve = new THREE.CubicBezierCurve3(
           new THREE.Vector3(0, 0, 0),
-          new THREE.Vector3(0.35, 0.8, 0),
-          new THREE.Vector3(1.2, 0.95, 0),
-          new THREE.Vector3(2.2 * data.leafScale, -0.6 * data.leafScale, 0)
+          new THREE.Vector3(0.4, 0.9, 0),
+          new THREE.Vector3(1.3, 1.1, 0),
+          new THREE.Vector3(2.4 * data.leafSpan, -0.7 * data.leafSpan, 0)
         );
 
-        const leafGeo = new THREE.TubeGeometry(leafCurve, 24, 0.06, 8, false);
+        const leafGeo = new THREE.TubeGeometry(curve, 28, 0.065, 8, false);
         const leafMesh = new THREE.Mesh(leafGeo, leafMat);
         leafMesh.castShadow = true;
 
-        const leafRotGroup = new THREE.Group();
-        leafRotGroup.rotation.y = (j / leafCount) * Math.PI * 2;
-        leafRotGroup.add(leafMesh);
+        const leafGroup = new THREE.Group();
+        leafGroup.rotation.y = (j / leafCount) * Math.PI * 2;
+        leafGroup.position.set(0, topY, 0);
+        leafGroup.add(leafMesh);
 
-        leafRotGroup.position.set(0, topY, 0);
-        leafRotGroup.userData = {
+        leafGroup.userData = {
           defaultY: topY,
-          explodedY: topY + 0.8,
-          baseRotY: (j / leafCount) * Math.PI * 2
+          dissectedY: topY + 1.2
         };
 
-        plantGroup.add(leafRotGroup);
-        crownLeaves.push(leafRotGroup);
+        caneGroup.add(leafGroup);
+        crownLeaves.push(leafGroup);
       }
     }
 
-    // Switch Variety in 3D Space
-    function switchVariety(index) {
-      currentVarietyIdx = index;
-      const data = VARIETIES[index];
+    // Set Crop Variety
+    function setCrop(idx) {
+      currentCropIdx = idx;
+      const data = CROPS[idx];
 
-      // Update UI Buttons
-      document.querySelectorAll('.var-thumb-btn').forEach((btn, idx) => {
-        btn.classList.toggle('active', idx === index);
+      document.querySelectorAll('.v-pill').forEach((btn, i) => {
+        btn.classList.toggle('active', i === idx);
       });
 
-      // Update Card Text
-      document.getElementById('cardBadge').textContent = data.badge;
-      document.getElementById('cardName').textContent = data.name;
-      document.getElementById('cardBotanical').innerHTML = data.botanical;
-      document.getElementById('cardDesc').textContent = data.desc;
-      document.getElementById('cardSucrose').textContent = data.sucrose;
-      document.getElementById('cardHeight').textContent = data.height;
-      document.getElementById('cardZone').textContent = data.zone;
-      document.getElementById('cardMaturity').textContent = data.maturity;
+      document.getElementById('cBadge').textContent = data.badge;
+      document.getElementById('cName').textContent = data.name;
+      document.getElementById('cScientific').innerHTML = data.scientific;
+      document.getElementById('cDesc').textContent = data.desc;
+      document.getElementById('cSucrose').textContent = data.sucrose;
+      document.getElementById('cHeight').textContent = data.height;
+      document.getElementById('cZone').textContent = data.zone;
+      document.getElementById('cMaturity').textContent = data.maturity;
 
-      // Rebuild 3D Plant Model
-      buildSugarcane(data);
+      buildCrop3D(data);
 
-      // Animate Stalk Growth
-      plantGroup.scale.set(0.1, 0.1, 0.1);
-      gsap.to(plantGroup.scale, {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 0.7,
-        ease: "back.out(1.5)"
+      // Snappy growth spring
+      caneGroup.scale.set(0.1, 0.1, 0.1);
+      gsap.to(caneGroup.scale, { x: 1, y: 1, z: 1, duration: 0.6, ease: "back.out(1.4)" });
+    }
+
+    // Anatomical Hotspot Camera Focus
+    function focusPart(partKey) {
+      controls.autoRotate = false;
+      document.getElementById('orbitBtn').classList.remove('active');
+
+      const targetPos = partPositions[partKey];
+      if (!targetPos) return;
+
+      document.querySelectorAll('.hotspot-card').forEach(card => card.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      // Show floating 3D label
+      const label = document.getElementById('pointAnnotation');
+      const labels = {
+        'internode': '🎋 Sweet Internode & Fibrous Cortex',
+        'node': '🌱 Nodal Ring & Growth Eye Bud',
+        'wax': '✨ Protective Cuticular Wax Bloom',
+        'slice': '🔬 Internal Cross-Section: Sucrose Pith',
+        'crown': '🍃 Photosynthetic Canopy & Leaf Sheath'
+      };
+      label.textContent = labels[partKey];
+      label.style.opacity = '1';
+
+      // Animate Camera to focus on the selected part
+      gsap.to(controls.target, {
+        x: targetPos.x,
+        y: targetPos.y,
+        z: targetPos.z,
+        duration: 0.9,
+        ease: "power2.inOut"
+      });
+
+      gsap.to(camera.position, {
+        x: targetPos.x + 2.2,
+        y: targetPos.y + 0.6,
+        z: targetPos.z + 3.4,
+        duration: 0.9,
+        ease: "power2.inOut"
       });
     }
 
-    // Interactive Explode Anatomy Toggle
-    function toggleExplode() {
-      isExploded = !isExploded;
-      const btn = document.getElementById('explodeBtn');
-      btn.classList.toggle('active', isExploded);
+    // Toggle Dissection / Explosion
+    function toggleDissection() {
+      isDissected = !isDissected;
+      const btn = document.getElementById('dissectBtn');
+      btn.classList.toggle('active', isDissected);
 
-      stalkSegments.forEach(seg => {
-        const targetY = isExploded ? seg.userData.explodedY : seg.userData.defaultY;
-        gsap.to(seg.position, {
-          y: targetY,
-          duration: 0.6,
-          ease: "power2.out"
-        });
+      segments.forEach(seg => {
+        const destY = isDissected ? seg.userData.dissectedY : seg.userData.defaultY;
+        gsap.to(seg.position, { y: destY, duration: 0.55, ease: "power2.out" });
       });
 
       crownLeaves.forEach(leaf => {
-        const targetY = isExploded ? leaf.userData.explodedY : leaf.userData.defaultY;
-        gsap.to(leaf.position, {
-          y: targetY,
-          duration: 0.6,
-          ease: "power2.out"
-        });
+        const destY = isDissected ? leaf.userData.dissectedY : leaf.userData.defaultY;
+        gsap.to(leaf.position, { y: destY, duration: 0.55, ease: "power2.out" });
       });
     }
 
-    // Auto Rotate
-    function toggleAutoRotate() {
+    // Toggle Orbit
+    function toggleOrbit() {
       controls.autoRotate = !controls.autoRotate;
-      document.getElementById('rotateBtn').classList.toggle('active', controls.autoRotate);
+      document.getElementById('orbitBtn').classList.toggle('active', controls.autoRotate);
     }
 
-    // Reset Camera Position
-    function resetCamera() {
-      gsap.to(camera.position, {
-        x: 0,
-        y: 1.8,
-        z: 8.5,
-        duration: 1,
-        ease: "power2.inOut"
-      });
-      controls.target.set(0, 1.2, 0);
+    // Reset Camera
+    function resetView() {
+      gsap.to(camera.position, { x: 0, y: 1.8, z: 8.2, duration: 0.8, ease: "power2.inOut" });
+      gsap.to(controls.target, { x: 0, y: 1.4, z: 0, duration: 0.8, ease: "power2.inOut" });
+      document.getElementById('pointAnnotation').style.opacity = '0';
+      document.querySelectorAll('.hotspot-card').forEach(c => c.classList.remove('active'));
     }
 
-    // Modals Handling
+    // Modals
     function openModal(id) {
       document.getElementById(id).classList.add('open');
       controls.autoRotate = false;
-      document.getElementById('rotateBtn').classList.remove('active');
+      document.getElementById('orbitBtn').classList.remove('active');
     }
 
     function closeModal(id) {
       document.getElementById(id).classList.remove('open');
     }
 
-    function closeOnVeil(e, id) {
-      if (e.target.id === id) {
-        closeModal(id);
-      }
+    function checkClose(e, id) {
+      if (e.target.id === id) closeModal(id);
     }
 
-    // Class 10 Interactive Quiz Logic
-    const QUIZ_DATA = [
+    // Class 10 Agriculture Board Quiz
+    const QUIZ = [
       {
         q: "What is the optimal temperature range required for sugarcane cultivation?",
         opts: ["10°C to 15°C", "21°C to 27°C", "35°C to 45°C", "15°C to 20°C"],
         ans: 1
       },
       {
-        q: "Why is the sugar industry rapidly expanding into Peninsular South India?",
+        q: "Why has the sugar industry shifted towards Peninsular South India?",
         opts: [
-          "Lower temperature leads to frost",
+          "Frost kills crops in South India",
           "Maritime tropical climate with higher sucrose content and longer crushing season",
-          "Absence of cooperative sugar mills",
-          "Low cost of land in coastal areas"
+          "Absence of modern cooperative sugar mills",
+          "Lower labour wages in coastal regions"
         ],
         ans: 1
       },
       {
-        q: "Which by-product of sugarcane is utilized as biofuel in mill boilers and for making paper?",
+        q: "Which by-product of sugarcane is utilized as boiler biofuel and for paper manufacturing?",
         opts: ["Molasses", "Bagasse", "Press Mud", "Ethanol"],
         ans: 1
       },
       {
-        q: "What is the annual rainfall requirement for healthy sugarcane growth?",
-        opts: ["25 cm to 50 cm", "75 cm to 100 cm", "150 cm to 200 cm", "Above 300 cm"],
+        q: "What is the average annual rainfall needed for healthy sugarcane growth?",
+        opts: ["25 cm to 50 cm", "75 cm to 100 cm", "150 cm to 200 cm", "Over 300 cm"],
         ans: 1
       }
     ];
 
-    let currentQ = 0;
-    let score = 0;
+    let qIndex = 0;
+    let quizScore = 0;
 
     function renderQuiz() {
-      const qData = QUIZ_DATA[currentQ];
-      document.getElementById('quizProgress').textContent = `Question ${currentQ + 1} of ${QUIZ_DATA.length}`;
-      document.getElementById('quizQ').textContent = qData.q;
-      const optsContainer = document.getElementById('quizOptions');
-      optsContainer.innerHTML = '';
+      const item = QUIZ[qIndex];
+      document.getElementById('qNum').textContent = `Question ${qIndex + 1} of ${QUIZ.length}`;
+      document.getElementById('qText').textContent = item.q;
+      const optsBox = document.getElementById('qOpts');
+      optsBox.innerHTML = '';
 
-      qData.opts.forEach((opt, idx) => {
+      item.opts.forEach((text, i) => {
         const btn = document.createElement('button');
-        btn.className = 'quiz-opt';
-        btn.textContent = opt;
-        btn.onclick = () => selectQuizOpt(idx, qData.ans);
-        optsContainer.appendChild(btn);
+        btn.className = 'q-opt';
+        btn.textContent = text;
+        btn.onclick = () => chooseOpt(i, item.ans);
+        optsBox.appendChild(btn);
       });
 
-      document.getElementById('nextQBtn').style.display = 'none';
-      document.getElementById('quizScoreText').textContent = `Score: ${score} / ${QUIZ_DATA.length}`;
+      document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('scoreTracker').textContent = `Score: ${quizScore} / ${QUIZ.length}`;
     }
 
-    function selectQuizOpt(selected, correct) {
-      const allOpts = document.querySelectorAll('.quiz-opt');
-      allOpts.forEach(btn => btn.style.pointerEvents = 'none');
+    function chooseOpt(selected, correct) {
+      const buttons = document.querySelectorAll('.q-opt');
+      buttons.forEach(b => b.style.pointerEvents = 'none');
 
       if (selected === correct) {
-        allOpts[selected].classList.add('correct');
-        score++;
+        buttons[selected].classList.add('correct');
+        quizScore++;
       } else {
-        allOpts[selected].classList.add('wrong');
-        allOpts[correct].classList.add('correct');
+        buttons[selected].classList.add('wrong');
+        buttons[correct].classList.add('correct');
       }
 
-      document.getElementById('quizScoreText').textContent = `Score: ${score} / ${QUIZ_DATA.length}`;
-      document.getElementById('nextQBtn').style.display = 'inline-flex';
+      document.getElementById('scoreTracker').textContent = `Score: ${quizScore} / ${QUIZ.length}`;
+      document.getElementById('nextBtn').style.display = 'inline-flex';
     }
 
     function nextQuestion() {
-      currentQ++;
-      if (currentQ < QUIZ_DATA.length) {
+      qIndex++;
+      if (qIndex < QUIZ.length) {
         renderQuiz();
       } else {
-        document.getElementById('quizQ').textContent = `🎉 Quiz Completed! You scored ${score} out of ${QUIZ_DATA.length}!`;
-        document.getElementById('quizOptions').innerHTML = '<p style="color:#a7f3d0; padding:10px 0;">Great mastery of the CBSE Class 10 Sugarcane Agriculture curriculum!</p>';
-        document.getElementById('nextQBtn').style.display = 'none';
+        document.getElementById('qText').textContent = `🎉 Quiz Completed! You scored ${quizScore} out of ${QUIZ.length}!`;
+        document.getElementById('qOpts').innerHTML = '<p style="color:#a7f3d0; padding:12px 0;">Excellent understanding of the CBSE Class 10 Sugarcane Agriculture syllabus!</p>';
+        document.getElementById('nextBtn').style.display = 'none';
       }
     }
 
-    // Animation Loop
+    // Render & Animation Loop
     let clock = new THREE.Clock();
 
     function animate() {
       requestAnimationFrame(animate);
-      const elapsedTime = clock.getElapsedTime();
+      const time = clock.getElapsedTime();
 
-      // Subtle breeze animation on crown leaves
-      crownLeaves.forEach((leaf, idx) => {
-        leaf.rotation.z = Math.sin(elapsedTime * 1.5 + idx) * 0.04;
+      // Gentle wind breeze swaying leaves
+      crownLeaves.forEach((leaf, i) => {
+        leaf.rotation.z = Math.sin(time * 1.6 + i) * 0.045;
       });
 
       controls.update();
       renderer.render(scene, camera);
     }
 
-    // Responsive Resize Handler (Desktop Windows)
+    // Window Resize
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Keyboard Shortcuts for Desktop Windows
+    // Keyboard Shortcuts
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'r' || e.key === 'R') toggleAutoRotate();
-      if (e.key === 'e' || e.key === 'E') toggleExplode();
+      if (e.key === 'r' || e.key === 'R') toggleOrbit();
+      if (e.key === 'd' || e.key === 'D') toggleDissection();
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal-veil').forEach(m => m.classList.remove('open'));
+        document.getElementById('pointAnnotation').style.opacity = '0';
       }
     });
 
-    // Initialize
-    buildSugarcane(VARIETIES[0]);
+    // Init
+    setCrop(0);
     renderQuiz();
     animate();
   </script>
