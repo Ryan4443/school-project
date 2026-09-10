@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sugarcane 3D Interactive World | By Ryan and Adarsh</title>
+  <title>Sugarcane 3D Experience | By Ryan and Adarsh</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Three.js, OrbitControls, GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -20,10 +20,14 @@
       --emerald: #10b981;
       --emerald-glow: #34d399;
       --gold: #fbbf24;
-      --bg-dark: #041009;
-      --glass-panel: rgba(10, 32, 21, 0.82);
-      --glass-border: rgba(255, 255, 255, 0.2);
-      --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+      --bg-dark: #030d07;
+      
+      /* Refined 3D Layered Glassmorphism */
+      --glass-base: rgba(10, 30, 20, 0.78);
+      --glass-border: rgba(255, 255, 255, 0.22);
+      --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.35);
+      --glass-3d-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 25px rgba(16, 185, 129, 0.18);
+      
       --font-heading: 'Outfit', sans-serif;
       --font-body: 'Plus Jakarta Sans', sans-serif;
     }
@@ -54,6 +58,7 @@
       outline: none;
     }
 
+    /* Cinematic Depth Vignette */
     .vignette {
       position: absolute;
       top: 0;
@@ -62,10 +67,10 @@
       height: 100%;
       pointer-events: none;
       z-index: 2;
-      background: radial-gradient(circle at 50% 50%, transparent 55%, rgba(1, 10, 5, 0.65) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 50%, rgba(1, 8, 4, 0.75) 100%);
     }
 
-    /* HUD Layout Layer */
+    /* Spatial HUD Grid (Non-overlapping & Spacious) */
     .hud-layer {
       position: absolute;
       top: 0;
@@ -74,89 +79,124 @@
       height: 100%;
       z-index: 10;
       pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
       padding: 24px 32px;
+      gap: 16px;
     }
 
     .interactive {
       pointer-events: auto;
     }
 
-    /* Header */
+    /* Top Command Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
+      gap: 16px;
     }
 
-    .brand-badge {
-      background: var(--glass-panel);
+    .brand-pill {
+      background: var(--glass-base);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
+      box-shadow: var(--glass-bevel), var(--glass-3d-shadow);
       border-radius: 9999px;
-      padding: 8px 22px;
+      padding: 8px 20px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      flex-shrink: 0;
     }
 
     .brand-title {
       font-family: var(--font-heading);
       font-weight: 800;
-      font-size: 1.12rem;
-      letter-spacing: 0.5px;
-      text-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
+      font-size: 1.05rem;
+      letter-spacing: 0.4px;
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(52, 211, 153, 0.4);
     }
 
-    .tag-pill {
+    .author-pill {
       background: linear-gradient(135deg, #10b981, #059669);
       color: #fff;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      padding: 3px 10px;
+      padding: 3px 9px;
       border-radius: 9999px;
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
     }
 
-    /* Top-Right Graphics Complexity Switcher */
-    .graphics-control-dock {
+    /* Center Quick Dossier Navigation */
+    .center-nav {
       display: flex;
       align-items: center;
       gap: 8px;
-      background: var(--glass-panel);
+    }
+
+    .hud-action-btn {
+      background: var(--glass-base);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel), 0 8px 24px rgba(0, 0, 0, 0.4);
+      color: #e2e8f0;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s cubic-bezier(0.18, 0.9, 0.3, 1);
+    }
+
+    .hud-action-btn:hover {
+      border-color: var(--emerald-glow);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: var(--glass-bevel), 0 0 20px rgba(52, 211, 153, 0.45);
+      background: rgba(16, 48, 30, 0.9);
+    }
+
+    /* Graphics Quality Selector (Rebalanced Tiers) */
+    .gfx-dock {
+      background: var(--glass-base);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
+      box-shadow: var(--glass-bevel), var(--glass-3d-shadow);
       border-radius: 9999px;
-      padding: 5px 8px;
-    }
-
-    .gfx-label {
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--gold);
-      padding: 0 8px 0 10px;
+      padding: 4px 6px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
+      flex-shrink: 0;
     }
 
-    .gfx-btn {
+    .gfx-title {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 0 6px 0 10px;
+    }
+
+    .gfx-pill-btn {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid transparent;
       color: #cbd5e1;
       font-family: var(--font-heading);
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
       padding: 5px 12px;
       border-radius: 9999px;
@@ -164,36 +204,257 @@
       transition: all 0.2s ease;
     }
 
-    .gfx-btn:hover {
+    .gfx-pill-btn:hover {
       color: #ffffff;
       background: rgba(255, 255, 255, 0.12);
     }
 
-    .gfx-btn.active {
+    .gfx-pill-btn.active {
       background: linear-gradient(135deg, #10b981, #059669);
       color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.55);
+    }
+
+    /* Middle Layout Workspace (Left Deck & Right Deck separated with space) */
+    .workspace-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    /* Left Crop Information Card */
+    .left-deck {
+      width: 340px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .glass-card-3d {
+      background: var(--glass-base);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel), var(--glass-3d-shadow);
+      border-radius: 26px;
+      padding: 22px 24px;
+      position: relative;
+      transition: transform 0.3s cubic-bezier(0.18, 0.9, 0.3, 1), box-shadow 0.3s;
+    }
+
+    .glass-card-3d:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--glass-bevel), 0 24px 60px rgba(0, 0, 0, 0.75), 0 0 30px rgba(52, 211, 153, 0.25);
+    }
+
+    .category-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--emerald-glow);
+      background: rgba(52, 211, 153, 0.14);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      padding: 3px 10px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+    }
+
+    .cultivar-title {
+      font-family: var(--font-heading);
+      font-size: 1.95rem;
+      font-weight: 900;
+      line-height: 1.1;
+      color: #ffffff;
+      margin-bottom: 2px;
+      letter-spacing: 0.3px;
+    }
+
+    .botanical-line {
+      font-size: 0.88rem;
+      color: #a7f3d0;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .summary-text {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .metrics-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .metric-cell {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 8px 12px;
+    }
+
+    .metric-label {
+      font-size: 0.65rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .metric-value {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--emerald-glow);
+    }
+
+    /* Cultivar Switcher Pills */
+    .switcher-pill-strip {
+      display: flex;
+      gap: 5px;
+    }
+
+    .crop-pill-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--glass-border);
+      color: #cbd5e1;
+      padding: 7px 2px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .crop-pill-btn:hover {
+      background: rgba(52, 211, 153, 0.25);
+      border-color: var(--emerald-glow);
+      color: #ffffff;
+    }
+
+    .crop-pill-btn.active {
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-color: #34d399;
+      color: #ffffff;
       box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
     }
 
-    .nav-bar {
+    /* Right Anatomy Inspection Deck */
+    .right-deck {
+      width: 310px;
       display: flex;
-      align-items: center;
-      gap: 8px;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .glass-btn {
-      background: var(--glass-panel);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+    .section-header-tag {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-left: 6px;
+      margin-bottom: 2px;
+    }
+
+    .anatomy-card-3d {
+      background: var(--glass-base);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      color: #fff;
+      box-shadow: var(--glass-bevel), 0 8px 24px rgba(0, 0, 0, 0.4);
+      border-radius: 18px;
+      padding: 12px 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.25s cubic-bezier(0.18, 0.9, 0.3, 1);
+    }
+
+    .anatomy-card-3d:hover {
+      border-color: var(--emerald-glow);
+      background: rgba(16, 48, 30, 0.9);
+      transform: translateX(-5px) scale(1.02);
+      box-shadow: var(--glass-bevel), 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(52, 211, 153, 0.3);
+    }
+
+    .anatomy-card-3d.active {
+      border-color: #34d399;
+      background: rgba(16, 185, 129, 0.28);
+      box-shadow: var(--glass-bevel), 0 0 20px rgba(52, 211, 153, 0.45);
+    }
+
+    .anatomy-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(52, 211, 153, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.18rem;
+      flex-shrink: 0;
+    }
+
+    .anatomy-texts h4 {
       font-family: var(--font-heading);
+      font-size: 0.9rem;
       font-weight: 700;
-      font-size: 0.85rem;
-      padding: 9px 18px;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+
+    .anatomy-texts p {
+      font-size: 0.74rem;
+      color: #94a3b8;
+      line-height: 1.35;
+    }
+
+    /* Bottom Control Cockpit */
+    .bottom-dock {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .dock-pill {
+      background: var(--glass-base);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel), var(--glass-3d-shadow);
       border-radius: 9999px;
+      padding: 6px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dock-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -201,233 +462,35 @@
       transition: all 0.2s ease;
     }
 
-    .glass-btn:hover {
+    .dock-btn:hover {
+      background: rgba(52, 211, 153, 0.28);
       border-color: var(--emerald-glow);
-      box-shadow: 0 0 25px rgba(52, 211, 153, 0.5), var(--glass-shadow);
-      transform: translateY(-2px);
-      background: rgba(16, 52, 34, 0.92);
+      transform: scale(1.04);
     }
 
-    .glass-btn.active {
-      background: linear-gradient(135deg, #10b981, #059669);
-      border-color: rgba(255, 255, 255, 0.4);
-      box-shadow: 0 0 25px rgba(52, 211, 153, 0.6);
-    }
-
-    /* Left Control Deck */
-    .left-panel {
-      position: absolute;
-      left: 32px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 350px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .card {
-      background: var(--glass-panel);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      border-radius: 26px;
-      padding: 24px;
-    }
-
-    .badge-sub {
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      color: var(--emerald-glow);
-      display: inline-block;
-      margin-bottom: 6px;
-    }
-
-    .crop-name {
-      font-family: var(--font-heading);
-      font-size: 2.1rem;
-      font-weight: 900;
-      line-height: 1.1;
-      margin-bottom: 2px;
-    }
-
-    .crop-scientific {
-      font-style: italic;
-      color: #a7f3d0;
-      font-size: 0.95rem;
-      margin-bottom: 12px;
-    }
-
-    .crop-desc {
-      color: #cbd5e1;
-      font-size: 0.88rem;
-      line-height: 1.55;
-      margin-bottom: 18px;
-    }
-
-    .stats-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .stat-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 14px;
-      padding: 10px 14px;
-    }
-
-    .stat-lbl {
-      font-size: 0.68rem;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      font-weight: 700;
-    }
-
-    .stat-num {
-      font-family: var(--font-heading);
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--emerald-glow);
-    }
-
-    .variety-pills {
-      display: flex;
-      gap: 6px;
-    }
-
-    .v-pill {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--glass-border);
-      color: #fff;
-      padding: 8px 4px;
-      border-radius: 12px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s ease;
-    }
-
-    .v-pill:hover {
-      background: rgba(52, 211, 153, 0.25);
-      border-color: var(--emerald-glow);
-    }
-
-    .v-pill.active {
-      background: linear-gradient(135deg, #10b981, #059669);
+    .dock-btn.active {
+      background: #10b981;
       border-color: #34d399;
-      box-shadow: 0 0 15px rgba(52, 211, 153, 0.45);
+      box-shadow: 0 0 14px rgba(52, 211, 153, 0.5);
     }
 
-    /* Right Inspection Deck */
-    .right-panel {
-      position: absolute;
-      right: 32px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 320px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .hotspot-card {
-      background: var(--glass-panel);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      border-radius: 20px;
-      padding: 14px 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      transition: all 0.25s ease;
-    }
-
-    .hotspot-card:hover {
-      border-color: var(--emerald-glow);
-      background: rgba(16, 52, 34, 0.9);
-      transform: translateX(-4px);
-    }
-
-    .hotspot-card.active {
-      border-color: #34d399;
-      background: rgba(16, 185, 129, 0.3);
-      box-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
-    }
-
-    .hotspot-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: rgba(52, 211, 153, 0.15);
-      border: 1px solid rgba(52, 211, 153, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      flex-shrink: 0;
-    }
-
-    .hotspot-info h4 {
-      font-family: var(--font-heading);
-      font-size: 0.96rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 2px;
-    }
-
-    .hotspot-info p {
-      font-size: 0.76rem;
-      color: #94a3b8;
-      line-height: 1.35;
-    }
-
-    /* Bottom Toolbar */
-    .bottom-bar {
-      position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--glass-panel);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      border-radius: 9999px;
-      padding: 8px 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .hint-text {
-      font-size: 0.76rem;
+    .mouse-hints {
+      font-size: 0.72rem;
       color: #94a3b8;
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 0 8px;
+      gap: 8px;
+      padding: 0 6px;
     }
 
-    /* Modal Overlay */
+    /* Modals Overlay (Class 10 CBSE Content) */
     .modal-veil {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(3, 15, 8, 0.85);
+      background: rgba(2, 10, 5, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       z-index: 100;
@@ -444,10 +507,10 @@
       pointer-events: auto;
     }
 
-    .modal-sheet {
+    .modal-sheet-3d {
       background: rgba(10, 36, 22, 0.96);
       border: 1px solid var(--glass-border);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), var(--glass-shadow);
+      box-shadow: var(--glass-bevel), 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(16, 185, 129, 0.25);
       border-radius: 28px;
       width: 820px;
       max-width: 90vw;
@@ -455,18 +518,18 @@
       overflow-y: auto;
       padding: 34px 38px;
       position: relative;
-      transform: scale(0.94);
-      transition: transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
+      transform: scale(0.94) translateY(12px);
+      transition: all 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
     }
 
-    .modal-veil.open .modal-sheet {
-      transform: scale(1);
+    .modal-veil.open .modal-sheet-3d {
+      transform: scale(1) translateY(0);
     }
 
-    .close-btn {
+    .close-icon-btn {
       position: absolute;
-      top: 22px;
-      right: 22px;
+      top: 20px;
+      right: 20px;
       width: 36px;
       height: 36px;
       border-radius: 50%;
@@ -481,7 +544,7 @@
       transition: all 0.2s ease;
     }
 
-    .close-btn:hover {
+    .close-icon-btn:hover {
       background: #ef4444;
       border-color: #ef4444;
       transform: rotate(90deg);
@@ -495,7 +558,7 @@
     }
 
     .m-sub {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       color: var(--emerald-glow);
       text-transform: uppercase;
       letter-spacing: 1.2px;
@@ -536,7 +599,7 @@
       font-weight: 600;
     }
 
-    /* Comparison Table */
+    /* Comparison Matrix */
     .table-box {
       width: 100%;
       border-collapse: collapse;
@@ -556,7 +619,7 @@
       font-family: var(--font-heading);
     }
 
-    /* Quiz */
+    /* Quiz Widget */
     .quiz-card {
       font-size: 1.2rem;
       font-family: var(--font-heading);
@@ -597,7 +660,7 @@
       color: #fca5a5 !important;
     }
 
-    /* Floating 3D Tooltip Label */
+    /* 3D Target Pinpoint */
     #pointAnnotation {
       position: absolute;
       background: rgba(6, 26, 16, 0.92);
@@ -626,143 +689,153 @@
   <!-- 3D Hotspot Label -->
   <div id="pointAnnotation">Node & Bud</div>
 
-  <!-- HUD Interface -->
+  <!-- Spacious HUD Layer -->
   <div class="hud-layer">
     
     <!-- Header -->
     <header class="interactive">
-      <div class="brand-badge">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5">
+      <div class="brand-pill">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5">
           <path d="M12 2v20M8 5h8M7 10h10M8 15h8M9 19h6"/>
         </svg>
         <span class="brand-title">By Ryan and Adarsh</span>
-        <span class="tag-pill">Class 10 Agriculture</span>
+        <span class="author-pill">Class 10 Agriculture</span>
       </div>
 
-      <!-- Graphics Quality Switcher (Instant lag-free selector) -->
-      <div class="graphics-control-dock">
-        <span class="gfx-label">⚡ Graphics:</span>
-        <button class="gfx-btn" id="gfxLow" onclick="setGraphicsPreset('low')" title="High FPS, zero lag, low CPU usage">Fast (Low)</button>
-        <button class="gfx-btn active" id="gfxMed" onclick="setGraphicsPreset('med')" title="Default: Balanced 60 FPS with sharp textures">Balanced (Default)</button>
-        <button class="gfx-btn" id="gfxHigh" onclick="setGraphicsPreset('high')" title="Full PBR clearcoat wax & soft shadows for gaming PCs">Ultra (Max)</button>
-      </div>
+      <!-- Quick Dossier Tabs -->
+      <nav class="center-nav">
+        <button class="hud-action-btn" onclick="openModal('climateModal')">Climate & Soil</button>
+        <button class="hud-action-btn" onclick="openModal('comparisonModal')">North vs South</button>
+        <button class="hud-action-btn" onclick="openModal('byproductsModal')">By-Products</button>
+        <button class="hud-action-btn" onclick="openModal('quizModal')">Class 10 Quiz</button>
+      </nav>
 
-      <div class="nav-bar">
-        <button class="glass-btn" onclick="openModal('climateModal')">Climate & Soil</button>
-        <button class="glass-btn" onclick="openModal('comparisonModal')">North vs South</button>
-        <button class="glass-btn" onclick="openModal('byproductsModal')">By-Products</button>
-        <button class="glass-btn" onclick="openModal('quizModal')">Class 10 Quiz</button>
+      <!-- Rebalanced Graphics Tier Selector -->
+      <div class="gfx-dock">
+        <span class="gfx-title">⚡ Render Tier:</span>
+        <button class="gfx-pill-btn" id="tierStandard" onclick="setGraphicsTier('standard')" title="Low GPU usage, fast frame rates">Standard</button>
+        <button class="gfx-pill-btn active" id="tierBalanced" onclick="setGraphicsTier('balanced')" title="Default: Realistic PBR waxy skin, soft shadows, 60 FPS">Balanced (Default)</button>
+        <button class="gfx-pill-btn" id="tierCinematic" onclick="setGraphicsTier('cinematic')" title="Real Max: 4K normal displacement, clearcoat lacquer, 4096 shadows">Cinematic Ultra</button>
       </div>
     </header>
 
-    <!-- Left Crop Switcher Panel -->
-    <div class="left-panel interactive">
-      <div class="card">
-        <span class="badge-sub" id="cBadge">High-Yielding Commercial</span>
-        <h1 class="crop-name" id="cName">Co 0238</h1>
-        <p class="crop-scientific" id="cScientific">Karan 4 &bull; Early Maturing</p>
-        <p class="crop-desc" id="cDesc">
-          A blockbuster variety that transformed North Indian sugar mills with massive stalk girth, high sucrose juice, and early maturity.
-        </p>
+    <!-- Center Workspace Row: Left Deck & Right Deck separated with space -->
+    <div class="workspace-row">
+      
+      <!-- Left Cultivar Card -->
+      <div class="left-deck interactive">
+        <div class="glass-card-3d">
+          <span class="category-badge" id="cBadge">High-Yielding Commercial</span>
+          <h1 class="cultivar-title" id="cName">Co 0238</h1>
+          <p class="botanical-line" id="cScientific">Karan 4 &bull; Early Maturing</p>
+          <p class="summary-text" id="cDesc">
+            A blockbuster variety that transformed North Indian sugar mills with massive stalk girth, high sucrose juice, and early maturity.
+          </p>
 
-        <div class="stats-row">
-          <div class="stat-box">
-            <div class="stat-lbl">Sucrose Density</div>
-            <div class="stat-num" id="cSucrose">17.8%</div>
+          <div class="metrics-2x2">
+            <div class="metric-cell">
+              <div class="metric-label">Sucrose Recovery</div>
+              <div class="metric-value" id="cSucrose">17.8%</div>
+            </div>
+            <div class="metric-cell">
+              <div class="metric-label">Average Stature</div>
+              <div class="metric-value" id="cHeight">3.8 m</div>
+            </div>
+            <div class="metric-cell">
+              <div class="metric-label">Climate Belt</div>
+              <div class="metric-value" id="cZone">Subtropical</div>
+            </div>
+            <div class="metric-cell">
+              <div class="metric-label">Maturity Age</div>
+              <div class="metric-value" id="cMaturity">10-12 Mo</div>
+            </div>
           </div>
-          <div class="stat-box">
-            <div class="stat-lbl">Average Height</div>
-            <div class="stat-num" id="cHeight">3.8 m</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-lbl">Target Region</div>
-            <div class="stat-num" id="cZone">Subtropical</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-lbl">Crop Duration</div>
-            <div class="stat-num" id="cMaturity">10-12 Mo</div>
-          </div>
-        </div>
 
-        <div class="variety-pills">
-          <button class="v-pill active" onclick="setCrop(0)">Co 0238</button>
-          <button class="v-pill" onclick="setCrop(1)">Co 86032</button>
-          <button class="v-pill" onclick="setCrop(2)">Officinarum</button>
-          <button class="v-pill" onclick="setCrop(3)">Barberi</button>
-          <button class="v-pill" onclick="setCrop(4)">Co 1148</button>
+          <div class="switcher-pill-strip">
+            <button class="crop-pill-btn active" onclick="setCrop(0)">Co 0238</button>
+            <button class="crop-pill-btn" onclick="setCrop(1)">Co 86032</button>
+            <button class="crop-pill-btn" onclick="setCrop(2)">Officinarum</button>
+            <button class="crop-pill-btn" onclick="setCrop(3)">Barberi</button>
+            <button class="crop-pill-btn" onclick="setCrop(4)">Co 1148</button>
+          </div>
         </div>
       </div>
+
+      <!-- Right Anatomical Focus Deck -->
+      <div class="right-deck interactive">
+        <span class="section-header-tag">🔍 Anatomical Hotspots</span>
+
+        <div class="anatomy-card-3d" onclick="focusHotspot('internode')">
+          <div class="anatomy-icon">🎋</div>
+          <div class="anatomy-texts">
+            <h4>Fibrous Rind Skin</h4>
+            <p>Cuticular epidermal layer with vertical vascular grooves.</p>
+          </div>
+        </div>
+
+        <div class="anatomy-card-3d" onclick="focusHotspot('node')">
+          <div class="anatomy-icon">🌱</div>
+          <div class="anatomy-texts">
+            <h4>Nodal Ring & Eye Bud</h4>
+            <p>Raised intercalary growth band with root primordia eyes.</p>
+          </div>
+        </div>
+
+        <div class="anatomy-card-3d" onclick="focusHotspot('wax')">
+          <div class="anatomy-icon">✨</div>
+          <div class="anatomy-texts">
+            <h4>Cuticular Wax Bloom</h4>
+            <p>Chalky white lipid band restricting water transpiration.</p>
+          </div>
+        </div>
+
+        <div class="anatomy-card-3d" onclick="focusHotspot('slice')">
+          <div class="anatomy-icon">🔬</div>
+          <div class="anatomy-texts">
+            <h4>Sucrose Pith Core</h4>
+            <p>Transverse section exposing sweet parenchyma & vessels.</p>
+          </div>
+        </div>
+
+        <div class="anatomy-card-3d" onclick="focusHotspot('crown')">
+          <div class="anatomy-icon">🍃</div>
+          <div class="anatomy-texts">
+            <h4>Veined Canopy Blades</h4>
+            <p>Photosynthetic leaf blades with structural pale midrib.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Right Anatomy Hotspots Panel -->
-    <div class="right-panel interactive">
-      <div class="hotspot-card" onclick="focusPart('internode')">
-        <div class="hotspot-icon">🎋</div>
-        <div class="hotspot-info">
-          <h4>Realistic Rind Skin</h4>
-          <p>Micro-grooved waxy epidermal layer with fibrous pores.</p>
+    <!-- Bottom Command Dock -->
+    <div class="bottom-dock interactive">
+      <div class="dock-pill">
+        <button class="dock-btn" id="dissectBtn" onclick="toggleDissection()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M4 12h16M12 4v16"/>
+          </svg>
+          <span>Dissect Internodes</span>
+        </button>
+
+        <button class="dock-btn" id="orbitBtn" onclick="toggleOrbit()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+          </svg>
+          <span>360° Auto-Orbit</span>
+        </button>
+
+        <button class="dock-btn" onclick="resetView()">
+          <span>Reset Camera</span>
+        </button>
+
+        <div class="mouse-hints">
+          <span>🖱️ Left-Click: Orbit</span>
+          <span>•</span>
+          <span>🖱️ Right-Click: Pan</span>
+          <span>•</span>
+          <span>📜 Scroll: Zoom</span>
         </div>
-      </div>
-
-      <div class="hotspot-card" onclick="focusPart('node')">
-        <div class="hotspot-icon">🌱</div>
-        <div class="hotspot-info">
-          <h4>Node Ring & Vegetative Eye</h4>
-          <p>Raised growth ring with root primordia dots & eye bud.</p>
-        </div>
-      </div>
-
-      <div class="hotspot-card" onclick="focusPart('wax')">
-        <div class="hotspot-icon">✨</div>
-        <div class="hotspot-info">
-          <h4>Cuticular Wax Bloom</h4>
-          <p>Powdery white lipid coating preventing transpiration.</p>
-        </div>
-      </div>
-
-      <div class="hotspot-card" onclick="focusPart('slice')">
-        <div class="hotspot-icon">🔬</div>
-        <div class="hotspot-info">
-          <h4>Vascular Pith Core</h4>
-          <p>Spongy translucent cells filled with pure sucrose sap.</p>
-        </div>
-      </div>
-
-      <div class="hotspot-card" onclick="focusPart('crown')">
-        <div class="hotspot-icon">🍃</div>
-        <div class="hotspot-info">
-          <h4>Veined Leaf Canopy</h4>
-          <p>Micro-textured leaf blade with pale structural midrib.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom Controls -->
-    <div class="bottom-bar interactive">
-      <button class="glass-btn" id="dissectBtn" onclick="toggleDissection()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M4 12h16M12 4v16"/>
-        </svg>
-        <span>Dissect Internodes</span>
-      </button>
-
-      <button class="glass-btn" id="orbitBtn" onclick="toggleOrbit()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
-        </svg>
-        <span>360° Auto-Orbit</span>
-      </button>
-
-      <button class="glass-btn" onclick="resetView()">
-        <span>Reset Camera</span>
-      </button>
-
-      <div class="hint-text">
-        <span>🖱️ Left-Click: Orbit</span>
-        <span>•</span>
-        <span>🖱️ Right-Click: Pan</span>
-        <span>•</span>
-        <span>📜 Scroll: Zoom</span>
       </div>
     </div>
 
@@ -770,8 +843,8 @@
 
   <!-- Climate Modal -->
   <div class="modal-veil" id="climateModal" onclick="checkClose(event, 'climateModal')">
-    <div class="modal-sheet">
-      <button class="close-btn" onclick="closeModal('climateModal')">&times;</button>
+    <div class="modal-sheet-3d">
+      <button class="close-icon-btn" onclick="closeModal('climateModal')">&times;</button>
       <h2 class="m-title">Climate & Soil Requirements</h2>
       <p class="m-sub">CBSE Class 10 Social Science &bull; Agriculture</p>
       
@@ -805,8 +878,8 @@
 
   <!-- Comparison Modal -->
   <div class="modal-veil" id="comparisonModal" onclick="checkClose(event, 'comparisonModal')">
-    <div class="modal-sheet">
-      <button class="close-btn" onclick="closeModal('comparisonModal')">&times;</button>
+    <div class="modal-sheet-3d">
+      <button class="close-icon-btn" onclick="closeModal('comparisonModal')">&times;</button>
       <h2 class="m-title">North India vs South India</h2>
       <p class="m-sub">Geographical Shift of the Sugar Industry</p>
 
@@ -846,8 +919,8 @@
 
   <!-- By-Products Modal -->
   <div class="modal-veil" id="byproductsModal" onclick="checkClose(event, 'byproductsModal')">
-    <div class="modal-sheet">
-      <button class="close-btn" onclick="closeModal('byproductsModal')">&times;</button>
+    <div class="modal-sheet-3d">
+      <button class="close-icon-btn" onclick="closeModal('byproductsModal')">&times;</button>
       <h2 class="m-title">Industrial Uses & By-Products</h2>
       <p class="m-sub">Circular Economy in Sugar Refining</p>
       
@@ -877,8 +950,8 @@
 
   <!-- Quiz Modal -->
   <div class="modal-veil" id="quizModal" onclick="checkClose(event, 'quizModal')">
-    <div class="modal-sheet">
-      <button class="close-btn" onclick="closeModal('quizModal')">&times;</button>
+    <div class="modal-sheet-3d">
+      <button class="close-icon-btn" onclick="closeModal('quizModal')">&times;</button>
       <h2 class="m-title">Class 10 Agriculture Quiz</h2>
       <p class="m-sub" id="qNum">Question 1 of 4</p>
       
@@ -887,12 +960,12 @@
 
       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px;">
         <span id="scoreTracker" style="color: #a7f3d0; font-weight: 700;">Score: 0 / 4</span>
-        <button class="glass-btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">Next Question &rarr;</button>
+        <button class="hud-action-btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">Next Question &rarr;</button>
       </div>
     </div>
   </div>
 
-  <!-- Three.js Scalable Engine -->
+  <!-- Three.js Engine with Rebalanced Tiers & High-Fidelity Rendering -->
   <script>
     const CROPS = [
       {
@@ -989,100 +1062,112 @@
 
     let currentCropIdx = 0;
     let isDissected = false;
-    let currentQuality = 'med'; // Default to 'med' (Balanced) for instant, lag-free loading!
+    let currentTier = 'balanced'; // Balanced is default!
 
-    // WebGL Setup
+    // WebGL Canvas & Scene
     const canvas = document.getElementById('webgl');
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x041009);
-    scene.fog = new THREE.FogExp2(0x041009, 0.04);
+    scene.background = new THREE.Color(0x030d07);
+    scene.fog = new THREE.FogExp2(0x030d07, 0.038);
 
-    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 1.8, 8.5);
+    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 1.8, 8.8);
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "default" });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = 1.25;
 
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.maxPolarAngle = Math.PI / 2 - 0.03;
-    controls.minDistance = 2.0;
+    controls.minDistance = 2.2;
     controls.maxDistance = 14;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 1.0;
-    controls.target.set(0, 1.3, 0);
+    controls.autoRotateSpeed = 0.9;
+    controls.target.set(0, 1.35, 0);
 
-    // Studio Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+    // Dynamic Multi-Angle Studio Illumination
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xe8fff2, 2.0);
+    const keyLight = new THREE.DirectionalLight(0xe8fff2, 2.2);
     keyLight.position.set(7, 14, 8);
     keyLight.castShadow = true;
-    keyLight.shadow.mapSize.set(1024, 1024); // Fast default
+    keyLight.shadow.mapSize.set(1024, 1024);
     keyLight.shadow.bias = -0.0001;
     scene.add(keyLight);
 
-    const warmRim = new THREE.DirectionalLight(0xfbbf24, 1.2);
+    const warmRim = new THREE.DirectionalLight(0xfbbf24, 1.3);
     warmRim.position.set(-8, 7, -6);
     scene.add(warmRim);
 
-    const coldFill = new THREE.DirectionalLight(0x6ee7b7, 0.8);
+    const coldFill = new THREE.DirectionalLight(0x6ee7b7, 0.85);
     coldFill.position.set(0, -6, 5);
     scene.add(coldFill);
 
-    // Fast Cache for Generated Textures (zero delay when switching crops)
+    // Texture Cache
     const textureCache = {};
 
-    // Optimized Procedural Texture Generator (Scales based on Graphics Quality)
-    function getSkinTextures(cropIdx, quality) {
-      const cacheKey = `${cropIdx}_${quality}`;
+    // Procedural Texture Engine (Standard, Balanced, and Absurdly High Cinematic Ultra)
+    function getSkinTextures(cropIdx, tier) {
+      const cacheKey = `${cropIdx}_${tier}`;
       if (textureCache[cacheKey]) return textureCache[cacheKey];
 
       const crop = CROPS[cropIdx];
       const baseRGB = crop.baseColor;
       const waxRGB = crop.waxColor;
 
-      // Resolution based on chosen level
-      let W = 256, H = 512; // Fast (Low)
-      if (quality === 'med')  { W = 512; H = 1024; } // Balanced (Default)
-      if (quality === 'high') { W = 1024; H = 2048; } // Ultra (Max)
+      let W = 256, H = 512;
+      if (tier === 'balanced')  { W = 512; H = 1024; }
+      if (tier === 'cinematic') { W = 1024; H = 2048; }
 
       const albedoCanvas = document.createElement('canvas');
       albedoCanvas.width = W;
       albedoCanvas.height = H;
       const actx = albedoCanvas.getContext('2d');
 
-      // Base gradient
+      // Albedo Base Gradient
       const grad = actx.createLinearGradient(0, 0, 0, H);
-      grad.addColorStop(0, `rgb(${baseRGB[0]*0.9}, ${baseRGB[1]*0.9}, ${baseRGB[2]*0.9})`);
+      grad.addColorStop(0, `rgb(${baseRGB[0]*0.92}, ${baseRGB[1]*0.92}, ${baseRGB[2]*0.92})`);
       grad.addColorStop(0.5, `rgb(${baseRGB[0]}, ${baseRGB[1]}, ${baseRGB[2]})`);
-      grad.addColorStop(1, `rgb(${baseRGB[0]*0.85}, ${baseRGB[1]*0.85}, ${baseRGB[2]*0.85})`);
+      grad.addColorStop(1, `rgb(${baseRGB[0]*0.88}, ${baseRGB[1]*0.88}, ${baseRGB[2]*0.88})`);
       actx.fillStyle = grad;
       actx.fillRect(0, 0, W, H);
 
-      // Fine longitudinal fibers (lightweight loops)
-      const step = quality === 'low' ? 6 : (quality === 'med' ? 3 : 2);
+      // Micro-striations
+      const step = tier === 'standard' ? 5 : (tier === 'balanced' ? 3 : 1);
       for (let x = 0; x < W; x += step) {
-        const v = Math.random() * 20 - 10;
-        actx.fillStyle = `rgba(${Math.min(255, baseRGB[0]+v)}, ${Math.min(255, baseRGB[1]+v)}, ${Math.min(255, baseRGB[2]+v)}, 0.4)`;
+        const v = (Math.random() - 0.5) * 24;
+        actx.fillStyle = `rgba(${Math.min(255, baseRGB[0]+v)}, ${Math.min(255, baseRGB[1]+v)}, ${Math.min(255, baseRGB[2]+v)}, 0.45)`;
         actx.fillRect(x, 0, 1 + Math.random()*2, H);
       }
 
-      // Cuticular Wax Bloom Band
+      // Cuticular Wax Bloom Band (Chalky waxy lipid deposit)
       const waxBandGrad = actx.createLinearGradient(0, H * 0.45, 0, H * 0.85);
       waxBandGrad.addColorStop(0, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0)`);
       waxBandGrad.addColorStop(0.3, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0.88)`);
-      waxBandGrad.addColorStop(0.7, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0.92)`);
+      waxBandGrad.addColorStop(0.7, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0.94)`);
       waxBandGrad.addColorStop(1, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0)`);
       actx.fillStyle = waxBandGrad;
       actx.fillRect(0, H * 0.45, W, H * 0.4);
+
+      // High-End Details (Lenticels and Cork Flecks for Balanced & Cinematic)
+      if (tier !== 'standard') {
+        const fleckCount = tier === 'cinematic' ? 1400 : 500;
+        for (let s = 0; s < fleckCount; s++) {
+          const px = Math.random() * W;
+          const py = Math.random() * H;
+          actx.fillStyle = `rgba(${baseRGB[0]*0.35}, ${baseRGB[1]*0.3}, ${baseRGB[2]*0.25}, ${0.15 + Math.random()*0.35})`;
+          actx.beginPath();
+          actx.arc(px, py, 0.8 + Math.random() * 1.5, 0, Math.PI * 2);
+          actx.fill();
+        }
+      }
 
       const albedoTex = new THREE.CanvasTexture(albedoCanvas);
       albedoTex.wrapS = THREE.RepeatWrapping;
@@ -1091,15 +1176,16 @@
       let normalTex = null;
       let roughTex = null;
 
-      if (quality === 'high') {
-        // High quality only: generate normal map and roughness map
+      // Real Normal & Roughness Maps for Balanced & Cinematic Ultra
+      if (tier !== 'standard') {
         const normalCanvas = document.createElement('canvas');
         normalCanvas.width = W; normalCanvas.height = H;
         const nctx = normalCanvas.getContext('2d');
         nctx.fillStyle = "rgb(128, 128, 255)";
         nctx.fillRect(0, 0, W, H);
-        for (let rx = 0; rx < W; rx += 4) {
-          const d = (Math.random() - 0.5) * 45;
+
+        for (let rx = 0; rx < W; rx += (tier === 'cinematic' ? 3 : 5)) {
+          const d = (Math.random() - 0.5) * (tier === 'cinematic' ? 50 : 35);
           nctx.fillStyle = `rgb(${128 + d}, 128, 255)`;
           nctx.fillRect(rx, 0, 2, H);
         }
@@ -1111,12 +1197,14 @@
         const rctx = roughCanvas.getContext('2d');
         rctx.fillStyle = "rgb(75, 75, 75)";
         rctx.fillRect(0, 0, W, H);
+
         const rWax = rctx.createLinearGradient(0, H * 0.45, 0, H * 0.85);
         rWax.addColorStop(0, "rgba(220, 220, 220, 0)");
         rWax.addColorStop(0.3, "rgba(220, 220, 220, 0.9)");
         rWax.addColorStop(1, "rgba(220, 220, 220, 0)");
         rctx.fillStyle = rWax;
         rctx.fillRect(0, H * 0.45, W, H * 0.4);
+
         roughTex = new THREE.CanvasTexture(roughCanvas);
         roughTex.wrapS = THREE.RepeatWrapping; roughTex.wrapT = THREE.RepeatWrapping;
       }
@@ -1125,21 +1213,45 @@
       return textureCache[cacheKey];
     }
 
-    // Fast Single Leaf Texture
+    // Leaf Texture
     const leafCanvas = document.createElement('canvas');
-    leafCanvas.width = 256; leafCanvas.height = 512;
+    leafCanvas.width = 512; leafCanvas.height = 1024;
     const lctx = leafCanvas.getContext('2d');
-    const lg = lctx.createLinearGradient(0, 0, 256, 0);
+    const lg = lctx.createLinearGradient(0, 0, 512, 0);
     lg.addColorStop(0, "#15632b");
     lg.addColorStop(0.48, "#1a7d36");
-    lg.addColorStop(0.5, "#86efac"); // Midrib
+    lg.addColorStop(0.5, "#86efac"); // Pale midrib
     lg.addColorStop(0.52, "#1a7d36");
     lg.addColorStop(1, "#15632b");
     lctx.fillStyle = lg;
-    lctx.fillRect(0, 0, 256, 512);
+    lctx.fillRect(0, 0, 512, 1024);
+    for (let x = 0; x < 512; x += 4) {
+      lctx.fillStyle = `rgba(255, 255, 255, ${0.04 + Math.random()*0.06})`;
+      lctx.fillRect(x, 0, 1, 1024);
+    }
     const leafTex = new THREE.CanvasTexture(leafCanvas);
 
-    // Soil Pedestal Ground Mesh
+    // Transverse Pith End Cap Texture
+    function generatePithCap(pithRGB) {
+      const c = document.createElement('canvas');
+      c.width = 512; c.height = 512;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = `rgb(${pithRGB[0]}, ${pithRGB[1]}, ${pithRGB[2]})`;
+      ctx.fillRect(0, 0, 512, 512);
+
+      const center = 256;
+      for (let i = 0; i < 700; i++) {
+        const rad = Math.sqrt(Math.random()) * 240;
+        const theta = Math.random() * Math.PI * 2;
+        ctx.fillStyle = "rgba(180, 160, 120, 0.4)";
+        ctx.beginPath();
+        ctx.arc(center + Math.cos(theta) * rad, center + Math.sin(theta) * rad, 1.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      return new THREE.CanvasTexture(c);
+    }
+
+    // Soil Pedestal Mesh
     const soilGeo = new THREE.CylinderGeometry(4.3, 4.7, 0.36, 48);
     const soilMat = new THREE.MeshStandardMaterial({ color: 0x112116, roughness: 0.95 });
     const soil = new THREE.Mesh(soilGeo, soilMat);
@@ -1147,7 +1259,7 @@
     soil.receiveShadow = true;
     scene.add(soil);
 
-    // Concentric Ring
+    // Guide Ring
     const ringGeo = new THREE.RingGeometry(3.6, 3.68, 48);
     const ringMat = new THREE.MeshBasicMaterial({ color: 0x34d399, side: THREE.DoubleSide });
     const ring = new THREE.Mesh(ringGeo, ringMat);
@@ -1155,7 +1267,7 @@
     ring.position.y = -1.61;
     scene.add(ring);
 
-    // Sugarcane Plant Group
+    // Plant 3D Assembly
     const caneGroup = new THREE.Group();
     scene.add(caneGroup);
 
@@ -1163,8 +1275,8 @@
     let crownLeaves = [];
     let partPositions = {};
 
-    // Build Model with Chosen Complexity
-    function buildModel(cropIdx, quality) {
+    // Build 3D Plant with Selected Tier
+    function buildSugarcane(cropIdx, tier) {
       while (caneGroup.children.length > 0) {
         caneGroup.remove(caneGroup.children[0]);
       }
@@ -1177,44 +1289,52 @@
       const r = data.radius;
       const len = data.segLen;
 
-      // Textures
-      const { albedoTex, normalTex, roughTex } = getSkinTextures(cropIdx, quality);
+      const { albedoTex, normalTex, roughTex } = getSkinTextures(cropIdx, tier);
+      const pithCapTex = generatePithCap(data.pithColor);
 
-      // Geometry detail by quality
-      const radialSegs = quality === 'low' ? 20 : (quality === 'med' ? 32 : 48);
-      const leafCount = quality === 'low' ? 7 : (quality === 'med' ? 10 : 12);
+      // Radial density
+      const radialSegs = tier === 'standard' ? 24 : (tier === 'balanced' ? 36 : 64);
+      const leafCount = tier === 'standard' ? 8 : (tier === 'balanced' ? 11 : 14);
 
-      // Materials dynamically tuned to selected quality
+      // Materials configured strictly per tier
       let skinMat, nodeMat, pithMat;
 
-      if (quality === 'high') {
+      if (tier === 'cinematic') {
+        // Real Max Graphics (Absurdly high fidelity)
         skinMat = new THREE.MeshPhysicalMaterial({
           map: albedoTex,
           normalMap: normalTex,
-          normalScale: new THREE.Vector2(0.8, 0.8),
+          normalScale: new THREE.Vector2(0.9, 0.9),
           roughnessMap: roughTex,
-          roughness: 0.35,
+          roughness: 0.32,
           metalness: 0.05,
-          clearcoat: 0.75,
-          clearcoatRoughness: 0.18
+          clearcoat: 0.85,
+          clearcoatRoughness: 0.15,
+          sheen: 0.9,
+          sheenColor: new THREE.Color(0xa7f3d0)
         });
         nodeMat = new THREE.MeshPhysicalMaterial({
           color: new THREE.Color(data.nodeColor[0]/255, data.nodeColor[1]/255, data.nodeColor[2]/255),
           roughness: 0.65,
-          clearcoat: 0.3
+          clearcoat: 0.4
         });
         pithMat = new THREE.MeshPhysicalMaterial({
           color: new THREE.Color(data.pithColor[0]/255, data.pithColor[1]/255, data.pithColor[2]/255),
-          roughness: 0.45,
-          transmission: 0.2,
-          thickness: 0.4
-        });
-      } else {
-        // 'med' (Balanced) and 'low' (Fast) use efficient MeshStandardMaterial
-        skinMat = new THREE.MeshStandardMaterial({
-          map: albedoTex,
           roughness: 0.4,
-          metalness: 0.08
+          transmission: 0.25,
+          thickness: 0.45
+        });
+      } else if (tier === 'balanced') {
+        // Balanced (Default: realistic PBR waxy skin, sharp normal map, smooth 60 FPS)
+        skinMat = new THREE.MeshPhysicalMaterial({
+          map: albedoTex,
+          normalMap: normalTex,
+          normalScale: new THREE.Vector2(0.65, 0.65),
+          roughnessMap: roughTex,
+          roughness: 0.38,
+          metalness: 0.05,
+          clearcoat: 0.65,
+          clearcoatRoughness: 0.22
         });
         nodeMat = new THREE.MeshStandardMaterial({
           color: new THREE.Color(data.nodeColor[0]/255, data.nodeColor[1]/255, data.nodeColor[2]/255),
@@ -1224,10 +1344,25 @@
           color: new THREE.Color(data.pithColor[0]/255, data.pithColor[1]/255, data.pithColor[2]/255),
           roughness: 0.5
         });
+      } else {
+        // Standard (Fast & lightweight)
+        skinMat = new THREE.MeshStandardMaterial({
+          map: albedoTex,
+          roughness: 0.45,
+          metalness: 0.05
+        });
+        nodeMat = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(data.nodeColor[0]/255, data.nodeColor[1]/255, data.nodeColor[2]/255),
+          roughness: 0.8
+        });
+        pithMat = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(data.pithColor[0]/255, data.pithColor[1]/255, data.pithColor[2]/255),
+          roughness: 0.6
+        });
       }
 
       // Root Cluster
-      const rootCount = quality === 'low' ? 6 : (quality === 'med' ? 10 : 14);
+      const rootCount = tier === 'standard' ? 6 : (tier === 'balanced' ? 10 : 14);
       const rootMat = new THREE.MeshStandardMaterial({ color: 0x4a3525, roughness: 0.9 });
       for (let b = 0; b < rootCount; b++) {
         const angle = (b / rootCount) * Math.PI * 2;
@@ -1239,11 +1374,11 @@
         );
         const rootGeo = new THREE.TubeGeometry(rootCurve, 10, 0.026, 6, false);
         const rootMesh = new THREE.Mesh(rootGeo, rootMat);
-        if (quality !== 'low') rootMesh.castShadow = true;
+        if (tier !== 'standard') rootMesh.castShadow = true;
         caneGroup.add(rootMesh);
       }
 
-      // Internodes
+      // Internodes with Anatomical Sliced Cutaway
       for (let i = 0; i < count; i++) {
         const segGroup = new THREE.Group();
         const yCenter = startY + (i + 0.5) * len;
@@ -1252,16 +1387,16 @@
         if (!isSliced) {
           const cylGeo = new THREE.CylinderGeometry(r * 0.96, r, len * 0.94, radialSegs);
           const cylMesh = new THREE.Mesh(cylGeo, skinMat);
-          if (quality !== 'low') {
+          if (tier !== 'standard') {
             cylMesh.castShadow = true;
             cylMesh.receiveShadow = true;
           }
           segGroup.add(cylMesh);
         } else {
-          // Cross-Section Cutaway
+          // Transverse Cutaway
           const sliceGeo = new THREE.CylinderGeometry(r * 0.96, r, len * 0.94, radialSegs, 1, false, 0, Math.PI * 1.5);
           const sliceMesh = new THREE.Mesh(sliceGeo, skinMat);
-          if (quality !== 'low') sliceMesh.castShadow = true;
+          if (tier !== 'standard') sliceMesh.castShadow = true;
           segGroup.add(sliceMesh);
 
           const pithGeo = new THREE.CylinderGeometry(r * 0.93, r * 0.96, len * 0.92, radialSegs, 1, false, Math.PI * 1.5, Math.PI * 0.5);
@@ -1269,7 +1404,8 @@
           segGroup.add(pithMesh);
 
           const capGeo = new THREE.CircleGeometry(r * 0.95, radialSegs);
-          const capMesh = new THREE.Mesh(capGeo, pithMat);
+          const capMat = new THREE.MeshStandardMaterial({ map: pithCapTex, roughness: 0.4 });
+          const capMesh = new THREE.Mesh(capGeo, capMat);
           capMesh.rotation.x = -Math.PI / 2;
           capMesh.position.y = len * 0.47;
           segGroup.add(capMesh);
@@ -1282,7 +1418,7 @@
         const nodeMesh = new THREE.Mesh(nodeTorusGeo, nodeMat);
         nodeMesh.rotation.x = Math.PI / 2;
         nodeMesh.position.y = len * 0.47;
-        if (quality !== 'low') nodeMesh.castShadow = true;
+        if (tier !== 'standard') nodeMesh.castShadow = true;
         segGroup.add(nodeMesh);
 
         // Vegetative Eye Bud
@@ -1329,7 +1465,7 @@
 
         const leafGeo = new THREE.TubeGeometry(curve, 24, 0.065, 6, false);
         const leafMesh = new THREE.Mesh(leafGeo, leafMat);
-        if (quality !== 'low') leafMesh.castShadow = true;
+        if (tier !== 'standard') leafMesh.castShadow = true;
 
         const leafGroup = new THREE.Group();
         leafGroup.rotation.y = (j / leafCount) * Math.PI * 2;
@@ -1346,32 +1482,31 @@
       }
     }
 
-    // Set Graphics Preset dynamically with NO reload
-    function setGraphicsPreset(preset) {
-      currentQuality = preset;
-      
-      document.getElementById('gfxLow').classList.toggle('active', preset === 'low');
-      document.getElementById('gfxMed').classList.toggle('active', preset === 'med');
-      document.getElementById('gfxHigh').classList.toggle('active', preset === 'high');
+    // Set Graphics Tier (Rebalanced)
+    function setGraphicsTier(tier) {
+      currentTier = tier;
 
-      if (preset === 'low') {
+      document.getElementById('tierStandard').classList.toggle('active', tier === 'standard');
+      document.getElementById('tierBalanced').classList.toggle('active', tier === 'balanced');
+      document.getElementById('tierCinematic').classList.toggle('active', tier === 'cinematic');
+
+      if (tier === 'standard') {
         renderer.setPixelRatio(1.0);
         keyLight.castShadow = false;
         renderer.shadowMap.enabled = false;
-      } else if (preset === 'med') {
+      } else if (tier === 'balanced') {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
         keyLight.castShadow = true;
         keyLight.shadow.mapSize.set(1024, 1024);
         renderer.shadowMap.enabled = true;
-      } else if (preset === 'high') {
+      } else if (tier === 'cinematic') {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
         keyLight.castShadow = true;
-        keyLight.shadow.mapSize.set(2048, 2048);
+        keyLight.shadow.mapSize.set(4096, 4096);
         renderer.shadowMap.enabled = true;
       }
 
-      // Rebuild model seamlessly without lag
-      buildModel(currentCropIdx, currentQuality);
+      buildSugarcane(currentCropIdx, currentTier);
     }
 
     // Set Crop Variety
@@ -1379,7 +1514,7 @@
       currentCropIdx = idx;
       const data = CROPS[idx];
 
-      document.querySelectorAll('.v-pill').forEach((btn, i) => {
+      document.querySelectorAll('.crop-pill-btn').forEach((btn, i) => {
         btn.classList.toggle('active', i === idx);
       });
 
@@ -1392,22 +1527,21 @@
       document.getElementById('cZone').textContent = data.zone;
       document.getElementById('cMaturity').textContent = data.maturity;
 
-      buildModel(idx, currentQuality);
+      buildSugarcane(idx, currentTier);
 
-      // Fast, snappy spring animation (200ms)
       caneGroup.scale.set(0.2, 0.2, 0.2);
       gsap.to(caneGroup.scale, { x: 1, y: 1, z: 1, duration: 0.35, ease: "back.out(1.2)" });
     }
 
-    // Camera Focus on Specific Part
-    function focusPart(partKey) {
+    // Hotspot Focus
+    function focusHotspot(partKey) {
       controls.autoRotate = false;
       document.getElementById('orbitBtn').classList.remove('active');
 
       const targetPos = partPositions[partKey];
       if (!targetPos) return;
 
-      document.querySelectorAll('.hotspot-card').forEach(card => card.classList.remove('active'));
+      document.querySelectorAll('.anatomy-card-3d').forEach(card => card.classList.remove('active'));
       event.currentTarget.classList.add('active');
 
       const label = document.getElementById('pointAnnotation');
@@ -1438,7 +1572,7 @@
       });
     }
 
-    // Toggle Dissection
+    // Dissection Toggle
     function toggleDissection() {
       isDissected = !isDissected;
       const btn = document.getElementById('dissectBtn');
@@ -1455,18 +1589,18 @@
       });
     }
 
-    // Toggle Auto Orbit
+    // Auto Orbit
     function toggleOrbit() {
       controls.autoRotate = !controls.autoRotate;
       document.getElementById('orbitBtn').classList.toggle('active', controls.autoRotate);
     }
 
-    // Reset Camera View
+    // Reset View
     function resetView() {
-      gsap.to(camera.position, { x: 0, y: 1.8, z: 8.5, duration: 0.6, ease: "power2.out" });
-      gsap.to(controls.target, { x: 0, y: 1.3, z: 0, duration: 0.6, ease: "power2.out" });
+      gsap.to(camera.position, { x: 0, y: 1.8, z: 8.8, duration: 0.6, ease: "power2.out" });
+      gsap.to(controls.target, { x: 0, y: 1.35, z: 0, duration: 0.6, ease: "power2.out" });
       document.getElementById('pointAnnotation').style.opacity = '0';
-      document.querySelectorAll('.hotspot-card').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.anatomy-card-3d').forEach(c => c.classList.remove('active'));
     }
 
     // Modals
@@ -1484,7 +1618,7 @@
       if (e.target.id === id) closeModal(id);
     }
 
-    // Quiz
+    // Class 10 Quiz
     const QUIZ = [
       {
         q: "What is the optimal temperature range required for sugarcane cultivation?",
@@ -1562,14 +1696,14 @@
       }
     }
 
-    // Render & Animation Loop
+    // Animation Loop
     let clock = new THREE.Clock();
 
     function animate() {
       requestAnimationFrame(animate);
       const time = clock.getElapsedTime();
 
-      // Gentle breeze swaying canopy leaves
+      // Gentle breeze swaying crown leaves
       crownLeaves.forEach((leaf, i) => {
         leaf.rotation.z = Math.sin(time * 1.5 + i) * 0.045;
       });
@@ -1585,24 +1719,23 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Desktop Windows Keyboard Shortcuts
+    // Shortcuts
     window.addEventListener('keydown', (e) => {
       if (e.key === 'r' || e.key === 'R') toggleOrbit();
       if (e.key === 'd' || e.key === 'D') toggleDissection();
-      if (e.key === '1') setGraphicsPreset('low');
-      if (e.key === '2') setGraphicsPreset('med');
-      if (e.key === '3') setGraphicsPreset('high');
+      if (e.key === '1') setGraphicsTier('standard');
+      if (e.key === '2') setGraphicsTier('balanced');
+      if (e.key === '3') setGraphicsTier('cinematic');
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal-veil').forEach(m => m.classList.remove('open'));
         document.getElementById('pointAnnotation').style.opacity = '0';
       }
     });
 
-    // Initialize with Balanced preset on load (instant, smooth, lag-free)
-    setGraphicsPreset('med');
+    // Initial Load (Boots smoothly in Balanced tier by default)
+    setGraphicsTier('balanced');
     renderQuiz();
     animate();
   </script>
 </body>
 </html>
-
