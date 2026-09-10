@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sugarcane 3D Max Graphics | By Ryan and Adarsh</title>
+  <title>Sugarcane 3D Interactive World | By Ryan and Adarsh</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,8 +22,8 @@
       --gold: #fbbf24;
       --bg-dark: #041009;
       --glass-panel: rgba(10, 32, 21, 0.82);
-      --glass-border: rgba(255, 255, 255, 0.22);
-      --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.38);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.35);
       --font-heading: 'Outfit', sans-serif;
       --font-body: 'Plus Jakarta Sans', sans-serif;
     }
@@ -54,7 +54,6 @@
       outline: none;
     }
 
-    /* Cinematic Vignette Overlay */
     .vignette {
       position: absolute;
       top: 0;
@@ -66,7 +65,7 @@
       background: radial-gradient(circle at 50% 50%, transparent 55%, rgba(1, 10, 5, 0.65) 100%);
     }
 
-    /* UI Layout Layer */
+    /* HUD Layout Layer */
     .hud-layer {
       position: absolute;
       top: 0;
@@ -100,7 +99,7 @@
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
       border-radius: 9999px;
-      padding: 10px 24px;
+      padding: 8px 22px;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -109,7 +108,7 @@
     .brand-title {
       font-family: var(--font-heading);
       font-weight: 800;
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       letter-spacing: 0.5px;
       text-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
     }
@@ -126,22 +125,61 @@
       box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
     }
 
-    .graphics-tag {
-      background: rgba(251, 191, 36, 0.15);
-      border: 1px solid rgba(251, 191, 36, 0.4);
-      color: var(--gold);
-      font-size: 0.68rem;
+    /* Top-Right Graphics Complexity Switcher */
+    .graphics-control-dock {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--glass-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      border-radius: 9999px;
+      padding: 5px 8px;
+    }
+
+    .gfx-label {
+      font-size: 0.72rem;
       font-weight: 800;
-      text-transform: uppercase;
       letter-spacing: 1px;
-      padding: 3px 8px;
-      border-radius: 6px;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 0 8px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .gfx-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid transparent;
+      color: #cbd5e1;
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .gfx-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .gfx-btn.active {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
     }
 
     .nav-bar {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .glass-btn {
@@ -153,13 +191,13 @@
       color: #fff;
       font-family: var(--font-heading);
       font-weight: 700;
-      font-size: 0.88rem;
-      padding: 10px 20px;
+      font-size: 0.85rem;
+      padding: 9px 18px;
       border-radius: 9999px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       transition: all 0.2s ease;
     }
 
@@ -182,7 +220,7 @@
       left: 32px;
       top: 50%;
       transform: translateY(-50%);
-      width: 360px;
+      width: 350px;
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -210,7 +248,7 @@
 
     .crop-name {
       font-family: var(--font-heading);
-      font-size: 2.2rem;
+      font-size: 2.1rem;
       font-weight: 900;
       line-height: 1.1;
       margin-bottom: 2px;
@@ -225,7 +263,7 @@
 
     .crop-desc {
       color: #cbd5e1;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       line-height: 1.55;
       margin-bottom: 18px;
     }
@@ -295,7 +333,7 @@
       right: 32px;
       top: 50%;
       transform: translateY(-50%);
-      width: 330px;
+      width: 320px;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -308,7 +346,7 @@
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
       border-radius: 20px;
-      padding: 15px 18px;
+      padding: 14px 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -329,28 +367,28 @@
     }
 
     .hotspot-icon {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 14px;
       background: rgba(52, 211, 153, 0.15);
       border: 1px solid rgba(52, 211, 153, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       flex-shrink: 0;
     }
 
     .hotspot-info h4 {
       font-family: var(--font-heading);
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-weight: 700;
       color: #ffffff;
       margin-bottom: 2px;
     }
 
     .hotspot-info p {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: #94a3b8;
       line-height: 1.35;
     }
@@ -599,7 +637,14 @@
         </svg>
         <span class="brand-title">By Ryan and Adarsh</span>
         <span class="tag-pill">Class 10 Agriculture</span>
-        <span class="graphics-tag">Ultra PBR 4K Skins</span>
+      </div>
+
+      <!-- Graphics Quality Switcher (Instant lag-free selector) -->
+      <div class="graphics-control-dock">
+        <span class="gfx-label">⚡ Graphics:</span>
+        <button class="gfx-btn" id="gfxLow" onclick="setGraphicsPreset('low')" title="High FPS, zero lag, low CPU usage">Fast (Low)</button>
+        <button class="gfx-btn active" id="gfxMed" onclick="setGraphicsPreset('med')" title="Default: Balanced 60 FPS with sharp textures">Balanced (Default)</button>
+        <button class="gfx-btn" id="gfxHigh" onclick="setGraphicsPreset('high')" title="Full PBR clearcoat wax & soft shadows for gaming PCs">Ultra (Max)</button>
       </div>
 
       <div class="nav-bar">
@@ -847,7 +892,7 @@
     </div>
   </div>
 
-  <!-- High-Fidelity Three.js Engine -->
+  <!-- Three.js Scalable Engine -->
   <script>
     const CROPS = [
       {
@@ -944,8 +989,9 @@
 
     let currentCropIdx = 0;
     let isDissected = false;
+    let currentQuality = 'med'; // Default to 'med' (Balanced) for instant, lag-free loading!
 
-    // WebGL Scene Setup
+    // WebGL Setup
     const canvas = document.getElementById('webgl');
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x041009);
@@ -954,13 +1000,13 @@
     const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 1.8, 8.5);
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance" });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "default" });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.2;
 
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
@@ -972,30 +1018,42 @@
     controls.autoRotateSpeed = 1.0;
     controls.target.set(0, 1.3, 0);
 
-    // Ultra Studio Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    // Studio Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xe8fff2, 2.2);
+    const keyLight = new THREE.DirectionalLight(0xe8fff2, 2.0);
     keyLight.position.set(7, 14, 8);
     keyLight.castShadow = true;
-    keyLight.shadow.mapSize.set(4096, 4096);
+    keyLight.shadow.mapSize.set(1024, 1024); // Fast default
     keyLight.shadow.bias = -0.0001;
     scene.add(keyLight);
 
-    const warmRim = new THREE.DirectionalLight(0xfbbf24, 1.3);
+    const warmRim = new THREE.DirectionalLight(0xfbbf24, 1.2);
     warmRim.position.set(-8, 7, -6);
     scene.add(warmRim);
 
-    const coldFill = new THREE.DirectionalLight(0x6ee7b7, 0.85);
+    const coldFill = new THREE.DirectionalLight(0x6ee7b7, 0.8);
     coldFill.position.set(0, -6, 5);
     scene.add(coldFill);
 
-    // High-Resolution Procedural PBR Texture Generator (Ultra Skin Clarity)
-    function generateUltraSkinMaps(baseRGB, waxRGB) {
-      const W = 1024, H = 2048;
-      
-      // 1. Diffuse / Albedo Map
+    // Fast Cache for Generated Textures (zero delay when switching crops)
+    const textureCache = {};
+
+    // Optimized Procedural Texture Generator (Scales based on Graphics Quality)
+    function getSkinTextures(cropIdx, quality) {
+      const cacheKey = `${cropIdx}_${quality}`;
+      if (textureCache[cacheKey]) return textureCache[cacheKey];
+
+      const crop = CROPS[cropIdx];
+      const baseRGB = crop.baseColor;
+      const waxRGB = crop.waxColor;
+
+      // Resolution based on chosen level
+      let W = 256, H = 512; // Fast (Low)
+      if (quality === 'med')  { W = 512; H = 1024; } // Balanced (Default)
+      if (quality === 'high') { W = 1024; H = 2048; } // Ultra (Max)
+
       const albedoCanvas = document.createElement('canvas');
       albedoCanvas.width = W;
       albedoCanvas.height = H;
@@ -1009,167 +1067,88 @@
       actx.fillStyle = grad;
       actx.fillRect(0, 0, W, H);
 
-      // Fine longitudinal fibers & micro-striations
-      for (let x = 0; x < W; x += 2) {
-        const v = Math.random() * 25 - 12;
-        actx.fillStyle = `rgba(${Math.min(255, baseRGB[0]+v)}, ${Math.min(255, baseRGB[1]+v)}, ${Math.min(255, baseRGB[2]+v)}, 0.45)`;
+      // Fine longitudinal fibers (lightweight loops)
+      const step = quality === 'low' ? 6 : (quality === 'med' ? 3 : 2);
+      for (let x = 0; x < W; x += step) {
+        const v = Math.random() * 20 - 10;
+        actx.fillStyle = `rgba(${Math.min(255, baseRGB[0]+v)}, ${Math.min(255, baseRGB[1]+v)}, ${Math.min(255, baseRGB[2]+v)}, 0.4)`;
         actx.fillRect(x, 0, 1 + Math.random()*2, H);
       }
 
-      // Micro-freckles, corky lenticels, and natural sun patina
-      for (let s = 0; s < 1800; s++) {
-        const px = Math.random() * W;
-        const py = Math.random() * H;
-        const radius = 0.8 + Math.random() * 1.5;
-        actx.fillStyle = `rgba(${baseRGB[0]*0.4}, ${baseRGB[1]*0.35}, ${baseRGB[2]*0.3}, ${0.15 + Math.random()*0.35})`;
-        actx.beginPath();
-        actx.arc(px, py, radius, 0, Math.PI * 2);
-        actx.fill();
-      }
-
-      // Dense Cuticular Wax Bloom Band (Chalky waxy white band near upper third)
+      // Cuticular Wax Bloom Band
       const waxBandGrad = actx.createLinearGradient(0, H * 0.45, 0, H * 0.85);
       waxBandGrad.addColorStop(0, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0)`);
       waxBandGrad.addColorStop(0.3, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0.88)`);
-      waxBandGrad.addColorStop(0.7, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0.95)`);
+      waxBandGrad.addColorStop(0.7, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0.92)`);
       waxBandGrad.addColorStop(1, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0)`);
       actx.fillStyle = waxBandGrad;
       actx.fillRect(0, H * 0.45, W, H * 0.4);
 
-      // Organic feathered wax edges and natural rub marks
-      for (let i = 0; i < 400; i++) {
-        const wx = Math.random() * W;
-        const wy = H * 0.5 + Math.random() * (H * 0.32);
-        actx.fillStyle = `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0.35)`;
-        actx.fillRect(wx, wy, 2 + Math.random()*8, 4 + Math.random()*20);
-      }
-
-      // 2. Normal Map (Detailed Tangent Space for Micro-grooves and Pores)
-      const normalCanvas = document.createElement('canvas');
-      normalCanvas.width = W;
-      normalCanvas.height = H;
-      const nctx = normalCanvas.getContext('2d');
-      // Neutral normal is rgb(128, 128, 255)
-      nctx.fillStyle = "rgb(128, 128, 255)";
-      nctx.fillRect(0, 0, W, H);
-
-      // Imprint vertical rind ridges
-      for (let rx = 0; rx < W; rx += 4) {
-        const d = (Math.random() - 0.5) * 45;
-        nctx.fillStyle = `rgb(${128 + d}, 128, 255)`;
-        nctx.fillRect(rx, 0, 2, H);
-      }
-
-      // 3. Roughness Map (Glossy lacquered rind vs powdery matte wax)
-      const roughCanvas = document.createElement('canvas');
-      roughCanvas.width = W;
-      roughCanvas.height = H;
-      const rctx = roughCanvas.getContext('2d');
-      // Rind is smooth/glossy (roughness ~ 0.28)
-      rctx.fillStyle = "rgb(75, 75, 75)";
-      rctx.fillRect(0, 0, W, H);
-
-      // Wax band is powdery and matte (roughness ~ 0.85)
-      const roughWaxGrad = rctx.createLinearGradient(0, H * 0.45, 0, H * 0.85);
-      roughWaxGrad.addColorStop(0, "rgba(220, 220, 220, 0)");
-      roughWaxGrad.addColorStop(0.3, "rgba(220, 220, 220, 0.9)");
-      roughWaxGrad.addColorStop(0.7, "rgba(220, 220, 220, 0.95)");
-      roughWaxGrad.addColorStop(1, "rgba(220, 220, 220, 0)");
-      rctx.fillStyle = roughWaxGrad;
-      rctx.fillRect(0, H * 0.45, W, H * 0.4);
-
-      // Textures
       const albedoTex = new THREE.CanvasTexture(albedoCanvas);
       albedoTex.wrapS = THREE.RepeatWrapping;
       albedoTex.wrapT = THREE.RepeatWrapping;
-      albedoTex.repeat.set(1, 1);
 
-      const normalTex = new THREE.CanvasTexture(normalCanvas);
-      normalTex.wrapS = THREE.RepeatWrapping;
-      normalTex.wrapT = THREE.RepeatWrapping;
-      normalTex.repeat.set(1, 1);
+      let normalTex = null;
+      let roughTex = null;
 
-      const roughTex = new THREE.CanvasTexture(roughCanvas);
-      roughTex.wrapS = THREE.RepeatWrapping;
-      roughTex.wrapT = THREE.RepeatWrapping;
-      roughTex.repeat.set(1, 1);
+      if (quality === 'high') {
+        // High quality only: generate normal map and roughness map
+        const normalCanvas = document.createElement('canvas');
+        normalCanvas.width = W; normalCanvas.height = H;
+        const nctx = normalCanvas.getContext('2d');
+        nctx.fillStyle = "rgb(128, 128, 255)";
+        nctx.fillRect(0, 0, W, H);
+        for (let rx = 0; rx < W; rx += 4) {
+          const d = (Math.random() - 0.5) * 45;
+          nctx.fillStyle = `rgb(${128 + d}, 128, 255)`;
+          nctx.fillRect(rx, 0, 2, H);
+        }
+        normalTex = new THREE.CanvasTexture(normalCanvas);
+        normalTex.wrapS = THREE.RepeatWrapping; normalTex.wrapT = THREE.RepeatWrapping;
 
-      return { albedoTex, normalTex, roughTex };
-    }
-
-    // High-Resolution Leaf Texture (Vascular veins and structural pale midrib)
-    function generateLeafTexture() {
-      const LW = 512, LH = 1024;
-      const c = document.createElement('canvas');
-      c.width = LW; c.height = LH;
-      const ctx = c.getContext('2d');
-
-      // Lush chlorophyll green gradient
-      const lg = ctx.createLinearGradient(0, 0, LW, 0);
-      lg.addColorStop(0, "#15632b");
-      lg.addColorStop(0.48, "#1a7d36");
-      lg.addColorStop(0.5, "#86efac"); // Light central midrib
-      lg.addColorStop(0.52, "#1a7d36");
-      lg.addColorStop(1, "#15632b");
-      ctx.fillStyle = lg;
-      ctx.fillRect(0, 0, LW, LH);
-
-      // Fine parallel veins running along leaf blade
-      for (let x = 0; x < LW; x += 3) {
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.05 + Math.random()*0.08})`;
-        ctx.fillRect(x, 0, 1, LH);
+        const roughCanvas = document.createElement('canvas');
+        roughCanvas.width = W; roughCanvas.height = H;
+        const rctx = roughCanvas.getContext('2d');
+        rctx.fillStyle = "rgb(75, 75, 75)";
+        rctx.fillRect(0, 0, W, H);
+        const rWax = rctx.createLinearGradient(0, H * 0.45, 0, H * 0.85);
+        rWax.addColorStop(0, "rgba(220, 220, 220, 0)");
+        rWax.addColorStop(0.3, "rgba(220, 220, 220, 0.9)");
+        rWax.addColorStop(1, "rgba(220, 220, 220, 0)");
+        rctx.fillStyle = rWax;
+        rctx.fillRect(0, H * 0.45, W, H * 0.4);
+        roughTex = new THREE.CanvasTexture(roughCanvas);
+        roughTex.wrapS = THREE.RepeatWrapping; roughTex.wrapT = THREE.RepeatWrapping;
       }
-      return new THREE.CanvasTexture(c);
+
+      textureCache[cacheKey] = { albedoTex, normalTex, roughTex };
+      return textureCache[cacheKey];
     }
-    const leafTex = generateLeafTexture();
 
-    // High-Resolution Transverse Pith Texture (Vascular bundles and sugar sacs)
-    function generatePithEndTexture(pithRGB) {
-      const PW = 512, PH = 512;
-      const c = document.createElement('canvas');
-      c.width = PW; c.height = PH;
-      const ctx = c.getContext('2d');
-
-      // Crisp white spongy parenchyma
-      ctx.fillStyle = `rgb(${pithRGB[0]}, ${pithRGB[1]}, ${pithRGB[2]})`;
-      ctx.fillRect(0, 0, PW, PH);
-
-      // Scattered translucent vascular bundles (sucrose transport tubes)
-      const center = PW / 2;
-      for (let i = 0; i < 900; i++) {
-        const rad = Math.sqrt(Math.random()) * (center - 10);
-        const theta = Math.random() * Math.PI * 2;
-        const x = center + Math.cos(theta) * rad;
-        const y = center + Math.sin(theta) * rad;
-        
-        ctx.fillStyle = "rgba(180, 160, 120, 0.4)";
-        ctx.beginPath();
-        ctx.arc(x, y, 1.2 + Math.random() * 1.6, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Little dark center of xylem tube
-        ctx.fillStyle = "rgba(80, 60, 40, 0.45)";
-        ctx.beginPath();
-        ctx.arc(x, y, 0.6, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      return new THREE.CanvasTexture(c);
-    }
+    // Fast Single Leaf Texture
+    const leafCanvas = document.createElement('canvas');
+    leafCanvas.width = 256; leafCanvas.height = 512;
+    const lctx = leafCanvas.getContext('2d');
+    const lg = lctx.createLinearGradient(0, 0, 256, 0);
+    lg.addColorStop(0, "#15632b");
+    lg.addColorStop(0.48, "#1a7d36");
+    lg.addColorStop(0.5, "#86efac"); // Midrib
+    lg.addColorStop(0.52, "#1a7d36");
+    lg.addColorStop(1, "#15632b");
+    lctx.fillStyle = lg;
+    lctx.fillRect(0, 0, 256, 512);
+    const leafTex = new THREE.CanvasTexture(leafCanvas);
 
     // Soil Pedestal Ground Mesh
-    const soilGeo = new THREE.CylinderGeometry(4.3, 4.7, 0.36, 64);
-    const soilMat = new THREE.MeshStandardMaterial({
-      color: 0x112116,
-      roughness: 0.95,
-      metalness: 0.05
-    });
+    const soilGeo = new THREE.CylinderGeometry(4.3, 4.7, 0.36, 48);
+    const soilMat = new THREE.MeshStandardMaterial({ color: 0x112116, roughness: 0.95 });
     const soil = new THREE.Mesh(soilGeo, soilMat);
     soil.position.y = -1.8;
     soil.receiveShadow = true;
     scene.add(soil);
 
-    // Glowing Concentric Guide Ring
-    const ringGeo = new THREE.RingGeometry(3.6, 3.68, 64);
+    // Concentric Ring
+    const ringGeo = new THREE.RingGeometry(3.6, 3.68, 48);
     const ringMat = new THREE.MeshBasicMaterial({ color: 0x34d399, side: THREE.DoubleSide });
     const ring = new THREE.Mesh(ringGeo, ringMat);
     ring.rotation.x = -Math.PI / 2;
@@ -1184,106 +1163,113 @@
     let crownLeaves = [];
     let partPositions = {};
 
-    // Build Max-Graphics Procedural Sugarcane Model
-    function buildRealisticCrop(data) {
+    // Build Model with Chosen Complexity
+    function buildModel(cropIdx, quality) {
       while (caneGroup.children.length > 0) {
         caneGroup.remove(caneGroup.children[0]);
       }
       segments = [];
       crownLeaves = [];
 
+      const data = CROPS[cropIdx];
       const startY = -1.5;
       const count = data.segCount;
       const r = data.radius;
       const len = data.segLen;
 
-      // Generate bespoke PBR maps for this specific crop skin
-      const { albedoTex, normalTex, roughTex } = generateUltraSkinMaps(data.baseColor, data.waxColor);
-      const pithCapTex = generatePithEndTexture(data.pithColor);
+      // Textures
+      const { albedoTex, normalTex, roughTex } = getSkinTextures(cropIdx, quality);
 
-      // Realistic Max-Graphics PBR Rind Material (MeshPhysicalMaterial with clearcoat wax)
-      const skinPbrMat = new THREE.MeshPhysicalMaterial({
-        map: albedoTex,
-        normalMap: normalTex,
-        normalScale: new THREE.Vector2(0.8, 0.8),
-        roughnessMap: roughTex,
-        roughness: 0.35,
-        metalness: 0.05,
-        clearcoat: 0.75,              // Lustrous protective waxy cuticle sheen
-        clearcoatRoughness: 0.18,
-        sheen: 0.8,                   // Soft grazing-angle micro-fiber velvet sheen
-        sheenColor: new THREE.Color(0xa7f3d0)
-      });
+      // Geometry detail by quality
+      const radialSegs = quality === 'low' ? 20 : (quality === 'med' ? 32 : 48);
+      const leafCount = quality === 'low' ? 7 : (quality === 'med' ? 10 : 12);
 
-      // Swollen Node Ring Material
-      const nodePbrMat = new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color(data.nodeColor[0]/255, data.nodeColor[1]/255, data.nodeColor[2]/255),
-        roughness: 0.65,
-        metalness: 0.08,
-        clearcoat: 0.4,
-        clearcoatRoughness: 0.3
-      });
+      // Materials dynamically tuned to selected quality
+      let skinMat, nodeMat, pithMat;
 
-      // Internal Juicy Sucrose Pith Core Material
-      const pithPbrMat = new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color(data.pithColor[0]/255, data.pithColor[1]/255, data.pithColor[2]/255),
-        roughness: 0.45,
-        metalness: 0.02,
-        transmission: 0.2,            // Translucent watery sugar-filled cell appearance
-        thickness: 0.4
-      });
+      if (quality === 'high') {
+        skinMat = new THREE.MeshPhysicalMaterial({
+          map: albedoTex,
+          normalMap: normalTex,
+          normalScale: new THREE.Vector2(0.8, 0.8),
+          roughnessMap: roughTex,
+          roughness: 0.35,
+          metalness: 0.05,
+          clearcoat: 0.75,
+          clearcoatRoughness: 0.18
+        });
+        nodeMat = new THREE.MeshPhysicalMaterial({
+          color: new THREE.Color(data.nodeColor[0]/255, data.nodeColor[1]/255, data.nodeColor[2]/255),
+          roughness: 0.65,
+          clearcoat: 0.3
+        });
+        pithMat = new THREE.MeshPhysicalMaterial({
+          color: new THREE.Color(data.pithColor[0]/255, data.pithColor[1]/255, data.pithColor[2]/255),
+          roughness: 0.45,
+          transmission: 0.2,
+          thickness: 0.4
+        });
+      } else {
+        // 'med' (Balanced) and 'low' (Fast) use efficient MeshStandardMaterial
+        skinMat = new THREE.MeshStandardMaterial({
+          map: albedoTex,
+          roughness: 0.4,
+          metalness: 0.08
+        });
+        nodeMat = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(data.nodeColor[0]/255, data.nodeColor[1]/255, data.nodeColor[2]/255),
+          roughness: 0.7
+        });
+        pithMat = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(data.pithColor[0]/255, data.pithColor[1]/255, data.pithColor[2]/255),
+          roughness: 0.5
+        });
+      }
 
-      // Transverse Cutaway Cap Material
-      const pithCapMat = new THREE.MeshStandardMaterial({
-        map: pithCapTex,
-        roughness: 0.4
-      });
-
-      // Fibrous Root Clusters (Stool base)
+      // Root Cluster
+      const rootCount = quality === 'low' ? 6 : (quality === 'med' ? 10 : 14);
       const rootMat = new THREE.MeshStandardMaterial({ color: 0x4a3525, roughness: 0.9 });
-      for (let b = 0; b < 14; b++) {
-        const angle = (b / 14) * Math.PI * 2;
+      for (let b = 0; b < rootCount; b++) {
+        const angle = (b / rootCount) * Math.PI * 2;
         const rootCurve = new THREE.CubicBezierCurve3(
           new THREE.Vector3(0, startY + 0.12, 0),
           new THREE.Vector3(Math.cos(angle) * 0.3, startY + 0.02, Math.sin(angle) * 0.3),
           new THREE.Vector3(Math.cos(angle) * 0.85, startY - 0.18, Math.sin(angle) * 0.85),
           new THREE.Vector3(Math.cos(angle) * 1.45, startY - 0.28, Math.sin(angle) * 1.45)
         );
-        const rootGeo = new THREE.TubeGeometry(rootCurve, 14, 0.026, 6, false);
+        const rootGeo = new THREE.TubeGeometry(rootCurve, 10, 0.026, 6, false);
         const rootMesh = new THREE.Mesh(rootGeo, rootMat);
-        rootMesh.castShadow = true;
+        if (quality !== 'low') rootMesh.castShadow = true;
         caneGroup.add(rootMesh);
       }
 
-      // Build High-Poly Internodes with Barrel Curvature, Nodes, and Vegetative Eyes
+      // Internodes
       for (let i = 0; i < count; i++) {
         const segGroup = new THREE.Group();
         const yCenter = startY + (i + 0.5) * len;
-        const isSlicedSegment = (i === 2);
+        const isSliced = (i === 2);
 
-        // Natural organic barrel contour geometry (slightly tapered at nodes, bulging at equator)
-        if (!isSlicedSegment) {
-          const cylGeo = new THREE.CylinderGeometry(r * 0.96, r, len * 0.94, 48);
-          const cylMesh = new THREE.Mesh(cylGeo, skinPbrMat);
-          cylMesh.castShadow = true;
-          cylMesh.receiveShadow = true;
+        if (!isSliced) {
+          const cylGeo = new THREE.CylinderGeometry(r * 0.96, r, len * 0.94, radialSegs);
+          const cylMesh = new THREE.Mesh(cylGeo, skinMat);
+          if (quality !== 'low') {
+            cylMesh.castShadow = true;
+            cylMesh.receiveShadow = true;
+          }
           segGroup.add(cylMesh);
         } else {
-          // Cross-Section Cutaway View: 270° Outer Rind + 90° Inner Juicy Sucrose Pith
-          const sliceGeo = new THREE.CylinderGeometry(r * 0.96, r, len * 0.94, 48, 1, false, 0, Math.PI * 1.5);
-          const sliceMesh = new THREE.Mesh(sliceGeo, skinPbrMat);
-          sliceMesh.castShadow = true;
+          // Cross-Section Cutaway
+          const sliceGeo = new THREE.CylinderGeometry(r * 0.96, r, len * 0.94, radialSegs, 1, false, 0, Math.PI * 1.5);
+          const sliceMesh = new THREE.Mesh(sliceGeo, skinMat);
+          if (quality !== 'low') sliceMesh.castShadow = true;
           segGroup.add(sliceMesh);
 
-          // Internal White Juicy Pith Core
-          const pithGeo = new THREE.CylinderGeometry(r * 0.93, r * 0.96, len * 0.92, 32, 1, false, Math.PI * 1.5, Math.PI * 0.5);
-          const pithMesh = new THREE.Mesh(pithGeo, pithPbrMat);
-          pithMesh.castShadow = true;
+          const pithGeo = new THREE.CylinderGeometry(r * 0.93, r * 0.96, len * 0.92, radialSegs, 1, false, Math.PI * 1.5, Math.PI * 0.5);
+          const pithMesh = new THREE.Mesh(pithGeo, pithMat);
           segGroup.add(pithMesh);
 
-          // Pith End Caps showing real vascular bundles
-          const capGeo = new THREE.CircleGeometry(r * 0.95, 32);
-          const capMesh = new THREE.Mesh(capGeo, pithCapMat);
+          const capGeo = new THREE.CircleGeometry(r * 0.95, radialSegs);
+          const capMesh = new THREE.Mesh(capGeo, pithMat);
           capMesh.rotation.x = -Math.PI / 2;
           capMesh.position.y = len * 0.47;
           segGroup.add(capMesh);
@@ -1291,18 +1277,18 @@
           partPositions['slice'] = new THREE.Vector3(0, yCenter, 0);
         }
 
-        // Bulging Nodal Ring with Root Primordia Dots
-        const nodeTorusGeo = new THREE.TorusGeometry(r * 1.025, 0.045, 20, 48);
-        const nodeMesh = new THREE.Mesh(nodeTorusGeo, nodePbrMat);
+        // Swollen Node Ring
+        const nodeTorusGeo = new THREE.TorusGeometry(r * 1.025, 0.045, 14, radialSegs);
+        const nodeMesh = new THREE.Mesh(nodeTorusGeo, nodeMat);
         nodeMesh.rotation.x = Math.PI / 2;
         nodeMesh.position.y = len * 0.47;
-        nodeMesh.castShadow = true;
+        if (quality !== 'low') nodeMesh.castShadow = true;
         segGroup.add(nodeMesh);
 
-        // Vegetative Eye Bud (Alternating side-to-side along the stalk)
+        // Vegetative Eye Bud
         const budGroup = new THREE.Group();
-        const budGeo = new THREE.ConeGeometry(0.065, 0.14, 16);
-        const budMesh = new THREE.Mesh(budGeo, nodePbrMat);
+        const budGeo = new THREE.ConeGeometry(0.065, 0.14, 12);
+        const budMesh = new THREE.Mesh(budGeo, nodeMat);
         const budAngle = i % 2 === 0 ? 0 : Math.PI;
         budMesh.rotation.z = budAngle === 0 ? -Math.PI / 3 : Math.PI / 3;
         budGroup.position.set(Math.cos(budAngle) * (r * 1.03), len * 0.48, Math.sin(budAngle) * (r * 1.03));
@@ -1323,17 +1309,14 @@
         if (i === 4) partPositions['internode'] = new THREE.Vector3(0, yCenter, 0);
       }
 
-      // Arching Photosynthetic Crown Canopy (With Veined Texture)
+      // Arching Canopy Leaves
       const topY = startY + count * len;
       partPositions['crown'] = new THREE.Vector3(0, topY + 0.9, 0);
 
-      const leafCount = 12;
-      const leafPbrMat = new THREE.MeshPhysicalMaterial({
+      const leafMat = new THREE.MeshStandardMaterial({
         map: leafTex,
         roughness: 0.45,
-        metalness: 0.05,
-        side: THREE.DoubleSide,
-        clearcoat: 0.35
+        side: THREE.DoubleSide
       });
 
       for (let j = 0; j < leafCount; j++) {
@@ -1344,9 +1327,9 @@
           new THREE.Vector3(2.5 * data.leafSpan, -0.75 * data.leafSpan, 0)
         );
 
-        const leafGeo = new THREE.TubeGeometry(curve, 32, 0.068, 8, false);
-        const leafMesh = new THREE.Mesh(leafGeo, leafPbrMat);
-        leafMesh.castShadow = true;
+        const leafGeo = new THREE.TubeGeometry(curve, 24, 0.065, 6, false);
+        const leafMesh = new THREE.Mesh(leafGeo, leafMat);
+        if (quality !== 'low') leafMesh.castShadow = true;
 
         const leafGroup = new THREE.Group();
         leafGroup.rotation.y = (j / leafCount) * Math.PI * 2;
@@ -1361,6 +1344,34 @@
         caneGroup.add(leafGroup);
         crownLeaves.push(leafGroup);
       }
+    }
+
+    // Set Graphics Preset dynamically with NO reload
+    function setGraphicsPreset(preset) {
+      currentQuality = preset;
+      
+      document.getElementById('gfxLow').classList.toggle('active', preset === 'low');
+      document.getElementById('gfxMed').classList.toggle('active', preset === 'med');
+      document.getElementById('gfxHigh').classList.toggle('active', preset === 'high');
+
+      if (preset === 'low') {
+        renderer.setPixelRatio(1.0);
+        keyLight.castShadow = false;
+        renderer.shadowMap.enabled = false;
+      } else if (preset === 'med') {
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        keyLight.castShadow = true;
+        keyLight.shadow.mapSize.set(1024, 1024);
+        renderer.shadowMap.enabled = true;
+      } else if (preset === 'high') {
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
+        keyLight.castShadow = true;
+        keyLight.shadow.mapSize.set(2048, 2048);
+        renderer.shadowMap.enabled = true;
+      }
+
+      // Rebuild model seamlessly without lag
+      buildModel(currentCropIdx, currentQuality);
     }
 
     // Set Crop Variety
@@ -1381,11 +1392,11 @@
       document.getElementById('cZone').textContent = data.zone;
       document.getElementById('cMaturity').textContent = data.maturity;
 
-      buildRealisticCrop(data);
+      buildModel(idx, currentQuality);
 
-      // Spring Growth Animation
-      caneGroup.scale.set(0.1, 0.1, 0.1);
-      gsap.to(caneGroup.scale, { x: 1, y: 1, z: 1, duration: 0.65, ease: "back.out(1.4)" });
+      // Fast, snappy spring animation (200ms)
+      caneGroup.scale.set(0.2, 0.2, 0.2);
+      gsap.to(caneGroup.scale, { x: 1, y: 1, z: 1, duration: 0.35, ease: "back.out(1.2)" });
     }
 
     // Camera Focus on Specific Part
@@ -1414,16 +1425,16 @@
         x: targetPos.x,
         y: targetPos.y,
         z: targetPos.z,
-        duration: 0.9,
-        ease: "power2.inOut"
+        duration: 0.65,
+        ease: "power2.out"
       });
 
       gsap.to(camera.position, {
         x: targetPos.x + 2.0,
         y: targetPos.y + 0.5,
         z: targetPos.z + 3.2,
-        duration: 0.9,
-        ease: "power2.inOut"
+        duration: 0.65,
+        ease: "power2.out"
       });
     }
 
@@ -1435,12 +1446,12 @@
 
       segments.forEach(seg => {
         const destY = isDissected ? seg.userData.dissectedY : seg.userData.defaultY;
-        gsap.to(seg.position, { y: destY, duration: 0.55, ease: "power2.out" });
+        gsap.to(seg.position, { y: destY, duration: 0.45, ease: "power2.out" });
       });
 
       crownLeaves.forEach(leaf => {
         const destY = isDissected ? leaf.userData.dissectedY : leaf.userData.defaultY;
-        gsap.to(leaf.position, { y: destY, duration: 0.55, ease: "power2.out" });
+        gsap.to(leaf.position, { y: destY, duration: 0.45, ease: "power2.out" });
       });
     }
 
@@ -1452,8 +1463,8 @@
 
     // Reset Camera View
     function resetView() {
-      gsap.to(camera.position, { x: 0, y: 1.8, z: 8.5, duration: 0.85, ease: "power2.inOut" });
-      gsap.to(controls.target, { x: 0, y: 1.3, z: 0, duration: 0.85, ease: "power2.inOut" });
+      gsap.to(camera.position, { x: 0, y: 1.8, z: 8.5, duration: 0.6, ease: "power2.out" });
+      gsap.to(controls.target, { x: 0, y: 1.3, z: 0, duration: 0.6, ease: "power2.out" });
       document.getElementById('pointAnnotation').style.opacity = '0';
       document.querySelectorAll('.hotspot-card').forEach(c => c.classList.remove('active'));
     }
@@ -1578,14 +1589,17 @@
     window.addEventListener('keydown', (e) => {
       if (e.key === 'r' || e.key === 'R') toggleOrbit();
       if (e.key === 'd' || e.key === 'D') toggleDissection();
+      if (e.key === '1') setGraphicsPreset('low');
+      if (e.key === '2') setGraphicsPreset('med');
+      if (e.key === '3') setGraphicsPreset('high');
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal-veil').forEach(m => m.classList.remove('open'));
         document.getElementById('pointAnnotation').style.opacity = '0';
       }
     });
 
-    // Initialize with Co 0238
-    setCrop(0);
+    // Initialize with Balanced preset on load (instant, smooth, lag-free)
+    setGraphicsPreset('med');
     renderQuiz();
     animate();
   </script>
