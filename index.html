@@ -56,6 +56,11 @@
       height: 100%;
       z-index: 1;
       outline: none;
+      cursor: grab;
+    }
+
+    #webgl:active {
+      cursor: grabbing;
     }
 
     /* Cinematic Depth Vignette */
@@ -70,7 +75,7 @@
       background: radial-gradient(circle at 50% 48%, transparent 50%, rgba(1, 8, 4, 0.75) 100%);
     }
 
-    /* Spatial HUD Grid (Non-overlapping & Spacious) */
+    /* Spatial HUD Grid */
     .hud-layer {
       position: absolute;
       top: 0;
@@ -167,7 +172,7 @@
       background: rgba(16, 48, 30, 0.9);
     }
 
-    /* Graphics Quality Selector (Rebalanced Tiers) */
+    /* Graphics Quality Selector */
     .gfx-dock {
       background: var(--glass-base);
       backdrop-filter: blur(20px);
@@ -216,7 +221,7 @@
       box-shadow: 0 0 14px rgba(16, 185, 129, 0.55);
     }
 
-    /* Middle Layout Workspace (Left Deck & Right Deck separated with space) */
+    /* Middle Layout Workspace */
     .workspace-row {
       display: flex;
       justify-content: space-between;
@@ -319,7 +324,6 @@
       color: var(--emerald-glow);
     }
 
-    /* Cultivar Switcher Pills */
     .switcher-pill-strip {
       display: flex;
       gap: 5px;
@@ -368,6 +372,19 @@
       color: var(--gold);
       padding-left: 6px;
       margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .interactive-badge {
+      background: rgba(52, 211, 153, 0.2);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      color: #a7f3d0;
+      font-size: 0.62rem;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      text-transform: none;
     }
 
     .anatomy-card-3d {
@@ -425,7 +442,7 @@
       line-height: 1.35;
     }
 
-    /* Bottom Control Cockpit */
+    /* Bottom Command Dock */
     .bottom-dock {
       display: flex;
       justify-content: center;
@@ -481,6 +498,126 @@
       align-items: center;
       gap: 8px;
       padding: 0 6px;
+    }
+
+    /* Floating 3D Definition Card (Shown when ANY part is clicked) */
+    .part-definition-card {
+      position: absolute;
+      bottom: 85px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px) scale(0.95);
+      background: rgba(8, 28, 18, 0.94);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1.5px solid var(--emerald-glow);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), var(--glass-bevel), 0 0 35px rgba(52, 211, 153, 0.4);
+      border-radius: 22px;
+      padding: 20px 24px;
+      width: 520px;
+      max-width: 90vw;
+      z-index: 60;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+
+    .part-definition-card.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .def-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .def-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .def-icon-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(52, 211, 153, 0.2);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .def-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .speak-voice-btn {
+      background: rgba(52, 211, 153, 0.18);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      color: var(--emerald-glow);
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .speak-voice-btn:hover {
+      background: rgba(52, 211, 153, 0.35);
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    .close-def-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+      margin-left: 8px;
+    }
+
+    .close-def-btn:hover {
+      background: #ef4444;
+      border-color: #ef4444;
+    }
+
+    .def-body {
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    .def-exam-note {
+      background: rgba(251, 191, 36, 0.1);
+      border-left: 3px solid var(--gold);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      color: #fef08a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     /* Modals Overlay (Class 10 CBSE Content) */
@@ -660,21 +797,21 @@
       color: #fca5a5 !important;
     }
 
-    /* 3D Target Pinpoint */
+    /* 3D Target Pinpoint Tooltip */
     #pointAnnotation {
       position: absolute;
       background: rgba(6, 26, 16, 0.92);
       border: 1px solid var(--emerald-glow);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(52, 211, 153, 0.4);
-      padding: 8px 16px;
+      padding: 6px 14px;
       border-radius: 9999px;
       color: #ffffff;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       pointer-events: none;
       transform: translate(-50%, -130%);
       opacity: 0;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.2s ease;
       z-index: 50;
       white-space: nowrap;
     }
@@ -686,8 +823,34 @@
   <canvas id="webgl"></canvas>
   <div class="vignette"></div>
 
-  <!-- 3D Hotspot Label -->
-  <div id="pointAnnotation">Node & Bud</div>
+  <!-- 3D Hotspot Hover Label -->
+  <div id="pointAnnotation">Click Part to Inspect</div>
+
+  <!-- Interactive 3D Part Definition Card (Pops up when clicking any part) -->
+  <div class="part-definition-card interactive" id="partDefCard">
+    <div class="def-header">
+      <div class="def-title-group">
+        <div class="def-icon-badge" id="defIcon">🎋</div>
+        <h3 class="def-title" id="defTitle">Internode (Stem Body)</h3>
+      </div>
+      <div style="display: flex; align-items: center;">
+        <button class="speak-voice-btn" id="speakBtn" onclick="speakCurrentDef()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <span>Say Definition</span>
+        </button>
+        <button class="close-def-btn" onclick="closeDefCard()">&times;</button>
+      </div>
+    </div>
+    <div class="def-body" id="defBody">
+      The smooth, cylindrical section between two adjacent nodes. Encased in a tough, fibrous epidermal rind that protects the inner sweet juice-bearing parenchyma tissue.
+    </div>
+    <div class="def-exam-note" id="defExam">
+      ★ Class 10 Role: Contains highest concentration of sucrose harvested for milling.
+    </div>
+  </div>
 
   <!-- Spacious HUD Layer -->
   <div class="hud-layer">
@@ -719,7 +882,7 @@
       </div>
     </header>
 
-    <!-- Center Workspace Row: Left Deck & Right Deck separated with space -->
+    <!-- Center Workspace Row -->
     <div class="workspace-row">
       
       <!-- Left Cultivar Card -->
@@ -763,7 +926,10 @@
 
       <!-- Right Anatomical Focus Deck -->
       <div class="right-deck interactive">
-        <span class="section-header-tag">🔍 Anatomical Hotspots</span>
+        <div class="section-header-tag">
+          <span>🔍 Anatomy Hotspots</span>
+          <span class="interactive-badge">Click Any Part in 3D</span>
+        </div>
 
         <div class="anatomy-card-3d" onclick="focusHotspot('internode')">
           <div class="anatomy-icon">🎋</div>
@@ -830,9 +996,9 @@
         </button>
 
         <div class="mouse-hints">
-          <span>🖱️ Left-Click: Orbit</span>
+          <span>🖱️ Click Any 3D Part: Definition & Audio</span>
           <span>•</span>
-          <span>🖱️ Right-Click: Pan</span>
+          <span>🖱️ Drag: 360° Orbit</span>
           <span>•</span>
           <span>📜 Scroll: Zoom</span>
         </div>
@@ -965,7 +1131,7 @@
     </div>
   </div>
 
-  <!-- Three.js Engine with Rebalanced Tiers & High-Fidelity Rendering -->
+  <!-- Three.js Engine with Full 3D Clickable Raycasting & Speech -->
   <script>
     const CROPS = [
       {
@@ -1060,9 +1226,56 @@
       }
     ];
 
+    // Master Dictionary of Part Definitions
+    const PART_DEFINITIONS = {
+      'rind': {
+        icon: '🎋',
+        title: 'Internode (Rind & Cortex)',
+        body: 'The cylindrical stem section between two nodes. Enclosed by a hard, waxy epidermis that shields the succulent internal pith and prevents mechanical damage.',
+        exam: '★ Class 10 Board Point: Primary industrial raw material yielding sucrose juice when crushed in mills within 24 hours of cutting.'
+      },
+      'node': {
+        icon: '🌱',
+        title: 'Nodal Ring & Growth Band',
+        body: 'The transverse joint on the stem containing the intercalary meristem (growth ring) and root primordia bands capable of sprouting adventitious roots.',
+        exam: '★ Class 10 Board Point: Sugarcane is propagated vegetatively through stem cuttings called setts, each requiring healthy nodes with viable buds.'
+      },
+      'bud': {
+        icon: '👁️',
+        title: 'Vegetative Eye Bud',
+        body: 'A dormant embryonic shoot situated at the node beneath the leaf sheath. When planting setts in furrows, this bud germinates into a new sugarcane tiller.',
+        exam: '★ Class 10 Board Point: Healthy buds ensure rapid field germination, high tillering ratio, and uniform crop stand.'
+      },
+      'wax': {
+        icon: '✨',
+        title: 'Cuticular Wax Bloom Band',
+        body: 'A whitish, powdery lipid coating deposited below each nodal ring. Acts as an organic moisture seal reducing transpiration loss during dry summer spells.',
+        exam: '★ Class 10 Board Point: Enhances drought and insect pest tolerance in subtropical and tropical climates.'
+      },
+      'pith': {
+        icon: '🔬',
+        title: 'Internal Sucrose Pith (Parenchyma)',
+        body: 'The juicy, spongy central core packed with sugar storage cells and vascular bundles (xylem and phloem) that transport sucrose produced in the leaves.',
+        exam: '★ Class 10 Board Point: Contains 12% to 20% sucrose recovery concentration, the core metric for sugar mill profitability.'
+      },
+      'leaf': {
+        icon: '🍃',
+        title: 'Photosynthetic Crown Leaves',
+        body: 'Long, narrow arching blades with a thick pale central midrib and serrated edges. Synthesizes sucrose through high-efficiency C4 photosynthesis.',
+        exam: '★ Class 10 Board Point: Green tops are gathered during harvest as vital dairy livestock fodder in rural agricultural belts.'
+      },
+      'root': {
+        icon: '🪴',
+        title: 'Root Stool System & Soil Base',
+        body: 'A dense network of fibrous adventitious roots emerging from the subterranean basal nodes, anchoring the heavy 4-meter tall stalks against lodging.',
+        exam: '★ Class 10 Board Point: Heavy water & nutrient uptake requires deep, well-drained alluvial or black soils with proper irrigation.'
+      }
+    };
+
     let currentCropIdx = 0;
     let isDissected = false;
-    let currentTier = 'balanced'; // Balanced is default!
+    let currentTier = 'balanced';
+    let currentActivePartKey = null;
 
     // WebGL Canvas & Scene
     const canvas = document.getElementById('webgl');
@@ -1088,10 +1301,10 @@
     controls.minDistance = 2.2;
     controls.maxDistance = 14;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.9;
+    controls.autoRotateSpeed = 0.8;
     controls.target.set(0, 1.35, 0);
 
-    // Dynamic Multi-Angle Studio Illumination
+    // Studio Illumination
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
@@ -1113,7 +1326,6 @@
     // Texture Cache
     const textureCache = {};
 
-    // Procedural Texture Engine (Standard, Balanced, and Absurdly High Cinematic Ultra)
     function getSkinTextures(cropIdx, tier) {
       const cacheKey = `${cropIdx}_${tier}`;
       if (textureCache[cacheKey]) return textureCache[cacheKey];
@@ -1131,7 +1343,6 @@
       albedoCanvas.height = H;
       const actx = albedoCanvas.getContext('2d');
 
-      // Albedo Base Gradient
       const grad = actx.createLinearGradient(0, 0, 0, H);
       grad.addColorStop(0, `rgb(${baseRGB[0]*0.92}, ${baseRGB[1]*0.92}, ${baseRGB[2]*0.92})`);
       grad.addColorStop(0.5, `rgb(${baseRGB[0]}, ${baseRGB[1]}, ${baseRGB[2]})`);
@@ -1139,7 +1350,6 @@
       actx.fillStyle = grad;
       actx.fillRect(0, 0, W, H);
 
-      // Micro-striations
       const step = tier === 'standard' ? 5 : (tier === 'balanced' ? 3 : 1);
       for (let x = 0; x < W; x += step) {
         const v = (Math.random() - 0.5) * 24;
@@ -1147,7 +1357,6 @@
         actx.fillRect(x, 0, 1 + Math.random()*2, H);
       }
 
-      // Cuticular Wax Bloom Band (Chalky waxy lipid deposit)
       const waxBandGrad = actx.createLinearGradient(0, H * 0.45, 0, H * 0.85);
       waxBandGrad.addColorStop(0, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0)`);
       waxBandGrad.addColorStop(0.3, `rgba(${waxRGB[0]}, ${waxRGB[1]}, ${waxRGB[2]}, 0.88)`);
@@ -1156,7 +1365,6 @@
       actx.fillStyle = waxBandGrad;
       actx.fillRect(0, H * 0.45, W, H * 0.4);
 
-      // High-End Details (Lenticels and Cork Flecks for Balanced & Cinematic)
       if (tier !== 'standard') {
         const fleckCount = tier === 'cinematic' ? 1400 : 500;
         for (let s = 0; s < fleckCount; s++) {
@@ -1176,7 +1384,6 @@
       let normalTex = null;
       let roughTex = null;
 
-      // Real Normal & Roughness Maps for Balanced & Cinematic Ultra
       if (tier !== 'standard') {
         const normalCanvas = document.createElement('canvas');
         normalCanvas.width = W; normalCanvas.height = H;
@@ -1213,14 +1420,13 @@
       return textureCache[cacheKey];
     }
 
-    // Leaf Texture
     const leafCanvas = document.createElement('canvas');
     leafCanvas.width = 512; leafCanvas.height = 1024;
     const lctx = leafCanvas.getContext('2d');
     const lg = lctx.createLinearGradient(0, 0, 512, 0);
     lg.addColorStop(0, "#15632b");
     lg.addColorStop(0.48, "#1a7d36");
-    lg.addColorStop(0.5, "#86efac"); // Pale midrib
+    lg.addColorStop(0.5, "#86efac");
     lg.addColorStop(0.52, "#1a7d36");
     lg.addColorStop(1, "#15632b");
     lctx.fillStyle = lg;
@@ -1231,7 +1437,6 @@
     }
     const leafTex = new THREE.CanvasTexture(leafCanvas);
 
-    // Transverse Pith End Cap Texture
     function generatePithCap(pithRGB) {
       const c = document.createElement('canvas');
       c.width = 512; c.height = 512;
@@ -1251,15 +1456,15 @@
       return new THREE.CanvasTexture(c);
     }
 
-    // Soil Pedestal Mesh
+    // Soil Pedestal
     const soilGeo = new THREE.CylinderGeometry(4.3, 4.7, 0.36, 48);
     const soilMat = new THREE.MeshStandardMaterial({ color: 0x112116, roughness: 0.95 });
     const soil = new THREE.Mesh(soilGeo, soilMat);
     soil.position.y = -1.8;
     soil.receiveShadow = true;
+    soil.userData = { partKey: 'root' };
     scene.add(soil);
 
-    // Guide Ring
     const ringGeo = new THREE.RingGeometry(3.6, 3.68, 48);
     const ringMat = new THREE.MeshBasicMaterial({ color: 0x34d399, side: THREE.DoubleSide });
     const ring = new THREE.Mesh(ringGeo, ringMat);
@@ -1267,21 +1472,24 @@
     ring.position.y = -1.61;
     scene.add(ring);
 
-    // Plant 3D Assembly
+    // Sugarcane Plant 3D Assembly
     const caneGroup = new THREE.Group();
     scene.add(caneGroup);
 
     let segments = [];
     let crownLeaves = [];
     let partPositions = {};
+    const clickableMeshes = [];
 
-    // Build 3D Plant with Selected Tier
+    // Build 3D Plant Model
     function buildSugarcane(cropIdx, tier) {
       while (caneGroup.children.length > 0) {
         caneGroup.remove(caneGroup.children[0]);
       }
       segments = [];
       crownLeaves = [];
+      clickableMeshes.length = 0;
+      clickableMeshes.push(soil);
 
       const data = CROPS[cropIdx];
       const startY = -1.5;
@@ -1292,15 +1500,12 @@
       const { albedoTex, normalTex, roughTex } = getSkinTextures(cropIdx, tier);
       const pithCapTex = generatePithCap(data.pithColor);
 
-      // Radial density
       const radialSegs = tier === 'standard' ? 24 : (tier === 'balanced' ? 36 : 64);
       const leafCount = tier === 'standard' ? 8 : (tier === 'balanced' ? 11 : 14);
 
-      // Materials configured strictly per tier
       let skinMat, nodeMat, pithMat;
 
       if (tier === 'cinematic') {
-        // Real Max Graphics (Absurdly high fidelity)
         skinMat = new THREE.MeshPhysicalMaterial({
           map: albedoTex,
           normalMap: normalTex,
@@ -1325,7 +1530,6 @@
           thickness: 0.45
         });
       } else if (tier === 'balanced') {
-        // Balanced (Default: realistic PBR waxy skin, sharp normal map, smooth 60 FPS)
         skinMat = new THREE.MeshPhysicalMaterial({
           map: albedoTex,
           normalMap: normalTex,
@@ -1345,7 +1549,6 @@
           roughness: 0.5
         });
       } else {
-        // Standard (Fast & lightweight)
         skinMat = new THREE.MeshStandardMaterial({
           map: albedoTex,
           roughness: 0.45,
@@ -1375,10 +1578,12 @@
         const rootGeo = new THREE.TubeGeometry(rootCurve, 10, 0.026, 6, false);
         const rootMesh = new THREE.Mesh(rootGeo, rootMat);
         if (tier !== 'standard') rootMesh.castShadow = true;
+        rootMesh.userData = { partKey: 'root' };
         caneGroup.add(rootMesh);
+        clickableMeshes.push(rootMesh);
       }
 
-      // Internodes with Anatomical Sliced Cutaway
+      // Internodes with Cutaway
       for (let i = 0; i < count; i++) {
         const segGroup = new THREE.Group();
         const yCenter = startY + (i + 0.5) * len;
@@ -1391,24 +1596,32 @@
             cylMesh.castShadow = true;
             cylMesh.receiveShadow = true;
           }
+          cylMesh.userData = { partKey: 'rind', parentGroup: segGroup };
           segGroup.add(cylMesh);
+          clickableMeshes.push(cylMesh);
         } else {
           // Transverse Cutaway
           const sliceGeo = new THREE.CylinderGeometry(r * 0.96, r, len * 0.94, radialSegs, 1, false, 0, Math.PI * 1.5);
           const sliceMesh = new THREE.Mesh(sliceGeo, skinMat);
           if (tier !== 'standard') sliceMesh.castShadow = true;
+          sliceMesh.userData = { partKey: 'rind', parentGroup: segGroup };
           segGroup.add(sliceMesh);
+          clickableMeshes.push(sliceMesh);
 
           const pithGeo = new THREE.CylinderGeometry(r * 0.93, r * 0.96, len * 0.92, radialSegs, 1, false, Math.PI * 1.5, Math.PI * 0.5);
           const pithMesh = new THREE.Mesh(pithGeo, pithMat);
+          pithMesh.userData = { partKey: 'pith', parentGroup: segGroup };
           segGroup.add(pithMesh);
+          clickableMeshes.push(pithMesh);
 
           const capGeo = new THREE.CircleGeometry(r * 0.95, radialSegs);
           const capMat = new THREE.MeshStandardMaterial({ map: pithCapTex, roughness: 0.4 });
           const capMesh = new THREE.Mesh(capGeo, capMat);
           capMesh.rotation.x = -Math.PI / 2;
           capMesh.position.y = len * 0.47;
+          capMesh.userData = { partKey: 'pith', parentGroup: segGroup };
           segGroup.add(capMesh);
+          clickableMeshes.push(capMesh);
 
           partPositions['slice'] = new THREE.Vector3(0, yCenter, 0);
         }
@@ -1419,7 +1632,9 @@
         nodeMesh.rotation.x = Math.PI / 2;
         nodeMesh.position.y = len * 0.47;
         if (tier !== 'standard') nodeMesh.castShadow = true;
+        nodeMesh.userData = { partKey: 'node', parentGroup: segGroup };
         segGroup.add(nodeMesh);
+        clickableMeshes.push(nodeMesh);
 
         // Vegetative Eye Bud
         const budGroup = new THREE.Group();
@@ -1428,8 +1643,10 @@
         const budAngle = i % 2 === 0 ? 0 : Math.PI;
         budMesh.rotation.z = budAngle === 0 ? -Math.PI / 3 : Math.PI / 3;
         budGroup.position.set(Math.cos(budAngle) * (r * 1.03), len * 0.48, Math.sin(budAngle) * (r * 1.03));
+        budMesh.userData = { partKey: 'bud', parentGroup: segGroup };
         budGroup.add(budMesh);
         segGroup.add(budGroup);
+        clickableMeshes.push(budMesh);
 
         segGroup.position.set(0, yCenter, 0);
         segGroup.userData = {
@@ -1445,7 +1662,7 @@
         if (i === 4) partPositions['internode'] = new THREE.Vector3(0, yCenter, 0);
       }
 
-      // Arching Canopy Leaves
+      // Crown Leaves
       const topY = startY + count * len;
       partPositions['crown'] = new THREE.Vector3(0, topY + 0.9, 0);
 
@@ -1466,6 +1683,7 @@
         const leafGeo = new THREE.TubeGeometry(curve, 24, 0.065, 6, false);
         const leafMesh = new THREE.Mesh(leafGeo, leafMat);
         if (tier !== 'standard') leafMesh.castShadow = true;
+        leafMesh.userData = { partKey: 'leaf' };
 
         const leafGroup = new THREE.Group();
         leafGroup.rotation.y = (j / leafCount) * Math.PI * 2;
@@ -1479,10 +1697,11 @@
 
         caneGroup.add(leafGroup);
         crownLeaves.push(leafGroup);
+        clickableMeshes.push(leafMesh);
       }
     }
 
-    // Set Graphics Tier (Rebalanced)
+    // Set Graphics Tier
     function setGraphicsTier(tier) {
       currentTier = tier;
 
@@ -1533,43 +1752,135 @@
       gsap.to(caneGroup.scale, { x: 1, y: 1, z: 1, duration: 0.35, ease: "back.out(1.2)" });
     }
 
-    // Hotspot Focus
+    // Hotspot Card Focus (Right Panel)
     function focusHotspot(partKey) {
-      controls.autoRotate = false;
-      document.getElementById('orbitBtn').classList.remove('active');
-
-      const targetPos = partPositions[partKey];
-      if (!targetPos) return;
-
-      document.querySelectorAll('.anatomy-card-3d').forEach(card => card.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-
-      const label = document.getElementById('pointAnnotation');
-      const labels = {
-        'internode': '🎋 High-Resolution Micro-Grooved Rind',
-        'node': '🌱 Vegetative Eye Bud & Raised Nodal Ring',
-        'wax': '✨ Cuticular Wax Bloom Band (Lipid Layer)',
-        'slice': '🔬 Internal Cross-Section: Sucrose Pith & Vascular Bundles',
-        'crown': '🍃 Chlorophyll-Rich Veined Canopy Blades'
+      const keyMap = {
+        'internode': 'rind',
+        'node': 'node',
+        'wax': 'wax',
+        'slice': 'pith',
+        'crown': 'leaf'
       };
-      label.textContent = labels[partKey];
-      label.style.opacity = '1';
+      const actualKey = keyMap[partKey] || partKey;
+      const targetPos = partPositions[partKey];
 
-      gsap.to(controls.target, {
-        x: targetPos.x,
-        y: targetPos.y,
-        z: targetPos.z,
-        duration: 0.65,
-        ease: "power2.out"
-      });
+      if (targetPos) {
+        controls.autoRotate = false;
+        document.getElementById('orbitBtn').classList.remove('active');
 
-      gsap.to(camera.position, {
-        x: targetPos.x + 2.0,
-        y: targetPos.y + 0.5,
-        z: targetPos.z + 3.2,
-        duration: 0.65,
-        ease: "power2.out"
-      });
+        gsap.to(controls.target, {
+          x: targetPos.x,
+          y: targetPos.y,
+          z: targetPos.z,
+          duration: 0.65,
+          ease: "power2.out"
+        });
+
+        gsap.to(camera.position, {
+          x: targetPos.x + 2.0,
+          y: targetPos.y + 0.5,
+          z: targetPos.z + 3.2,
+          duration: 0.65,
+          ease: "power2.out"
+        });
+      }
+
+      displayPartDefinition(actualKey);
+    }
+
+    // 3D Raycasting: Click ANY Part to See & Say Definition
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    window.addEventListener('click', (event) => {
+      // Ignore clicks on HUD interactive elements
+      if (event.target.closest('.interactive') || event.target.closest('.modal-veil')) return;
+
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(clickableMeshes, true);
+
+      if (intersects.length > 0) {
+        const hit = intersects[0];
+        let obj = hit.object;
+        while (obj && !obj.userData.partKey && obj.parent) {
+          obj = obj.parent;
+        }
+
+        if (obj && obj.userData.partKey) {
+          const partKey = obj.userData.partKey;
+          displayPartDefinition(partKey);
+
+          // Subtle camera nudge towards clicked spot
+          controls.autoRotate = false;
+          document.getElementById('orbitBtn').classList.remove('active');
+
+          gsap.to(controls.target, {
+            x: hit.point.x * 0.5,
+            y: hit.point.y,
+            z: hit.point.z * 0.5,
+            duration: 0.6,
+            ease: "power2.out"
+          });
+
+          // Highlight mesh briefly with emissive flash
+          if (hit.object.material && hit.object.material.emissive) {
+            const origColor = hit.object.material.emissive.getHex();
+            hit.object.material.emissive.setHex(0x34d399);
+            setTimeout(() => {
+              hit.object.material.emissive.setHex(origColor);
+            }, 300);
+          }
+        }
+      }
+    });
+
+    // Display Definition Card
+    function displayPartDefinition(partKey) {
+      const def = PART_DEFINITIONS[partKey];
+      if (!def) return;
+
+      currentActivePartKey = partKey;
+
+      document.getElementById('defIcon').textContent = def.icon;
+      document.getElementById('defTitle').textContent = def.title;
+      document.getElementById('defBody').textContent = def.body;
+      document.getElementById('defExam').textContent = def.exam;
+
+      const card = document.getElementById('partDefCard');
+      card.classList.add('active');
+
+      // Update right deck active state
+      document.querySelectorAll('.anatomy-card-3d').forEach(c => c.classList.remove('active'));
+
+      // Automatically speak the definition aloud!
+      speakText(`${def.title}. ${def.body} ${def.exam.replace('★', '')}`);
+    }
+
+    function closeDefCard() {
+      document.getElementById('partDefCard').classList.remove('active');
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+    }
+
+    // Web Speech API: Speak Definition
+    function speakCurrentDef() {
+      if (!currentActivePartKey) return;
+      const def = PART_DEFINITIONS[currentActivePartKey];
+      if (def) {
+        speakText(`${def.title}. ${def.body} ${def.exam.replace('★', '')}`);
+      }
+    }
+
+    function speakText(text) {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel(); // Stop prior speech
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+      window.speechSynthesis.speak(utterance);
     }
 
     // Dissection Toggle
@@ -1599,7 +1910,7 @@
     function resetView() {
       gsap.to(camera.position, { x: 0, y: 1.8, z: 8.8, duration: 0.6, ease: "power2.out" });
       gsap.to(controls.target, { x: 0, y: 1.35, z: 0, duration: 0.6, ease: "power2.out" });
-      document.getElementById('pointAnnotation').style.opacity = '0';
+      closeDefCard();
       document.querySelectorAll('.anatomy-card-3d').forEach(c => c.classList.remove('active'));
     }
 
@@ -1608,6 +1919,7 @@
       document.getElementById(id).classList.add('open');
       controls.autoRotate = false;
       document.getElementById('orbitBtn').classList.remove('active');
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
     }
 
     function closeModal(id) {
@@ -1712,14 +2024,14 @@
       renderer.render(scene, camera);
     }
 
-    // Desktop Window Resize
+    // Window Resize
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Shortcuts
+    // Keyboard Shortcuts
     window.addEventListener('keydown', (e) => {
       if (e.key === 'r' || e.key === 'R') toggleOrbit();
       if (e.key === 'd' || e.key === 'D') toggleDissection();
@@ -1728,14 +2040,15 @@
       if (e.key === '3') setGraphicsTier('cinematic');
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal-veil').forEach(m => m.classList.remove('open'));
-        document.getElementById('pointAnnotation').style.opacity = '0';
+        closeDefCard();
       }
     });
 
-    // Initial Load (Boots smoothly in Balanced tier by default)
+    // Initialize in Balanced Tier
     setGraphicsTier('balanced');
     renderQuiz();
     animate();
   </script>
 </body>
 </html>
+
