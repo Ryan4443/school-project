@@ -1050,15 +1050,7 @@
           <span>360° Auto-Orbit</span>
         </button>
 
-        <button class="dock-btn" onclick="toggleFullscreen()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="15 3 21 3 21 9"></polyline>
-            <polyline points="9 21 3 21 3 15"></polyline>
-            <line x1="21" y1="3" x2="14" y2="10"></line>
-            <line x1="3" y1="21" x2="10" y2="14"></line>
-          </svg>
-          <span>Classroom Fullscreen</span>
-        </button>
+        
 
         <button class="dock-btn" onclick="resetView()">
           <span>Reset Camera</span>
@@ -2082,15 +2074,7 @@
       document.getElementById('orbitBtn').classList.toggle('active', controls.autoRotate);
     }
 
-    // Fullscreen Toggle (Great for Classrooms)
-    function toggleFullscreen() {
-      playChime(620);
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      } else {
-        if (document.exitFullscreen) document.exitFullscreen();
-      }
-    }
+    
 
     // Reset View
     function resetView() {
@@ -2233,7 +2217,6 @@
     window.addEventListener('keydown', (e) => {
       if (e.key === 'r' || e.key === 'R') toggleOrbit();
       if (e.key === 'd' || e.key === 'D') toggleDissection();
-      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
       if (e.key === '1') setGraphicsTier('standard');
       if (e.key === '2') setGraphicsTier('balanced');
       if (e.key === '3') setGraphicsTier('cinematic');
