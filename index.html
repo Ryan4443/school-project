@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sugarcane 3D Experience | By Ryan and Adarsh</title>
+  <title>Sugarcane 3D Experience | By Harshal and Siddharth</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -901,7 +901,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5">
           <path d="M12 2v20M8 5h8M7 10h10M8 15h8M9 19h6"/>
         </svg>
-        <span class="brand-title">By Ryan and Adarsh</span>
+        <span class="brand-title">By Harshal and Siddharth</span>
         <span class="author-pill">Class 10</span>
       </div>
 
@@ -1010,11 +1010,11 @@
           </div>
         </div>
 
-        <div class="anatomy-card-3d" onclick="focusHotspot('slice')">
+        <div class="anatomy-card-3d" id="dissectCard" onclick="focusHotspot('pith')">
           <div class="anatomy-icon">🔬</div>
           <div class="anatomy-texts">
-            <h4>Sucrose Pith Core</h4>
-            <p>Internal sugar parenchyma & vessels.</p>
+            <h4>Sucrose Pith & Dissection</h4>
+            <p>Peeled cortex, vascular vessels & pith.</p>
           </div>
         </div>
 
@@ -1036,7 +1036,7 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M4 12h16M12 4v16"/>
           </svg>
-          <span>Dissect Internodes</span>
+          <span>Dissect Anatomy & Pith</span>
         </button>
 
         <button class="dock-btn" id="orbitBtn" onclick="toggleOrbit()">
@@ -1360,9 +1360,21 @@
       },
       'pith': {
         icon: '🔬',
-        title: 'Internal Sucrose Pith (Parenchyma)',
-        body: 'The juicy, spongy central core packed with sugar storage cells and vascular bundles (xylem and phloem) that transport sucrose produced in the leaves.',
-        exam: '★ Class 10 Board Point: Contains 12% to 20% sucrose recovery concentration, the core metric for sugar mill profitability.'
+        title: 'Internal Sucrose Pith & Vascular Vessels',
+        body: 'The juicy, spongy central storage parenchyma packed with sucrose sap. Longitudinal vascular bundles (xylem and phloem fibers) run through the sweet core, sealed at nodes by transverse woody diaphragms.',
+        exam: '★ Class 10 Board Point: Contains 12% to 20% sucrose recovery concentration; canes must be crushed in mills within 24 hours of cutting to prevent sugar loss.'
+      },
+      'slice': {
+        icon: '🔬',
+        title: 'Internal Sucrose Pith & Vascular Vessels',
+        body: 'The juicy, spongy central storage parenchyma packed with sucrose sap. Longitudinal vascular bundles (xylem and phloem fibers) run through the sweet core, sealed at nodes by transverse woody diaphragms.',
+        exam: '★ Class 10 Board Point: Contains 12% to 20% sucrose recovery concentration; canes must be crushed in mills within 24 hours of cutting to prevent sugar loss.'
+      },
+      'diaphragm': {
+        icon: '🛡️',
+        title: 'Nodal Septum Diaphragm',
+        body: 'The dense, fibrous internal cross-wall partition traversing the cane stalk at each node. Provides tremendous mechanical rigidity against monsoon winds and isolates internodes.',
+        exam: '★ Botanical Function: Prevents pests and fungal infections like red rot from rapidly spreading between adjacent internodes.'
       },
       'leaf': {
         icon: '🍃',
@@ -1438,7 +1450,7 @@
     const keyLight = new THREE.DirectionalLight(0xe8fff2, 2.2);
     keyLight.position.set(7, 14, 8);
     keyLight.castShadow = true;
-    keyLight.shadow.mapSize.set(1024, 1024);
+    keyLight.shadow.mapSize.set(2048, 2048);
     keyLight.shadow.bias = -0.0001;
     scene.add(keyLight);
 
@@ -1628,12 +1640,127 @@
     const clickableMeshes = [];
 
     // Build 3D Sugarcane Model
+        // Helper: Realistic Barrel Internode Geometry (Swelling midsection, constricted nodes, bud furrow)
+    function createBarrelInternodeGeometry(r, length, radialSegs, heightSegs, hasSulcus = false, sulcusAngle = 0, angleStart = 0, angleLength = Math.PI * 2) {
+      const geom = new THREE.BufferGeometry();
+      const positions = [];
+      const uvs = [];
+      const indices = [];
+
+      for (let h = 0; h <= heightSegs; h++) {
+        const vNorm = h / heightSegs; // 0 at bottom, 1 at top
+        const y = (vNorm - 0.5) * length;
+        // Natural barrel bulge: swells ~6% in the midsection
+        const barrel = 1.0 + 0.06 * Math.sin(vNorm * Math.PI);
+        const currentR = r * barrel;
+
+        for (let s = 0; s <= radialSegs; s++) {
+          const uNorm = s / radialSegs;
+          const theta = angleStart + uNorm * angleLength;
+
+          let radMod = 1.0;
+          if (hasSulcus && vNorm < 0.45) {
+            const angleDiff = Math.atan2(Math.sin(theta - sulcusAngle), Math.cos(theta - sulcusAngle));
+            if (Math.abs(angleDiff) < 0.55) {
+              const depth = (1.0 - Math.abs(angleDiff) / 0.55) * (1.0 - vNorm / 0.45) * 0.14;
+              radMod -= depth;
+            }
+          }
+
+          const x = Math.cos(theta) * currentR * radMod;
+          const z = Math.sin(theta) * currentR * radMod;
+
+          positions.push(x, y, z);
+          uvs.push(uNorm * (angleLength / (Math.PI * 2)), vNorm);
+        }
+      }
+
+      for (let h = 0; h < heightSegs; h++) {
+        for (let s = 0; s < radialSegs; s++) {
+          const a = h * (radialSegs + 1) + s;
+          const b = (h + 1) * (radialSegs + 1) + s;
+          const c = (h + 1) * (radialSegs + 1) + (s + 1);
+          const d = h * (radialSegs + 1) + (s + 1);
+
+          indices.push(a, b, d);
+          indices.push(b, c, d);
+        }
+      }
+
+      geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geom.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geom.setIndex(indices);
+      geom.computeVertexNormals();
+      return geom;
+    }
+
+    // Helper: Realistic Arching Sugarcane Leaf Blade (V-channel cross section with pale central midrib)
+    function createSugarcaneLeafBladeGeometry(curve, numSteps, maxWidth) {
+      const geom = new THREE.BufferGeometry();
+      const positions = [];
+      const uvs = [];
+      const indices = [];
+      const crossPts = 5; // 0: Left edge, 1: Left lamina, 2: Center midrib, 3: Right lamina, 4: Right edge
+
+      for (let i = 0; i <= numSteps; i++) {
+        const t = i / numSteps;
+        const pt = curve.getPoint(t);
+        const tangent = curve.getTangent(t);
+        // Compute normal and binormal
+        const up = new THREE.Vector3(0, 0, 1);
+        const binormal = new THREE.Vector3().crossVectors(tangent, up).normalize();
+        if (binormal.lengthSq() < 0.001) binormal.set(1, 0, 0);
+        const normal = new THREE.Vector3().crossVectors(binormal, tangent).normalize();
+
+        // Taper: slender at base, widest at ~25% length, tapering to a sharp tip
+        let widthFactor = Math.sin(Math.pow(t, 0.45) * Math.PI) * (1.0 - t * 0.65);
+        if (t < 0.1) widthFactor = (t / 0.1) * 0.7;
+        const currentWidth = maxWidth * Math.max(0.04, widthFactor);
+
+        for (let c = 0; c < crossPts; c++) {
+          const u = (c / (crossPts - 1)) * 2.0 - 1.0; // -1 to 1 across blade
+          // Grass leaf V-keel profile
+          const vKeel = Math.abs(u) * 0.035;
+          const midribRidge = (Math.abs(u) < 0.25) ? -0.015 : 0;
+
+          const offset = new THREE.Vector3()
+            .addScaledVector(binormal, u * currentWidth * 0.5)
+            .addScaledVector(normal, vKeel + midribRidge);
+
+          positions.push(pt.x + offset.x, pt.y + offset.y, pt.z + offset.z);
+          uvs.push(c / (crossPts - 1), t); // u across width, v along length
+        }
+      }
+
+      for (let i = 0; i < numSteps; i++) {
+        for (let c = 0; c < crossPts - 1; c++) {
+          const a = i * crossPts + c;
+          const b = (i + 1) * crossPts + c;
+          const c1 = (i + 1) * crossPts + (c + 1);
+          const d = i * crossPts + (c + 1);
+
+          indices.push(a, b, d);
+          indices.push(b, c1, d);
+        }
+      }
+
+      geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geom.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+      geom.setIndex(indices);
+      geom.computeVertexNormals();
+      return geom;
+    }
+
+    let peelPivots = [];
+
+    // Build 3D Sugarcane Model
     function buildSugarcane(cropIdx, tier) {
       while (caneGroup.children.length > 0) {
         caneGroup.remove(caneGroup.children[0]);
       }
       segments = [];
       crownLeaves = [];
+      peelPivots = [];
       clickableMeshes.length = 0;
       clickableMeshes.push(soil);
 
@@ -1649,7 +1776,7 @@
       const radialSegs = tier === 'standard' ? 24 : (tier === 'balanced' ? 36 : 64);
       const leafCount = tier === 'standard' ? 8 : (tier === 'balanced' ? 11 : 14);
 
-      let skinMat, nodeMat, pithMat;
+      let skinMat, nodeMat, pithMat, waxMat, growthRingMat, diaphragmMat, bundleMat;
 
       if (tier === 'cinematic') {
         skinMat = new THREE.MeshPhysicalMaterial({
@@ -1657,23 +1784,27 @@
           normalMap: normalTex,
           normalScale: new THREE.Vector2(0.9, 0.9),
           roughnessMap: roughTex,
-          roughness: 0.32,
-          metalness: 0.05,
+          roughness: 0.30,
+          metalness: 0.04,
           clearcoat: 0.85,
           clearcoatRoughness: 0.15,
-          sheen: 0.9,
+          sheen: 0.85,
           sheenColor: new THREE.Color(0xa7f3d0)
         });
         nodeMat = new THREE.MeshPhysicalMaterial({
           color: new THREE.Color(data.nodeColor[0]/255, data.nodeColor[1]/255, data.nodeColor[2]/255),
-          roughness: 0.65,
-          clearcoat: 0.4
+          roughness: 0.55,
+          clearcoat: 0.5,
+          clearcoatRoughness: 0.2
         });
         pithMat = new THREE.MeshPhysicalMaterial({
           color: new THREE.Color(data.pithColor[0]/255, data.pithColor[1]/255, data.pithColor[2]/255),
-          roughness: 0.4,
-          transmission: 0.25,
-          thickness: 0.45
+          roughness: 0.32,
+          metalness: 0.02,
+          clearcoat: 0.85,
+          clearcoatRoughness: 0.15,
+          sheen: 0.8,
+          sheenColor: new THREE.Color(0xa7f3d0)
         });
       } else if (tier === 'balanced') {
         skinMat = new THREE.MeshPhysicalMaterial({
@@ -1692,7 +1823,7 @@
         });
         pithMat = new THREE.MeshStandardMaterial({
           color: new THREE.Color(data.pithColor[0]/255, data.pithColor[1]/255, data.pithColor[2]/255),
-          roughness: 0.5
+          roughness: 0.45
         });
       } else {
         skinMat = new THREE.MeshStandardMaterial({
@@ -1710,69 +1841,177 @@
         });
       }
 
-      // Root Stool
-      const rootCount = tier === 'standard' ? 6 : (tier === 'balanced' ? 10 : 14);
-      const rootMat = new THREE.MeshStandardMaterial({ color: 0x4a3525, roughness: 0.9 });
+      // Specialized Botanical Accent Materials
+      waxMat = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(data.waxColor[0]/255, data.waxColor[1]/255, data.waxColor[2]/255),
+        roughness: 0.85,
+        transparent: true,
+        opacity: 0.85
+      });
+      growthRingMat = new THREE.MeshStandardMaterial({
+        color: new THREE.Color(Math.min(1, data.baseColor[0]/255 + 0.15), Math.min(1, data.baseColor[1]/255 + 0.18), Math.min(1, data.baseColor[2]/255 + 0.1)),
+        roughness: 0.5
+      });
+      diaphragmMat = new THREE.MeshStandardMaterial({
+        color: 0x854d0e,
+        roughness: 0.75,
+        side: THREE.DoubleSide
+      });
+      bundleMat = new THREE.MeshStandardMaterial({
+        color: 0xd97706,
+        roughness: 0.35,
+        metalness: 0.1
+      });
+
+      // 1. Root Stool & Soil Base (Adventitious Stilt Roots)
+      const rootCount = tier === 'standard' ? 8 : (tier === 'balanced' ? 12 : 16);
+      const rootMat = new THREE.MeshStandardMaterial({ color: 0x3e2723, roughness: 0.9 });
       for (let b = 0; b < rootCount; b++) {
-        const angle = (b / rootCount) * Math.PI * 2;
+        const angle = (b / rootCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.2;
         const rootCurve = new THREE.CubicBezierCurve3(
-          new THREE.Vector3(0, startY + 0.12, 0),
-          new THREE.Vector3(Math.cos(angle) * 0.3, startY + 0.02, Math.sin(angle) * 0.3),
-          new THREE.Vector3(Math.cos(angle) * 0.85, startY - 0.18, Math.sin(angle) * 0.85),
-          new THREE.Vector3(Math.cos(angle) * 1.45, startY - 0.28, Math.sin(angle) * 1.45)
+          new THREE.Vector3(Math.cos(angle) * 0.12, startY + 0.15, Math.sin(angle) * 0.12),
+          new THREE.Vector3(Math.cos(angle) * 0.42, startY + 0.05, Math.sin(angle) * 0.42),
+          new THREE.Vector3(Math.cos(angle) * 0.95, startY - 0.15, Math.sin(angle) * 0.95),
+          new THREE.Vector3(Math.cos(angle) * 1.55, startY - 0.28, Math.sin(angle) * 1.55)
         );
-        const rootGeo = new THREE.TubeGeometry(rootCurve, 10, 0.026, 6, false);
+        const rootGeo = new THREE.TubeGeometry(rootCurve, 12, 0.032, 6, false);
         const rootMesh = new THREE.Mesh(rootGeo, rootMat);
         if (tier !== 'standard') rootMesh.castShadow = true;
         rootMesh.userData = { partKey: 'root' };
         caneGroup.add(rootMesh);
         clickableMeshes.push(rootMesh);
       }
+      partPositions['root'] = new THREE.Vector3(0, startY + 0.2, 1.2);
 
-      // Internodes with Cutaway
+      // Dissection Showcase Segment (Center Internode at natural eye level)
+      const dissectIdx = Math.floor(count / 2);
+
+      // 2. Build Botanical Internodes & Nodal Complexes
       for (let i = 0; i < count; i++) {
         const segGroup = new THREE.Group();
         const yCenter = startY + (i + 0.5) * len;
-        const isSliced = (i === 2);
+        // Natural physiological taper: basal girth is thicker, apex is slender
+        const segR = r * (1.04 - (i / count) * 0.12);
+        const budAngle = (i % 2 === 0) ? 0 : Math.PI;
+        const isDissectSeg = (i === dissectIdx);
 
-        if (!isSliced) {
-          const cylGeo = new THREE.CylinderGeometry(r * 0.96, r, len * 0.94, radialSegs);
-          const cylMesh = new THREE.Mesh(cylGeo, skinMat);
+        if (!isDissectSeg) {
+          // Standard Intact Botanical Internode with Barrel Shape & Bud Furrow
+          const barrelGeo = createBarrelInternodeGeometry(segR, len * 0.94, radialSegs, 10, true, budAngle, 0, Math.PI * 2);
+          const barrelMesh = new THREE.Mesh(barrelGeo, skinMat);
           if (tier !== 'standard') {
-            cylMesh.castShadow = true;
-            cylMesh.receiveShadow = true;
+            barrelMesh.castShadow = true;
+            barrelMesh.receiveShadow = true;
           }
-          cylMesh.userData = { partKey: 'rind', parentGroup: segGroup };
-          segGroup.add(cylMesh);
-          clickableMeshes.push(cylMesh);
+          barrelMesh.userData = { partKey: 'rind', parentGroup: segGroup };
+          segGroup.add(barrelMesh);
+          clickableMeshes.push(barrelMesh);
+
+          // Transverse End-Caps (Vascular Bundle Pattern on Cut Faces)
+          const capGeo = new THREE.CircleGeometry(segR * 0.97, radialSegs);
+          const capMat = new THREE.MeshStandardMaterial({ map: pithCapTex, roughness: 0.45 });
+          const topCap = new THREE.Mesh(capGeo, capMat);
+          topCap.rotation.x = -Math.PI / 2;
+          topCap.position.y = len * 0.47;
+          topCap.userData = { partKey: 'pith', parentGroup: segGroup };
+          segGroup.add(topCap);
+          clickableMeshes.push(topCap);
+
+          const btmCap = new THREE.Mesh(capGeo, capMat);
+          btmCap.rotation.x = Math.PI / 2;
+          btmCap.position.y = -len * 0.47;
+          btmCap.userData = { partKey: 'pith', parentGroup: segGroup };
+          segGroup.add(btmCap);
+          clickableMeshes.push(btmCap);
+
         } else {
-          const sliceGeo = new THREE.CylinderGeometry(r * 0.96, r, len * 0.94, radialSegs, 1, false, 0, Math.PI * 1.5);
-          const sliceMesh = new THREE.Mesh(sliceGeo, skinMat);
-          if (tier !== 'standard') sliceMesh.castShadow = true;
-          sliceMesh.userData = { partKey: 'rind', parentGroup: segGroup };
-          segGroup.add(sliceMesh);
-          clickableMeshes.push(sliceMesh);
+          // ==========================================
+          // ENHANCED DISSECTION SEGMENT (Centerpiece)
+          // ==========================================
+          // A. Fixed Back Rind Half (180 degrees)
+          const backRindGeo = createBarrelInternodeGeometry(segR, len * 0.94, Math.floor(radialSegs / 2), 10, false, 0, Math.PI * 0.5, Math.PI);
+          const backRindMesh = new THREE.Mesh(backRindGeo, skinMat);
+          backRindMesh.userData = { partKey: 'rind', parentGroup: segGroup };
+          if (tier !== 'standard') backRindMesh.castShadow = true;
+          segGroup.add(backRindMesh);
+          clickableMeshes.push(backRindMesh);
 
-          const pithGeo = new THREE.CylinderGeometry(r * 0.93, r * 0.96, len * 0.92, radialSegs, 1, false, Math.PI * 1.5, Math.PI * 0.5);
-          const pithMesh = new THREE.Mesh(pithGeo, pithMat);
-          pithMesh.userData = { partKey: 'pith', parentGroup: segGroup };
-          segGroup.add(pithMesh);
-          clickableMeshes.push(pithMesh);
+          // B. Inner Juicy Sucrose Pith Core Cylinder
+          const pithCoreGeo = new THREE.CylinderGeometry(segR * 0.91, segR * 0.91, len * 0.92, radialSegs);
+          const pithCoreMesh = new THREE.Mesh(pithCoreGeo, pithMat);
+          pithCoreMesh.userData = { partKey: 'pith', parentGroup: segGroup };
+          segGroup.add(pithCoreMesh);
+          clickableMeshes.push(pithCoreMesh);
 
-          const capGeo = new THREE.CircleGeometry(r * 0.95, radialSegs);
-          const capMat = new THREE.MeshStandardMaterial({ map: pithCapTex, roughness: 0.4 });
-          const capMesh = new THREE.Mesh(capGeo, capMat);
-          capMesh.rotation.x = -Math.PI / 2;
-          capMesh.position.y = len * 0.47;
-          capMesh.userData = { partKey: 'pith', parentGroup: segGroup };
-          segGroup.add(capMesh);
-          clickableMeshes.push(capMesh);
+          // C. Longitudinal Vascular Bundles (Xylem & Phloem fibers running vertically)
+          const bundleGroup = new THREE.Group();
+          const bundleCount = 14;
+          const bundleGeo = new THREE.CylinderGeometry(0.012, 0.012, len * 0.88, 6);
+          for (let b = 0; b < bundleCount; b++) {
+            const bAngle = (b / bundleCount) * Math.PI * 2;
+            const bRad = (segR * 0.25) + (b % 3) * (segR * 0.22);
+            const bMesh = new THREE.Mesh(bundleGeo, bundleMat);
+            bMesh.position.set(Math.cos(bAngle) * bRad, 0, Math.sin(bAngle) * bRad);
+            bMesh.userData = { partKey: 'pith', parentGroup: segGroup };
+            bundleGroup.add(bMesh);
+          }
+          segGroup.add(bundleGroup);
 
-          partPositions['slice'] = new THREE.Vector3(0, yCenter, 0);
+          // D. Transverse Nodal Septum Diaphragm (Internal woody cross-wall at node base)
+          const diaphragmGeo = new THREE.CylinderGeometry(segR * 0.91, segR * 0.91, 0.04, radialSegs);
+          const diaphragmMesh = new THREE.Mesh(diaphragmGeo, diaphragmMat);
+          diaphragmMesh.position.y = -len * 0.44;
+          diaphragmMesh.userData = { partKey: 'diaphragm', parentGroup: segGroup };
+          segGroup.add(diaphragmMesh);
+          clickableMeshes.push(diaphragmMesh);
+
+          // E. Transverse Cut End-Caps
+          const cutCapGeo = new THREE.CircleGeometry(segR * 0.93, radialSegs);
+          const cutCapMat = new THREE.MeshStandardMaterial({ map: pithCapTex, roughness: 0.4 });
+          const topCapCut = new THREE.Mesh(cutCapGeo, cutCapMat);
+          topCapCut.rotation.x = -Math.PI / 2;
+          topCapCut.position.y = len * 0.46;
+          topCapCut.userData = { partKey: 'pith', parentGroup: segGroup };
+          segGroup.add(topCapCut);
+          clickableMeshes.push(topCapCut);
+
+          // F. Kinetic Peeling Front Rind Door (Smooth Animated GSAP Peel Reveal)
+          const peelPivot = new THREE.Group();
+          const frontRindGeo = createBarrelInternodeGeometry(segR, len * 0.94, Math.floor(radialSegs / 2), 10, true, budAngle, -Math.PI * 0.5, Math.PI);
+          const frontRindMesh = new THREE.Mesh(frontRindGeo, skinMat);
+          if (tier !== 'standard') frontRindMesh.castShadow = true;
+          frontRindMesh.userData = { partKey: 'rind', parentGroup: segGroup };
+          peelPivot.add(frontRindMesh);
+          clickableMeshes.push(frontRindMesh);
+
+          peelPivot.userData = {
+            openX: segR * 0.45,
+            openZ: segR * 1.85,
+            openRotY: 0.48,
+            openRotZ: 0.16
+          };
+
+          segGroup.add(peelPivot);
+          peelPivots.push(peelPivot);
+
+          partPositions['pith'] = new THREE.Vector3(0, yCenter, segR * 1.1);
+          partPositions['slice'] = new THREE.Vector3(0, yCenter, segR * 1.1);
+          partPositions['diaphragm'] = new THREE.Vector3(0, yCenter - len * 0.4, segR * 1.1);
         }
 
-        // Swollen Node Ring
-        const nodeTorusGeo = new THREE.TorusGeometry(r * 1.025, 0.045, 14, radialSegs);
+        // ==========================================
+        // BOTANICAL NODAL COMPLEX (4 Realistic Zones)
+        // ==========================================
+        // 1. Cuticular Wax Bloom Band (Glaucous powdery band below nodal ring)
+        const waxBandGeo = new THREE.CylinderGeometry(segR * 1.012, segR * 0.995, len * 0.16, radialSegs);
+        const waxBandMesh = new THREE.Mesh(waxBandGeo, waxMat);
+        waxBandMesh.position.y = len * 0.36;
+        waxBandMesh.userData = { partKey: 'wax', parentGroup: segGroup };
+        segGroup.add(waxBandMesh);
+        clickableMeshes.push(waxBandMesh);
+
+        // 2. Swollen Node Ring (Leaf Scar Nodal Line)
+        const nodeTorusGeo = new THREE.TorusGeometry(segR * 1.028, 0.042, 14, radialSegs);
         const nodeMesh = new THREE.Mesh(nodeTorusGeo, nodeMat);
         nodeMesh.rotation.x = Math.PI / 2;
         nodeMesh.position.y = len * 0.47;
@@ -1781,63 +2020,98 @@
         segGroup.add(nodeMesh);
         clickableMeshes.push(nodeMesh);
 
-        // Vegetative Eye Bud
+        // 3. Growth Ring / Intercalary Meristem (Smooth pale zone above node)
+        const growthGeo = new THREE.CylinderGeometry(segR * 1.015, segR * 1.025, len * 0.07, radialSegs);
+        const growthMesh = new THREE.Mesh(growthGeo, growthRingMat);
+        growthMesh.position.y = len * 0.495;
+        growthMesh.userData = { partKey: 'node', parentGroup: segGroup };
+        segGroup.add(growthMesh);
+        clickableMeshes.push(growthMesh);
+
+        // 4. Root Primordia Band (Ring of dormant root eyes)
+        const primordiaCount = Math.min(16, Math.floor(radialSegs * 0.4));
+        const primordiaGeo = new THREE.SphereGeometry(0.016, 6, 6);
+        const primordiaMat = new THREE.MeshStandardMaterial({ color: 0x52361b, roughness: 0.8 });
+        for (let p = 0; p < primordiaCount; p++) {
+          const pAngle = (p / primordiaCount) * Math.PI * 2;
+          const pMesh = new THREE.Mesh(primordiaGeo, primordiaMat);
+          pMesh.position.set(
+            Math.cos(pAngle) * (segR * 1.025),
+            len * 0.44,
+            Math.sin(pAngle) * (segR * 1.025)
+          );
+          segGroup.add(pMesh);
+        }
+
+        // 5. Vegetative Eye Bud (Pointed embryonic shoot nestled at node)
         const budGroup = new THREE.Group();
-        const budGeo = new THREE.ConeGeometry(0.065, 0.14, 12);
+        const budGeo = new THREE.ConeGeometry(0.065, 0.15, 12);
         const budMesh = new THREE.Mesh(budGeo, nodeMat);
-        const budAngle = i % 2 === 0 ? 0 : Math.PI;
-        budMesh.rotation.z = budAngle === 0 ? -Math.PI / 3 : Math.PI / 3;
-        budGroup.position.set(Math.cos(budAngle) * (r * 1.03), len * 0.48, Math.sin(budAngle) * (r * 1.03));
+        budMesh.rotation.z = (budAngle === 0) ? -Math.PI / 3.4 : Math.PI / 3.4;
         budMesh.userData = { partKey: 'bud', parentGroup: segGroup };
+        budGroup.position.set(Math.cos(budAngle) * (segR * 1.035), len * 0.485, Math.sin(budAngle) * (segR * 1.035));
         budGroup.add(budMesh);
         segGroup.add(budGroup);
         clickableMeshes.push(budMesh);
 
+        // 6. Upper Clasping Leaf Sheath (On top 2 internodes)
+        if (i >= count - 2) {
+          const sheathGeo = new THREE.CylinderGeometry(segR * 1.02, segR * 1.03, len * 0.75, radialSegs, 1, true, 0, Math.PI * 1.7);
+          const sheathMat = new THREE.MeshStandardMaterial({ color: 0x226b35, roughness: 0.5, side: THREE.DoubleSide });
+          const sheathMesh = new THREE.Mesh(sheathGeo, sheathMat);
+          sheathMesh.position.y = len * 0.12;
+          sheathMesh.rotation.y = budAngle + 0.3;
+          segGroup.add(sheathMesh);
+        }
+
         segGroup.position.set(0, yCenter, 0);
         segGroup.userData = {
           defaultY: yCenter,
-          dissectedY: yCenter + (i - count / 2) * 0.55
+          dissectedY: yCenter + (i - dissectIdx) * 0.65
         };
 
         caneGroup.add(segGroup);
         segments.push(segGroup);
 
-        if (i === 1) partPositions['wax'] = new THREE.Vector3(0, yCenter + len * 0.3, 0);
-        if (i === 3) partPositions['node'] = new THREE.Vector3(0, yCenter + len * 0.47, 0);
-        if (i === 4) partPositions['internode'] = new THREE.Vector3(0, yCenter, 0);
+        if (i === 1) partPositions['wax'] = new THREE.Vector3(0, yCenter + len * 0.36, segR * 1.1);
+        if (i === 3) partPositions['node'] = new THREE.Vector3(0, yCenter + len * 0.47, segR * 1.1);
+        if (i === 4) partPositions['internode'] = new THREE.Vector3(0, yCenter, segR * 1.1);
+        if (i === 0) partPositions['bud'] = new THREE.Vector3(Math.cos(budAngle) * (segR * 1.1), yCenter + len * 0.48, Math.sin(budAngle) * (segR * 1.1));
       }
 
-      // Crown Leaves
+      // 3. Graceful Crown Leaf Canopy (Arching V-Keel Blades with Pale Central Midrib)
       const topY = startY + count * len;
-      partPositions['crown'] = new THREE.Vector3(0, topY + 0.9, 0);
+      partPositions['crown'] = new THREE.Vector3(0, topY + 1.1, 0);
+      partPositions['leaf'] = new THREE.Vector3(0, topY + 1.1, 0);
 
       const leafMat = new THREE.MeshStandardMaterial({
         map: leafTex,
-        roughness: 0.45,
+        roughness: 0.4,
         side: THREE.DoubleSide
       });
 
       for (let j = 0; j < leafCount; j++) {
-        const curve = new THREE.CubicBezierCurve3(
+        const jAngle = (j / leafCount) * Math.PI * 2;
+        const droopCurve = new THREE.CubicBezierCurve3(
           new THREE.Vector3(0, 0, 0),
-          new THREE.Vector3(0.4, 0.95, 0),
-          new THREE.Vector3(1.35, 1.15, 0),
-          new THREE.Vector3(2.5 * data.leafSpan, -0.75 * data.leafSpan, 0)
+          new THREE.Vector3(0.35, 0.95, 0),
+          new THREE.Vector3(1.35, 1.25, 0),
+          new THREE.Vector3(2.65 * data.leafSpan, -0.85 * data.leafSpan, 0)
         );
 
-        const leafGeo = new THREE.TubeGeometry(curve, 24, 0.065, 6, false);
+        const leafGeo = createSugarcaneLeafBladeGeometry(droopCurve, 24, 0.24);
         const leafMesh = new THREE.Mesh(leafGeo, leafMat);
         if (tier !== 'standard') leafMesh.castShadow = true;
         leafMesh.userData = { partKey: 'leaf' };
 
         const leafGroup = new THREE.Group();
-        leafGroup.rotation.y = (j / leafCount) * Math.PI * 2;
+        leafGroup.rotation.y = jAngle;
         leafGroup.position.set(0, topY, 0);
         leafGroup.add(leafMesh);
 
         leafGroup.userData = {
           defaultY: topY,
-          dissectedY: topY + 1.2
+          dissectedY: topY + 1.35
         };
 
         caneGroup.add(leafGroup);
@@ -1858,17 +2132,22 @@
       if (tier === 'standard') {
         renderer.setPixelRatio(1.0);
         keyLight.castShadow = false;
-        renderer.shadowMap.enabled = false;
+        warmRim.intensity = 1.0;
+        emeraldFill.intensity = 0.6;
+        renderer.toneMappingExposure = 1.15;
       } else if (tier === 'balanced') {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
         keyLight.castShadow = true;
-        keyLight.shadow.mapSize.set(1024, 1024);
-        renderer.shadowMap.enabled = true;
+        warmRim.intensity = 1.4;
+        emeraldFill.intensity = 0.9;
+        renderer.toneMappingExposure = 1.25;
       } else if (tier === 'cinematic') {
+        // True Cinematic Ultra: Enhanced multi-angle specular rims, maximum resolution, ultra-rich tone mapping
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
         keyLight.castShadow = true;
-        keyLight.shadow.mapSize.set(4096, 4096);
-        renderer.shadowMap.enabled = true;
+        warmRim.intensity = 1.9;
+        emeraldFill.intensity = 1.2;
+        renderer.toneMappingExposure = 1.35;
       }
 
       buildSugarcane(currentCropIdx, currentTier);
@@ -1924,26 +2203,35 @@
         'node': 'node',
         'wax': 'wax',
         'slice': 'pith',
-        'crown': 'leaf'
+        'pith': 'pith',
+        'diaphragm': 'diaphragm',
+        'crown': 'leaf',
+        'leaf': 'leaf',
+        'root': 'root'
       };
       const actualKey = keyMap[partKey] || partKey;
-      const targetPos = partPositions[partKey];
 
+      if ((partKey === 'pith' || partKey === 'slice' || partKey === 'diaphragm') && !isDissected) {
+        toggleDissection();
+        return;
+      }
+
+      const targetPos = partPositions[partKey] || partPositions[actualKey];
       if (targetPos) {
         controls.autoRotate = false;
         document.getElementById('orbitBtn').classList.remove('active');
 
         gsap.to(controls.target, {
-          x: targetPos.x,
+          x: targetPos.x * 0.4,
           y: targetPos.y,
-          z: targetPos.z,
+          z: targetPos.z * 0.4,
           duration: 0.65,
           ease: "power2.out"
         });
 
         gsap.to(camera.position, {
-          x: targetPos.x + 1.8,
-          y: targetPos.y + 0.4,
+          x: targetPos.x + 1.6,
+          y: targetPos.y + 0.3,
           z: targetPos.z + 3.0,
           duration: 0.65,
           ease: "power2.out"
@@ -2043,22 +2331,68 @@
       window.speechSynthesis.speak(utterance);
     }
 
-    // Dissection Toggle
+    // Dissection Toggle (Kinetic Longitudinal Peel & Exploded Cross-Section)
     function toggleDissection() {
       isDissected = !isDissected;
-      playChime(isDissected ? 600 : 480);
+      playChime(isDissected ? 620 : 480);
       const btn = document.getElementById('dissectBtn');
       btn.classList.toggle('active', isDissected);
+      const dissectCard = document.getElementById('dissectCard');
+      if (dissectCard) dissectCard.classList.toggle('active', isDissected);
 
+      // Animate vertical separation of internodes
       segments.forEach(seg => {
         const destY = isDissected ? seg.userData.dissectedY : seg.userData.defaultY;
-        gsap.to(seg.position, { y: destY, duration: 0.45, ease: "power2.out" });
+        gsap.to(seg.position, { y: destY, duration: 0.55, ease: "power2.out" });
       });
 
       crownLeaves.forEach(leaf => {
         const destY = isDissected ? leaf.userData.dissectedY : leaf.userData.defaultY;
-        gsap.to(leaf.position, { y: destY, duration: 0.45, ease: "power2.out" });
+        gsap.to(leaf.position, { y: destY, duration: 0.55, ease: "power2.out" });
       });
+
+      // Animate longitudinal peeling of front rind
+      peelPivots.forEach(p => {
+        const targetX = isDissected ? p.userData.openX : 0;
+        const targetZ = isDissected ? p.userData.openZ : 0;
+        const targetRotY = isDissected ? p.userData.openRotY : 0;
+        const targetRotZ = isDissected ? p.userData.openRotZ : 0;
+
+        gsap.to(p.position, {
+          x: targetX,
+          z: targetZ,
+          duration: 0.65,
+          ease: isDissected ? "back.out(1.3)" : "power2.inOut"
+        });
+        gsap.to(p.rotation, {
+          y: targetRotY,
+          z: targetRotZ,
+          duration: 0.65,
+          ease: isDissected ? "back.out(1.3)" : "power2.inOut"
+        });
+      });
+
+      if (isDissected) {
+        controls.autoRotate = false;
+        document.getElementById('orbitBtn').classList.remove('active');
+        if (partPositions['pith']) {
+          gsap.to(controls.target, {
+            x: 0,
+            y: partPositions['pith'].y,
+            z: 0,
+            duration: 0.7,
+            ease: "power2.out"
+          });
+          gsap.to(camera.position, {
+            x: 0.6,
+            y: partPositions['pith'].y + 0.3,
+            z: 4.6,
+            duration: 0.7,
+            ease: "power2.out"
+          });
+        }
+        displayPartDefinition('pith');
+      }
     }
 
     // Auto Orbit
@@ -2223,3 +2557,4 @@
   </script>
 </body>
 </html>
+
