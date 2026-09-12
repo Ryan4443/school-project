@@ -3,40 +3,39 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SACCHARUM ULTIMATE // 3D KINETIC MULTIVERSE | CBSE Class 10 Solo Masterpiece</title>
+  <title>SACCHARUM // THE OMNISCIENCE | Definitive 2.5D AMOLED Experience</title>
   
-  <!-- Premium Fonts: Italian Editorial Luxury + Space-Age Tech Monospace + Ultra-Clean Sans -->
+  <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Three.js + OrbitControls + GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <!-- GSAP for Butter-Smooth 120Hz Animation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <style>
     :root {
-      --bg-dark: #020403;
-      --emerald-neon: #10b981;
-      --emerald-glow: #34d399;
-      --amethyst-neon: #a855f7;
-      --amethyst-bright: #c084fc;
-      --amber-gold: #f59e0b;
-      --amber-bright: #fde047;
-      --cyan-sky: #06b6d4;
-      --cyan-bright: #22d3ee;
-      --text-muted: #94a3b8;
-      --text-light: #f8fafc;
+      --black-amoled: #000000;
+      --emerald-neon: #00ff88;
+      --emerald-glow: #10b981;
+      --amethyst-neon: #bf5af2;
+      --amethyst-glow: #a855f7;
+      --amber-gold: #ffd60a;
+      --amber-glow: #f59e0b;
+      --cyan-neon: #00f0ff;
+      --cyan-glow: #06b6d4;
+      --coral-neon: #ff375f;
+      --text-muted: #8e8e93;
+      --text-main: #f2f2f7;
       
-      --glass-bg: rgba(6, 12, 8, 0.78);
-      --glass-border: rgba(255, 255, 255, 0.16);
-      --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.38), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.65);
-      --shadow-3d: 0 35px 70px -15px rgba(0, 0, 0, 0.95), 0 0 45px rgba(16, 185, 129, 0.28);
+      --glass-amoled: rgba(10, 14, 11, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.14);
+      --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.85);
       
-      --font-display: 'Cinzel', serif;
-      --font-tech: 'Space Grotesk', monospace;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-serif: 'Cinzel', serif;
+      --font-mono: 'Space Grotesk', monospace;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
     }
 
     * {
@@ -47,39 +46,43 @@
     }
 
     html, body {
-      background: var(--bg-dark);
-      color: var(--text-light);
-      font-family: var(--font-body);
+      background: var(--black-amoled) !important;
+      color: var(--text-main);
+      font-family: var(--font-sans);
       overflow-x: hidden;
       scroll-behavior: smooth;
     }
 
-    /* Fixed WebGL 3D Canvas */
-    #webgl-canvas {
+    /* Full-Screen 2.5D Kinetic Canvas (Pure AMOLED Black Backdrop) */
+    #vfx-canvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
       z-index: 1;
-      outline: none;
-      pointer-events: auto;
-    }
-
-    /* Cinematic Visual Layers */
-    .film-grain {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
       pointer-events: none;
-      z-index: 2;
-      opacity: 0.045;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      background: var(--black-amoled);
     }
 
-    .vignette-layer {
+    /* Ambient Bioluminescent Dust Nebulae */
+    .amoled-glow-orb {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 75vw;
+      height: 75vh;
+      max-width: 1000px;
+      max-height: 1000px;
+      background: radial-gradient(circle, rgba(0, 255, 136, 0.12) 0%, rgba(191, 90, 242, 0.08) 42%, transparent 72%);
+      filter: blur(100px);
+      z-index: 2;
+      pointer-events: none;
+      transition: background 1.4s ease;
+    }
+
+    .vignette-amoled {
       position: fixed;
       top: 0;
       left: 0;
@@ -87,62 +90,46 @@
       height: 100vh;
       pointer-events: none;
       z-index: 3;
-      background: radial-gradient(circle at 50% 50%, transparent 28%, rgba(2, 4, 3, 0.75) 75%, #010302 100%);
+      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.85) 80%, #000000 100%);
     }
 
-    .ambient-nebula-vfx {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 85vw;
-      height: 85vh;
-      max-width: 1200px;
-      max-height: 1200px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(168, 85, 247, 0.14) 45%, transparent 72%);
-      filter: blur(100px);
-      z-index: 2;
-      pointer-events: none;
-      transition: background 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Top Kinetic Progress Bar */
+    /* Top Kinetic Progress Tracker */
     #progressBar {
       position: fixed;
       top: 0;
       left: 0;
       height: 3px;
       width: 0%;
-      background: linear-gradient(90deg, var(--emerald-glow), var(--amethyst-bright), var(--amber-bright), var(--cyan-bright));
-      box-shadow: 0 0 18px var(--emerald-glow);
+      background: linear-gradient(90deg, var(--emerald-neon), var(--cyan-neon), var(--amethyst-neon), var(--amber-gold));
+      box-shadow: 0 0 16px var(--emerald-neon);
       z-index: 999;
       transition: width 0.1s ease-out;
     }
 
-    /* iPhone-Level Floating Dynamic Island Command Header */
+    /* Floating Apple-Style AMOLED Dynamic Island Header */
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      padding: 18px 42px;
+      padding: 18px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 50;
-      background: linear-gradient(180deg, rgba(2, 4, 3, 0.95) 0%, rgba(2, 4, 3, 0) 100%);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0) 100%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
-    .brand-group {
+    .brand-cluster {
       display: flex;
       align-items: center;
       gap: 16px;
     }
 
-    .brand-name {
-      font-family: var(--font-display);
+    .brand-title {
+      font-family: var(--font-serif);
       font-size: clamp(1.2rem, 1.8vw, 1.55rem);
       font-weight: 900;
       letter-spacing: 4px;
@@ -151,18 +138,18 @@
       text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
     }
 
-    .solo-tag {
-      font-family: var(--font-tech);
+    .solo-badge {
+      font-family: var(--font-mono);
       font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 2px;
-      color: var(--emerald-glow);
-      background: rgba(16, 185, 129, 0.14);
-      border: 1px solid rgba(52, 211, 153, 0.45);
+      color: var(--emerald-neon);
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.35);
       padding: 4px 12px;
       border-radius: 999px;
       text-transform: uppercase;
-      box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 0 16px rgba(0, 255, 136, 0.25);
     }
 
     .header-dock {
@@ -172,12 +159,12 @@
     }
 
     .island-btn {
-      font-family: var(--font-tech);
+      font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 1px;
       color: #cbd5e1;
-      background: var(--glass-bg);
+      background: var(--glass-amoled);
       border: 1px solid var(--glass-border);
       padding: 7px 16px;
       border-radius: 999px;
@@ -186,67 +173,67 @@
       align-items: center;
       gap: 8px;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
     }
 
     .island-btn:hover {
-      border-color: var(--emerald-glow);
+      border-color: var(--emerald-neon);
       color: #ffffff;
       transform: translateY(-2px);
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.45);
+      box-shadow: 0 0 22px rgba(0, 255, 136, 0.45);
     }
 
     .island-btn.active {
-      background: rgba(16, 185, 129, 0.25);
-      border-color: var(--emerald-glow);
-      color: var(--emerald-glow);
-      box-shadow: 0 0 24px rgba(16, 185, 129, 0.55);
+      background: rgba(0, 255, 136, 0.22);
+      border-color: var(--emerald-neon);
+      color: var(--emerald-neon);
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.55);
     }
 
-    /* Fixed Vertical Chapter Rail on Right */
-    .chapter-spine-rail {
+    /* Vertical Chapter Navigation Rail on Right */
+    .spine-rail {
       position: fixed;
-      right: 28px;
+      right: 26px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 40;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .spine-dot-node {
-      width: 9px;
-      height: 9px;
+    .spine-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       cursor: pointer;
       position: relative;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .spine-dot-node:hover {
-      background: var(--amethyst-bright);
+    .spine-dot:hover {
+      background: var(--amethyst-neon);
       transform: scale(1.6);
     }
 
-    .spine-dot-node.active {
-      background: var(--emerald-glow);
-      box-shadow: 0 0 16px var(--emerald-glow);
+    .spine-dot.active {
+      background: var(--emerald-neon);
+      box-shadow: 0 0 16px var(--emerald-neon);
       transform: scale(1.8);
-      border-color: #fff;
+      border-color: #ffffff;
     }
 
-    .spine-label-tip {
+    .spine-tooltip {
       position: absolute;
-      right: 22px;
+      right: 20px;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(4, 6, 5, 0.95);
+      background: #000000;
       border: 1px solid var(--glass-border);
       color: #fff;
-      font-family: var(--font-tech);
+      font-family: var(--font-mono);
       font-size: 0.65rem;
       letter-spacing: 1.5px;
       padding: 4px 10px;
@@ -258,42 +245,42 @@
       text-transform: uppercase;
     }
 
-    .spine-dot-node:hover .spine-label-tip {
+    .spine-dot:hover .spine-tooltip {
       opacity: 1;
     }
 
-    /* Scrollytelling Stages */
-    .viewport-track {
+    /* Main Multi-Plane 2.5D Scrollytelling Viewport */
+    .story-track {
       position: relative;
       z-index: 10;
       pointer-events: none;
     }
 
-    .scrolly-slide {
+    .scrolly-act {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 100px clamp(20px, 6vw, 110px);
+      padding: 100px clamp(24px, 7vw, 130px);
       box-sizing: border-box;
       position: relative;
-      perspective: 1000px;
+      perspective: 1200px;
     }
 
-    .scrolly-slide.center {
+    .scrolly-act.align-center {
       justify-content: center;
       text-align: center;
     }
 
-    .scrolly-slide.left {
+    .scrolly-act.align-left {
       justify-content: flex-start;
     }
 
-    .scrolly-slide.right {
+    .scrolly-act.align-right {
       justify-content: flex-end;
     }
 
     /* Hero Monolith Layout */
-    .hero-container {
+    .hero-stage {
       width: 100%;
       height: 84vh;
       display: flex;
@@ -303,16 +290,16 @@
       pointer-events: none;
     }
 
-    .hero-meta-row {
+    .hero-meta-top {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      padding-top: 30px;
+      padding-top: 24px;
     }
 
-    .hero-meta-row .meta-tag-l, .hero-meta-row .meta-tag-r {
-      font-family: var(--font-tech);
+    .hero-meta-top .meta-l, .hero-meta-top .meta-r {
+      font-family: var(--font-mono);
       font-size: 0.72rem;
       letter-spacing: 2px;
       color: var(--text-muted);
@@ -320,7 +307,7 @@
       line-height: 1.6;
     }
 
-    .hero-meta-row .meta-tag-r {
+    .hero-meta-top .meta-r {
       text-align: right;
     }
 
@@ -333,22 +320,22 @@
       pointer-events: none;
     }
 
-    .monolith-word {
-      font-family: var(--font-display);
-      font-size: clamp(3.2rem, 8.5vw, 9.4rem);
+    .monolith-text {
+      font-family: var(--font-serif);
+      font-size: clamp(3.2rem, 8.8vw, 9.6rem);
       font-weight: 900;
-      letter-spacing: clamp(6px, 1.4vw, 16px);
+      letter-spacing: clamp(6px, 1.4vw, 18px);
       text-transform: uppercase;
       line-height: 0.95;
       color: #ffffff;
-      text-shadow: 0 0 50px rgba(255, 255, 255, 0.25), 0 0 100px rgba(16, 185, 129, 0.45);
+      text-shadow: 0 0 50px rgba(255, 255, 255, 0.25), 0 0 100px rgba(0, 255, 136, 0.45);
     }
 
-    .monolith-word.right {
+    .monolith-text.right {
       text-align: right;
     }
 
-    .hero-footer-stats {
+    .hero-footer-bar {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -356,8 +343,8 @@
       padding-bottom: 24px;
     }
 
-    .hero-pill-stats {
-      font-family: var(--font-tech);
+    .hero-stats-row {
+      font-family: var(--font-mono);
       font-size: 0.7rem;
       letter-spacing: 1.5px;
       color: var(--text-muted);
@@ -365,19 +352,19 @@
       gap: 24px;
     }
 
-    .hero-pill-stats b {
-      color: var(--emerald-glow);
+    .hero-stats-row b {
+      color: var(--emerald-neon);
     }
 
-    .scroll-down-cue {
+    .scroll-cue {
       display: inline-flex;
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      font-family: var(--font-tech);
+      font-family: var(--font-mono);
       font-size: 0.68rem;
       letter-spacing: 2px;
-      color: var(--emerald-glow);
+      color: var(--emerald-neon);
       animation: floatCue 2.2s infinite ease-in-out;
     }
 
@@ -386,47 +373,47 @@
       50% { transform: translateY(7px); opacity: 1; }
     }
 
-    /* iPhone-Level 3D Glass Card with Gyro Tilt Physics */
-    .apple-glass-card {
+    /* 2.5D Deep-Layered AMOLED Glassmorphic Card */
+    .amoled-card {
       pointer-events: auto;
-      max-width: 560px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(32px);
-      -webkit-backdrop-filter: blur(32px);
+      max-width: 600px;
+      background: var(--glass-amoled);
+      backdrop-filter: blur(35px);
+      -webkit-backdrop-filter: blur(35px);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-bevel), var(--shadow-3d);
-      border-radius: 28px;
-      padding: clamp(26px, 3.8vw, 42px);
+      box-shadow: var(--glass-bevel), 0 35px 70px -15px rgba(0, 0, 0, 0.98), 0 0 45px rgba(0, 255, 136, 0.18);
+      border-radius: 30px;
+      padding: clamp(28px, 4.2vw, 44px);
       position: relative;
       transform-style: preserve-3d;
       transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .apple-glass-card:hover {
-      border-color: rgba(52, 211, 153, 0.45);
-      box-shadow: var(--glass-bevel), 0 35px 75px -15px rgba(0, 0, 0, 0.95), 0 0 50px rgba(16, 185, 129, 0.4);
+    .amoled-card:hover {
+      border-color: rgba(0, 255, 136, 0.45);
+      box-shadow: var(--glass-bevel), 0 40px 80px -15px rgba(0, 0, 0, 0.98), 0 0 55px rgba(0, 255, 136, 0.35);
     }
 
-    .card-topic-tag {
+    .act-tag {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-family: var(--font-tech);
+      font-family: var(--font-mono);
       font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--emerald-glow);
-      background: rgba(16, 185, 129, 0.14);
-      border: 1px solid rgba(52, 211, 153, 0.38);
+      color: var(--emerald-neon);
+      background: rgba(0, 255, 136, 0.12);
+      border: 1px solid rgba(0, 255, 136, 0.38);
       padding: 4px 12px;
       border-radius: 8px;
       margin-bottom: 14px;
     }
 
     .card-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.1rem, 3.2vw, 3.0rem);
+      font-family: var(--font-serif);
+      font-size: clamp(2.1rem, 3.4vw, 3.1rem);
       font-weight: 900;
       line-height: 1.05;
       letter-spacing: 1px;
@@ -435,7 +422,7 @@
     }
 
     .card-subtitle {
-      font-family: var(--font-tech);
+      font-family: var(--font-mono);
       font-size: 0.82rem;
       font-weight: 600;
       letter-spacing: 1.5px;
@@ -445,14 +432,37 @@
     }
 
     .card-body-text {
-      font-size: clamp(0.9rem, 1.1vw, 1.0rem);
+      font-size: clamp(0.92rem, 1.15vw, 1.02rem);
       color: #cbd5e1;
-      line-height: 1.68;
+      line-height: 1.7;
       margin-bottom: 22px;
     }
 
+    /* 2.5D Interactive Schematic Visualizer Container inside card */
+    .schematic-25d-box {
+      width: 100%;
+      height: 170px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      margin: 18px 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .schematic-canvas-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
     /* 2x2 Metric Grid */
-    .metric-grid-2x2 {
+    .metrics-2x2 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
@@ -472,7 +482,7 @@
     }
 
     .metric-tag {
-      font-family: var(--font-tech);
+      font-family: var(--font-mono);
       font-size: 0.65rem;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -481,27 +491,27 @@
     }
 
     .metric-val {
-      font-family: var(--font-display);
+      font-family: var(--font-serif);
       font-size: 1.25rem;
       font-weight: 700;
-      color: var(--emerald-glow);
+      color: var(--emerald-neon);
     }
 
-    /* CBSE High-Yield Exam Highlight */
-    .cbse-exam-highlight {
-      background: rgba(245, 158, 11, 0.09);
+    /* CBSE High-Yield Exam Callout */
+    .cbse-callout-box {
+      background: rgba(255, 214, 10, 0.08);
       border-left: 3px solid var(--amber-gold);
       border-radius: 0 12px 12px 0;
       padding: 12px 16px;
-      font-size: 0.84rem;
+      font-size: 0.85rem;
       line-height: 1.55;
       color: #fef08a;
       margin-top: 14px;
     }
 
-    .cbse-exam-highlight strong {
+    .cbse-callout-box strong {
       color: #fff;
-      font-family: var(--font-tech);
+      font-family: var(--font-mono);
       font-size: 0.74rem;
       letter-spacing: 1px;
       display: block;
@@ -509,55 +519,55 @@
       text-transform: uppercase;
     }
 
-    /* Action Trigger Button */
-    .glow-pop-btn {
-      font-family: var(--font-tech);
+    /* Kinetic Glow Buttons */
+    .glow-action-pill {
+      font-family: var(--font-mono);
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: #ffffff;
-      background: linear-gradient(135deg, var(--emerald-neon), #047857);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 11px 22px;
+      color: #000000;
+      background: linear-gradient(135deg, var(--emerald-neon), #00cc66);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 11px 24px;
       border-radius: 999px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      box-shadow: 0 0 25px rgba(16, 185, 129, 0.45);
+      gap: 10px;
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
       transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
       margin-top: 6px;
     }
 
-    .glow-pop-btn:hover {
+    .glow-action-pill:hover {
       transform: translateY(-2px) scale(1.04);
-      box-shadow: 0 0 38px rgba(52, 211, 153, 0.7);
-      background: linear-gradient(135deg, var(--emerald-glow), var(--emerald-neon));
+      box-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+      background: linear-gradient(135deg, #ffffff, var(--emerald-neon));
     }
 
-    /* Comparison Matrix */
-    .compare-matrix-box {
+    /* North vs South Comparison Matrix */
+    .matrix-box-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin-top: 12px;
     }
 
-    .matrix-panel {
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.09);
+    .matrix-col-panel {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 14px;
       padding: 14px;
     }
 
-    .matrix-panel.south {
-      border-color: rgba(52, 211, 153, 0.4);
-      background: rgba(16, 185, 129, 0.07);
+    .matrix-col-panel.south {
+      border-color: rgba(0, 255, 136, 0.4);
+      background: rgba(0, 255, 136, 0.06);
     }
 
-    .matrix-title {
-      font-family: var(--font-tech);
+    .matrix-col-title {
+      font-family: var(--font-mono);
       font-size: 0.74rem;
       font-weight: 700;
       letter-spacing: 1px;
@@ -565,39 +575,39 @@
       margin-bottom: 8px;
     }
 
-    .matrix-panel.south .matrix-title {
-      color: var(--emerald-glow);
+    .matrix-col-panel.south .matrix-col-title {
+      color: var(--emerald-neon);
     }
 
-    .matrix-panel.north .matrix-title {
+    .matrix-col-panel.north .matrix-col-title {
       color: #94a3b8;
     }
 
-    .matrix-list {
+    .matrix-bullet-list {
       list-style: none;
       font-size: 0.78rem;
       line-height: 1.6;
       color: #cbd5e1;
     }
 
-    .matrix-list li {
+    .matrix-bullet-list li {
       margin-bottom: 6px;
       position: relative;
       padding-left: 12px;
     }
 
-    .matrix-list li::before {
+    .matrix-bullet-list li::before {
       content: '▸';
       position: absolute;
       left: 0;
-      color: var(--emerald-glow);
+      color: var(--emerald-neon);
     }
 
     /* By-Product Cascade Cards */
-    .byproduct-card-row {
+    .byproduct-item-row {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 14px;
       background: rgba(255, 255, 255, 0.035);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
@@ -606,19 +616,19 @@
       transition: all 0.25s ease;
     }
 
-    .byproduct-card-row:hover {
+    .byproduct-item-row:hover {
       background: rgba(255, 255, 255, 0.08);
-      border-color: var(--emerald-glow);
+      border-color: var(--emerald-neon);
       transform: translateX(4px);
     }
 
-    .byproduct-emoji-icon {
-      font-size: 1.3rem;
+    .byproduct-emoji-sign {
+      font-size: 1.35rem;
       line-height: 1;
     }
 
-    .byproduct-details h4 {
-      font-family: var(--font-tech);
+    .byproduct-text-details h4 {
+      font-family: var(--font-mono);
       font-size: 0.8rem;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -626,7 +636,7 @@
       margin-bottom: 3px;
     }
 
-    .byproduct-details p {
+    .byproduct-text-details p {
       font-size: 0.78rem;
       color: var(--text-muted);
       line-height: 1.45;
@@ -634,25 +644,25 @@
 
     /* Interactive CBSE Quiz */
     .quiz-card-wrapper {
-      max-width: 660px;
+      max-width: 680px;
       width: 100%;
     }
 
-    .quiz-options-flow {
+    .quiz-options-group {
       display: flex;
       flex-direction: column;
       gap: 9px;
       margin: 16px 0;
     }
 
-    .quiz-option-pill {
-      font-family: var(--font-body);
+    .quiz-btn-pill {
+      font-family: var(--font-sans);
       font-size: 0.9rem;
       color: #cbd5e1;
       background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 14px;
-      padding: 11px 16px;
+      padding: 12px 16px;
       text-align: left;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -661,28 +671,28 @@
       align-items: center;
     }
 
-    .quiz-option-pill:hover {
-      background: rgba(16, 185, 129, 0.16);
-      border-color: var(--emerald-glow);
+    .quiz-btn-pill:hover {
+      background: rgba(0, 255, 136, 0.15);
+      border-color: var(--emerald-neon);
       color: #fff;
     }
 
-    .quiz-option-pill.correct {
-      background: rgba(16, 185, 129, 0.35) !important;
-      border-color: var(--emerald-glow) !important;
+    .quiz-btn-pill.correct {
+      background: rgba(0, 255, 136, 0.35) !important;
+      border-color: var(--emerald-neon) !important;
       color: #fff !important;
       font-weight: 700;
     }
 
-    .quiz-option-pill.wrong {
-      background: rgba(239, 68, 68, 0.35) !important;
-      border-color: #ef4444 !important;
+    .quiz-btn-pill.wrong {
+      background: rgba(255, 55, 95, 0.35) !important;
+      border-color: var(--coral-neon) !important;
       color: #fca5a5 !important;
     }
 
-    .quiz-feedback-banner {
-      font-family: var(--font-tech);
-      font-size: 0.84rem;
+    .quiz-feedback-box {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
       letter-spacing: 1px;
       padding: 10px 14px;
       border-radius: 8px;
@@ -690,23 +700,23 @@
       display: none;
     }
 
-    /* Floating Dynamic Island Notification Toast */
+    /* Dynamic Island Notification Toast */
     .dynamic-toast {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 60;
-      background: rgba(2, 4, 3, 0.94);
-      border: 1px solid var(--emerald-glow);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85), 0 0 28px rgba(16, 185, 129, 0.4);
-      backdrop-filter: blur(18px);
+      background: #000000;
+      border: 1px solid var(--emerald-neon);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.95), 0 0 28px rgba(0, 255, 136, 0.4);
+      backdrop-filter: blur(20px);
       padding: 9px 24px;
       border-radius: 999px;
       display: flex;
       align-items: center;
       gap: 12px;
-      font-family: var(--font-tech);
+      font-family: var(--font-mono);
       font-size: 0.75rem;
       letter-spacing: 1.5px;
       color: #fff;
@@ -724,25 +734,25 @@
     footer {
       position: relative;
       z-index: 20;
-      background: #010202;
+      background: #000000;
       border-top: 1px solid var(--glass-border);
-      padding: 45px 25px;
+      padding: 50px 25px;
       text-align: center;
-      font-family: var(--font-tech);
-      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
       letter-spacing: 1.5px;
       color: var(--text-muted);
     }
 
     footer b {
-      color: var(--emerald-glow);
+      color: var(--emerald-neon);
     }
 
     @media (max-width: 860px) {
       header {
         padding: 14px 18px;
       }
-      .chapter-spine-rail {
+      .spine-rail {
         display: none;
       }
       .hero-split-monolith {
@@ -750,16 +760,16 @@
         gap: 10px;
         text-align: center;
       }
-      .monolith-word.right {
+      .monolith-text.right {
         text-align: center;
       }
-      .metric-grid-2x2 {
+      .metrics-2x2 {
         grid-template-columns: 1fr;
       }
-      .compare-matrix-box {
+      .matrix-box-row {
         grid-template-columns: 1fr;
       }
-      .scrolly-slide {
+      .scrolly-act {
         padding: 75px 16px;
       }
     }
@@ -770,81 +780,81 @@
   <!-- Top Progress Bar -->
   <div id="progressBar"></div>
 
-  <!-- Real-Time WebGL Three.js Canvas -->
-  <canvas id="webgl-canvas"></canvas>
+  <!-- Full-Screen 2.5D Kinetic Canvas -->
+  <canvas id="vfx-canvas"></canvas>
 
-  <!-- Atmospheric VFX Layers -->
+  <!-- Atmospheric AMOLED Overlays -->
   <div class="film-grain"></div>
-  <div class="vignette-layer"></div>
-  <div class="ambient-nebula-vfx" id="ambientNebulaVfx"></div>
+  <div class="vignette-amoled"></div>
+  <div class="amoled-glow-orb" id="ambientGlowOrb"></div>
 
-  <!-- iPhone-Level Header Island -->
+  <!-- Header Island -->
   <header>
-    <div class="brand-group">
-      <span class="brand-name">SACCHARUM</span>
-      <span class="solo-tag">SOLO PROJECT // RYAN FREDRICK RAVURU</span>
+    <div class="brand-cluster">
+      <span class="brand-title">SACCHARUM</span>
+      <span class="solo-badge">SOLO PROJECT // RYAN FREDRICK RAVURU</span>
     </div>
 
     <div class="header-dock">
-      <button class="island-btn" id="actionPillBtn" onclick="triggerInteractivePop()">
-        <span id="dockActionIcon">🥤</span>
-        <span id="dockActionLabel">Interact with 3D</span>
+      <button class="island-btn" id="vfxPulseBtn" onclick="triggerKineticPulse()">
+        <span id="dockIcon">⚡</span>
+        <span id="dockLabel">2.5D Energy Burst</span>
       </button>
-      <button class="island-btn" id="soundscapeBtn" onclick="cycleSoundscape()">
-        <span id="soundscapeIcon">🎵</span>
-        <span id="soundscapeLabel">Sound: Wind & Field</span>
-      </button>
-      <button class="island-btn" id="orbitModeBtn" onclick="toggleFreeOrbit()">
-        <span id="orbitIcon">🪐</span>
-        <span id="orbitText">360° Free Orbit</span>
+      <button class="island-btn" id="soundscapeBtn" onclick="cycleSoundEngine()">
+        <span id="soundIcon">🎵</span>
+        <span id="soundLabel">Sound: Wind & Rain</span>
       </button>
     </div>
   </header>
 
   <!-- Navigation Spine -->
-  <div class="chapter-spine-rail">
-    <div class="spine-dot-node active" onclick="scrollToStage(0)"><span class="spine-label-tip">00 Living Stalk</span></div>
-    <div class="spine-dot-node" onclick="scrollToStage(1)"><span class="spine-label-tip">01 Sprouting Sett & Soil</span></div>
-    <div class="spine-dot-node" onclick="scrollToStage(2)"><span class="spine-label-tip">02 Monsoon Biosphere</span></div>
-    <div class="spine-dot-node" onclick="scrollToStage(3)"><span class="spine-label-tip">03 Fresh Ganne Ka Ras</span></div>
-    <div class="spine-dot-node" onclick="scrollToStage(4)"><span class="spine-label-tip">04 3D India Map & Shift</span></div>
-    <div class="spine-dot-node" onclick="scrollToStage(5)"><span class="spine-label-tip">05 Mechanical Cane Crusher</span></div>
-    <div class="spine-dot-node" onclick="scrollToStage(6)"><span class="spine-label-tip">06 Boiling Gur & E20 Biofuel</span></div>
-    <div class="spine-dot-node" onclick="scrollToStage(7)"><span class="spine-label-tip">07 Sucrose Cubes & Quiz</span></div>
+  <div class="spine-rail">
+    <div class="spine-dot active" onclick="jumpToAct(0)"><span class="spine-tooltip">00 Monolith Dossier</span></div>
+    <div class="spine-dot" onclick="jumpToAct(1)"><span class="spine-tooltip">01 Genesis & History</span></div>
+    <div class="spine-dot" onclick="jumpToAct(2)"><span class="spine-tooltip">02 2.5D Culm Anatomy</span></div>
+    <div class="spine-dot" onclick="jumpToAct(3)"><span class="spine-tooltip">03 Agro-Climate Matrix</span></div>
+    <div class="spine-dot" onclick="jumpToAct(4)"><span class="spine-tooltip">04 Farming Operations</span></div>
+    <div class="spine-dot" onclick="jumpToAct(5)"><span class="spine-tooltip">05 Pests & Pathology</span></div>
+    <div class="spine-dot" onclick="jumpToAct(6)"><span class="spine-tooltip">06 Peninsular Shift</span></div>
+    <div class="spine-dot" onclick="jumpToAct(7)"><span class="spine-tooltip">07 24-Hr Invertase Race</span></div>
+    <div class="spine-dot" onclick="jumpToAct(8)"><span class="spine-tooltip">08 Traditional Derivatives</span></div>
+    <div class="spine-dot" onclick="jumpToAct(9)"><span class="spine-tooltip">09 Bio-Economy & E20</span></div>
+    <div class="spine-dot" onclick="jumpToAct(10)"><span class="spine-tooltip">10 Agritech Frontiers</span></div>
+    <div class="spine-dot" onclick="jumpToAct(11)"><span class="spine-tooltip">11 Board Exam Simulator</span></div>
   </div>
 
-  <!-- Storyline Viewport Track -->
-  <main class="viewport-track">
+  <!-- Viewport Scrollytelling Track -->
+  <main class="story-track">
 
-    <!-- STAGE 0: HERO MONOLITH STALK -->
-    <section class="scrolly-slide center" id="stage0">
-      <div class="hero-container">
-        <div class="hero-meta-row">
-          <div class="meta-tag-l">
+    <!-- ACT 0: THE MONOLITH DOSSIER -->
+    <section class="scrolly-act align-center" id="act0">
+      <div class="hero-stage">
+        <div class="hero-meta-top">
+          <div class="meta-l">
             [C4 PHOTOSYNTHETIC PERENNIAL]<br>
             SACCHARUM OFFICINARUM<br>
             2ND LARGEST GLOBAL PRODUCER
           </div>
-          <div class="meta-tag-r">
+          <div class="meta-r">
             [CBSE CLASS 10 GEOGRAPHY]<br>
             CHAPTER 4: AGRICULTURE<br>
-            SOLO RESEARCH STUDY
+            SOLO OMNISCIENCE STUDY
           </div>
         </div>
 
         <div class="hero-split-monolith">
-          <div class="monolith-word">BORN OF</div>
-          <div class="monolith-word right">THE SOIL</div>
+          <div class="monolith-text">BORN OF</div>
+          <div class="monolith-text right">THE SOIL</div>
         </div>
 
-        <div class="hero-footer-stats">
-          <div class="hero-pill-stats">
+        <div class="hero-footer-bar">
+          <div class="hero-stats-row">
             <span>CROP: <b>SUGARCANE (ईख)</b></span>
-            <span>FAMILY: <b>POACEAE (GRASS)</b></span>
-            <span>INDIA: <b>#2 GLOBAL HARVEST</b></span>
+            <span>GENOME: <b>OCTOPLOID COMPLEX (2n=80-120)</b></span>
+            <span>INDIA: <b>#2 WORLDWIDE</b></span>
           </div>
-          <div class="scroll-down-cue">
-            <span>SCROLL TO EXPLORE 3D AGRICULTURAL CHRONICLES</span>
+          <div class="scroll-cue">
+            <span>SCROLL TO ENTER 2.5D KINETIC EXPEDITION</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
             </svg>
@@ -853,55 +863,106 @@
       </div>
     </section>
 
-    <!-- STAGE 1: SPROUTING STEM SETT & SOIL -->
-    <section class="scrolly-slide left" id="stage1">
-      <div class="apple-glass-card">
-        <div class="card-topic-tag">CHAPTER 01 // 3D MORPH: THE SPROUTING SETT</div>
-        <h2 class="card-title">THE STEM SETT</h2>
-        <div class="card-subtitle">Farmer Planting Technology & Bud Germination</div>
+    <!-- ACT 1: GENESIS, SANSKRIT ROOTS & GLOBAL TRADE -->
+    <section class="scrolly-act align-left" id="act1">
+      <div class="amoled-card">
+        <div class="act-tag">ACT 01 // GENESIS & ETYMOLOGY</div>
+        <h2 class="card-title">ROOTS OF SHARKARA</h2>
+        <div class="card-subtitle">From Vedic India to Global Sugar Empires</div>
         <p class="card-body-text">
-          Sugarcane is never grown from delicate seeds. Indian farmers plant <strong>stem setts (गन्ने के टुकड़े)</strong> with 2–3 swollen nodal buds directly into moist soil furrows. In the 3D viewport, examine a horizontal cutting anchored in layered alluvial soil with a fresh green tiller shoot pushing upwards and delicate white rootlets spreading into the soil.
+          Sugarcane was domesticated in tropical New Guinea and Austronesia before arriving in ancient India over 3,000 years ago. In Sanskrit literature, it was revered as <strong>Ikshu (इक्षु)</strong>, giving birth to the words <em>Sharkara (शर्करा)</em>—the linguistic parent of "Sugar"—and <em>Khanda (खण्ड)</em>—the origin of "Candy".
         </p>
 
-        <div class="metric-grid-2x2">
+        <!-- 2.5D Animated Kinetic Timeline Canvas -->
+        <div class="schematic-25d-box">
+          <canvas class="schematic-canvas-inner" id="canvasAct1"></canvas>
+        </div>
+
+        <div class="metrics-2x2">
           <div class="metric-cell">
-            <div class="metric-tag">Botanical Unit</div>
-            <div class="metric-val">Stem Setts</div>
+            <div class="metric-tag">Sanskrit Origin</div>
+            <div class="metric-val">Sharkara (शर्करा)</div>
           </div>
           <div class="metric-cell">
-            <div class="metric-tag">Setts Per Hectare</div>
-            <div class="metric-val">~35,000 Setts</div>
+            <div class="metric-tag">Candy Etymology</div>
+            <div class="metric-val">Khanda (खण्ड)</div>
           </div>
           <div class="metric-cell">
-            <div class="metric-tag">Germination Window</div>
-            <div class="metric-val">12 – 18 Days</div>
+            <div class="metric-tag">Ancient Press</div>
+            <div class="metric-val">Stone Kolhu</div>
           </div>
           <div class="metric-cell">
-            <div class="metric-tag">Eye-Bud Alignment</div>
-            <div class="metric-val">180° Alternating</div>
+            <div class="metric-tag">Trade Diffusion</div>
+            <div class="metric-val">Silk & Spice Routes</div>
           </div>
         </div>
 
-        <div class="cbse-exam-highlight">
-          <strong>CBSE Board Focus:</strong>
-          Vegetative propagation via setts guarantees genetically identical clones with uniform sucrose recovery and protects young tillers from seed blight.
+        <div class="cbse-callout-box">
+          <strong>Historical Insight:</strong>
+          India was the first civilization in the ancient world to discover how to crystallize raw cane juice into portable, non-perishable sugar crystals (Gur & Khandsari) around 350 CE during the Gupta Dynasty.
         </div>
       </div>
     </section>
 
-    <!-- STAGE 2: TROPICAL MONSOON & SUN BIOSPHERE -->
-    <section class="scrolly-slide right" id="stage2">
-      <div class="apple-glass-card">
-        <div class="card-topic-tag">CHAPTER 02 // 3D MORPH: MONSOON & SUN BIOSPHERE</div>
-        <h2 class="card-title">HEAT, WATER & LABOUR</h2>
-        <div class="card-subtitle">Tropical Atmospheric Growth Matrix</div>
+    <!-- ACT 2: 2.5D CULM MORPHOLOGY & EXPLODED ANATOMY -->
+    <section class="scrolly-act align-right" id="act2">
+      <div class="amoled-card">
+        <div class="act-tag">ACT 02 // BOTANICAL ARCHITECTURE</div>
+        <h2 class="card-title">THE CULM & VASCULAR PITH</h2>
+        <div class="card-subtitle">Exploded 2.5D Cellular Cross-Section</div>
         <p class="card-body-text">
-          The 3D model transforms into an agricultural weather terrarium. An intense golden tropical sun radiates optimal heat at <strong>21°C–27°C</strong>, while active 3D monsoon rain droplets shower down over rich alluvial and black cotton soil, simulating the mandatory <strong>75–100 cm annual rainfall</strong>.
+          The sugarcane culm is partitioned into solid, barrel-shaped internodes separated by hard nodal growth rings. Running through the inner succulent storage parenchyma are hundreds of vertical vascular bundles (xylem and phloem pipelines) transporting sap down to the basal stalk.
         </p>
 
-        <div class="metric-grid-2x2">
+        <!-- 2.5D Exploded Anatomy Canvas -->
+        <div class="schematic-25d-box">
+          <canvas class="schematic-canvas-inner" id="canvasAct2"></canvas>
+        </div>
+
+        <div class="metrics-2x2">
           <div class="metric-cell">
-            <div class="metric-tag">Optimal Heat</div>
+            <div class="metric-tag">Stalk Height</div>
+            <div class="metric-val">3.0 – 5.0 m</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Phyllotaxy</div>
+            <div class="metric-val">180° Alternating</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Pith Water Fraction</div>
+            <div class="metric-val">75% – 82%</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Waxy Cuticle</div>
+            <div class="metric-val">Glaucous Bloom</div>
+          </div>
+        </div>
+
+        <div class="cbse-callout-box">
+          <strong>CBSE Anatomy Fact:</strong>
+          Each node contains a dormant vegetative eye bud and a ring of adventitious root primordia. Farmers cut stalks into <strong>stem setts</strong> to propagate genetically identical clones with high sucrose recovery.
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 3: AGRO-CLIMATIC MATRIX & SOIL MECHANICS -->
+    <section class="scrolly-act align-left" id="act3">
+      <div class="amoled-card">
+        <div class="act-tag">ACT 03 // AGRO-CLIMATICS</div>
+        <h2 class="card-title">HEAT, WATER & SOIL</h2>
+        <div class="card-subtitle">CBSE Tropical Growing Thresholds</div>
+        <p class="card-body-text">
+          Sugarcane demands sustained tropical warmth during tillering and elongating growth, followed by dry, sunny, cool nights for ripening and sucrose accumulation. Severe winter frost triggers sugar inversion, ruining crystallization.
+        </p>
+
+        <!-- 2.5D Climate Biosphere Canvas -->
+        <div class="schematic-25d-box">
+          <canvas class="schematic-canvas-inner" id="canvasAct3"></canvas>
+        </div>
+
+        <div class="metrics-2x2">
+          <div class="metric-cell">
+            <div class="metric-tag">Optimal Temperature</div>
             <div class="metric-val">21°C – 27°C</div>
           </div>
           <div class="metric-cell">
@@ -909,79 +970,131 @@
             <div class="metric-val">75 – 100 cm</div>
           </div>
           <div class="metric-cell">
-            <div class="metric-tag">Soil Adaptability</div>
-            <div class="metric-val">Alluvial & Black</div>
+            <div class="metric-tag">Soil Diversity</div>
+            <div class="metric-val">Alluvial to Black</div>
           </div>
           <div class="metric-cell">
-            <div class="metric-tag">Critical Danger</div>
-            <div class="metric-val">Frost (Inverts Sugar)</div>
+            <div class="metric-tag">Fatal Danger</div>
+            <div class="metric-val">Winter Frost</div>
           </div>
         </div>
 
-        <div class="cbse-exam-highlight">
-          <strong>CBSE Agricultural Criteria:</strong>
-          In low-rainfall regions (&lt;75 cm), canal or tubewell irrigation is compulsory. Intensive manual labour is required from sowing to harvesting because machines cannot operate on small, fragmented Indian farm holdings.
+        <div class="cbse-callout-box">
+          <strong>Mandatory Labour Fact:</strong>
+          In low-rainfall regions (&lt;75 cm), canal or tubewell irrigation is compulsory. Cheap, abundant manual labour is required from sowing to harvesting because machines cannot operate on small, fragmented Indian landholdings.
         </div>
       </div>
     </section>
 
-    <!-- STAGE 3: FRESH SUGARCANE JUICE (GANNE KA RAS) -->
-    <section class="scrolly-slide left" id="stage3">
-      <div class="apple-glass-card">
-        <div class="card-topic-tag">CHAPTER 03 // 3D MORPH: FRESH GANNE KA RAS</div>
-        <h2 class="card-title">GANNE KA RAS</h2>
-        <div class="card-subtitle">Sweet Sucrose Sap, Floating Ice & Mint Sprig</div>
+    <!-- ACT 4: FARMING OPERATIONS & AGRONOMIC CALENDAR -->
+    <section class="scrolly-act align-right" id="act4">
+      <div class="amoled-card">
+        <div class="act-tag">ACT 04 // AGRONOMIC OPERATIONS</div>
+        <h2 class="card-title">FIELD HUSBANDRY</h2>
+        <div class="card-subtitle">Sett Preparation, Furrowing & Ratoon Cycles</div>
         <p class="card-body-text">
-          Nothing is more relatable than a fresh, chilled glass of <strong>Ganne Ka Ras (गन्ने का रस)</strong>. The 3D scene morphs into an authentic frosted glass filled with vibrant sweet cane juice, floating translucent ice cubes, effervescent fizzy bubbles, a lemon slice on the rim, and a fresh mint sprig.
+          Sugarcane takes 10 to 14 months to reach full commercial maturity. Farmers employ meticulous agronomic practices: ridge-and-furrow planting, deep earthing up to prevent crop lodging during storms, and trash mulching for soil moisture conservation.
         </p>
 
-        <div class="metric-grid-2x2">
+        <!-- 2.5D Farming Operation Canvas -->
+        <div class="schematic-25d-box">
+          <canvas class="schematic-canvas-inner" id="canvasAct4"></canvas>
+        </div>
+
+        <div class="metrics-2x2">
           <div class="metric-cell">
-            <div class="metric-tag">Juice Water Content</div>
-            <div class="metric-val">75% – 82%</div>
+            <div class="metric-tag">Planting Density</div>
+            <div class="metric-val">~35,000 Setts/ha</div>
           </div>
           <div class="metric-cell">
-            <div class="metric-tag">Sucrose Recovery</div>
-            <div class="metric-val">12% – 18%</div>
+            <div class="metric-tag">Ratoon Harvests</div>
+            <div class="metric-val">1 to 2 Cycles</div>
           </div>
           <div class="metric-cell">
-            <div class="metric-tag">Organic Minerals</div>
-            <div class="metric-val">Iron, Calcium, K+</div>
+            <div class="metric-tag">Earthing Up Time</div>
+            <div class="metric-val">90 – 120 Days</div>
           </div>
           <div class="metric-cell">
-            <div class="metric-tag">Storage Tissue</div>
-            <div class="metric-val">Pith Parenchyma</div>
+            <div class="metric-tag">Detrashing Benefit</div>
+            <div class="metric-val">Pest Prevention</div>
           </div>
         </div>
 
-        <button class="glow-pop-btn" onclick="stirJuiceVfx()">
-          <span>🥤 Swirl Juice & Ice Cubes</span>
-        </button>
+        <div class="cbse-callout-box">
+          <strong>What is Ratoon Cropping?</strong>
+          After harvesting the main crop, the lower stalk base is sliced at ground level, allowing root stubble to sprout a second crop called a <em>ratoon</em>, saving farmers planting costs and field prep time.
+        </div>
       </div>
     </section>
 
-    <!-- STAGE 4: 3D INDIA MAP & THE NORTH-TO-SOUTH SHIFT -->
-    <section class="scrolly-slide right" id="stage4">
-      <div class="apple-glass-card">
-        <div class="card-topic-tag">CHAPTER 04 // 3D MORPH: INDIA'S SUGAR BELT MAP</div>
+    <!-- ACT 5: PESTS, PATHOLOGY & PHYSIOLOGICAL DEFENSE -->
+    <section class="scrolly-act align-left" id="act5">
+      <div class="amoled-card">
+        <div class="act-tag">ACT 05 // CROP PROTECTION</div>
+        <h2 class="card-title">PESTS & PATHOGENS</h2>
+        <div class="card-subtitle">Red Rot, Smut & Insect Borers</div>
+        <p class="card-body-text">
+          Sugarcane is vulnerable to biotic stresses. The most devastating disease is <strong>Red Rot (लाल सड़न)</strong> caused by the fungus <em>Colletotrichum falcatum</em>, turning pith tissues blood-red with an alcoholic fermentation odor.
+        </p>
+
+        <!-- 2.5D Pathology Canvas -->
+        <div class="schematic-25d-box">
+          <canvas class="schematic-canvas-inner" id="canvasAct5"></canvas>
+        </div>
+
+        <div class="metrics-2x2">
+          <div class="metric-cell">
+            <div class="metric-tag">Cancer of Cane</div>
+            <div class="metric-val">Red Rot (Fungal)</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Major Insect Pest</div>
+            <div class="metric-val">Early Shoot Borer</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Foliar Vector</div>
+            <div class="metric-val">Pyrilla Leafhopper</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Sett Sanitation</div>
+            <div class="metric-val">Hot Water (52°C)</div>
+          </div>
+        </div>
+
+        <div class="cbse-callout-box">
+          <strong>Agronomic Defense:</strong>
+          Farmers sanitize setts in hot water (52°C for 30 minutes) and breed resistant cultivars like Co 86032 to defend against devastating Red Rot epidemics.
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 6: THE GREAT PENINSULAR SHIFT (NORTH VS SOUTH) -->
+    <section class="scrolly-act align-right" id="act6">
+      <div class="amoled-card">
+        <div class="act-tag">ACT 06 // INDUSTRIAL MIGRATION</div>
         <h2 class="card-title">THE PENINSULAR SHIFT</h2>
         <div class="card-subtitle">Why Sugar Mills Migrated to South India</div>
         <p class="card-body-text">
-          A 3D topographical map plate of India emerges in the viewport. Glowing amber markers highlight the traditional Northern plains (UP & Bihar), while radiant emerald beacons and tropical maritime breeze streams highlight Peninsular India (Maharashtra, Karnataka, Tamil Nadu, and Telangana).
+          Historically anchored in Uttar Pradesh and Bihar, the sugar milling epicentre has dramatically migrated toward Peninsular India—primarily Maharashtra, Karnataka, Tamil Nadu, and Telangana (Nizamabad and Deccan belt).
         </p>
 
-        <div class="compare-matrix-box">
-          <div class="matrix-panel south">
-            <div class="matrix-title">Peninsular South (Leader)</div>
-            <ul class="matrix-list">
+        <!-- 2.5D India Map Canvas -->
+        <div class="schematic-25d-box">
+          <canvas class="schematic-canvas-inner" id="canvasAct6"></canvas>
+        </div>
+
+        <div class="matrix-box-row">
+          <div class="matrix-col-panel south">
+            <div class="matrix-col-title">Peninsular South (Leader)</div>
+            <ul class="matrix-bullet-list">
               <li><strong>Higher Sucrose:</strong> Marine tropical humidity prevents drying up of cane juice.</li>
               <li><strong>Longer Crushing:</strong> 7 to 8 months without winter frost interruptions.</li>
               <li><strong>Cooperative Success:</strong> Flourishing farmer-run cooperative mills.</li>
             </ul>
           </div>
-          <div class="matrix-panel north">
-            <div class="matrix-title">Northern Plains (Traditional)</div>
-            <ul class="matrix-list">
+          <div class="matrix-col-panel north">
+            <div class="matrix-col-title">Northern Plains (Traditional)</div>
+            <ul class="matrix-bullet-list">
               <li><strong>Shorter Season:</strong> Only 3 to 4 winter months before summer heat.</li>
               <li><strong>Frost Risk:</strong> Severe frost destroys sucrose via inversion.</li>
               <li><strong>Older Machinery:</strong> Traditional private mills with higher transit delay.</li>
@@ -989,24 +1102,29 @@
           </div>
         </div>
 
-        <div class="cbse-exam-highlight">
-          <strong>CBSE 5-Mark Must-Know:</strong>
-          Four decisive factors: 1) Maritime climate preventing drying up, 2) Higher sucrose yield per quintal, 3) Longer crushing season of 7–8 months, and 4) Outstanding efficiency of cooperative mills in Maharashtra.
+        <div class="cbse-callout-box">
+          <strong>CBSE 5-Mark Golden Answer:</strong>
+          Always emphasize: 1) Maritime climate preventing drying up of cane, 2) Higher sucrose recovery per quintal, 3) Longer crushing season (7–8 months), and 4) Outstanding management of cooperative mills in Maharashtra.
         </div>
       </div>
     </section>
 
-    <!-- STAGE 5: ROADSIDE MECHANICAL CANE CRUSHER MILL -->
-    <section class="scrolly-slide left" id="stage5">
-      <div class="apple-glass-card">
-        <div class="card-topic-tag">CHAPTER 05 // 3D MORPH: ROADSIDE CRUSHER & GEARS</div>
+    <!-- ACT 7: THE 24-HR RUSH & INDUSTRIAL MILLING -->
+    <section class="scrolly-act align-left" id="act7">
+      <div class="amoled-card">
+        <div class="act-tag">ACT 07 // LOGISTICS & MILLING</div>
         <h2 class="card-title">THE 24-HOUR RACE</h2>
-        <div class="card-subtitle">Heavy Grooved Rollers & The Invertase Countdown</div>
+        <div class="card-subtitle">Weight-Losing Raw Material & Invertase Decay</div>
         <p class="card-body-text">
-          Witness the iconic grooved iron rollers of a mechanical crusher mill in action. Counter-rotating steel cylinders exert hydraulic pressure, squeezing green cane into golden juice, with a holographic countdown chronometer ticking down the critical 24-hour delivery window.
+          Sugarcane is a classic weight-losing raw material. The moment stalks are severed from the root stool, the internal enzyme <strong>invertase</strong> begins hydrolyzing sucrose into non-crystallizable glucose and fructose.
         </p>
 
-        <div class="metric-grid-2x2">
+        <!-- 2.5D Roller Milling Canvas -->
+        <div class="schematic-25d-box">
+          <canvas class="schematic-canvas-inner" id="canvasAct7"></canvas>
+        </div>
+
+        <div class="metrics-2x2">
           <div class="metric-cell">
             <div class="metric-tag">Crushing Deadline</div>
             <div class="metric-val">&lt; 24 Hours</div>
@@ -1016,8 +1134,8 @@
             <div class="metric-val">~1.2% / Day Delay</div>
           </div>
           <div class="metric-cell">
-            <div class="metric-tag">Extraction System</div>
-            <div class="metric-val">Heavy Roller Mill</div>
+            <div class="metric-tag">Milling Tandem</div>
+            <div class="metric-val">Heavy Roller Mills</div>
           </div>
           <div class="metric-cell">
             <div class="metric-tag">Centrifugal Spin</div>
@@ -1025,42 +1143,88 @@
           </div>
         </div>
 
-        <div class="cbse-exam-highlight">
-          <strong>Weight-Losing Raw Material:</strong>
-          Sugar mills must be established directly within sugarcane farming belts. Transporting heavy stalks over long distances causes severe economic loss because the cane dries up.
+        <div class="cbse-callout-box">
+          <strong>Mill Location Rule:</strong>
+          Sugar mills must be located directly inside cane cultivation belts. Transporting heavy stalks over long distances is uneconomical and causes severe sucrose loss as the cane dries up.
         </div>
       </div>
     </section>
 
-    <!-- STAGE 6: BOILING GUR & E20 BIO-FLAME NOZZLE -->
-    <section class="scrolly-slide right" id="stage6">
-      <div class="apple-glass-card">
-        <div class="card-topic-tag">CHAPTER 06 // 3D MORPH: BOILING GUR & E20 NOZZLE</div>
-        <h2 class="card-title">CIRCULAR BIO-ECONOMY</h2>
-        <div class="card-subtitle">Gur, Khandsari, Bagasse Electricity & E20 Ethanol</div>
+    <!-- ACT 8: TRADITIONAL DERIVATIVES (JUICE, GUR, KHANDSARI) -->
+    <section class="scrolly-act align-right" id="act8">
+      <div class="amoled-card">
+        <div class="act-tag">ACT 08 // CULINARY HERITAGE</div>
+        <h2 class="card-title">GANNE KA RAS & GUR</h2>
+        <div class="card-subtitle">Raw Sweet Sap, Jaggery & Khandsari</div>
         <p class="card-body-text">
-          The 3D model transforms into a traditional iron boiling kadhai filled with bubbling golden <strong>Gur (Jaggery / गुड़)</strong> and solid jaggery blocks, alongside a modern <strong>E20 Bio-Ethanol Fuel Nozzle</strong> with a clean bio-flame and green electrical sparks from burning bagasse!
+          India converts raw cane into iconic traditional foods. Fresh <strong>Ganne Ka Ras (गन्ने का रस)</strong> with crushed ice and mint is a street-side staple. Open iron pans boil cane juice into nutrient-dense golden <strong>Gur (गुड़ / Jaggery)</strong>, retaining vital iron and magnesium.
         </p>
 
-        <div class="byproduct-card-row">
-          <div class="byproduct-emoji-icon">⚡</div>
-          <div class="byproduct-details">
-            <h4>Bagasse (Crushed Fiber)</h4>
-            <p>Burned in cogeneration boilers to generate 100% of mill electricity, exporting surplus green power to the state electrical grid. Also manufactured into eco-paper.</p>
+        <!-- 2.5D Juice & Gur Canvas -->
+        <div class="schematic-25d-box">
+          <canvas class="schematic-canvas-inner" id="canvasAct8"></canvas>
+        </div>
+
+        <div class="metrics-2x2">
+          <div class="metric-cell">
+            <div class="metric-tag">Raw Cane Juice</div>
+            <div class="metric-val">75% Water, 18% Sugar</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Gur Boiling Temp</div>
+            <div class="metric-val">118°C In Open Pan</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Jaggery Nutrients</div>
+            <div class="metric-val">Iron, Magnesium, K+</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Native White Sugar</div>
+            <div class="metric-val">Khandsari</div>
           </div>
         </div>
 
-        <div class="byproduct-card-row">
-          <div class="byproduct-emoji-icon">⛽</div>
-          <div class="byproduct-details">
+        <div class="cbse-callout-box">
+          <strong>Three Product Pillars:</strong>
+          Cane processing yields four primary edible forms: 1) Raw Cane Juice, 2) Gur (Jaggery), 3) Khandsari (semi-refined crystalline sugar), and 4) Refined White Sucrose Crystals.
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 9: ZERO-WASTE BIO-ECONOMY & NATIONAL E20 MISSION -->
+    <section class="scrolly-act align-left" id="act9">
+      <div class="amoled-card">
+        <div class="act-tag">ACT 09 // CIRCULAR BIO-ECONOMY</div>
+        <h2 class="card-title">POWER & E20 BIOFUEL</h2>
+        <div class="card-subtitle">Bagasse Megawatts, Molasses Ethanol & Press Mud</div>
+        <p class="card-body-text">
+          Modern Indian sugar complexes function as zero-waste green bio-refineries. Every single byproduct is harnessed: crushed fiber powers state electricity grids, and molasses fuels automotive engines.
+        </p>
+
+        <!-- 2.5D Biofuel & Cogeneration Canvas -->
+        <div class="schematic-25d-box">
+          <canvas class="schematic-canvas-inner" id="canvasAct9"></canvas>
+        </div>
+
+        <div class="byproduct-item-row">
+          <div class="byproduct-emoji-sign">⚡</div>
+          <div class="byproduct-text-details">
+            <h4>Bagasse (Crushed Fiber)</h4>
+            <p>Burned in cogeneration boilers to generate 100% of mill electricity, exporting surplus clean megawatts to the state electrical grid. Also manufactured into eco-paper.</p>
+          </div>
+        </div>
+
+        <div class="byproduct-item-row">
+          <div class="byproduct-emoji-sign">⛽</div>
+          <div class="byproduct-text-details">
             <h4>Molasses & Ethanol (E20)</h4>
             <p>Dark viscous residue fermented into anhydrous 99.8% bio-ethanol for India's 20% petrol blending mandate, cutting crude imports and vehicular greenhouse gases.</p>
           </div>
         </div>
 
-        <div class="byproduct-card-row">
-          <div class="byproduct-emoji-icon">🌱</div>
-          <div class="byproduct-details">
+        <div class="byproduct-item-row">
+          <div class="byproduct-emoji-sign">🌱</div>
+          <div class="byproduct-text-details">
             <h4>Press Mud (Filter Cake)</h4>
             <p>Mineral and phosphorus-rich organic residue recycled directly back to farmer fields as a potent natural organic soil conditioner.</p>
           </div>
@@ -1068,26 +1232,67 @@
       </div>
     </section>
 
-    <!-- STAGE 7: SUCROSE CUBES & BOARD QUIZ -->
-    <section class="scrolly-slide center" id="stage7">
-      <div class="apple-glass-card quiz-card-wrapper">
-        <div class="card-topic-tag">CHAPTER 07 // 3D MORPH: CRYSTAL SUGAR CUBES</div>
+    <!-- ACT 10: AGRITECH FRONTIERS & BIOTECHNOLOGY -->
+    <section class="scrolly-act align-right" id="act10">
+      <div class="amoled-card">
+        <div class="act-tag">ACT 10 // FUTURE HORIZONS</div>
+        <h2 class="card-title">AGRITECH & BIO-PLASTICS</h2>
+        <div class="card-subtitle">CRISPR Editing, Drip Automation & Aviation Biofuel</div>
+        <p class="card-body-text">
+          The future of sugarcane reaches far beyond food. Indian scientists are deploying CRISPR gene editing to develop drought-tolerant miracle varieties, while industrial biorefineries synthesize biodegradable PLA bioplastics and Sustainable Aviation Fuel (SAF).
+        </p>
+
+        <!-- 2.5D Biotech Canvas -->
+        <div class="schematic-25d-box">
+          <canvas class="schematic-canvas-inner" id="canvasAct10"></canvas>
+        </div>
+
+        <div class="metrics-2x2">
+          <div class="metric-cell">
+            <div class="metric-tag">Miracle Cultivar</div>
+            <div class="metric-val">Co 0238 / Co 86032</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Water Conservation</div>
+            <div class="metric-val">Subsurface Drip (40%)</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Green Plastics</div>
+            <div class="metric-val">Polylactic Acid (PLA)</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-tag">Aviation Fuel</div>
+            <div class="metric-val">Alcohol-to-Jet (SAF)</div>
+          </div>
+        </div>
+
+        <div class="cbse-callout-box">
+          <strong>The Green Frontier:</strong>
+          Replacing fossil plastics with sugarcane-derived bioplastics and aviation kerosene with cane bio-ethanol will eliminate millions of tons of carbon from India's atmosphere.
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 11: INTERACTIVE CBSE BOARD EXAM SIMULATOR -->
+    <section class="scrolly-act align-center" id="act11">
+      <div class="amoled-card quiz-card-wrapper">
+        <div class="act-tag">ACT 11 // EVALUATION LAB</div>
         <h2 class="card-title">CBSE BOARD EXAM QUIZ</h2>
         <div class="card-subtitle">Mastery Evaluation on Class 10 Sugarcane Agriculture</div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin: 12px 0 6px;">
-          <span id="quizCounterText" style="font-family: var(--font-tech); font-size: 0.74rem; color: var(--emerald-glow);">QUESTION 1 OF 5</span>
-          <span id="quizScoreText" style="font-family: var(--font-tech); font-size: 0.74rem; color: var(--amber-gold);">SCORE: 0 / 5</span>
+          <span id="quizCounterLabel" style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--emerald-neon);">QUESTION 1 OF 5</span>
+          <span id="quizScoreLabel" style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--amber-gold);">SCORE: 0 / 5</span>
         </div>
 
-        <h3 id="quizQuestionPrompt" style="font-size: 1.05rem; color: #fff; margin-bottom: 12px; font-weight: 600; line-height: 1.45;">
-          Loading question...
+        <h3 id="quizQuestionText" style="font-size: 1.05rem; color: #fff; margin-bottom: 12px; font-weight: 600; line-height: 1.45;">
+          Loading board question...
         </h3>
 
-        <div class="quiz-options-flow" id="quizOptionsContainer"></div>
-        <div class="quiz-feedback-banner" id="quizFeedbackMessage"></div>
+        <div class="quiz-options-group" id="quizOptionsList"></div>
+        <div class="quiz-feedback-box" id="quizFeedbackBox"></div>
 
-        <button class="glow-pop-btn" id="nextQuestionButton" onclick="handleNextQuestion()" style="display: none; width: 100%; justify-content: center; margin-top: 14px;">
+        <button class="glow-action-pill" id="nextQuestionBtn" onclick="nextQuestion()" style="display: none; width: 100%; justify-content: center; margin-top: 14px;">
           <span>Next Board Question →</span>
         </button>
       </div>
@@ -1098,52 +1303,51 @@
   <!-- Dynamic Island Notification Toast -->
   <div class="dynamic-toast" id="dynamicToast">
     <span id="toastIcon">✨</span>
-    <span id="toastMessage">3D Model Transformation Initialized</span>
+    <span id="toastMsg">Act Initialized</span>
   </div>
 
   <!-- Footer -->
   <footer>
-    <p>SACCHARUM // THE LIVING SUGARCANE ODYSSEY • CBSE CLASS 10 SOCIAL SCIENCE</p>
-    <p style="margin-top: 6px; color: #cbd5e1;">Solo Research Project by <b>Ryan Fredrick Ravuru</b></p>
-    <p style="margin-top: 4px; font-size: 0.7rem; color: var(--emerald-glow);">Real-Time Multi-Object Three.js Engine • Procedural Agricultural VFX</p>
+    <p>SACCHARUM // THE DEFINITIVE 2.5D KINETIC MONOLITH • CBSE CLASS 10 GEOGRAPHY</p>
+    <p style="margin-top: 6px; color: #cbd5e1;">Solo Academic Research Presentation by <b>Ryan Fredrick Ravuru</b></p>
+    <p style="margin-top: 4px; font-size: 0.7rem; color: var(--emerald-neon);">True AMOLED Deep Black Engine • Pure 2.5D Kinetic Vector Physics</p>
   </footer>
 
-  <!-- WebGL 3D Engine & Interactive Logic -->
+  <!-- 2.5D Kinetic Canvas & Multi-Act Rendering Engine -->
   <script>
     /* ==========================================================================
-       1. SYNTHETIC BINAURAL AUDIO ENGINE (Procedural Noise & Harmonizers)
+       1. SYNTHETIC AUDIO ENGINE (Ambient Rain & Field Wind Synthesizer)
        ========================================================================== */
     let audioCtx = null;
-    let soundscapeMode = 1; // 1: Wind & Rain, 2: Juice Stall Ambiance, 0: Muted
-    let ambientGain = null;
-    let rainSource = null;
+    let soundMode = 1; // 1: Wind/Rain, 2: Cyber Synth, 0: Muted
+    let noiseGain = null;
 
-    function initAudioEngine() {
+    function initAudio() {
       if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
-        // Procedural White Noise Generator for wind/rain
-        const bufferSize = audioCtx.sampleRate * 2;
-        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const output = noiseBuffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          output[i] = Math.random() * 2 - 1;
+        // Procedural White Noise for Wind & Rain
+        const bufSize = audioCtx.sampleRate * 2;
+        const noiseBuf = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+        const data = noiseBuf.getChannelData(0);
+        for (let i = 0; i < bufSize; i++) {
+          data[i] = Math.random() * 2 - 1;
         }
 
         const whiteNoise = audioCtx.createBufferSource();
-        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.buffer = noiseBuf;
         whiteNoise.loop = true;
 
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(450, audioCtx.currentTime);
+        const lowpass = audioCtx.createBiquadFilter();
+        lowpass.type = 'lowpass';
+        lowpass.frequency.setValueAtTime(420, audioCtx.currentTime);
 
-        ambientGain = audioCtx.createGain();
-        ambientGain.gain.setValueAtTime(0.018, audioCtx.currentTime);
+        noiseGain = audioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.018, audioCtx.currentTime);
 
-        whiteNoise.connect(filter);
-        filter.connect(ambientGain);
-        ambientGain.connect(audioCtx.destination);
+        whiteNoise.connect(lowpass);
+        lowpass.connect(noiseGain);
+        noiseGain.connect(audioCtx.destination);
         whiteNoise.start(0);
       }
       if (audioCtx.state === 'suspended') {
@@ -1152,14 +1356,14 @@
     }
 
     function playTone(freq = 520, duration = 0.8, type = 'sine') {
-      if (soundscapeMode === 0) return;
+      if (soundMode === 0) return;
       try {
-        initAudioEngine();
+        initAudio();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = type;
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
@@ -1170,628 +1374,470 @@
       }
     }
 
-    function cycleSoundscape() {
-      initAudioEngine();
-      soundscapeMode = (soundscapeMode + 1) % 3;
-      const label = document.getElementById('soundscapeLabel');
-      if (soundscapeMode === 1) {
+    function cycleSoundEngine() {
+      initAudio();
+      soundMode = (soundMode + 1) % 3;
+      const label = document.getElementById('soundLabel');
+      if (soundMode === 1) {
         label.textContent = 'Sound: Wind & Rain';
-        if (ambientGain) ambientGain.gain.setTargetAtTime(0.022, audioCtx.currentTime, 0.2);
+        if (noiseGain) noiseGain.gain.setTargetAtTime(0.02, audioCtx.currentTime, 0.2);
         playTone(660);
-      } else if (soundscapeMode === 2) {
+      } else if (soundMode === 2) {
         label.textContent = 'Sound: Cyber Synth';
-        if (ambientGain) ambientGain.gain.setTargetAtTime(0.005, audioCtx.currentTime, 0.2);
+        if (noiseGain) noiseGain.gain.setTargetAtTime(0.004, audioCtx.currentTime, 0.2);
         playTone(880, 1.0, 'triangle');
       } else {
         label.textContent = 'Sound: Muted';
-        if (ambientGain) ambientGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
+        if (noiseGain) noiseGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
       }
     }
 
     /* ==========================================================================
-       2. THREE.JS SCENE SETUP
+       2. FULL-SCREEN 2.5D KINETIC CANVAS VFX (PURE AMOLED BLACK)
        ========================================================================== */
-    const canvas = document.getElementById('webgl-canvas');
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x020403, 0.035);
+    const bgCanvas = document.getElementById('vfx-canvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    let width, height;
 
-    const camera = new THREE.PerspectiveCamera(44, window.innerWidth / window.innerHeight, 0.1, 80);
-    camera.position.set(0, 0, 8.5);
+    function resizeBgCanvas() {
+      width = bgCanvas.width = window.innerWidth;
+      height = bgCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeBgCanvas);
+    resizeBgCanvas();
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
-
-    const orbit = new THREE.OrbitControls(camera, renderer.domElement);
-    orbit.enableDamping = true;
-    orbit.dampingFactor = 0.05;
-    orbit.enabled = false;
-
-    // Lighting Rig
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.72);
-    scene.add(ambientLight);
-
-    const sunLight = new THREE.DirectionalLight(0xfffaed, 1.45);
-    sunLight.position.set(6, 8, 6);
-    scene.add(sunLight);
-
-    const emeraldLight = new THREE.PointLight(0x10b981, 3.4, 25);
-    emeraldLight.position.set(-5, 2, -2);
-    scene.add(emeraldLight);
-
-    const purpleLight = new THREE.PointLight(0xa855f7, 3.6, 25);
-    purpleLight.position.set(5, -2, -3);
-    scene.add(purpleLight);
-
-    /* ==========================================================================
-       3. EIGHT 100% RELATABLE 3D VISUAL OBJECTS
-       ========================================================================== */
-    const modelGroups = [];
-
-    // ==========================================================================
-    // MODEL 0: THE GREEN GOLD SUGARCANE STALK (Hero Section)
-    // ==========================================================================
-    const group0Stalk = new THREE.Group();
-    scene.add(group0Stalk);
-    modelGroups.push(group0Stalk);
-
-    const stalkRindMat = new THREE.MeshStandardMaterial({ color: 0x3d7031, roughness: 0.42, metalness: 0.15 });
-    const stalkNodeMat = new THREE.MeshStandardMaterial({ color: 0xb5893a, roughness: 0.6, metalness: 0.1 });
-
-    for (let i = 0; i < 6; i++) {
-      const y = (i - 2.5) * 1.15;
-      const internode = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.35, 1.05, 24), stalkRindMat);
-      internode.position.y = y;
-      group0Stalk.add(internode);
-
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.36, 0.045, 12, 28), stalkNodeMat);
-      ring.rotateX(Math.PI / 2);
-      ring.position.y = y + 0.52;
-      group0Stalk.add(ring);
+    // 800+ Bioluminescent Ambient Spores
+    const particleCount = 850;
+    const particles = [];
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 2.2 + 0.6,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4 - 0.2, // gentle drift upwards
+        alpha: Math.random() * 0.7 + 0.3,
+        hue: Math.random() > 0.5 ? 150 : 280 // emerald or purple neon
+      });
     }
 
-    const leafMat = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.5, side: THREE.DoubleSide });
-    for (let l = 0; l < 8; l++) {
-      const curve = new THREE.CubicBezierCurve3(
-        new THREE.Vector3(0, 3.2, 0),
-        new THREE.Vector3(0.6, 3.8, 0),
-        new THREE.Vector3(1.8, 3.4, 0),
-        new THREE.Vector3(2.6, 2.0, 0)
-      );
-      const leaf = new THREE.Mesh(new THREE.TubeGeometry(curve, 18, 0.08, 6, false), leafMat);
-      leaf.rotation.y = (l / 8) * Math.PI * 2;
-      group0Stalk.add(leaf);
-    }
+    let mouseX = width / 2;
+    let mouseY = height / 2;
+    let shockwaves = [];
 
-    // ==========================================================================
-    // MODEL 1: SPROUTING STEM SETT IN ALLUVIAL SOIL (Chapter 1)
-    // ==========================================================================
-    const group1Sett = new THREE.Group();
-    scene.add(group1Sett);
-    modelGroups.push(group1Sett);
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
 
-    const soilMat = new THREE.MeshStandardMaterial({ color: 0x2e2014, roughness: 0.9, metalness: 0.05 });
-    const soilMound = new THREE.Mesh(new THREE.CylinderGeometry(2.0, 2.4, 0.5, 32), soilMat);
-    soilMound.position.y = -1.2;
-    group1Sett.add(soilMound);
-
-    const settMat = new THREE.MeshStandardMaterial({ color: 0x4d7c2a, roughness: 0.55, metalness: 0.1 });
-    const settStick = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 2.4, 20), settMat);
-    settStick.rotation.z = Math.PI / 2;
-    settStick.position.y = -0.8;
-    group1Sett.add(settStick);
-
-    const shootGreenMat = new THREE.MeshStandardMaterial({ color: 0x4ade80, emissive: 0x22c55e, emissiveIntensity: 0.45 });
-    const shootPath = new THREE.CubicBezierCurve3(
-      new THREE.Vector3(0, -0.6, 0),
-      new THREE.Vector3(0.2, 0.2, 0),
-      new THREE.Vector3(0.4, 1.2, 0),
-      new THREE.Vector3(0.6, 2.0, 0)
-    );
-    const shootSprout = new THREE.Mesh(new THREE.TubeGeometry(shootPath, 20, 0.12, 8, false), shootGreenMat);
-    group1Sett.add(shootSprout);
-
-    const rootMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.8 });
-    for (let r = 0; r < 12; r++) {
-      const rootCurve = new THREE.CubicBezierCurve3(
-        new THREE.Vector3((Math.random() - 0.5) * 1.2, -0.9, (Math.random() - 0.5) * 0.3),
-        new THREE.Vector3((Math.random() - 0.5) * 1.5, -1.3, (Math.random() - 0.5) * 0.5),
-        new THREE.Vector3((Math.random() - 0.5) * 1.9, -1.8, (Math.random() - 0.5) * 0.7),
-        new THREE.Vector3((Math.random() - 0.5) * 2.2, -2.1, (Math.random() - 0.5) * 0.9)
-      );
-      const rootMesh = new THREE.Mesh(new THREE.TubeGeometry(rootCurve, 12, 0.03, 4, false), rootMat);
-      group1Sett.add(rootMesh);
-    }
-
-    // ==========================================================================
-    // MODEL 2: MONSOON & TROPICAL SUN CLIMATE BIOSPHERE (Chapter 2)
-    // ==========================================================================
-    const group2Climate = new THREE.Group();
-    scene.add(group2Climate);
-    modelGroups.push(group2Climate);
-
-    const sunMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0xfbbf24, emissiveIntensity: 0.95 });
-    const sunSphere = new THREE.Mesh(new THREE.SphereGeometry(1.15, 32, 32), sunMat);
-    sunSphere.position.set(0, 1.2, 0);
-    group2Climate.add(sunSphere);
-
-    const soilBase = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 2.2, 0.4, 32), soilMat);
-    soilBase.position.y = -1.5;
-    group2Climate.add(soilBase);
-
-    const rainCount = 220;
-    const rainGeo = new THREE.BufferGeometry();
-    const rainCoords = new Float32Array(rainCount * 3);
-    for (let i = 0; i < rainCount * 3; i += 3) {
-      rainCoords[i] = (Math.random() - 0.5) * 4.5;
-      rainCoords[i + 1] = Math.random() * 4 - 1.2;
-      rainCoords[i + 2] = (Math.random() - 0.5) * 4.5;
-    }
-    rainGeo.setAttribute('position', new THREE.BufferAttribute(rainCoords, 3));
-    const rainMat = new THREE.PointsMaterial({ color: 0x38bdf8, size: 0.08, transparent: true, opacity: 0.85 });
-    const rainParticles = new THREE.Points(rainGeo, rainMat);
-    group2Climate.add(rainParticles);
-
-    // ==========================================================================
-    // MODEL 3: GLASS OF FRESH SUGARCANE JUICE WITH ICE & LEMON (Chapter 3)
-    // ==========================================================================
-    const group3Juice = new THREE.Group();
-    scene.add(group3Juice);
-    modelGroups.push(group3Juice);
-
-    const glassMat = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      transmission: 0.92,
-      opacity: 1,
-      transparent: true,
-      roughness: 0.05,
-      ior: 1.5,
-      thickness: 0.8
-    });
-    const glassMesh = new THREE.Mesh(new THREE.CylinderGeometry(1.05, 0.85, 2.8, 32, 1, true), glassMat);
-    group3Juice.add(glassMesh);
-
-    const juiceMat = new THREE.MeshStandardMaterial({
-      color: 0x84cc16,
-      roughness: 0.2,
-      metalness: 0.1,
-      transparent: true,
-      opacity: 0.92
-    });
-    const juiceMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.98, 0.82, 2.4, 32), juiceMat);
-    juiceMesh.position.y = -0.15;
-    group3Juice.add(juiceMesh);
-
-    const frothMat = new THREE.MeshStandardMaterial({ color: 0xfef9c3, roughness: 0.8, metalness: 0.0 });
-    const frothMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.99, 0.99, 0.25, 32), frothMat);
-    frothMesh.position.y = 1.08;
-    group3Juice.add(frothMesh);
-
-    const iceMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, transmission: 0.95, roughness: 0.1, ior: 1.31 });
-    const iceCubes = [];
-    for (let ic = 0; ic < 4; ic++) {
-      const ice = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.42, 0.42), iceMat);
-      ice.position.set((Math.random() - 0.5) * 0.7, 0.6 + ic * 0.15, (Math.random() - 0.5) * 0.7);
-      ice.rotation.set(Math.random(), Math.random(), Math.random());
-      group3Juice.add(ice);
-      iceCubes.push(ice);
-    }
-
-    const lemonMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.4 });
-    const lemonSlice = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 0.08, 16), lemonMat);
-    lemonSlice.position.set(0.95, 1.35, 0);
-    lemonSlice.rotation.x = Math.PI / 2.5;
-    group3Juice.add(lemonSlice);
-
-    const bubbleCount = 60;
-    const bubbleGeo = new THREE.BufferGeometry();
-    const bubblePos = new Float32Array(bubbleCount * 3);
-    for (let b = 0; b < bubbleCount * 3; b += 3) {
-      bubblePos[b] = (Math.random() - 0.5) * 1.3;
-      bubblePos[b + 1] = Math.random() * 2.2 - 1.2;
-      bubblePos[b + 2] = (Math.random() - 0.5) * 1.3;
-    }
-    bubbleGeo.setAttribute('position', new THREE.BufferAttribute(bubblePos, 3));
-    const bubbleMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.06, transparent: true, opacity: 0.8 });
-    const juiceBubbles = new THREE.Points(bubbleGeo, bubbleMat);
-    group3Juice.add(juiceBubbles);
-
-    // ==========================================================================
-    // MODEL 4: 3D MAP PLATE OF INDIA & PENINSULAR BREEZE (Chapter 4)
-    // ==========================================================================
-    const group4Map = new THREE.Group();
-    scene.add(group4Map);
-    modelGroups.push(group4Map);
-
-    const mapMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5, metalness: 0.2 });
-    const mapPlate = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.5, 0.3, 32), mapMat);
-    mapPlate.rotation.x = Math.PI / 3;
-    group4Map.add(mapPlate);
-
-    const northNodeMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0xd97706, emissiveIntensity: 0.6 });
-    const northBeacon = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.8, 12), northNodeMat);
-    northBeacon.position.set(-0.2, 0.9, 0.5);
-    group4Map.add(northBeacon);
-
-    const southNodeMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x34d399, emissiveIntensity: 0.9 });
-    const southBeacon = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 1.5, 12), southNodeMat);
-    southBeacon.position.set(0.1, -0.6, 0.8);
-    group4Map.add(southBeacon);
-
-    const breezeMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.65 });
-    const breezeRing = new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.04, 12, 36), breezeMat);
-    breezeRing.rotation.x = Math.PI / 3;
-    group4Map.add(breezeRing);
-
-    // ==========================================================================
-    // MODEL 5: ROADSIDE ROLLER CRUSHER MILL WITH FLYWHEEL (Chapter 5)
-    // ==========================================================================
-    const group5Mill = new THREE.Group();
-    scene.add(group5Mill);
-    modelGroups.push(group5Mill);
-
-    const ironMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.85, roughness: 0.3 });
-    const gearMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.9, roughness: 0.2, wireframe: true });
-
-    const roller1 = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 2.2, 24), ironMat);
-    roller1.rotation.z = Math.PI / 2;
-    roller1.position.set(0, 0.75, 0);
-    group5Mill.add(roller1);
-
-    const roller2 = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 2.2, 24), ironMat);
-    roller2.rotation.z = Math.PI / 2;
-    roller2.position.set(-0.7, -0.7, 0);
-    group5Mill.add(roller2);
-
-    const roller3 = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 2.2, 24), ironMat);
-    roller3.rotation.z = Math.PI / 2;
-    roller3.position.set(0.7, -0.7, 0);
-    group5Mill.add(roller3);
-
-    const flywheel = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.08, 12, 32), gearMat);
-    flywheel.position.set(1.15, 0, 0);
-    flywheel.rotation.y = Math.PI / 2;
-    group5Mill.add(flywheel);
-
-    const juiceStreamMat = new THREE.MeshBasicMaterial({ color: 0xa3e635, transparent: true, opacity: 0.8 });
-    const juiceStream = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 2.2, 8), juiceStreamMat);
-    juiceStream.position.set(0, -1.6, 0);
-    group5Mill.add(juiceStream);
-
-    // ==========================================================================
-    // MODEL 6: BOILING GUR (JAGGERY) PAN & E20 FUEL NOZZLE (Chapter 6)
-    // ==========================================================================
-    const group6Gur = new THREE.Group();
-    scene.add(group6Gur);
-    modelGroups.push(group6Gur);
-
-    const kadhaiMat = new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.8, roughness: 0.4 });
-    const kadhai = new THREE.Mesh(new THREE.CylinderGeometry(1.8, 1.2, 0.6, 32, 1, true), kadhaiMat);
-    kadhai.position.set(-0.9, -0.6, 0);
-    group6Gur.add(kadhai);
-
-    const gurLiquidMat = new THREE.MeshStandardMaterial({
-      color: 0xd97706,
-      emissive: 0xb45309,
-      emissiveIntensity: 0.5,
-      roughness: 0.3
-    });
-    const gurLiquid = new THREE.Mesh(new THREE.CylinderGeometry(1.7, 1.7, 0.4, 32), gurLiquidMat);
-    gurLiquid.position.set(-0.9, -0.5, 0);
-    group6Gur.add(gurLiquid);
-
-    const gurBlockMat = new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.7 });
-    const gurBlock = new THREE.Mesh(new THREE.ConeGeometry(0.7, 1.0, 16), gurBlockMat);
-    gurBlock.position.set(-0.9, 0.3, 0);
-    group6Gur.add(gurBlock);
-
-    const nozzleMat = new THREE.MeshStandardMaterial({ color: 0x10b981, metalness: 0.7, roughness: 0.3 });
-    const nozzleHead = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 1.8, 16), nozzleMat);
-    nozzleHead.position.set(1.4, 0.4, 0);
-    nozzleHead.rotation.z = -Math.PI / 4;
-    group6Gur.add(nozzleHead);
-
-    const bioFlameMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x06b6d4, emissiveIntensity: 0.9 });
-    const bioFlame = new THREE.Mesh(new THREE.ConeGeometry(0.35, 1.2, 16), bioFlameMat);
-    bioFlame.position.set(2.1, 1.1, 0);
-    bioFlame.rotation.z = -Math.PI / 4;
-    group6Gur.add(bioFlame);
-
-    // ==========================================================================
-    // MODEL 7: STACKED CRYSTAL SUGAR CUBES (Chapter 7 - Evaluation)
-    // ==========================================================================
-    const group7Sugar = new THREE.Group();
-    scene.add(group7Sugar);
-    modelGroups.push(group7Sugar);
-
-    const sugarCubeMat = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      transmission: 0.85,
-      roughness: 0.25,
-      metalness: 0.05,
-      ior: 1.45,
-      thickness: 1.0
-    });
-
-    const cube1 = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.1, 1.1), sugarCubeMat);
-    cube1.position.set(-0.5, -0.4, 0);
-    group7Sugar.add(cube1);
-
-    const cube2 = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.1, 1.1), sugarCubeMat);
-    cube2.position.set(0.6, -0.4, 0);
-    group7Sugar.add(cube2);
-
-    const cube3 = new THREE.Mesh(new THREE.BoxGeometry(1.0, 1.0, 1.0), sugarCubeMat);
-    cube3.position.set(0.05, 0.65, 0);
-    cube3.rotation.y = Math.PI / 5;
-    group7Sugar.add(cube3);
-
-    const haloMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24, wireframe: true, transparent: true, opacity: 0.65 });
-    const halo = new THREE.Mesh(new THREE.TorusGeometry(1.7, 0.04, 12, 36), haloMat);
-    halo.rotation.x = Math.PI / 2.3;
-    group7Sugar.add(halo);
-
-    /* ==========================================================================
-       4. GLOBAL SWIRLING DUST VORTEX
-       ========================================================================== */
-    const dustCount = 450;
-    const dustGeo = new THREE.BufferGeometry();
-    const dustCoords = new Float32Array(dustCount * 3);
-    for (let d = 0; d < dustCount * 3; d += 3) {
-      dustCoords[d] = (Math.random() - 0.5) * 16;
-      dustCoords[d + 1] = (Math.random() - 0.5) * 16;
-      dustCoords[d + 2] = (Math.random() - 0.5) * 14;
-    }
-    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustCoords, 3));
-    const dustMat = new THREE.PointsMaterial({
-      color: 0x34d399,
-      size: 0.075,
-      transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending
-    });
-    const ambientDust = new THREE.Points(dustGeo, dustMat);
-    scene.add(ambientDust);
-
-    /* ==========================================================================
-       5. SLIDE STAGES CONFIGURATION & MORPH SYSTEM
-       ========================================================================== */
-    let currentSlide = 0;
-
-    const slideConfigs = [
-      {
-        activeModel: 0,
-        modelPos: { x: 0, y: -0.2, z: 0 },
-        camPos: { x: 0, y: 0, z: 8.2 },
-        camLook: { x: 0, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(168, 85, 247, 0.14) 45%, transparent 72%)",
-        dustHex: 0x10b981,
-        title: "00 // THE LIVING CANE CULM",
-        btnIcon: "🌾",
-        btnText: "Breeze Surge"
-      },
-      {
-        activeModel: 1,
-        modelPos: { x: 1.8, y: 0.1, z: 0 },
-        camPos: { x: 0, y: 0.1, z: 7.2 },
-        camLook: { x: 0.4, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(52, 211, 153, 0.24) 0%, rgba(16, 185, 129, 0.1) 45%, transparent 72%)",
-        dustHex: 0x34d399,
-        title: "01 // SPROUTING STEM SETT & SOIL",
-        btnIcon: "🌱",
-        btnText: "Burst Rootlets"
-      },
-      {
-        activeModel: 2,
-        modelPos: { x: -1.8, y: 0.1, z: 0 },
-        camPos: { x: 0, y: 0.2, z: 7.4 },
-        camLook: { x: -0.4, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(245, 158, 11, 0.24) 0%, rgba(56, 189, 248, 0.14) 48%, transparent 72%)",
-        dustHex: 0xf59e0b,
-        title: "02 // MONSOON & SUN BIOSPHERE",
-        btnIcon: "☀️",
-        btnText: "Monsoon Rain Flash"
-      },
-      {
-        activeModel: 3,
-        modelPos: { x: 1.7, y: 0.1, z: 0.2 },
-        camPos: { x: 0, y: 0, z: 6.8 },
-        camLook: { x: 0.35, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(132, 204, 22, 0.24) 0%, rgba(245, 158, 11, 0.14) 48%, transparent 72%)",
-        dustHex: 0x84cc16,
-        title: "03 // FRESH GANNE KA RAS",
-        btnIcon: "🥤",
-        btnText: "Swirl Juice & Ice"
-      },
-      {
-        activeModel: 4,
-        modelPos: { x: -1.7, y: 0, z: 0 },
-        camPos: { x: 0, y: 0.1, z: 7.2 },
-        camLook: { x: -0.35, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(6, 182, 212, 0.24) 0%, rgba(16, 185, 129, 0.14) 48%, transparent 72%)",
-        dustHex: 0x22d3ee,
-        title: "04 // 3D INDIA MAP // PENINSULAR SHIFT",
-        btnIcon: "🧭",
-        btnText: "Maritime Breeze Surge"
-      },
-      {
-        activeModel: 5,
-        modelPos: { x: 1.7, y: 0, z: 0 },
-        camPos: { x: 0, y: 0, z: 7.2 },
-        camLook: { x: 0.35, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, rgba(245, 158, 11, 0.14) 48%, transparent 72%)",
-        dustHex: 0xf87171,
-        title: "05 // MECHANICAL CANE CRUSHER",
-        btnIcon: "⚙️",
-        btnText: "Spin Crusher Gears"
-      },
-      {
-        activeModel: 6,
-        modelPos: { x: -1.7, y: 0.1, z: 0 },
-        camPos: { x: 0, y: 0.1, z: 7.4 },
-        camLook: { x: -0.35, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(245, 158, 11, 0.24) 0%, rgba(16, 185, 129, 0.16) 48%, transparent 72%)",
-        dustHex: 0xfbbf24,
-        title: "06 // BOILING GUR & E20 BIO-FLAME",
-        btnIcon: "🔥",
-        btnText: "Ignite Bio-Flame"
-      },
-      {
-        activeModel: 7,
-        modelPos: { x: 0, y: -0.1, z: -0.4 },
-        camPos: { x: 0, y: 0.2, z: 8.0 },
-        camLook: { x: 0, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(245, 158, 11, 0.24) 0%, rgba(168, 85, 247, 0.16) 48%, transparent 72%)",
-        dustHex: 0xfde047,
-        title: "07 // PURE SUCROSE CRYSTAL CUBES",
-        btnIcon: "✨",
-        btnText: "Sparkle Sugar Crystals"
+      // Card 3D Perspective Tilt Physics (iPhone-level gyro depth)
+      const currentActCard = document.querySelector(`#act${currentActIndex} .amoled-card`);
+      if (currentActCard) {
+        const normX = (mouseX / width) * 2 - 1;
+        const normY = (mouseY / height) * 2 - 1;
+        const tiltX = -normY * 9;
+        const tiltY = normX * 9;
+        currentActCard.style.transform = `perspective(1200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(12px)`;
       }
+    });
+
+    window.addEventListener('click', (e) => {
+      shockwaves.push({
+        x: e.clientX,
+        y: e.clientY,
+        r: 10,
+        maxR: 220,
+        alpha: 0.9,
+        color: Math.random() > 0.5 ? '#00ff88' : '#00f0ff'
+      });
+      playTone(580 + Math.random() * 200, 0.5);
+    });
+
+    function renderBgVfx() {
+      bgCtx.fillStyle = '#000000';
+      bgCtx.fillRect(0, 0, width, height);
+
+      // Render Dynamic Shockwaves
+      for (let s = shockwaves.length - 1; s >= 0; s--) {
+        const sw = shockwaves[s];
+        bgCtx.save();
+        bgCtx.beginPath();
+        bgCtx.arc(sw.x, sw.y, sw.r, 0, Math.PI * 2);
+        bgCtx.strokeStyle = sw.color;
+        bgCtx.lineWidth = 2.5;
+        bgCtx.globalAlpha = sw.alpha;
+        bgCtx.shadowColor = sw.color;
+        bgCtx.shadowBlur = 20;
+        bgCtx.stroke();
+        bgCtx.restore();
+
+        sw.r += 6;
+        sw.alpha -= 0.025;
+        if (sw.alpha <= 0 || sw.r >= sw.maxR) {
+          shockwaves.splice(s, 1);
+        }
+      }
+
+      // Render Bioluminescent Particles
+      for (let p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        // Subtle mouse repulsion
+        const dx = mouseX - p.x;
+        const dy = mouseY - p.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 140) {
+          p.x -= (dx / dist) * 2;
+          p.y -= (dy / dist) * 2;
+        }
+
+        bgCtx.beginPath();
+        bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        bgCtx.fillStyle = `hsla(${p.hue}, 100%, 65%, ${p.alpha})`;
+        bgCtx.shadowColor = `hsla(${p.hue}, 100%, 60%, 0.8)`;
+        bgCtx.shadowBlur = p.r * 6;
+        bgCtx.fill();
+      }
+
+      requestAnimationFrame(renderBgVfx);
+    }
+    renderBgVfx();
+
+    /* ==========================================================================
+       3. PROCEDURAL 2.5D KINETIC ACT CANVASES (NO 3D MESH MODELS)
+       ========================================================================== */
+    function initActCanvases() {
+      // Act 1: Historical Diffusion Timeline Animation
+      const c1 = document.getElementById('canvasAct1');
+      if (c1) {
+        c1.width = c1.parentElement.clientWidth;
+        c1.height = c1.parentElement.clientHeight;
+        const ctx = c1.getContext('2d');
+        let t = 0;
+        function drawAct1() {
+          ctx.clearRect(0, 0, c1.width, c1.height);
+          ctx.fillStyle = '#050a06';
+          ctx.fillRect(0, 0, c1.width, c1.height);
+
+          // Flowing migration energy beam
+          const cy = c1.height / 2;
+          ctx.beginPath();
+          ctx.moveTo(30, cy);
+          ctx.bezierCurveTo(c1.width * 0.35, cy - 40 + Math.sin(t) * 15, c1.width * 0.65, cy + 40 + Math.cos(t) * 15, c1.width - 30, cy);
+          ctx.strokeStyle = '#00ff88';
+          ctx.lineWidth = 3;
+          ctx.shadowColor = '#00ff88';
+          ctx.shadowBlur = 18;
+          ctx.stroke();
+
+          // Milestone nodes
+          const nodes = [
+            { x: 40, label: "Austronesia", sub: "8000 BCE" },
+            { x: c1.width * 0.35, label: "Vedic Ikshu", sub: "1500 BCE" },
+            { x: c1.width * 0.68, label: "Sharkara Gur", sub: "350 CE" },
+            { x: c1.width - 45, label: "Global Trade", sub: "1400 CE" }
+          ];
+          nodes.forEach((n, idx) => {
+            const ny = cy + Math.sin(t + idx * 1.2) * 12;
+            ctx.beginPath();
+            ctx.arc(n.x, ny, 7, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+
+            ctx.font = '10px "Space Grotesk"';
+            ctx.fillStyle = '#00ff88';
+            ctx.fillText(n.label, n.x - 26, ny - 14);
+            ctx.fillStyle = '#8e8e93';
+            ctx.fillText(n.sub, n.x - 20, ny + 20);
+          });
+
+          t += 0.025;
+          requestAnimationFrame(drawAct1);
+        }
+        drawAct1();
+      }
+
+      // Act 2: Exploded 2.5D Culm Anatomy Schematic
+      const c2 = document.getElementById('canvasAct2');
+      if (c2) {
+        c2.width = c2.parentElement.clientWidth;
+        c2.height = c2.parentElement.clientHeight;
+        const ctx = c2.getContext('2d');
+        let t2 = 0;
+        function drawAct2() {
+          ctx.clearRect(0, 0, c2.width, c2.height);
+          const cx = c2.width / 2;
+          const cy = c2.height / 2;
+
+          // Stalk cylinder profile
+          ctx.fillStyle = 'rgba(0, 255, 136, 0.08)';
+          ctx.fillRect(cx - 50, 15, 100, c2.height - 30);
+          ctx.strokeStyle = '#00ff88';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(cx - 50, 15, 100, c2.height - 30);
+
+          // Nodal Ring
+          ctx.beginPath();
+          ctx.ellipse(cx, cy, 54, 16, 0, 0, Math.PI * 2);
+          ctx.strokeStyle = '#ffd60a';
+          ctx.lineWidth = 3;
+          ctx.shadowColor = '#ffd60a';
+          ctx.shadowBlur = 12;
+          ctx.stroke();
+
+          // 2.5D Longitudinal Vascular Pipelines with pulsing sap flow
+          for (let v = -35; v <= 35; v += 14) {
+            ctx.beginPath();
+            ctx.moveTo(cx + v, 15);
+            ctx.lineTo(cx + v, c2.height - 15);
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.6)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Sap flow pulses
+            const pulseY = 15 + ((t2 * 60 + v * 8) % (c2.height - 30));
+            ctx.beginPath();
+            ctx.arc(cx + v, pulseY, 3, 0, Math.PI * 2);
+            ctx.fillStyle = '#00f0ff';
+            ctx.fill();
+          }
+
+          t2 += 0.02;
+          requestAnimationFrame(drawAct2);
+        }
+        drawAct2();
+      }
+
+      // Act 3: 2.5D Climate Biosphere (Sun & Rain)
+      const c3 = document.getElementById('canvasAct3');
+      if (c3) {
+        c3.width = c3.parentElement.clientWidth;
+        c3.height = c3.parentElement.clientHeight;
+        const ctx = c3.getContext('2d');
+        let t3 = 0;
+        function drawAct3() {
+          ctx.clearRect(0, 0, c3.width, c3.height);
+          const cx = c3.width / 2;
+          const cy = c3.height / 2;
+
+          // Radiant Sun Core
+          ctx.beginPath();
+          ctx.arc(cx - 80, cy - 10, 35 + Math.sin(t3 * 2) * 3, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffd60a';
+          ctx.shadowColor = '#ffd60a';
+          ctx.shadowBlur = 30;
+          ctx.fill();
+
+          ctx.font = '11px "Space Grotesk"';
+          ctx.fillStyle = '#fff';
+          ctx.fillText("21°C - 27°C", cx - 110, cy + 45);
+
+          // Falling Rain Drops on Right
+          for (let r = 0; r < 25; r++) {
+            const rx = cx + 20 + (r * 7) % 90;
+            const ry = ((t3 * 180 + r * 28) % c3.height);
+            ctx.beginPath();
+            ctx.moveTo(rx, ry);
+            ctx.lineTo(rx - 3, ry + 12);
+            ctx.strokeStyle = '#00f0ff';
+            ctx.lineWidth = 1.8;
+            ctx.shadowColor = '#00f0ff';
+            ctx.shadowBlur = 8;
+            ctx.stroke();
+          }
+          ctx.fillText("75 - 100 cm RAIN", cx + 15, cy + 45);
+
+          t3 += 0.02;
+          requestAnimationFrame(drawAct3);
+        }
+        drawAct3();
+      }
+
+      // Act 6: 2.5D India Sugar Map & South Peninsular Coastal Winds
+      const c6 = document.getElementById('canvasAct6');
+      if (c6) {
+        c6.width = c6.parentElement.clientWidth;
+        c6.height = c6.parentElement.clientHeight;
+        const ctx = c6.getContext('2d');
+        let t6 = 0;
+        function drawAct6() {
+          ctx.clearRect(0, 0, c6.width, c6.height);
+          const cx = c6.width / 2;
+          const cy = c6.height / 2;
+
+          // Peninsular triangular landmass outline
+          ctx.beginPath();
+          ctx.moveTo(cx - 70, 30);
+          ctx.lineTo(cx + 70, 30);
+          ctx.lineTo(cx, c6.height - 25);
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // South Beacon (Maharashtra & Deccan)
+          ctx.beginPath();
+          ctx.arc(cx, cy + 10, 8 + Math.sin(t6 * 3) * 3, 0, Math.PI * 2);
+          ctx.fillStyle = '#00ff88';
+          ctx.shadowColor = '#00ff88';
+          ctx.shadowBlur = 25;
+          ctx.fill();
+          ctx.font = '10px "Space Grotesk"';
+          ctx.fillStyle = '#00ff88';
+          ctx.fillText("PENINSULAR SOUTH (HIGH SUCROSE)", cx - 80, cy + 38);
+
+          // Coastal Wind Streams Sweeping
+          for (let w = 0; w < 4; w++) {
+            ctx.beginPath();
+            ctx.arc(cx - 30 + w * 20, cy + 10, 50 + w * 14, Math.PI * 0.4 + t6, Math.PI * 0.9 + t6);
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.5)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+          }
+
+          t6 += 0.02;
+          requestAnimationFrame(drawAct6);
+        }
+        drawAct6();
+      }
+
+      // Act 7: 2.5D Heavy Roller Milling Tandem Gears
+      const c7 = document.getElementById('canvasAct7');
+      if (c7) {
+        c7.width = c7.parentElement.clientWidth;
+        c7.height = c7.parentElement.clientHeight;
+        const ctx = c7.getContext('2d');
+        let t7 = 0;
+        function drawAct7() {
+          ctx.clearRect(0, 0, c7.width, c7.height);
+          const cx = c7.width / 2;
+          const cy = c7.height / 2;
+
+          // Three Meshing Gears (Three-Roller Mill)
+          function drawGear(x, y, rad, rot, color) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rot);
+            ctx.beginPath();
+            ctx.arc(0, 0, rad, 0, Math.PI * 2);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 12;
+            ctx.stroke();
+
+            for (let teeth = 0; teeth < 8; teeth++) {
+              ctx.rotate(Math.PI / 4);
+              ctx.fillStyle = color;
+              ctx.fillRect(rad - 4, -4, 9, 8);
+            }
+            ctx.restore();
+          }
+
+          drawGear(cx, cy - 32, 28, t7 * 2, '#00ff88');
+          drawGear(cx - 35, cy + 30, 28, -t7 * 2, '#00f0ff');
+          drawGear(cx + 35, cy + 30, 28, -t7 * 2, '#00f0ff');
+
+          // Green extracted juice waterfall
+          ctx.beginPath();
+          ctx.moveTo(cx, cy + 35);
+          ctx.lineTo(cx, c7.height - 10);
+          ctx.strokeStyle = '#a3e635';
+          ctx.lineWidth = 4;
+          ctx.shadowColor = '#a3e635';
+          ctx.shadowBlur = 16;
+          ctx.stroke();
+
+          t7 += 0.03;
+          requestAnimationFrame(drawAct7);
+        }
+        drawAct7();
+      }
+    }
+
+    /* ==========================================================================
+       4. SCROLL PROGRESS & ACT TRACKING
+       ========================================================================== */
+    let currentActIndex = 0;
+    const actConfigs = [
+      { title: "00 // THE MONOLITH DOSSIER", glow: "rgba(0, 255, 136, 0.18)" },
+      { title: "01 // GENESIS & SANSKRIT SHARKARA", glow: "rgba(191, 90, 242, 0.18)" },
+      { title: "02 // 2.5D EXPLODED CULM ANATOMY", glow: "rgba(0, 240, 255, 0.18)" },
+      { title: "03 // AGRO-CLIMATIC GROWING THRESHOLDS", glow: "rgba(255, 214, 10, 0.18)" },
+      { title: "04 // FIELD HUSBANDRY & RATOON CROPPING", glow: "rgba(0, 255, 136, 0.18)" },
+      { title: "05 // PEST PATHOLOGY & RED ROT DEFENSE", glow: "rgba(255, 55, 95, 0.18)" },
+      { title: "06 // THE GREAT PENINSULAR SHIFT", glow: "rgba(0, 240, 255, 0.18)" },
+      { title: "07 // 24-HOUR RACE & ROLLER CRUSHER", glow: "rgba(255, 214, 10, 0.18)" },
+      { title: "08 // GANNE KA RAS & TRADITIONAL GUR", glow: "rgba(0, 255, 136, 0.18)" },
+      { title: "09 // BIO-ECONOMY & NATIONAL E20 MISSION", glow: "rgba(191, 90, 242, 0.18)" },
+      { title: "10 // AGRITECH FRONTIERS & BIOPLASTICS", glow: "rgba(0, 240, 255, 0.18)" },
+      { title: "11 // CBSE BOARD EXAM MASTERY QUIZ", glow: "rgba(255, 214, 10, 0.18)" }
     ];
 
-    function applySlideTransition(idx) {
-      if (orbit.enabled) return;
-      const cfg = slideConfigs[idx];
-      if (!cfg) return;
+    window.addEventListener('scroll', () => {
+      const scrTop = window.scrollY;
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docH > 0 ? (scrTop / docH) * 100 : 0;
+      document.getElementById('progressBar').style.width = pct + '%';
 
-      modelGroups.forEach((grp, mIdx) => {
-        if (mIdx === cfg.activeModel) {
-          grp.visible = true;
-          gsap.to(grp.scale, { x: 1, y: 1, z: 1, duration: 1.25, ease: "back.out(1.75)" });
-          gsap.to(grp.position, {
-            x: cfg.modelPos.x,
-            y: cfg.modelPos.y,
-            z: cfg.modelPos.z,
-            duration: 1.3,
-            ease: "power2.out"
-          });
-        } else {
-          gsap.to(grp.scale, {
-            x: 0.001,
-            y: 0.001,
-            z: 0.001,
-            duration: 0.7,
-            ease: "power2.in",
-            onComplete: () => {
-              if (mIdx !== cfg.activeModel) grp.visible = false;
-            }
-          });
+      const acts = document.querySelectorAll('.scrolly-act');
+      let current = 0;
+      acts.forEach((act, i) => {
+        const rect = act.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.48 && rect.bottom >= window.innerHeight * 0.12) {
+          current = i;
         }
       });
 
-      gsap.to(camera.position, {
-        x: cfg.camPos.x,
-        y: cfg.camPos.y,
-        z: cfg.camPos.z,
-        duration: 1.4,
-        ease: "power2.out"
-      });
+      if (current !== currentActIndex) {
+        currentActIndex = current;
+        updateActUI(currentActIndex);
+        playTone(460 + currentActIndex * 35, 0.6);
+      }
+    });
 
-      document.getElementById('ambientNebulaVfx').style.background = cfg.nebula;
-      dustMat.color.setHex(cfg.dustHex);
-
-      document.querySelectorAll('.spine-dot-node').forEach((dot, dIdx) => {
+    function updateActUI(idx) {
+      document.querySelectorAll('.spine-dot').forEach((dot, dIdx) => {
         dot.classList.toggle('active', dIdx === idx);
       });
 
-      document.getElementById('dockActionIcon').textContent = cfg.btnIcon;
-      document.getElementById('dockActionLabel').textContent = cfg.btnText;
-
-      showToast(cfg.title);
+      const cfg = actConfigs[idx];
+      if (cfg) {
+        document.getElementById('ambientGlowOrb').style.background = `radial-gradient(circle, ${cfg.glow} 0%, transparent 72%)`;
+        showToast(cfg.title);
+      }
     }
 
-    function scrollToStage(idx) {
-      const el = document.getElementById('stage' + idx);
+    function jumpToAct(idx) {
+      const el = document.getElementById('act' + idx);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
-        playTone(480 + idx * 45);
+        playTone(500 + idx * 40);
       }
     }
 
-    // Scroll Listener
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      document.getElementById('progressBar').style.width = pct + '%';
+    function triggerKineticPulse() {
+      playTone(880, 1.2, 'triangle');
+      showToast("⚡ Full-Screen 2.5D Kinetic Pulse Discharged");
 
-      const slides = document.querySelectorAll('.scrolly-slide');
-      let found = 0;
-      slides.forEach((sl, i) => {
-        const rect = sl.getBoundingClientRect();
-        if (rect.top <= window.innerHeight * 0.48 && rect.bottom >= window.innerHeight * 0.12) {
-          found = i;
-        }
-      });
-
-      if (found !== currentSlide) {
-        currentSlide = found;
-        applySlideTransition(currentSlide);
-        playTone(460 + currentSlide * 44, 0.7);
-      }
-    });
-
-    /* ==========================================================================
-       6. INTERACTIVE ACTIONS (Apple Elastic Pop & Sound)
-       ========================================================================== */
-    function stirJuiceVfx() {
-      playTone(880, 1.2, 'sine');
-      showToast("🥤 Fresh Cane Juice Swirled with Crushed Ice & Mint");
-      gsap.to(juiceMesh.rotation, { y: "+=6.28", duration: 1.2, ease: "power2.out" });
-      iceCubes.forEach(ic => {
-        gsap.to(ic.position, {
-          y: "+=0.3",
-          duration: 0.4,
-          yoyo: true,
-          repeat: 1,
-          ease: "sine.inOut"
-        });
-      });
-    }
-
-    function triggerInteractivePop() {
-      const cfg = slideConfigs[currentSlide];
-      const activeGrp = modelGroups[cfg.activeModel];
-      playTone(780, 0.9, 'triangle');
-      showToast(`💥 3D Kinetic Pop: ${cfg.btnText}`);
-
-      // Apple Elastic Pop Effect
-      gsap.fromTo(activeGrp.scale,
-        { x: 1.45, y: 1.45, z: 1.45 },
-        { x: 1, y: 1, z: 1, duration: 1.0, ease: "elastic.out(1, 0.35)" }
-      );
-
-      if (currentSlide === 3) stirJuiceVfx();
-    }
-
-    function toggleFreeOrbit() {
-      orbit.enabled = !orbit.enabled;
-      const btn = document.getElementById('orbitModeBtn');
-      const text = document.getElementById('orbitText');
-      const icon = document.getElementById('orbitIcon');
-
-      if (orbit.enabled) {
-        btn.classList.add('active');
-        text.textContent = 'Free Orbit: ON';
-        icon.textContent = '🖐️';
-        showToast('🪐 360° Free Orbit Activated: Drag to examine 3D model freely');
-        playTone(780);
-      } else {
-        btn.classList.remove('active');
-        text.textContent = '360° Free Orbit';
-        icon.textContent = '🪐';
-        showToast('📜 Locked to Scrollytelling Stage Guide');
-        playTone(420);
-        applySlideTransition(currentSlide);
+      // Detonate full-screen particle shockwave
+      for (let p of particles) {
+        p.vx += (Math.random() - 0.5) * 6;
+        p.vy += (Math.random() - 0.5) * 6;
       }
     }
 
     let toastTimer = null;
     function showToast(txt) {
       const toast = document.getElementById('dynamicToast');
-      const msg = document.getElementById('toastMessage');
+      const msg = document.getElementById('toastMsg');
       if (!toast || !msg) return;
       msg.textContent = txt;
       toast.classList.add('visible');
@@ -1800,41 +1846,41 @@
     }
 
     /* ==========================================================================
-       7. INTERACTIVE CBSE BOARD EXAM QUIZ
+       5. INTERACTIVE CBSE CLASS 10 BOARD EXAM SIMULATOR
        ========================================================================== */
-    const examQuestions = [
+    const boardQuestions = [
       {
-        q: "Why is the Indian sugar industry shifting significantly from Northern states (like UP & Bihar) toward Peninsular India (like Maharashtra)?",
+        q: "Why has the Indian sugar milling industry migrated significantly toward Peninsular India (like Maharashtra & Karnataka)?",
         opts: [
-          "Peninsular cane has higher sucrose content and a longer crushing season",
-          "Sugarcane cultivation has been legally restricted in North India",
-          "Labour costs in Peninsular India are zero",
-          "Sugarcane requires sub-zero winter temperatures to ripen"
+          "Peninsular cane possesses higher sucrose content and enjoys an extended 7–8 month crushing season",
+          "Sugarcane agriculture was legally banned in North Indian states",
+          "Labour costs in South India are completely zero",
+          "Sugarcane requires freezing sub-zero frost to crystallize sugars"
         ],
         ans: 0,
-        exp: "Peninsular India's tropical maritime climate prevents drying of cane, yielding higher sucrose recovery per quintal and extending the crushing season to 7–8 months (vs. 3–4 months in North India)."
+        exp: "Peninsular India's maritime tropical climate prevents juice drying, ensuring higher sucrose recovery per quintal and extending the crushing season to 7–8 months (vs. 3–4 months in North India)."
       },
       {
-        q: "What are the ideal climatic conditions required for sugarcane cultivation as per the CBSE syllabus?",
+        q: "What are the exact climatic criteria required for commercial sugarcane cultivation according to the CBSE syllabus?",
         opts: [
           "Temperature 10°C–15°C and annual rainfall 200–300 cm",
           "Temperature 21°C–27°C and annual rainfall 75–100 cm",
-          "Temperature above 45°C with arid dry spells",
-          "Freezing temperatures with continuous winter frost"
+          "Temperature above 45°C with arid dry periods",
+          "Continuous freezing temperatures with heavy frost"
         ],
         ans: 1,
-        exp: "Sugarcane is a tropical and subtropical crop that flourishes in hot, humid climates with temperatures between 21°C and 27°C and 75–100 cm rainfall."
+        exp: "Sugarcane is a tropical and subtropical crop that flourishes in hot, humid climates with temperatures between 21°C and 27°C and 75–100 cm annual rainfall."
       },
       {
-        q: "Why must sugar mills be situated in close proximity to sugarcane farming fields?",
+        q: "Why must sugar mills be located directly within sugarcane cultivation belts?",
         opts: [
-          "Sugarcane stalks are weight-losing and lose sucrose content rapidly due to invertase enzyme decay",
-          "Heavy winds blow cut sugarcane away during highway transport",
-          "Truck transport of cane produces excessive static electricity",
+          "Sugarcane is bulky, perishable, and loses sucrose rapidly after harvest due to invertase enzyme decay",
+          "Strong winds blow harvested sugarcane away on highways",
+          "Transporting cane creates excessive vehicle static electricity",
           "Government policies mandate a maximum farm-to-mill distance of 2 kilometers"
         ],
         ans: 0,
-        exp: "Sugarcane is a bulky, perishable, weight-losing raw material. Delays in transit activate invertase enzymes, rapidly converting crystallizable sucrose into glucose and fructose."
+        exp: "Sugarcane is a weight-losing raw material. Delays in transit activate invertase enzymes, rapidly hydrolyzing crystallizable sucrose into glucose and fructose."
       },
       {
         q: "Which by-product of sugarcane milling is burned in cogeneration boilers to produce green electricity and pulped for paper?",
@@ -1848,7 +1894,7 @@
         exp: "Bagasse is the fibrous residue left after crushing cane stalks. It provides 100% of mill electricity in cogeneration boilers with surplus fed to state grids, and is also manufactured into paper."
       },
       {
-        q: "How does the sugarcane by-product molasses contribute to India's national environmental and energy goals?",
+        q: "How does the sugarcane byproduct molasses contribute to India's national environmental and energy goals?",
         opts: [
           "It is used directly as aviation jet lubricant",
           "It is fermented into anhydrous ethanol for the 20% Petrol Blending Programme (E20)",
@@ -1860,199 +1906,102 @@
       }
     ];
 
-    let currentQIdx = 0;
-    let scoreCount = 0;
+    let qIdx = 0;
+    let score = 0;
 
-    function renderQuizStage() {
-      const q = examQuestions[currentQIdx];
-      document.getElementById('quizCounterText').textContent = `QUESTION ${currentQIdx + 1} OF ${examQuestions.length}`;
-      document.getElementById('quizScoreText').textContent = `SCORE: ${scoreCount} / ${examQuestions.length}`;
-      document.getElementById('quizQuestionPrompt').textContent = q.q;
+    function renderQuiz() {
+      const qObj = boardQuestions[qIdx];
+      document.getElementById('quizCounterLabel').textContent = `QUESTION ${qIdx + 1} OF ${boardQuestions.length}`;
+      document.getElementById('quizScoreLabel').textContent = `SCORE: ${score} / ${boardQuestions.length}`;
+      document.getElementById('quizQuestionText').textContent = qObj.q;
 
-      const optsContainer = document.getElementById('quizOptionsContainer');
-      optsContainer.innerHTML = '';
-      const feedback = document.getElementById('quizFeedbackMessage');
-      feedback.style.display = 'none';
-      document.getElementById('nextQuestionButton').style.display = 'none';
+      const optsBox = document.getElementById('quizOptionsList');
+      optsBox.innerHTML = '';
+      const fbBox = document.getElementById('quizFeedbackBox');
+      fbBox.style.display = 'none';
+      document.getElementById('nextQuestionBtn').style.display = 'none';
 
-      q.opts.forEach((optText, i) => {
+      qObj.opts.forEach((optText, i) => {
         const btn = document.createElement('button');
-        btn.className = 'quiz-option-pill';
+        btn.className = 'quiz-btn-pill';
         btn.innerHTML = `<span><b>${String.fromCharCode(65 + i)}.</b> ${optText}</span><span class="badge-icon"></span>`;
-        btn.onclick = () => chooseAnswer(i, btn);
-        optsContainer.appendChild(btn);
+        btn.onclick = () => selectOption(i, btn);
+        optsBox.appendChild(btn);
       });
     }
 
-    function chooseAnswer(idx, btn) {
-      const q = examQuestions[currentQIdx];
-      const allBtns = document.querySelectorAll('.quiz-option-pill');
+    function selectOption(chosenIdx, chosenBtn) {
+      const qObj = boardQuestions[qIdx];
+      const allBtns = document.querySelectorAll('.quiz-btn-pill');
       allBtns.forEach(b => b.onclick = null);
 
-      const fb = document.getElementById('quizFeedbackMessage');
-      fb.style.display = 'block';
+      const fbBox = document.getElementById('quizFeedbackBox');
+      fbBox.style.display = 'block';
 
-      if (idx === q.ans) {
-        btn.classList.add('correct');
-        btn.querySelector('.badge-icon').textContent = '✓ Correct';
-        scoreCount++;
-        fb.style.background = 'rgba(16, 185, 129, 0.16)';
-        fb.style.border = '1px solid var(--emerald-glow)';
-        fb.style.color = '#a7f3d0';
-        fb.innerHTML = `★ <strong>BRILLIANT!</strong> ${q.exp}`;
+      if (chosenIdx === qObj.ans) {
+        chosenBtn.classList.add('correct');
+        chosenBtn.querySelector('.badge-icon').textContent = '✓ Correct';
+        score++;
+        fbBox.style.background = 'rgba(0, 255, 136, 0.16)';
+        fbBox.style.border = '1px solid var(--emerald-neon)';
+        fbBox.style.color = '#a7f3d0';
+        fbBox.innerHTML = `★ <strong>EXCELLENT!</strong> ${qObj.exp}`;
         playTone(880, 0.8);
-        triggerInteractivePop();
+        triggerKineticPulse();
       } else {
-        btn.classList.add('wrong');
-        btn.querySelector('.badge-icon').textContent = '✗ Incorrect';
-        allBtns[q.ans].classList.add('correct');
-        fb.style.background = 'rgba(239, 68, 68, 0.16)';
-        fb.style.border = '1px solid #ef4444';
-        fb.style.color = '#fca5a5';
-        fb.innerHTML = `★ <strong>CBSE EXAM CONCEPT:</strong> ${q.exp}`;
+        chosenBtn.classList.add('wrong');
+        chosenBtn.querySelector('.badge-icon').textContent = '✗ Incorrect';
+        allBtns[qObj.ans].classList.add('correct');
+        fbBox.style.background = 'rgba(255, 55, 95, 0.16)';
+        fbBox.style.border = '1px solid var(--coral-neon)';
+        fbBox.style.color = '#fca5a5';
+        fbBox.innerHTML = `★ <strong>CBSE EXAM CONCEPT:</strong> ${qObj.exp}`;
         playTone(260, 0.7, 'sawtooth');
       }
 
-      document.getElementById('quizScoreText').textContent = `SCORE: ${scoreCount} / ${examQuestions.length}`;
-      document.getElementById('nextQuestionButton').style.display = 'inline-flex';
+      document.getElementById('quizScoreLabel').textContent = `SCORE: ${score} / ${boardQuestions.length}`;
+      document.getElementById('nextQuestionBtn').style.display = 'inline-flex';
     }
 
-    function handleNextQuestion() {
-      if (currentQIdx < examQuestions.length - 1) {
-        currentQIdx++;
-        renderQuizStage();
+    function nextQuestion() {
+      if (qIdx < boardQuestions.length - 1) {
+        qIdx++;
+        renderQuiz();
         playTone(600);
       } else {
-        const optsContainer = document.getElementById('quizOptionsContainer');
-        optsContainer.innerHTML = `
-          <div style="text-align: center; padding: 22px; background: rgba(255,255,255,0.04); border-radius: 16px;">
-            <div style="font-size: 2.6rem; margin-bottom: 8px;">🏆</div>
-            <h3 style="font-family: var(--font-display); font-size: 1.6rem; color: #fff; margin-bottom: 6px;">
-              QUIZ COMPLETED: ${scoreCount} / ${examQuestions.length}
+        const optsBox = document.getElementById('quizOptionsList');
+        optsBox.innerHTML = `
+          <div style="text-align: center; padding: 24px; background: rgba(255,255,255,0.03); border-radius: 18px;">
+            <div style="font-size: 2.8rem; margin-bottom: 8px;">🏆</div>
+            <h3 style="font-family: var(--font-serif); font-size: 1.7rem; color: #fff; margin-bottom: 6px;">
+              QUIZ COMPLETED: ${score} / ${boardQuestions.length}
             </h3>
-            <p style="color: #cbd5e1; font-size: 0.92rem; line-height: 1.6;">
-              ${scoreCount >= 4 ? 'Mastery Achieved! You have thoroughly conquered all CBSE Class 10 Sugarcane Agriculture concepts.' : 'Solid effort! Re-read the North vs South migration and by-products chapters to lock in 100% in your board exams.'}
+            <p style="color: #cbd5e1; font-size: 0.94rem; line-height: 1.6;">
+              ${score >= 4 ? 'Flawless Mastery! You have commanded every single dimension of the CBSE Class 10 Sugarcane Agriculture syllabus.' : 'Solid effort! Re-read the Peninsular shift and bio-refinery chapters to guarantee full marks in your board exams.'}
             </p>
-            <button class="glow-pop-btn" onclick="restartQuizStage()" style="margin-top: 16px;">
+            <button class="glow-action-pill" onclick="resetQuiz()" style="margin-top: 18px;">
               <span>Restart Quiz ↺</span>
             </button>
           </div>
         `;
-        document.getElementById('quizQuestionPrompt').textContent = "Evaluation Summary";
-        document.getElementById('quizFeedbackMessage').style.display = 'none';
-        document.getElementById('nextQuestionButton').style.display = 'none';
+        document.getElementById('quizQuestionText').textContent = "CBSE Evaluation Summary";
+        document.getElementById('quizFeedbackBox').style.display = 'none';
+        document.getElementById('nextQuestionBtn').style.display = 'none';
         playTone(1040, 1.2);
-        triggerInteractivePop();
+        triggerKineticPulse();
       }
     }
 
-    function restartQuizStage() {
-      currentQIdx = 0;
-      scoreCount = 0;
-      renderQuizStage();
+    function resetQuiz() {
+      qIdx = 0;
+      score = 0;
+      renderQuiz();
       playTone(520);
     }
 
-    /* ==========================================================================
-       8. MAIN RENDER LOOP & APPLE-LEVEL 3D GYRO-TILT
-       ========================================================================== */
-    let mouseX = 0, mouseY = 0;
-    window.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-
-      // iPhone-Level 3D Card Hover Tilt Physics
-      const activeCard = document.querySelector(`#stage${currentSlide} .apple-glass-card`);
-      if (activeCard) {
-        const tiltX = -mouseY * 8;
-        const tiltY = mouseX * 8;
-        activeCard.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-3px)`;
-      }
-    });
-
-    const clock = new THREE.Clock();
-
-    function animateMultiverse() {
-      requestAnimationFrame(animateMultiverse);
-      const elapsed = clock.getElapsedTime();
-
-      // Model 0: Stalk sway
-      group0Stalk.rotation.y = elapsed * 0.35;
-      group0Stalk.rotation.x = Math.sin(elapsed * 1.2) * 0.04;
-
-      // Model 1: Sett sprout subtle breathing
-      group1Sett.rotation.y = elapsed * 0.45;
-
-      // Model 2: Sun rotation & rain fall
-      sunSphere.rotation.y = elapsed * 0.8;
-      rainParticles.rotation.y = -elapsed * 0.5;
-
-      // Model 3: Fresh cane juice bubbles rising & gentle ice bobbing
-      juiceBubbles.rotation.y = elapsed * 0.2;
-      iceCubes.forEach((cube, idx) => {
-        cube.position.y += Math.sin(elapsed * 2.0 + idx) * 0.001;
-      });
-
-      // Model 4: India map breeze rotation & beacon pulse
-      breezeRing.rotation.z = elapsed * 0.7;
-      southBeacon.scale.y = 1.0 + Math.sin(elapsed * 4.0) * 0.15;
-
-      // Model 5: Crusher rollers & flywheel spinning
-      roller1.rotation.x = elapsed * 3.5;
-      roller2.rotation.x = -elapsed * 3.5;
-      roller3.rotation.x = -elapsed * 3.5;
-      flywheel.rotation.x = elapsed * 3.5;
-
-      // Model 6: Boiling Gur bubbles & E20 Bio-Flame flicker
-      gurLiquid.position.y = -0.5 + Math.sin(elapsed * 3.0) * 0.02;
-      bioFlame.scale.y = 1.0 + Math.sin(elapsed * 8.0) * 0.18;
-
-      // Model 7: Sugar cubes halo rotation
-      halo.rotation.z = elapsed * 1.2;
-      cube3.rotation.y = elapsed * 0.8;
-
-      // Global Ambient Dust Vortex
-      ambientDust.rotation.y = elapsed * 0.022;
-
-      if (!orbit.enabled) {
-        const cfg = slideConfigs[currentSlide];
-        camera.position.x += (mouseX * 0.32 - camera.position.x) * 0.025;
-        camera.position.y += (mouseY * 0.22 - camera.position.y + cfg.camPos.y) * 0.025;
-        camera.lookAt(cfg.camLook.x, cfg.camLook.y, cfg.camLook.z);
-      } else {
-        orbit.update();
-      }
-
-      renderer.render(scene, camera);
-    }
-
-    function onWindowResize() {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const aspect = w / h;
-      camera.aspect = aspect;
-
-      if (aspect < 1.0) {
-        camera.fov = 56;
-      } else {
-        camera.fov = 44;
-      }
-      camera.updateProjectionMatrix();
-
-      renderer.setSize(w, h);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    }
-
-    window.addEventListener('resize', onWindowResize);
-
     window.addEventListener('DOMContentLoaded', () => {
-      onWindowResize();
-      modelGroups.forEach((grp, idx) => {
-        grp.visible = (idx === 0);
-        if (idx !== 0) grp.scale.set(0.001, 0.001, 0.001);
-      });
-      renderQuizStage();
-      animateMultiverse();
+      initActCanvases();
+      renderQuiz();
     });
   </script>
 </body>
