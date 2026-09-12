@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saccharum — Botanical Alchemy // Next-Gen 3D Presentation Suite</title>
+  <title>Saccharum — Botanical Alchemy // AAA 3D Conservatory</title>
   
-  <!-- Premium Typography -->
+  <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -21,8 +21,6 @@
       --emerald-neon: #00ff88;
       --emerald-glow: #10b981;
       --cyan-neon: #00f0ff;
-      --amber-neon: #f59e0b;
-      --laser-red: #ff2a5f;
       --glass-panel: rgba(6, 12, 8, 0.82);
       --glass-border: rgba(255, 255, 255, 0.14);
       --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.95);
@@ -46,19 +44,6 @@
       font-family: var(--font-sans);
       overflow-x: hidden;
       scroll-behavior: smooth;
-      transition: background 0.8s ease;
-    }
-
-    body.ui-hidden nav,
-    body.ui-hidden .spine-rail,
-    body.ui-hidden .telemetry-hud,
-    body.ui-hidden #presenterBar,
-    body.ui-hidden #presenterNotesPanel,
-    body.ui-hidden #hotspotsLayer,
-    body.ui-hidden .scroll-section {
-      opacity: 0 !important;
-      pointer-events: none !important;
-      transition: opacity 0.4s ease;
     }
 
     /* Subtle Cinematic Film Grain Overlay */
@@ -68,135 +53,10 @@
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 9990;
+      z-index: 0;
     }
 
-    /* Top Reading Progress Bar */
-    #progressBar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      width: 0%;
-      background: linear-gradient(90deg, #10b981, #00ff88, #e0c367);
-      box-shadow: 0 0 10px rgba(0, 255, 136, 0.7);
-      z-index: 10000;
-      transition: width 0.08s ease-out;
-    }
-
-    /* Foreground Canopy Silhouette Layering */
-    .foreground-canopy-frond {
-      position: fixed;
-      pointer-events: none;
-      z-index: 15;
-      opacity: 0.85;
-      transition: transform 0.1s linear, opacity 0.3s ease;
-    }
-    .foreground-canopy-frond.left {
-      top: -5vh;
-      left: -8vw;
-      width: 48vw;
-      max-width: 600px;
-      filter: blur(8px);
-      transform-origin: top left;
-    }
-    .foreground-canopy-frond.right {
-      bottom: -6vh;
-      right: -8vw;
-      width: 44vw;
-      max-width: 550px;
-      filter: blur(12px);
-      transform-origin: bottom right;
-    }
-
-    /* AMOLED Vignette Mask */
-    .vignette-amoled {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at center, transparent 40%, rgba(1, 4, 2, 0.82) 100%);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    /* Navigation Dock */
-    nav {
-      position: fixed;
-      top: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      width: calc(100% - 48px);
-      max-width: 1360px;
-      padding: 10px 22px;
-      background: var(--glass-panel);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid var(--glass-border);
-      border-radius: 9999px;
-      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), var(--glass-bevel);
-      z-index: 100;
-      transition: all 0.3s ease;
-    }
-
-    .brand-cluster {
-      display: flex;
-      flex-direction: column;
-    }
-    .logo {
-      font-family: var(--font-serif);
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #fff;
-    }
-    .tagline {
-      font-size: 0.65rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.16em;
-      color: var(--emerald-neon);
-      text-transform: uppercase;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .nav-pill-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 13px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 9999px;
-      color: #e5e7eb;
-      font-size: 0.74rem;
-      font-family: var(--font-mono);
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      user-select: none;
-    }
-    .nav-pill-btn:hover {
-      background: rgba(0, 255, 136, 0.12);
-      border-color: rgba(0, 255, 136, 0.4);
-      color: #fff;
-      transform: translateY(-1px);
-    }
-    .nav-pill-btn.active {
-      background: rgba(0, 255, 136, 0.22);
-      border-color: var(--emerald-neon);
-      color: #ffffff;
-      box-shadow: 0 0 14px rgba(0, 255, 136, 0.35);
-    }
-
-    /* Fixed 3D WebGL Canvas */
+    /* WebGL Canvas Viewport */
     #webgl-container {
       position: fixed;
       inset: 0;
@@ -206,12 +66,527 @@
       pointer-events: none;
     }
 
+    /* Top Reading Progress Bar */
+    #progressBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2.5px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--emerald-neon), var(--cyan-neon), var(--accent));
+      box-shadow: 0 0 14px var(--emerald-neon);
+      z-index: 999;
+      transition: width 0.05s ease-out;
+    }
+
+    /* ========================================================
+       CINEMATIC FOREGROUND CANOPY LAYERING (START EXPERIENCE)
+       ======================================================== */
+    .foreground-canopy-frond {
+      position: fixed;
+      pointer-events: none;
+      z-index: 25;
+      opacity: 0.85;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+    }
+
+    .foreground-canopy-frond.left {
+      top: -5%;
+      left: -8%;
+      width: clamp(280px, 35vw, 520px);
+      height: auto;
+      filter: blur(8px) drop-shadow(0 20px 30px rgba(0,0,0,0.9));
+      transform-origin: top left;
+    }
+
+    .foreground-canopy-frond.right {
+      bottom: -6%;
+      right: -8%;
+      width: clamp(300px, 38vw, 550px);
+      height: auto;
+      filter: blur(12px) drop-shadow(0 -20px 30px rgba(0,0,0,0.9));
+      transform-origin: bottom right;
+    }
+
+    /* Vignette Overlay */
+    .vignette-amoled {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 5;
+      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(1, 4, 2, 0.8) 80%, #000000 100%);
+    }
+
+    /* Navigation Bar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.8rem 6vw;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(1, 4, 2, 0.95), transparent);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .brand-cluster {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-weight: 900;
+      font-size: 1.45rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow: 0 0 25px rgba(255, 255, 255, 0.35);
+    }
+
+    .tagline {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      color: var(--accent);
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-pill-btn {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      padding: 7px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-pill-btn:hover {
+      border-color: var(--emerald-neon);
+      color: #ffffff;
+      box-shadow: 0 0 16px rgba(0, 255, 136, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .nav-pill-btn.active {
+      background: rgba(0, 255, 136, 0.18);
+      border-color: var(--emerald-neon);
+      color: var(--emerald-neon);
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+    }
+
+    /* Vertical Chapter Spine Rail (Right Edge) */
+    .spine-rail {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .spine-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+
+    .spine-dot:hover {
+      background: var(--accent);
+      transform: scale(1.4);
+    }
+
+    .spine-dot.active {
+      background: var(--emerald-neon);
+      box-shadow: 0 0 14px var(--emerald-neon);
+      transform: scale(1.6);
+      border-color: #ffffff;
+    }
+
+    .spine-tooltip {
+      position: absolute;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #000000;
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 1px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      text-transform: uppercase;
+    }
+
+    .spine-dot:hover .spine-tooltip { opacity: 1; }
+
+    /* Telemetry HUD Dock (Fixed Bottom Bar) */
+    .telemetry-hud {
+      position: fixed;
+      bottom: 34px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--glass-panel);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel), 0 20px 40px rgba(0, 0, 0, 0.95), 0 0 25px rgba(0, 255, 136, 0.15);
+      backdrop-filter: blur(24px);
+      padding: 9px 24px;
+      border-radius: 999px;
+    }
+
+    .telemetry-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ti-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 1.5px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .ti-val {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .telemetry-div {
+      width: 1px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Scrollytelling Sections */
+    main {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+    }
+
+    .scroll-section {
+      min-height: 150vh;
+      width: 100%;
+      position: relative;
+    }
+
+    .sticky-content {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 8vw;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+
+    .align-center { justify-content: center; text-align: center; }
+    .align-left { justify-content: flex-start; }
+    .align-right { justify-content: flex-end; text-align: right; }
+
+    /* Enhanced Liquid Glass Text Cards */
+    .text-card {
+      width: 100%;
+      max-width: 480px;
+      padding: 2.2rem;
+      background: var(--glass-panel);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel), 0 25px 60px rgba(0, 0, 0, 0.95);
+      border-radius: 26px;
+      position: relative;
+      pointer-events: auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s;
+    }
+
+    .text-card.is-visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    .text-card:hover {
+      border-color: rgba(0, 255, 136, 0.4);
+      box-shadow: var(--glass-bevel), 0 30px 70px rgba(0, 0, 0, 0.98), 0 0 30px rgba(0, 255, 136, 0.2);
+    }
+
+    h1, h2 {
+      font-family: var(--font-serif);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1.2rem;
+      color: #ffffff;
+    }
+
+    h1 { font-size: clamp(3.2rem, 5.5vw, 5.5rem); letter-spacing: 0.02em; }
+    h2 { font-size: clamp(2.2rem, 3.6vw, 3.2rem); letter-spacing: 0.02em; }
+
+    .gradient-text {
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .label {
+      color: var(--accent);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      font-size: 0.68rem;
+      margin-bottom: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+    }
+
+    p {
+      font-size: 1.02rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* Metric Badges Grid inside Cards */
+    .card-metrics-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .metric-chip {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    .align-right .metric-chip {
+      text-align: right;
+    }
+
+    .mc-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .mc-val {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--emerald-neon);
+    }
+
+    /* Variety Showcase Strip inside Hero */
+    .variety-selector-bar {
+      display: flex;
+      gap: 6px;
+      margin-top: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .v-pill {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+    }
+
+    .v-pill:hover, .v-pill.active {
+      border-color: var(--emerald-neon);
+      color: #ffffff;
+      background: rgba(0, 255, 136, 0.15);
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
+
+    /* Return to Apex Hub */
+    .return-hub {
+      padding: 40px 24px 80px;
+      text-align: center;
+      pointer-events: auto;
+    }
+
+    .return-btn {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #000000;
+      background: var(--accent);
+      border: none;
+      padding: 14px 36px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 25px rgba(224, 195, 103, 0.4);
+      transition: all 0.25s ease;
+      text-transform: uppercase;
+    }
+
+    .return-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 35px var(--accent);
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 20;
+      background: #000000;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 40px 20px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    footer b { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .sticky-content {
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 0 1.5rem;
+      }
+      .text-card {
+        padding: 1.6rem;
+        max-width: 100%;
+      }
+      .align-right .metric-chip {
+        text-align: center;
+      }
+      nav { padding: 1.2rem 1.5rem; }
+      .spine-rail { display: none; }
+      .telemetry-hud { padding: 7px 16px; bottom: 12px; }
+      .foreground-canopy-frond { display: none; }
+    }
+  
+    /* UI Hidden Mode */
+    body.ui-hidden nav,
+    body.ui-hidden .spine-rail,
+    body.ui-hidden .telemetry-hud,
+    body.ui-hidden #presenterBar,
+    body.ui-hidden #presenterNotesPanel,
+    body.ui-hidden #hotspotsLayer,
+    body.ui-hidden #simDrawer,
+    body.ui-hidden #hotspotCard,
+    body.ui-hidden .scroll-section {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transition: opacity 0.4s ease;
+    }
+
+    /* Virtual Laser Pointer Cursor */
+    #laserPointer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ff2a5f;
+      box-shadow: 0 0 14px #ff2a5f, 0 0 28px rgba(255, 42, 95, 0.8);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 99999;
+      display: none;
+    }
+    #laserPointer::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 42, 95, 0.6);
+      animation: laserPulse 1s infinite alternate;
+    }
+    @keyframes laserPulse {
+      from { transform: scale(1); opacity: 0.8; }
+      to { transform: scale(1.6); opacity: 0.2; }
+    }
+    body.laser-active {
+      cursor: none !important;
+    }
+    body.laser-active #laserPointer {
+      display: block;
+    }
+
     /* Interactive 3D Hotspot Screen-Space Layer */
     #hotspotsLayer {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 50;
+      opacity: 0;
       transition: opacity 0.4s ease;
     }
     .hotspot-pin {
@@ -343,13 +718,11 @@
       border-radius: 12px;
       padding: 10px 12px;
     }
-    .hcm-item span {
-      display: block;
-    }
+    .hcm-item span { display: block; }
     .hcm-lbl {
       font-family: var(--font-mono);
       font-size: 0.62rem;
-      color: var(--text-muted);
+      color: var(--text-dim);
     }
     .hcm-val {
       font-family: var(--font-mono);
@@ -407,7 +780,7 @@
     }
     .p-btn.active {
       background: rgba(255, 42, 95, 0.25);
-      border-color: var(--laser-red);
+      border-color: #ff2a5f;
       color: #fff;
       box-shadow: 0 0 12px rgba(255, 42, 95, 0.4);
     }
@@ -478,43 +851,7 @@
       left: 0;
       color: var(--accent);
     }
-    .pn-points b {
-      color: #fff;
-    }
-
-    /* Virtual Laser Pointer Cursor */
-    #laserPointer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--laser-red);
-      box-shadow: 0 0 14px var(--laser-red), 0 0 28px rgba(255, 42, 95, 0.8);
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 99999;
-      display: none;
-    }
-    #laserPointer::after {
-      content: "";
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 42, 95, 0.6);
-      animation: laserPulse 1s infinite alternate;
-    }
-    @keyframes laserPulse {
-      from { transform: scale(1); opacity: 0.8; }
-      to { transform: scale(1.6); opacity: 0.2; }
-    }
-    body.laser-active {
-      cursor: none !important;
-    }
-    body.laser-active #laserPointer {
-      display: block;
-    }
+    .pn-points b { color: #fff; }
 
     /* C4 Agronomic & Brix Simulator Drawer */
     #simDrawer {
@@ -579,7 +916,6 @@
     input[type=range]::-webkit-slider-thumb:hover {
       transform: scale(1.2);
     }
-
     .sim-results-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -590,13 +926,11 @@
       border-radius: 16px;
       padding: 14px;
     }
-    .sim-res-box {
-      text-align: left;
-    }
+    .sim-res-box { text-align: left; }
     .sim-res-box .s-lbl {
       font-family: var(--font-mono);
       font-size: 0.62rem;
-      color: var(--text-muted);
+      color: var(--text-dim);
       display: block;
       margin-bottom: 2px;
     }
@@ -606,7 +940,6 @@
       font-weight: 700;
       color: #fff;
     }
-
     .c4-pathway-box {
       background: rgba(0, 255, 136, 0.04);
       border: 1px dashed rgba(0, 255, 136, 0.3);
@@ -649,377 +982,20 @@
       flex-shrink: 0;
     }
 
-    /* Right Spine Navigation Rail */
-    .spine-rail {
-      position: fixed;
-      right: 28px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      z-index: 100;
-    }
-    .spine-dot {
-      position: relative;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .spine-dot:hover {
-      background: var(--emerald-neon);
-      transform: scale(1.4);
-    }
-    .spine-dot.active {
-      height: 24px;
-      border-radius: 4px;
-      background: var(--emerald-neon);
-      box-shadow: 0 0 12px var(--emerald-neon);
-    }
-    .spine-tooltip {
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--glass-panel);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
-      border-radius: 4px;
-      padding: 4px 10px;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      color: #fff;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      text-transform: uppercase;
-    }
-    .spine-dot:hover .spine-tooltip {
-      opacity: 1;
-      transform: translateY(-50%) translateX(-4px);
-    }
-
-    /* Fixed Telemetry HUD Bar (Bottom) */
-    .telemetry-hud {
-      position: fixed;
-      bottom: 24px;
-      left: 36px;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 10px 20px;
-      background: var(--glass-panel);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--glass-border);
-      border-radius: 9999px;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), var(--glass-bevel);
-      z-index: 100;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      color: #e5e7eb;
-      transition: all 0.3s ease;
-    }
-    .telemetry-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .ti-label {
-      color: var(--text-dim);
-      font-size: 0.65rem;
-      text-transform: uppercase;
-    }
-    .ti-val {
-      color: #fff;
-      font-weight: 600;
-    }
-    .telemetry-div {
-      width: 1px;
-      height: 14px;
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    /* Scrollytelling Story Track */
-    main {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-    }
-    .scroll-section {
-      position: relative;
-      min-height: 140vh;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0 6vw;
-    }
-    .scroll-section:first-child {
-      min-height: 110vh;
-    }
-    .scroll-section:last-of-type {
-      min-height: 120vh;
-    }
-
-    .sticky-content {
-      position: sticky;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      max-width: 1300px;
-      margin: 0 auto;
-      display: flex;
-    }
-    .align-left   { justify-content: flex-start; }
-    .align-right  { justify-content: flex-end; }
-    .align-center { justify-content: center; text-align: center; }
-
-    /* Ultra-Luxe Glassmorphism Card */
-    .text-card {
-      width: 100%;
-      max-width: 480px;
-      background: var(--glass-panel);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid var(--glass-border);
-      border-radius: 28px;
-      padding: 40px;
-      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.85), var(--glass-bevel);
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .text-card.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .label {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--emerald-neon);
-      margin-bottom: 12px;
-    }
-    h1, h2 {
-      font-family: var(--font-serif);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: #ffffff;
-      margin-bottom: 16px;
-    }
-    h1 { font-size: clamp(2.4rem, 4.2vw, 3.8rem); }
-    h2 { font-size: clamp(2rem, 3.2vw, 2.8rem); }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #ffffff 40%, #e0c367 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .gradient-emerald {
-      background: linear-gradient(135deg, #ffffff 40%, var(--emerald-neon) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    p {
-      font-size: 0.98rem;
-      line-height: 1.68;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      font-weight: 300;
-    }
-    p strong {
-      color: #fff;
-      font-weight: 500;
-    }
-
-    /* Cultivar Selector Bar */
-    .cultivar-selector-box {
-      margin-top: 24px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .cs-label {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 10px;
-      display: block;
-    }
-    .cultivar-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      justify-content: center;
-    }
-    .cultivar-chip {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 9999px;
-      padding: 5px 12px;
-      font-size: 0.7rem;
-      font-family: var(--font-mono);
-      color: #e5e7eb;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .cultivar-chip:hover {
-      background: rgba(0, 255, 136, 0.15);
-      border-color: var(--emerald-neon);
-      color: #fff;
-    }
-    .cultivar-chip.active {
-      background: rgba(0, 255, 136, 0.25);
-      border-color: var(--emerald-neon);
-      color: #fff;
-      box-shadow: 0 0 10px rgba(0, 255, 136, 0.35);
-    }
-
-    .data-pill-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .data-pill {
-      display: flex;
-      flex-direction: column;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 10px 16px;
-      flex: 1;
-      min-width: 110px;
-    }
-    .data-pill .dp-num {
-      font-family: var(--font-mono);
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #fff;
-    }
-    .data-pill .dp-lbl {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.06em;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-
-    /* Outro Hub Section */
-    .outro-hub {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 24px;
-      position: relative;
-      z-index: 20;
-    }
-    .outro-card {
-      max-width: 720px;
-      background: var(--glass-panel);
-      backdrop-filter: blur(32px);
-      -webkit-backdrop-filter: blur(32px);
-      border: 1px solid var(--glass-border);
-      border-radius: 36px;
-      padding: 56px 40px;
-      box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.95), var(--glass-bevel);
-    }
-    .apex-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 32px;
-      padding: 14px 28px;
-      background: linear-gradient(135deg, #10b981 0%, #047857 100%);
-      color: #ffffff;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 9999px;
-      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.5);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .apex-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px -5px rgba(16, 185, 129, 0.7);
-      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
-    }
-
-    footer {
-      margin-top: 40px;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    /* Mobile Responsive Adjustments */
-    @media (max-width: 768px) {
-      nav {
-        top: 12px;
-        width: calc(100% - 24px);
-        padding: 8px 14px;
-      }
-      .brand-cluster .tagline { display: none; }
-      .text-card {
-        padding: 24px;
-        max-width: 100%;
-      }
-      .spine-rail { display: none; }
-      .telemetry-hud {
-        bottom: 12px;
-        left: 12px;
-        padding: 6px 14px;
-        font-size: 0.65rem;
-      }
-      .foreground-canopy-frond.left { width: 75vw; left: -25vw; }
-      .foreground-canopy-frond.right { width: 75vw; right: -25vw; }
-      #presenterBar {
-        bottom: 70px;
-        padding: 6px 12px;
-        gap: 6px;
-      }
-      #presenterNotesPanel, #hotspotCard, #simDrawer {
-        left: 16px;
-        right: 16px;
-        width: calc(100vw - 32px);
-      }
-    }
   </style>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
+  <!-- Virtual Laser Pointer -->
+  <div id="laserPointer"></div>
 
   <!-- Top Progress Bar -->
   <div id="progressBar"></div>
 
-  <!-- Virtual Laser Pointer Element -->
-  <div id="laserPointer"></div>
-
-  <!-- Foreground Canopy Layering (Parts smoothly on scroll) -->
+  <!-- Foreground Canopy Layering (Soft focus silhouettes that part as you scroll) -->
   <svg class="foreground-canopy-frond left" id="frondLeft" viewBox="0 0 400 300" fill="none">
     <path d="M-50 0 C50 60 180 120 320 180 C260 210 120 220 -50 260 Z" fill="#011a0c" opacity="0.95"/>
     <path d="M-80 -20 C80 40 240 100 380 220 C280 240 100 230 -80 200 Z" fill="#032915" opacity="0.8"/>
@@ -1031,14 +1007,14 @@
 
   <div class="vignette-amoled"></div>
 
-  <!-- Navigation Dock -->
-  <nav id="mainNav">
+  <!-- Navigation -->
+  <nav>
     <div class="brand-cluster">
       <div class="logo">Saccharum</div>
-      <div class="tagline">Botanical Alchemy &bull; Solo Project</div>
+      <div class="tagline">Botanical Alchemy &bull; Made by Ryan and Adarsh</div>
     </div>
     <div class="nav-actions">
-      <button class="nav-pill-btn" id="dissectBtn" onclick="toggleDissection()" title="Separate internodes to reveal vascular anatomy">
+      <button class="nav-pill-btn" id="dissectBtn" onclick="toggleDissection()">
         <span>🔬</span>
         <span id="dissectLabel">Deconstruct</span>
       </button>
@@ -1054,15 +1030,15 @@
         <span>🌅</span>
         <span id="envLabel">Noon</span>
       </button>
-      <button class="nav-pill-btn" id="vfxToggleBtn" onclick="toggleVFX()" title="Toggle Visual Effects Quality">
+      <button class="nav-pill-btn" id="vfxToggleBtn" onclick="toggleVFX()">
         <span>✨</span>
         <span id="vfxLabel">VFX: High</span>
       </button>
-      <button class="nav-pill-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Toggle Classroom Presenter Mode (Hotkey: P)">
+            <button class="nav-pill-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Toggle Classroom Presenter Mode (Hotkey: P)">
         <span>🎓</span>
         <span>Presenter</span>
       </button>
-      <button class="nav-pill-btn" id="soundBtn" onclick="toggleAudio()" title="Toggle Ambient Audio Experience">
+      <button class="nav-pill-btn" id="soundBtn" onclick="toggleAudio()">
         <span>🎵</span>
         <span id="soundLabel">Ambient</span>
       </button>
@@ -1089,20 +1065,20 @@
     <div class="telemetry-div"></div>
     <div class="telemetry-item">
       <span class="ti-label">PURITY</span>
-      <span class="ti-val" id="hudBrix">21.0° Bx</span>
+      <span class="ti-val" id="hudBrix">18.4° Bx</span>
     </div>
     <div class="telemetry-div"></div>
     <div class="telemetry-item">
-      <span class="ti-label">ATMOSPHERE</span>
-      <span class="ti-val" id="hudEnv" style="color: var(--accent);">EQUATORIAL NOON</span>
-    </div>
-    <div class="telemetry-div"></div>
-    <div class="telemetry-item">
-      <span class="ti-label">VASCULAR</span>
-      <span class="ti-val" id="hudVascular" style="color: var(--emerald-neon);">ACTIVE TRANSLOCATION</span>
+      <span class="ti-label">VFX CORE</span>
+      <span class="ti-val" id="hudVFX" style="color: var(--emerald-neon);">PHOTON HARVEST</span>
     </div>
   </div>
 
+  <!-- 3D Canvas Container -->
+  <div id="webgl-container"></div>
+
+  <!-- Scrollytelling Story Track -->
+  
   <!-- 3D Hotspots Screen-Space Layer -->
   <div id="hotspotsLayer">
     <div class="hotspot-pin" id="pin0" onclick="selectHotspot(0)">
@@ -1115,7 +1091,7 @@
     </div>
     <div class="hotspot-pin" id="pin2" onclick="selectHotspot(2)">
       <div class="hotspot-dot"></div>
-      <div class="hotspot-badge">Vascular Ring</div>
+      <div class="hotspot-badge">Vascular Bundles</div>
     </div>
     <div class="hotspot-pin" id="pin3" onclick="selectHotspot(3)">
       <div class="hotspot-dot"></div>
@@ -1126,7 +1102,7 @@
   <!-- Hotspot Detail Card -->
   <div id="hotspotCard">
     <div class="hc-header">
-      <span class="hc-badge" id="hcBadge">● 3D ANATOMY EXPLORER</span>
+      <span class="hc-badge">● 3D ANATOMY EXPLORER</span>
       <button class="hc-close" onclick="closeHotspot()">✕</button>
     </div>
     <h3 class="hc-title" id="hcTitle">Waxy Cuticle</h3>
@@ -1203,7 +1179,7 @@
     <div class="sim-results-grid">
       <div class="sim-res-box">
         <span class="s-lbl">PREDICTED BRIX</span>
-        <span class="s-val" id="simBrixVal" style="color: var(--emerald-neon);">21.0° Bx</span>
+        <span class="s-val" id="simBrixVal" style="color: var(--emerald-neon);">18.4° Bx</span>
       </div>
       <div class="sim-res-box">
         <span class="s-lbl">FIELD YIELD</span>
@@ -1230,11 +1206,7 @@
     </div>
   </div>
 
-  <!-- 3D Canvas Container -->
-  <div id="webgl-container"></div>
-
-  <!-- Scrollytelling Story Track -->
-  <main id="storyTrack">
+  <main>
     
     <!-- 00: Raw Essence -->
     <div class="scroll-section" id="sec-0">
@@ -1243,17 +1215,26 @@
           <span class="label">● The Botanical Monolith</span>
           <h1 class="gradient-text">RAW<br>ESSENCE</h1>
           <p style="margin: 0 auto; max-width: 420px;">
-            Scroll to descend into the living cellular architecture of <strong>Saccharum officinarum</strong>. An extraordinary perennial grass that synthesizes pure solar radiation into crystallizable liquid energy.
+            Scroll to witness the metamorphosis of <i>Saccharum officinarum</i> from raw tropical earth to pure, light-refracting sucrose crystals.
           </p>
 
-          <div class="cultivar-selector-box">
-            <span class="cs-label">Interactive Cultivar Selector</span>
-            <div class="cultivar-chips">
-              <button class="cultivar-chip active" onclick="switchCultivar('officinarum')">Noble Cane</button>
-              <button class="cultivar-chip" onclick="switchCultivar('barberi')">North Indian</button>
-              <button class="cultivar-chip" onclick="switchCultivar('sinense')">Chinese Cane</button>
-              <button class="cultivar-chip" onclick="switchCultivar('co0238')">Co 0238</button>
-              <button class="cultivar-chip" onclick="switchCultivar('spontaneum')">Wild Kans</button>
+          <!-- Interactive Variety Switcher -->
+          <div class="variety-selector-bar">
+            <span class="v-pill active" onclick="switchCultivar(0)">Noble Cane</span>
+            <span class="v-pill" onclick="switchCultivar(1)">North Indian</span>
+            <span class="v-pill" onclick="switchCultivar(2)">Chinese Cane</span>
+            <span class="v-pill" onclick="switchCultivar(3)">Wonder Hybrid</span>
+            <span class="v-pill" onclick="switchCultivar(4)">Wild Kans</span>
+          </div>
+
+          <div class="card-metrics-row">
+            <div class="metric-chip">
+              <div class="mc-label">Scientific Name</div>
+              <div class="mc-val" id="cultivarSci">S. officinarum</div>
+            </div>
+            <div class="metric-chip">
+              <div class="mc-label">Typical Sucrose</div>
+              <div class="mc-val" id="cultivarBrix">14% - 17%</div>
             </div>
           </div>
         </div>
@@ -1262,21 +1243,21 @@
 
     <!-- 01: Propagation -->
     <div class="scroll-section" id="sec-1">
-      <div class="sticky-content align-left">
+      <div class="sticky-content align-right">
         <div class="text-card">
-          <span class="label">01 // The Origin</span>
-          <h2>LIVING SEED</h2>
+          <span class="label">01 — Propagation</span>
+          <h2 class="gradient-text">LIVING SEED</h2>
           <p>
-            Sugarcane bypasses fragile botanical seed propagation entirely. Instead, farmers plant <strong>setts</strong>—hardy stem cuttings possessing dormant nodal buds and primordial root bands that rapidly awaken under moist tropical loam.
+            Cultivated not from a seed, but from life itself. We embed mature, three-budded stem setts directly into moist furrow soil—cloning the ultimate genetic yield for the next generation.
           </p>
-          <div class="data-pill-row">
-            <div class="data-pill">
-              <span class="dp-num">12-18</span>
-              <span class="dp-lbl">Months Cycle</span>
+          <div class="card-metrics-row">
+            <div class="metric-chip">
+              <div class="mc-label">Sett Cutting</div>
+              <div class="mc-val">3-Budded Nodes</div>
             </div>
-            <div class="data-pill">
-              <span class="dp-num">3-4</span>
-              <span class="dp-lbl">Ratoon Crops</span>
+            <div class="metric-chip">
+              <div class="mc-label">Root Primordia</div>
+              <div class="mc-val">Adventitious</div>
             </div>
           </div>
         </div>
@@ -1285,21 +1266,21 @@
 
     <!-- 02: Photosynthesis -->
     <div class="scroll-section" id="sec-2">
-      <div class="sticky-content align-right">
+      <div class="sticky-content align-left">
         <div class="text-card">
-          <span class="label">02 // The Synthesis</span>
-          <h2 class="gradient-emerald">SOLAR ENGINE</h2>
+          <span class="label">02 — Photosynthesis</span>
+          <h2 class="gradient-text">SOLAR ENGINE</h2>
           <p>
-            Operating with specialized <strong>C4 Kranz anatomy</strong>, sugarcane isolates atmospheric carbon dioxide fixation from oxygen interference. This completely prevents photorespiratory loss, powering an extraordinary 2.8% solar energy conversion efficiency.
+            Fourteen months of equatorial fire. The sweeping tropical foliage acts as a massive photosynthetic engine, driving enzymatic sucrose synthesis deep within the vascular core of the plant.
           </p>
-          <div class="data-pill-row">
-            <div class="data-pill">
-              <span class="dp-num">C4</span>
-              <span class="dp-lbl">Hatch-Slack</span>
+          <div class="card-metrics-row">
+            <div class="metric-chip">
+              <div class="mc-label">Thermal Optimum</div>
+              <div class="mc-val">21°C — 27°C</div>
             </div>
-            <div class="data-pill">
-              <span class="dp-num">0%</span>
-              <span class="dp-lbl">Photorespiration</span>
+            <div class="metric-chip">
+              <div class="mc-label">Annual Rain</div>
+              <div class="mc-val">75 — 100 cm</div>
             </div>
           </div>
         </div>
@@ -1308,21 +1289,21 @@
 
     <!-- 03: The Cut -->
     <div class="scroll-section" id="sec-3">
-      <div class="sticky-content align-left">
+      <div class="sticky-content align-right">
         <div class="text-card">
-          <span class="label">03 // The Harvest</span>
-          <h2>PRECISE HARVEST</h2>
+          <span class="label">03 — The Cut</span>
+          <h2 class="gradient-text">PRECISE HARVEST</h2>
           <p>
-            Maturity is reached when the sucrose gradient equalizes throughout the culm, with maximum sweetness concentrated at the ground-level basal nodes. Stalks are severed flush to the soil, leaving the subterranean rhizomes intact for ratoon resurgence.
+            Precision at peak saturation. Harvesting is an unforgiving science, executed with sharp steel at the exact physiological moment sucrose levels reach their absolute zenith in the stalk.
           </p>
-          <div class="data-pill-row">
-            <div class="data-pill">
-              <span class="dp-num">95 T</span>
-              <span class="dp-lbl">Yield / Hectare</span>
+          <div class="card-metrics-row">
+            <div class="metric-chip">
+              <div class="mc-label">Peak Girth</div>
+              <div class="mc-val">3.5 — 5.0 cm</div>
             </div>
-            <div class="data-pill">
-              <span class="dp-num">21°</span>
-              <span class="dp-lbl">Peak Brix</span>
+            <div class="metric-chip">
+              <div class="mc-label">Growth Span</div>
+              <div class="mc-val">10 — 12 Months</div>
             </div>
           </div>
         </div>
@@ -1331,21 +1312,21 @@
 
     <!-- 04: The Window -->
     <div class="scroll-section" id="sec-4">
-      <div class="sticky-content align-right">
+      <div class="sticky-content align-left">
         <div class="text-card">
-          <span class="label">04 // Biochemical Decay</span>
-          <h2>RACE AGAINST TIME</h2>
+          <span class="label">04 — The Window</span>
+          <h2 class="gradient-text">RACE AGAINST TIME</h2>
           <p>
-            The moment the stalk is severed, endogenous <strong>invertase enzymes</strong> initiate destructive post-harvest hydrolysis. Sucrose rapidly dissociates into reducing sugars—glucose and fructose. Crushing must begin within an unforgiving 24-hour window.
+            The instant the culm is severed, chemical inversion begins. The harvest is rushed to crushing mills within a non-negotiable 24-hour window before enzymes convert sucrose into invert sugars.
           </p>
-          <div class="data-pill-row">
-            <div class="data-pill">
-              <span class="dp-num">24h</span>
-              <span class="dp-lbl">Crush Window</span>
+          <div class="card-metrics-row">
+            <div class="metric-chip">
+              <div class="mc-label">Crush Window</div>
+              <div class="mc-val">&lt; 24 Hours</div>
             </div>
-            <div class="data-pill">
-              <span class="dp-num">&lt; 1%</span>
-              <span class="dp-lbl">Daily Inversion</span>
+            <div class="metric-chip">
+              <div class="mc-label">Inversion Threat</div>
+              <div class="mc-val">Dextran Loss</div>
             </div>
           </div>
         </div>
@@ -1354,21 +1335,21 @@
 
     <!-- 05: Extraction -->
     <div class="scroll-section" id="sec-5">
-      <div class="sticky-content align-left">
+      <div class="sticky-content align-right">
         <div class="text-card">
-          <span class="label">05 // Mechanical Milling</span>
+          <span class="label">05 — Extraction</span>
           <h2 class="gradient-text">PURE PRESSURE</h2>
           <p>
-            Heavy serrated steel tandem rollers apply over <strong>200 bar hydraulic force</strong>, shearing through the tough silica-lignified rind to liberate emerald raw juice. The spent dry fibrous residue, <em>bagasse</em>, fuels the mill's steam cogeneration boilers.
+            Relentless mechanical force. Massive serrated steel rollers exert over 250 bars of hydraulic pressure, crushing the fibrous rind and liberating 96% of the golden saccharine sap.
           </p>
-          <div class="data-pill-row">
-            <div class="data-pill">
-              <span class="dp-num">96%</span>
-              <span class="dp-lbl">Juice Recovery</span>
+          <div class="card-metrics-row">
+            <div class="metric-chip">
+              <div class="mc-label">Roller Force</div>
+              <div class="mc-val">250 Bar</div>
             </div>
-            <div class="data-pill">
-              <span class="dp-num">100%</span>
-              <span class="dp-lbl">Biomass Energy</span>
+            <div class="metric-chip">
+              <div class="mc-label">Byproduct Fuel</div>
+              <div class="mc-val">Bagasse Cogen</div>
             </div>
           </div>
         </div>
@@ -1377,577 +1358,795 @@
 
     <!-- 06: Nucleation -->
     <div class="scroll-section" id="sec-6">
-      <div class="sticky-content align-right">
+      <div class="sticky-content align-left">
         <div class="text-card">
-          <span class="label">06 // Molecular Architecture</span>
-          <h2 class="gradient-emerald">CRYSTALLIZATION</h2>
+          <span class="label">06 — Nucleation</span>
+          <h2 class="gradient-text">CRYSTALLIZATION</h2>
           <p>
-            Clarified juice undergoes multiple-effect vacuum evaporation until supersaturation triggers nucleation. Microscopic seed crystals provide templates for sucrose molecules to snap into immaculate, monoclinic crystal geometries.
+            The pure chemical essence. Through thermal evaporation (118°C strike) and vacuum nucleation, the golden syrup precipitates into sparkling, light-refracting octahedral crystal geometry.
           </p>
-          <div class="data-pill-row">
-            <div class="data-pill">
-              <span class="dp-num">99.8%</span>
-              <span class="dp-lbl">C12H22O11 Purity</span>
+          <div class="card-metrics-row">
+            <div class="metric-chip">
+              <div class="mc-label">Formula</div>
+              <div class="mc-val">C₁₂H₂₂O₁₁</div>
             </div>
-            <div class="data-pill">
-              <span class="dp-num">65°C</span>
-              <span class="dp-lbl">Vacuum Boiling</span>
+            <div class="metric-chip">
+              <div class="mc-label">Optical Rotation</div>
+              <div class="mc-val">+66.5° Dextro</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Outro Return Hub -->
-    <section class="outro-hub">
-      <div class="outro-card">
-        <span class="label">Botanical Synthesis Complete</span>
-        <h2 style="font-size: clamp(2.4rem, 4.5vw, 3.8rem); margin-bottom: 20px;">
-          NATURE'S LIVING ALCHEMY
-        </h2>
-        <p style="max-width: 580px; margin: 0 auto 24px auto;">
-          From atmospheric carbon dioxide and equatorial sunlight to pristine monoclinic sucrose crystals. An engineering marvel of plant physiology and industrial thermodynamics.
-        </p>
-        <button class="apex-button" onclick="scrollToSection(0)">
-          <span>▲</span> Return to Apex
-        </button>
-        <footer>
-          CBSE Class 10 Biology Project &bull; Botanical 3D Interactive Exhibition
-        </footer>
-      </div>
-    </section>
+    <!-- Endless Loop Apex Return -->
+    <div class="return-hub">
+      <button class="return-btn" onclick="scrollToSection(0)">
+        <span>↺ RE-ENTER THE BIOSPHERE [APEX]</span>
+      </button>
+    </div>
 
   </main>
 
-  <!-- External Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Footer -->
+  <footer>
+    <p>
+      <b>Saccharum // Botanical Alchemy</b> &bull; CBSE Class 10 Geography Chapter 4 Masterwork
+    </p>
+    <p style="margin-top: 6px; font-size: 0.65rem; color: var(--text-dim);">
+      Project Architecture by <b>Ryan Fredrick Ravuru and Adarsh</b> &bull; Secunderabad, Telangana
+    </p>
+  </footer>
 
+  <!-- ========================================================
+       THREE.JS WEBGL ENGINE: AAA FOLIAGE, GOD RAYS & DYNAMIC VFX
+       ======================================================== -->
   <script>
     /* ----------------------------------------------------
-       1. CULTIVAR DATABASE & STATE
+       1. CULTIVAR DATA MATRIX
        ---------------------------------------------------- */
-    const CULTIVARS = {
-      officinarum: {
-        name: "Noble Cane",
-        latin: "Saccharum officinarum",
-        rindColor: 0x5a7832,
-        leafColor: 0x3d6826,
-        thickness: 1.0,
-        leafCount: 7,
-        brix: "21.0° Bx",
-        stalkHeight: 5.2
-      },
-      barberi: {
-        name: "North Indian",
-        latin: "Saccharum barberi",
-        rindColor: 0x6e8038,
-        leafColor: 0x486b2a,
-        thickness: 0.78,
-        leafCount: 6,
-        brix: "16.8° Bx",
-        stalkHeight: 4.8
-      },
-      sinense: {
-        name: "Chinese Cane",
-        latin: "Saccharum sinense",
-        rindColor: 0x4f6b2e,
-        leafColor: 0x355a20,
-        thickness: 0.88,
-        leafCount: 6,
-        brix: "17.9° Bx",
-        stalkHeight: 5.0
-      },
-      co0238: {
-        name: "Wonder Hybrid Co 0238",
-        latin: "Saccharum hybrid",
-        rindColor: 0x6b8a36,
-        leafColor: 0x4a7a28,
-        thickness: 1.15,
-        leafCount: 8,
-        brix: "22.4° Bx",
-        stalkHeight: 5.6
-      },
-      spontaneum: {
-        name: "Wild Kans Grass",
-        latin: "Saccharum spontaneum",
-        rindColor: 0x425726,
-        leafColor: 0x2d471b,
-        thickness: 0.58,
-        leafCount: 5,
-        brix: "9.2° Bx",
-        stalkHeight: 4.2
-      }
-    };
+    const cultivars = [
+      { name: "Noble Cane", sci: "S. officinarum", brix: "14% - 17%", color: 0x3d6323, ringColor: 0x9e9175, leafColor: 0x10b981, girth: 0.44, leaves: 6 },
+      { name: "North Indian", sci: "S. barberi", brix: "10% - 12%", color: 0x5a6320, ringColor: 0xb5a075, leafColor: 0x22c55e, girth: 0.35, leaves: 4 },
+      { name: "Chinese Cane", sci: "S. sinense", brix: "9% - 11%", color: 0x2e5c3e, ringColor: 0x8a997d, leafColor: 0x14b8a6, girth: 0.38, leaves: 5 },
+      { name: "Wonder Hybrid", sci: "Co 0238", brix: "13% - 15%", color: 0x1fad4a, ringColor: 0xd4af37, leafColor: 0x00ff88, girth: 0.48, leaves: 7 },
+      { name: "Wild Kans", sci: "S. spontaneum", brix: "3% - 5%", color: 0x573b66, ringColor: 0x8b709e, leafColor: 0xbf5af2, girth: 0.28, leaves: 3 }
+    ];
 
-    let activeCultivarKey = 'officinarum';
+    let currentCultivar = 0;
     let isDissected = false;
-    let vfxHigh = true;
-    let soundActive = false;
-    let laserActive = false;
+    let vfxLevel = 1; // 1: High, 0: Low
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('webgl-container');
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x010402, 0.026);
+
+      const camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.1, 100);
+      camera.position.set(0, 0, 14);
+
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+      renderer.setSize(innerWidth, innerHeight);
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.45;
+      container.appendChild(renderer.domElement);
+
+      // AAA Studio Lighting Architecture
+      scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+
+      // Key Warm Sun Spotlight
+      const keyLight = new THREE.SpotLight(0xfff5e6, 5.0);
+      keyLight.position.set(9, 15, 9);
+      keyLight.angle = Math.PI / 4.2;
+      keyLight.penumbra = 0.65;
+      scene.add(keyLight);
+
+      // Gold Back Rim Light
+      const rimLight = new THREE.DirectionalLight(0xe0c367, 3.8);
+      rimLight.position.set(-8, -2, -7);
+      scene.add(rimLight);
+
+      // Emerald Atmospheric Bounce Fill
+      const emeraldFill = new THREE.DirectionalLight(0x00ff88, 1.8);
+      emeraldFill.position.set(6, -6, 3);
+      scene.add(emeraldFill);
+
+      // Interactive Mouse Follow Light (Casts Dynamic Specular Shimmer on Culm & Leaves)
+      const cursorLight = new THREE.PointLight(0x00ff88, 2.2, 9);
+      cursorLight.position.set(0, 0, 4);
+      scene.add(cursorLight);
+
+      /* ----------------------------------------------------
+         VFX 1: VOLUMETRIC GOD-RAY LIGHT SHAFTS
+         ---------------------------------------------------- */
+      const godRaysGroup = new THREE.Group();
+      const rayGeo = new THREE.CylinderGeometry(0.2, 4.2, 18, 24, 1, true);
+      const rayMat = new THREE.MeshBasicMaterial({
+        color: 0x00ff88,
+        transparent: true,
+        opacity: 0.045,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      });
+
+      for (let r = 0; r < 4; r++) {
+        const ray = new THREE.Mesh(rayGeo, rayMat);
+        ray.position.set(2 + r * 1.5, 6, -2 + r * 0.8);
+        ray.rotation.z = -0.35 + (r * 0.08);
+        ray.rotation.x = 0.2;
+        godRaysGroup.add(ray);
+      }
+      scene.add(godRaysGroup);
+
+      // Procedural Noise Bump Texture
+      function createNoiseTexture() {
+        const c = document.createElement('canvas');
+        c.width = c.height = 512;
+        const ctx = c.getContext('2d');
+        for (let x = 0; x < 512; x++) {
+          for (let y = 0; y < 512; y++) {
+            const val = Math.floor(Math.random() * 255);
+            ctx.fillStyle = `rgb(${val},${val},${val})`;
+            ctx.fillRect(x, y, 2, 12);
+          }
+        }
+        const tex = new THREE.CanvasTexture(c);
+        tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(2, 4);
+        return tex;
+      }
+      const organicBumpMap = createNoiseTexture();
+
+      // Materials
+      const stalkMaterial = new THREE.MeshPhysicalMaterial({
+        color: cultivars[0].color,
+        roughness: 0.32,
+        metalness: 0.08,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.14,
+        bumpMap: organicBumpMap,
+        bumpScale: 0.0035
+      });
+
+      const nodeMaterial = new THREE.MeshStandardMaterial({
+        color: cultivars[0].ringColor,
+        roughness: 0.72,
+        bumpMap: organicBumpMap,
+        bumpScale: 0.005
+      });
+
+      const waxMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        roughness: 0.9,
+        transparent: true,
+        opacity: 0.35
+      });
+
+      const coreMaterial = new THREE.MeshStandardMaterial({
+        color: 0xe8e1cd,
+        roughness: 0.95
+      });
+
+      const crystalMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        transmission: 1.0,
+        opacity: 1.0,
+        metalness: 0.08,
+        roughness: 0.04,
+        ior: 1.62,
+        thickness: 3.5,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.05
+      });
+
+      // Master Hero Group
+      const heroGroup = new THREE.Group();
+      scene.add(heroGroup);
+
+      /* ----------------------------------------------------
+         AAA BOTANICAL LEAF GENERATOR (KEELED 3D RIBBON MESH)
+         ---------------------------------------------------- */
+      function createBotanicalLeaf(length, maxWidth, archHeight, droopY, lateralCurl, color) {
+        const segments = 26;
+        const geom = new THREE.BufferGeometry();
+        const positions = [];
+        const uvs = [];
+        const indices = [];
+
+        for (let i = 0; i <= segments; i++) {
+          const u = i / segments;
+          // Smooth arch and gravitational droop
+          const x = u * length;
+          const arch = Math.sin(u * Math.PI * 0.55) * archHeight;
+          const droop = Math.pow(u, 2.2) * droopY;
+          const y = arch - droop;
+          const z = Math.sin(u * 1.8) * lateralCurl;
+
+          // Realistic lanceolate leaf blade taper
+          const w = maxWidth * Math.sin(Math.pow(u, 0.65) * Math.PI) * (1.0 - u * 0.35);
+          // V-shaped keeled cross section
+          const keel = 0.08 * Math.sin(u * Math.PI);
+
+          // 3 vertices per row: Left edge, Center midrib, Right edge
+          positions.push(x, y + keel, z - w); // Left
+          positions.push(x, y, z);             // Center midrib
+          positions.push(x, y + keel, z + w); // Right
+
+          uvs.push(0.0, u, 0.5, u, 1.0, u);
+        }
+
+        for (let i = 0; i < segments; i++) {
+          const r1 = i * 3;
+          const r2 = (i + 1) * 3;
+          // Left facet
+          indices.push(r1, r2, r1 + 1);
+          indices.push(r1 + 1, r2, r2 + 1);
+          // Right facet
+          indices.push(r1 + 1, r2 + 1, r1 + 2);
+          indices.push(r1 + 2, r2 + 1, r2 + 2);
+        }
+
+        geom.setIndex(indices);
+        geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+        geom.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+        geom.computeVertexNormals();
+
+        const mat = new THREE.MeshPhysicalMaterial({
+          color: color || 0x10b981,
+          roughness: 0.32,
+          metalness: 0.05,
+          clearcoat: 0.45,
+          clearcoatRoughness: 0.18,
+          transmission: 0.18, // Subsurface organic translucency
+          thickness: 0.6,
+          side: THREE.DoubleSide
+        });
+
+        const mesh = new THREE.Mesh(geom, mat);
+        mesh.userData = { originalPositions: positions.slice(), length, segments };
+        return mesh;
+      }
+
+      // Procedural Segment Assembly
+      const numSegments = 6;
+      const segLength = 2.2;
+      const totalHeight = numSegments * segLength;
+      const segmentMeshes = [];
+      const ringMeshes = [];
+      const leafMeshes = [];
+
+      for (let i = 0; i < numSegments; i++) {
+        const t = i / numSegments;
+        const radiusBottom = 0.44 - t * 0.08;
+        const radiusTop = 0.40 - t * 0.08;
+
+        const segGroup = new THREE.Group();
+        segGroup.position.y = i * segLength - totalHeight / 2 + segLength / 2;
+        heroGroup.add(segGroup);
+        segmentMeshes.push(segGroup);
+
+        // Cylinder Body
+        const segGeo = new THREE.CylinderGeometry(radiusTop, radiusBottom, segLength, 48, 12);
+        const segment = new THREE.Mesh(segGeo, stalkMaterial);
+        segGroup.add(segment);
+
+        // Waxy Bloom Ring Band
+        const waxGeo = new THREE.CylinderGeometry(radiusBottom * 1.01, radiusBottom * 1.02, 0.25, 48);
+        const waxBand = new THREE.Mesh(waxGeo, waxMaterial);
+        waxBand.position.y = -segLength / 2 + 0.25;
+        segGroup.add(waxBand);
+
+        // Nodal Swell Ring
+        const ringGeo = new THREE.TorusGeometry(radiusBottom * 1.04, 0.055, 24, 48);
+        const ring = new THREE.Mesh(ringGeo, nodeMaterial);
+        ring.rotation.x = Math.PI / 2;
+        ring.position.y = -segLength / 2;
+        segGroup.add(ring);
+        ringMeshes.push(ring);
+
+        // Eye Bud Primordium (Alternating sides)
+        const budGeo = new THREE.SphereGeometry(0.09, 16, 16);
+        const bud = new THREE.Mesh(budGeo, nodeMaterial);
+        const budSide = i % 2 === 0 ? 1 : -1;
+        bud.position.set(budSide * (radiusBottom * 1.02), -segLength / 2 + 0.12, 0);
+        segGroup.add(bud);
+
+        // AAA Keeled 3D Botanical Leaves (Alternating natural angles)
+        if (i >= 1) {
+          const leafLen = 3.6 + (i * 0.35);
+          const leafW = 0.34 + (i * 0.02);
+          const archH = 0.75 + (i * 0.12);
+          const droop = 1.8 + (i * 0.25);
+          const lateralCurl = (i % 2 === 0 ? 0.3 : -0.3);
+
+          const leafMesh = createBotanicalLeaf(leafLen, leafW, archH, droop, lateralCurl, cultivars[0].leafColor);
+          leafMesh.position.set(budSide * 0.25, -segLength / 2 + 0.08, 0);
+          
+          // Rotation outward from stalk
+          const yawAngle = (budSide === 1 ? 0 : Math.PI) + (i * 0.35);
+          leafMesh.rotation.set(0.12, yawAngle, -0.22);
+          segGroup.add(leafMesh);
+          leafMeshes.push(leafMesh);
+        }
+      }
+
+      // Severed Top Cap (Parenchyma Core)
+      const capGeo = new THREE.CircleGeometry(0.32, 48);
+      const topCap = new THREE.Mesh(capGeo, coreMaterial);
+      topCap.rotation.x = -Math.PI / 2;
+      topCap.position.y = totalHeight / 2 - segLength / 2 + 1.1;
+      heroGroup.add(topCap);
+
+      // Sucrose Crystallization Swarm (Act 06)
+      const crystalSwarm = new THREE.Group();
+      for (let i = 0; i < 36; i++) {
+        const isOcta = i % 2 === 0;
+        const cGeo = isOcta
+          ? new THREE.OctahedronGeometry(Math.random() * 0.45 + 0.22)
+          : new THREE.IcosahedronGeometry(Math.random() * 0.35 + 0.18);
+        const crystal = new THREE.Mesh(cGeo, crystalMaterial);
+        crystal.position.set(
+          (Math.random() - 0.5) * 6,
+          (Math.random() - 0.5) * 7,
+          (Math.random() - 0.5) * 6
+        );
+        crystal.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+        crystalSwarm.add(crystal);
+      }
+      crystalSwarm.scale.set(0.001, 0.001, 0.001);
+      heroGroup.add(crystalSwarm);
+
+      /* ----------------------------------------------------
+         VFX 2: DYNAMIC PARTICLE STREAMS (CHLOROPHYLL & SAP)
+         ---------------------------------------------------- */
+      // 1. Ambient Bioluminescent Spores
+      const sporeGeo = new THREE.BufferGeometry();
+      const sporeCount = 140;
+      const sporePos = new Float32Array(sporeCount * 3);
+      for (let i = 0; i < sporeCount * 3; i += 3) {
+        sporePos[i] = (Math.random() - 0.5) * 16;
+        sporePos[i + 1] = (Math.random() - 0.5) * 16;
+        sporePos[i + 2] = (Math.random() - 0.5) * 12;
+      }
+      sporeGeo.setAttribute('position', new THREE.BufferAttribute(sporePos, 3));
+      const sporeMat = new THREE.PointsMaterial({
+        color: 0x00ff88,
+        size: 0.085,
+        transparent: true,
+        opacity: 0.7,
+        blending: THREE.AdditiveBlending
+      });
+      const sporePoints = new THREE.Points(sporeGeo, sporeMat);
+      scene.add(sporePoints);
+
+      // 2. Cascading Photosynthesis Photons & Extraction Droplets
+      const photonGeo = new THREE.BufferGeometry();
+      const photonCount = 65;
+      const photonPos = new Float32Array(photonCount * 3);
+      const photonVel = new Float32Array(photonCount * 3);
+      for (let i = 0; i < photonCount * 3; i += 3) {
+        photonPos[i] = (Math.random() - 0.5) * 4;
+        photonPos[i + 1] = 4 + Math.random() * 4;
+        photonPos[i + 2] = (Math.random() - 0.5) * 4;
+        photonVel[i + 1] = -(0.03 + Math.random() * 0.05);
+      }
+      photonGeo.setAttribute('position', new THREE.BufferAttribute(photonPos, 3));
+      const photonMat = new THREE.PointsMaterial({
+        color: 0xffd60a,
+        size: 0.12,
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
+      });
+      const photonPoints = new THREE.Points(photonGeo, photonMat);
+      scene.add(photonPoints);
+
+      /* ----------------------------------------------------
+         GSAP SCROLLTRIGGER SYNCHRONIZATION & CAMERA MOVEMENT
+         ---------------------------------------------------- */
+      gsap.registerPlugin(ScrollTrigger);
+
+      const shiftX = innerWidth <= 900 ? 0 : 4.4;
+      heroGroup.position.set(0, -0.8, 0);
+      heroGroup.rotation.set(0.1, 0, -0.15);
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: 'main',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1.4
+        }
+      });
+
+      // Layering Part: Foreground fronds slide away as user begins scroll!
+      timeline.to('#frondLeft', { x: '-35vw', opacity: 0, ease: 'power2.out', duration: 0.8 }, 0)
+              .to('#frondRight', { x: '35vw', opacity: 0, ease: 'power2.out', duration: 0.8 }, 0);
+
+      // Stage 0 -> 1: Propagation
+      timeline.to(heroGroup.position, { x: -shiftX, y: 1.2, z: 2.2, duration: 1, ease: 'sine.inOut' }, 0)
+              .to(heroGroup.rotation, { x: 0.35, y: Math.PI * 0.75, z: 0.25, duration: 1, ease: 'sine.inOut' }, 0);
+
+      // Stage 1 -> 2: Photosynthesis (Solar Engine)
+      timeline.to(heroGroup.position, { x: shiftX, y: -0.6, z: 3.2, duration: 1, ease: 'sine.inOut' }, 1)
+              .to(heroGroup.rotation, { x: -0.2, y: Math.PI * 1.5, z: -0.2, duration: 1, ease: 'sine.inOut' }, 1)
+              .to(keyLight, { intensity: 7.0, duration: 0.8 }, 1.2);
+
+      // Stage 2 -> 3: The Cut (Precise Harvest)
+      timeline.to(heroGroup.position, { x: -shiftX, y: -3.2, z: 2.2, duration: 1, ease: 'sine.inOut' }, 2)
+              .to(heroGroup.rotation, { x: 0.45, y: Math.PI * 2.2, z: 0.1, duration: 1, ease: 'sine.inOut' }, 2);
+
+      // Stage 3 -> 4: The Window (Race Against Time)
+      timeline.to(heroGroup.position, { x: shiftX, y: -1.8, z: 3.8, duration: 1, ease: 'sine.inOut' }, 3)
+              .to(heroGroup.rotation, { x: 1.1, y: Math.PI * 2.9, z: -0.4, duration: 1, ease: 'sine.inOut' }, 3);
+
+      // Stage 4 -> 5: Extraction (Pure Pressure)
+      timeline.to(heroGroup.position, { x: -shiftX, y: 0.2, z: 2.4, duration: 1, ease: 'sine.inOut' }, 4)
+              .to(heroGroup.rotation, { x: 0.15, y: Math.PI * 3.7, z: 1.3, duration: 1, ease: 'sine.inOut' }, 4);
+
+      // Stage 5 -> 6: Nucleation (Crystallization)
+      timeline.to(heroGroup.position, { x: shiftX, y: 0.4, z: 1.2, duration: 1, ease: 'sine.inOut' }, 5)
+              .to(heroGroup.rotation, { x: 0.25, y: Math.PI * 4.8, z: -0.1, duration: 1, ease: 'sine.inOut' }, 5)
+              .to(crystalSwarm.scale, { x: 1.15, y: 1.15, z: 1.15, duration: 0.8, ease: 'back.out(1.4)' }, 5.2)
+              .to(stalkMaterial, { opacity: 0.45, transparent: true, duration: 0.8 }, 5.2);
+
+      /* ----------------------------------------------------
+         ROBUST BIDIRECTIONAL SCROLL DETECTION
+         (Ensures elements REAPPEAR smoothly on scroll up and down!)
+         ---------------------------------------------------- */
+      const sectionNodes = document.querySelectorAll('.scroll-section');
+      const dots = document.querySelectorAll('.spine-dot');
+      const chapterTitles = [
+        '00 // RAW ESSENCE', '01 // PROPAGATION', '02 // PHOTOSYNTHESIS',
+        '03 // THE CUT', '04 // THE WINDOW', '05 // EXTRACTION', '06 // NUCLEATION'
+      ];
+      const brixValues = ['18.4° Bx', '14.2° Bx', '16.5° Bx', '18.8° Bx', '18.1° Bx', '21.4° Bx', '99.8° Bx'];
+      const vfxLabels = ['CHLOROPHYLL HAZE', 'ROOT RHIZOSPHERE', 'PHOTON HARVEST', 'LASER INCISION', '24H SAP FLUX', 'FLUID DISCHARGE', 'OCTAHEDRAL P2₁'];
+
+      function handleScrollObserver() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const vh = window.innerHeight;
+        const totalH = document.documentElement.scrollHeight - vh;
+        
+        // Progress bar
+        if (totalH > 0) {
+          document.getElementById('progressBar').style.width = Math.min(100, Math.max(0, (scrollY / totalH) * 100)) + '%';
+        }
+
+        const viewCenter = scrollY + vh * 0.45;
+        let activeIndex = 0;
+        let minDistance = Infinity;
+
+        sectionNodes.forEach((sec, idx) => {
+          const rect = sec.getBoundingClientRect();
+          const secCenter = scrollY + rect.top + rect.height * 0.5;
+          const dist = Math.abs(secCenter - viewCenter);
+          if (dist < minDistance) {
+            minDistance = dist;
+            activeIndex = idx;
+          }
+          currentSlide = activeIndex;
+          if (typeof updatePresenterHUD === "function") updatePresenterHUD();
+
+          // Card Visibility toggle (Guarantees card REAPPEARS when scrolling back UP!)
+          const card = sec.querySelector('.text-card');
+          if (card) {
+            const isInside = rect.top < vh * 0.75 && rect.bottom > vh * 0.25;
+            if (isInside) {
+              card.classList.add('is-visible');
+            } else {
+              card.classList.remove('is-visible');
+            }
+          }
+        });
+
+        // Update Spine Dots
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === activeIndex);
+        });
+
+        // Update Telemetry HUD
+        document.getElementById('hudChapter').innerText = chapterTitles[activeIndex] || '00 // RAW ESSENCE';
+        document.getElementById('hudBrix').innerText = brixValues[activeIndex] || '18.4° Bx';
+        document.getElementById('hudVFX').innerText = vfxLabels[activeIndex] || 'HARVEST CORE';
+      }
+
+      window.addEventListener('scroll', handleScrollObserver, { passive: true });
+      handleScrollObserver();
+
+      /* ----------------------------------------------------
+         INTERACTIVE DECONSTRUCT / EXPLODED VIEW
+         ---------------------------------------------------- */
+      window.toggleDissection = function() {
+        isDissected = !isDissected;
+        const btnLabel = document.getElementById('dissectLabel');
+        const btn = document.getElementById('dissectBtn');
+
+        btnLabel.innerText = isDissected ? 'Assemble' : 'Deconstruct';
+        btn.classList.toggle('active', isDissected);
+
+        segmentMeshes.forEach((seg, idx) => {
+          const originalY = idx * segLength - totalHeight / 2 + segLength / 2;
+          const targetY = isDissected ? originalY + (idx - 2.5) * 1.05 : originalY;
+
+          gsap.to(seg.position, {
+            y: targetY,
+            duration: 0.95,
+            ease: 'power3.out'
+          });
+        });
+
+        playChime(isDissected ? 659.25 : 440);
+      };
+
+      /* ----------------------------------------------------
+         VFX QUALITY TOGGLE
+         ---------------------------------------------------- */
+      window.toggleVFX = function() {
+        vfxLevel = vfxLevel === 1 ? 0 : 1;
+        const vfxLabel = document.getElementById('vfxLabel');
+        const vfxBtn = document.getElementById('vfxToggleBtn');
+
+        vfxLabel.innerText = vfxLevel === 1 ? 'VFX: High' : 'VFX: Eco';
+        vfxBtn.classList.toggle('active', vfxLevel === 1);
+        godRaysGroup.visible = (vfxLevel === 1);
+        photonPoints.visible = (vfxLevel === 1);
+        playChime(vfxLevel === 1 ? 783.99 : 392);
+      };
+
+      /* ----------------------------------------------------
+         CULTIVAR SWITCHER
+         ---------------------------------------------------- */
+      window.switchCultivar = function(idx) {
+        currentCultivar = idx;
+        const cur = cultivars[idx];
+
+        document.querySelectorAll('.v-pill').forEach((pill, i) => {
+          pill.classList.toggle('active', i === idx);
+        });
+
+        document.getElementById('cultivarSci').innerText = cur.sci;
+        document.getElementById('cultivarBrix').innerText = cur.brix;
+
+        // Smoothly tween 3D materials
+        gsap.to(stalkMaterial.color, {
+          r: (cur.color >> 16 & 255) / 255,
+          g: (cur.color >> 8 & 255) / 255,
+          b: (cur.color & 255) / 255,
+          duration: 0.7
+        });
+
+        gsap.to(nodeMaterial.color, {
+          r: (cur.ringColor >> 16 & 255) / 255,
+          g: (cur.ringColor >> 8 & 255) / 255,
+          b: (cur.ringColor & 255) / 255,
+          duration: 0.7
+        });
+
+        leafMeshes.forEach(lm => {
+          gsap.to(lm.material.color, {
+            r: (cur.leafColor >> 16 & 255) / 255,
+            g: (cur.leafColor >> 8 & 255) / 255,
+            b: (cur.leafColor & 255) / 255,
+            duration: 0.7
+          });
+        });
+
+        playChime(523.25 + idx * 40);
+      };
+
+      window.scrollToSection = function(idx) {
+        const sec = document.getElementById('sec-' + idx);
+        if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+      };
+
+      /* ----------------------------------------------------
+         MOUSE & GYRO PARALLAX & HARMONIC WIND SIMULATION
+         ---------------------------------------------------- */
+      let mouseX = 0, mouseY = 0;
+      addEventListener('mousemove', e => {
+        mouseX = (e.clientX / innerWidth) * 2 - 1;
+        mouseY = -(e.clientY / innerHeight) * 2 + 1;
+        
+        // Unproject mouse coordinates into 3D space for cursor light
+        cursorLight.position.x = mouseX * 5.5;
+        cursorLight.position.y = mouseY * 4.0;
+      });
+
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const t = clock.getElapsedTime();
+
+        // Subtle biological breathing & sway
+        heroGroup.position.y += Math.sin(t * 1.4) * 0.0018;
+        heroGroup.rotation.y += Math.cos(t * 0.7) * 0.0005;
+
+        // Camera damping
+        camera.position.x += (mouseX * 0.65 - camera.position.x) * 0.04;
+        camera.position.y += (mouseY * 0.45 - camera.position.y) * 0.04;
+
+        // God-Rays slow ethereal drift
+        godRaysGroup.rotation.y = Math.sin(t * 0.3) * 0.08;
+
+        // Crystal rotation
+        crystalSwarm.children.forEach((c, idx) => {
+          c.rotation.x += 0.005;
+          c.rotation.y += 0.004;
+          c.position.y += Math.sin(t * 2 + idx) * 0.0025;
+        });
+
+        // AAA Organic Leaf Harmonic Wind Sway (Flutter physics along leaf blade)
+        leafMeshes.forEach((leaf, lIdx) => {
+          // Base rotation flutter
+          leaf.rotation.z = Math.sin(t * 1.8 + lIdx * 0.8) * 0.045;
+          leaf.rotation.x = 0.12 + Math.cos(t * 1.4 + lIdx) * 0.035;
+
+          // Vertex displacement along blade length for realistic tip fluttering
+          const posAttr = leaf.geometry.attributes.position;
+          const orig = leaf.userData.originalPositions;
+          const segs = leaf.userData.segments;
+
+          for (let s = 0; s <= segs; s++) {
+            const u = s / segs;
+            const flutter = Math.sin(t * 3.2 + u * 4.0 + lIdx) * (Math.pow(u, 1.6) * 0.12);
+            const rowIdx = s * 3;
+
+            // Displace y of left, center, right vertices
+            posAttr.setY(rowIdx, orig[rowIdx * 3 + 1] + flutter);
+            posAttr.setY(rowIdx + 1, orig[(rowIdx + 1) * 3 + 1] + flutter * 0.9);
+            posAttr.setY(rowIdx + 2, orig[(rowIdx + 2) * 3 + 1] + flutter);
+          }
+          posAttr.needsUpdate = true;
+        });
+
+        // Dynamic Photon / Sap particle animation
+        if (vfxLevel === 1) {
+          const pPos = photonPoints.geometry.attributes.position.array;
+          for (let i = 1; i < photonCount * 3; i += 3) {
+            pPos[i] += photonVel[i];
+            if (pPos[i] < -4) {
+              pPos[i] = 4 + Math.random() * 2;
+            }
+          }
+          photonPoints.geometry.attributes.position.needsUpdate = true;
+        }
+
+        updateHotspotsScreenPos();
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      addEventListener('resize', () => {
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth, innerHeight);
+      });
+    });
+
+    /* ----------------------------------------------------
+       WEB AUDIO SYNTHESIS
+       ---------------------------------------------------- */
+    let audioCtx = null;
+    let windGain = null;
+    let soundActive = true;
+
+    function initAudio() {
+      if (audioCtx) return;
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(340, audioCtx.currentTime);
+
+        windGain = audioCtx.createGain();
+        windGain.gain.setValueAtTime(0.025, audioCtx.currentTime);
+
+        whiteNoise.connect(filter);
+        filter.connect(windGain);
+        windGain.connect(audioCtx.destination);
+        whiteNoise.start();
+      } catch (e) {}
+    }
+
+    function toggleAudio() {
+      initAudio();
+      soundActive = !soundActive;
+      const label = document.getElementById('soundLabel');
+      const btn = document.getElementById('soundBtn');
+
+      if (soundActive) {
+        label.innerText = 'Ambient';
+        btn.classList.add('active');
+        if (windGain) windGain.gain.setValueAtTime(0.025, audioCtx.currentTime);
+        playChime(523.25);
+      } else {
+        label.innerText = 'Muted';
+        btn.classList.remove('active');
+        if (windGain) windGain.gain.setValueAtTime(0, audioCtx.currentTime);
+      }
+    }
+
+    function playChime(freq) {
+      if (!audioCtx || !soundActive) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 1.2);
+      } catch (err) {}
+    }
+  
+    /* ----------------------------------------------------
+       ADDITIONAL SUITE FEATURES (NON-DESTRUCTIVE)
+       ---------------------------------------------------- */
     let currentSlide = 0;
-    let currentEnv = 'noon'; // 'noon', 'dawn', 'midnight'
+    let currentEnv = 'noon';
+    let presenterModeActive = false;
+    let notesVisible = false;
+    let laserActive = false;
+    let hotspotsVisible = false;
+    let simDrawerVisible = false;
     let selectedHotspotIdx = -1;
 
-    /* ----------------------------------------------------
-       2. THREE.JS INITIALIZATION & SCENE SETUP
-       ---------------------------------------------------- */
-    const container = document.getElementById('webgl-container');
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x010402);
-    scene.fog = new THREE.Fog(0x010402, 14, 42);
-
-    const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 10.5);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    container.appendChild(renderer.domElement);
-
-    // Procedural noise texture for wax bloom
-    function createNoiseTexture() {
-      const size = 256;
-      const data = new Uint8Array(size * size * 4);
-      for (let i = 0; i < size * size * 4; i += 4) {
-        const val = Math.floor(Math.random() * 255);
-        data[i] = val;
-        data[i + 1] = val;
-        data[i + 2] = val;
-        data[i + 3] = 255;
-      }
-      const texture = new THREE.DataTexture(data, size, size, THREE.RGBAFormat);
-      texture.wrapS = THREE.RepeatWrapping;
-      texture.wrapT = THREE.RepeatWrapping;
-      texture.repeat.set(4, 8);
-      texture.needsUpdate = true;
-      return texture;
-    }
-    const waxNoiseTex = createNoiseTexture();
-
-    // Lighting Suite
-    const ambientLight = new THREE.AmbientLight(0x1a2e20, 0.95);
-    scene.add(ambientLight);
-
-    const sunLight = new THREE.DirectionalLight(0xfff8ee, 2.2);
-    sunLight.position.set(6, 12, 8);
-    scene.add(sunLight);
-
-    const rimLight = new THREE.DirectionalLight(0x00ff88, 1.4);
-    rimLight.position.set(-8, 3, -6);
-    scene.add(rimLight);
-
-    const groundBounce = new THREE.DirectionalLight(0x0c2918, 0.85);
-    groundBounce.position.set(0, -10, 2);
-    scene.add(groundBounce);
-
-    const cursorLight = new THREE.PointLight(0x00ff88, 1.2, 14);
-    cursorLight.position.set(0, 0, 4);
-    scene.add(cursorLight);
-
-    /* ----------------------------------------------------
-       3. 3D MODEL ARCHITECTURE: NODES, RIND, LEAVES, ROOTS
-       ---------------------------------------------------- */
-    const plantGroup = new THREE.Group();
-    scene.add(plantGroup);
-
-    const stalkGroup = new THREE.Group();
-    plantGroup.add(stalkGroup);
-
-    // Materials
-    let stalkMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x5a7832,
-      roughness: 0.28,
-      metalness: 0.08,
-      clearcoat: 0.65,
-      clearcoatRoughness: 0.25,
-      reflectivity: 0.85
-    });
-
-    let nodeMaterial = new THREE.MeshStandardMaterial({
-      color: 0x485c2c,
-      roughness: 0.75,
-      metalness: 0.04
-    });
-
-    let waxMaterial = new THREE.MeshStandardMaterial({
-      color: 0xd4e2c8,
-      roughness: 0.88,
-      metalness: 0.0,
-      map: waxNoiseTex,
-      transparent: true,
-      opacity: 0.42
-    });
-
-    let leafMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x3d6826,
-      roughness: 0.32,
-      metalness: 0.04,
-      clearcoat: 0.5,
-      clearcoatRoughness: 0.3,
-      side: THREE.DoubleSide,
-      transmission: 0.18,
-      thickness: 0.6
-    });
-
-    // Keeled Botanical Leaf Generator with V-Midrib & Curvature
-    function createBotanicalLeaf(length, maxWidth, archHeight, droopY, lateralCurl, colorHex) {
-      const segsU = 26;
-      const geom = new THREE.BufferGeometry();
-      const positions = [];
-      const normals = [];
-      const uvs = [];
-      const indices = [];
-
-      for (let i = 0; i <= segsU; i++) {
-        const u = i / segsU;
-        const widthT = Math.sin(Math.pow(u, 0.45) * Math.PI) * (1.0 - Math.pow(u, 3.2));
-        const w = maxWidth * Math.max(0, widthT);
-
-        const zArch = Math.sin(u * Math.PI) * archHeight;
-        const yPos = -Math.pow(u, 1.8) * droopY;
-        const xPos = u * length;
-        const rollAngle = Math.pow(u, 1.6) * lateralCurl;
-
-        // V-Keel midrib elevation
-        const midribElevation = 0.04 * (1.0 - u);
-        const keelDepth = 0.06 * Math.sin(u * Math.PI);
-
-        const pL = new THREE.Vector3(xPos, yPos - Math.sin(rollAngle) * w, zArch + Math.cos(rollAngle) * w);
-        const pM = new THREE.Vector3(xPos, yPos + midribElevation, zArch - keelDepth);
-        const pR = new THREE.Vector3(xPos, yPos + Math.sin(rollAngle) * w, zArch - Math.cos(rollAngle) * w);
-
-        positions.push(pL.x, pL.y, pL.z);
-        positions.push(pM.x, pM.y, pM.z);
-        positions.push(pR.x, pR.y, pR.z);
-
-        normals.push(0, 1, 0,  0, 1, 0,  0, 1, 0);
-        uvs.push(0, u,  0.5, u,  1, u);
-      }
-
-      for (let i = 0; i < segsU; i++) {
-        const base = i * 3;
-        const next = (i + 1) * 3;
-        // Left facet quad
-        indices.push(base, next, base + 1);
-        indices.push(next, next + 1, base + 1);
-        // Right facet quad
-        indices.push(base + 1, next + 1, base + 2);
-        indices.push(next + 1, next + 2, base + 2);
-      }
-
-      geom.setIndex(indices);
-      geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-      geom.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
-      geom.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
-      geom.computeVertexNormals();
-
-      const mat = leafMaterial.clone();
-      if (colorHex) mat.color.setHex(colorHex);
-      const mesh = new THREE.Mesh(geom, mat);
-      mesh.userData = {
-        origPositions: new Float32Array(positions),
-        length: length,
-        droopY: droopY
-      };
-      return mesh;
-    }
-
-    // Build Internodes & Stalk Structure
-    const internodes = [];
-    const nodeMeshes = [];
-    const numInternodes = 6;
-    const internodeLen = 1.35;
-    const baseRadius = 0.46;
-
-    for (let i = 0; i < numInternodes; i++) {
-      const yCenter = (i - (numInternodes - 1) / 2) * internodeLen;
-      const barrelFactor = 1.0 + Math.sin((i / (numInternodes - 1)) * Math.PI) * 0.07;
-      const curRadius = baseRadius * barrelFactor;
-
-      const interGeom = new THREE.CylinderGeometry(curRadius * 0.96, curRadius, internodeLen * 0.94, 36, 12);
-      const interMesh = new THREE.Mesh(interGeom, stalkMaterial);
-      interMesh.position.y = yCenter;
-      interMesh.userData = { origY: yCenter, index: i };
-      stalkGroup.add(interMesh);
-      internodes.push(interMesh);
-
-      // Node ring
-      const nodeGeom = new THREE.TorusGeometry(curRadius * 1.01, 0.055, 16, 42);
-      nodeGeom.rotateX(Math.PI / 2);
-      const nodeMesh = new THREE.Mesh(nodeGeom, nodeMaterial);
-      nodeMesh.position.y = yCenter + internodeLen * 0.47;
-      nodeMesh.userData = { origY: nodeMesh.position.y, index: i };
-      stalkGroup.add(nodeMesh);
-      nodeMeshes.push(nodeMesh);
-
-      // Wax band overlay
-      const waxGeom = new THREE.CylinderGeometry(curRadius * 1.008, curRadius * 1.004, internodeLen * 0.22, 32, 2, true);
-      const waxMesh = new THREE.Mesh(waxGeom, waxMaterial);
-      waxMesh.position.y = yCenter + internodeLen * 0.36;
-      waxMesh.userData = { origY: waxMesh.position.y, index: i };
-      stalkGroup.add(waxMesh);
-      nodeMeshes.push(waxMesh);
-    }
-
-    // Fibrous Adventitious Roots at the base
-    const rootGroup = new THREE.Group();
-    const lowestNodeY = ( - (numInternodes - 1) / 2 ) * internodeLen;
-    for (let r = 0; r < 24; r++) {
-      const angle = (r / 24) * Math.PI * 2 + (Math.random() * 0.2);
-      const curve = new THREE.CubicBezierCurve3(
-        new THREE.Vector3(Math.cos(angle) * 0.4, lowestNodeY, Math.sin(angle) * 0.4),
-        new THREE.Vector3(Math.cos(angle) * 0.9, lowestNodeY - 0.35, Math.sin(angle) * 0.9),
-        new THREE.Vector3(Math.cos(angle) * 1.4, lowestNodeY - 0.9, Math.sin(angle) * 1.4),
-        new THREE.Vector3(Math.cos(angle) * (1.6 + Math.random() * 0.4), lowestNodeY - 1.4, Math.sin(angle) * (1.6 + Math.random() * 0.4))
-      );
-      const rootGeom = new THREE.TubeGeometry(curve, 16, 0.024, 8, false);
-      const rootMat = new THREE.MeshStandardMaterial({ color: 0x544733, roughness: 0.9 });
-      const rootMesh = new THREE.Mesh(rootGeom, rootMat);
-      rootGroup.add(rootMesh);
-    }
-    stalkGroup.add(rootGroup);
-
-    // Internal Vascular Core Cylinder (Revealed during deconstruction)
-    const vascularGeom = new THREE.CylinderGeometry(baseRadius * 0.65, baseRadius * 0.65, numInternodes * internodeLen, 24);
-    const vascularMat = new THREE.MeshStandardMaterial({
-      color: 0x93b865,
-      roughness: 0.6,
-      transparent: true,
-      opacity: 0.0
-    });
-    const vascularCore = new THREE.Mesh(vascularGeom, vascularMat);
-    stalkGroup.add(vascularCore);
-
-    // Foliage Canopy: Dynamic Keeled Leaves
-    const leafGroup = new THREE.Group();
-    const leafMeshes = [];
-    const topNodeY = ((numInternodes - 1) / 2) * internodeLen + 0.5;
-
-    function buildFoliage(count, colorHex) {
-      // Clear existing
-      while(leafGroup.children.length > 0) {
-        const obj = leafGroup.children[0];
-        leafGroup.remove(obj);
-      }
-      leafMeshes.length = 0;
-
-      for (let i = 0; i < count; i++) {
-        const theta = i * 2.39996 + 0.4; // Golden ratio spiral
-        const len = 3.6 + (i * 0.35);
-        const w = 0.28 + (i * 0.02);
-        const arch = 0.6 + (i * 0.08);
-        const droop = 1.6 + (i * 0.28);
-        const curl = 0.35 + (i * 0.05);
-
-        const leaf = createBotanicalLeaf(len, w, arch, droop, curl, colorHex);
-        leaf.position.set(0, topNodeY + (i * 0.14) - 0.2, 0);
-        leaf.rotation.y = theta;
-        leaf.rotation.z = 0.28 - (i * 0.03);
-
-        leafGroup.add(leaf);
-        leafMeshes.push(leaf);
-      }
-    }
-    stalkGroup.add(leafGroup);
-    buildFoliage(CULTIVARS.officinarum.leafCount, CULTIVARS.officinarum.leafColor);
-
-    /* ----------------------------------------------------
-       4. MORNING DEW CONDENSATION BEADS (SURFACE POLISH)
-       ---------------------------------------------------- */
-    const dewGroup = new THREE.Group();
-    const dewMat = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      roughness: 0.04,
-      metalness: 0.0,
-      transmission: 0.92,
-      ior: 1.333, // Water refractive index
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.02
-    });
-    const dewGeom = new THREE.SphereGeometry(0.03, 8, 8);
-
-    for (let d = 0; d < 45; d++) {
-      const dew = new THREE.Mesh(dewGeom, dewMat);
-      const interIdx = Math.floor(Math.random() * numInternodes);
-      const yPos = (interIdx - (numInternodes - 1) / 2) * internodeLen + (Math.random() * 0.4);
-      const angle = Math.random() * Math.PI * 2;
-      const r = baseRadius * 1.01;
-      dew.position.set(Math.cos(angle) * r, yPos, Math.sin(angle) * r);
-      dewGroup.add(dew);
-    }
-    stalkGroup.add(dewGroup);
-
-    /* ----------------------------------------------------
-       5. DUAL VASCULAR PARTICLE STREAMS (XYLEM & PHLOEM)
-       ---------------------------------------------------- */
-    const vascularStreamGroup = new THREE.Group();
-    scene.add(vascularStreamGroup);
-
-    // Xylem: Water & Minerals ascending (Cyan-Blue)
-    const xylemCount = 55;
-    const xylemGeom = new THREE.BufferGeometry();
-    const xylemPos = new Float32Array(xylemCount * 3);
-    const xylemSpeeds = new Float32Array(xylemCount);
-
-    for (let i = 0; i < xylemCount; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const r = (baseRadius * 0.35) * Math.sqrt(Math.random());
-      xylemPos[i * 3] = Math.cos(angle) * r;
-      xylemPos[i * 3 + 1] = -3.5 + Math.random() * 7.0;
-      xylemPos[i * 3 + 2] = Math.sin(angle) * r;
-      xylemSpeeds[i] = 0.025 + Math.random() * 0.035;
-    }
-    xylemGeom.setAttribute('position', new THREE.BufferAttribute(xylemPos, 3));
-    const xylemMat = new THREE.PointsMaterial({
-      color: 0x38bdf8,
-      size: 0.09,
-      transparent: true,
-      opacity: 0.85,
-      blending: THREE.AdditiveBlending
-    });
-    const xylemParticles = new THREE.Points(xylemGeom, xylemMat);
-    vascularStreamGroup.add(xylemParticles);
-
-    // Phloem: Sucrose sap descending (Golden Amber)
-    const phloemCount = 55;
-    const phloemGeom = new THREE.BufferGeometry();
-    const phloemPos = new Float32Array(phloemCount * 3);
-    const phloemSpeeds = new Float32Array(phloemCount);
-
-    for (let i = 0; i < phloemCount; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const r = baseRadius * 0.52 + Math.random() * 0.12;
-      phloemPos[i * 3] = Math.cos(angle) * r;
-      phloemPos[i * 3 + 1] = -3.5 + Math.random() * 7.0;
-      phloemPos[i * 3 + 2] = Math.sin(angle) * r;
-      phloemSpeeds[i] = 0.02 + Math.random() * 0.03;
-    }
-    phloemGeom.setAttribute('position', new THREE.BufferAttribute(phloemPos, 3));
-    const phloemMat = new THREE.PointsMaterial({
-      color: 0xf59e0b,
-      size: 0.1,
-      transparent: true,
-      opacity: 0.88,
-      blending: THREE.AdditiveBlending
-    });
-    const phloemParticles = new THREE.Points(phloemGeom, phloemMat);
-    vascularStreamGroup.add(phloemParticles);
-
-    /* ----------------------------------------------------
-       6. REAL-TIME VFX: GOD RAYS, PHOTONS, SPORE MOTES
-       ---------------------------------------------------- */
-    // Volumetric God-Ray Cones
-    const godRayGroup = new THREE.Group();
-    const rayMat = new THREE.MeshBasicMaterial({
-      color: 0xe0c367,
-      transparent: true,
-      opacity: 0.06,
-      side: THREE.DoubleSide,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    });
-    const rayGeom = new THREE.ConeGeometry(5.5, 24, 24, 1, true);
-    for (let i = 0; i < 3; i++) {
-      const ray = new THREE.Mesh(rayGeom, rayMat);
-      ray.position.set(6 - (i * 2.5), 14, 4 + (i * 1.5));
-      ray.rotation.x = Math.PI - 0.25;
-      ray.rotation.z = -0.32 + (i * 0.12);
-      godRayGroup.add(ray);
-    }
-    scene.add(godRayGroup);
-
-    // Cascading Photosynthetic Photon Streams
-    const photonCount = 75;
-    const photonGeom = new THREE.BufferGeometry();
-    const photonPos = new Float32Array(photonCount * 3);
-    const photonSpeeds = new Float32Array(photonCount);
-    for (let i = 0; i < photonCount; i++) {
-      photonPos[i * 3] = (Math.random() - 0.5) * 6;
-      photonPos[i * 3 + 1] = 6 + Math.random() * 6;
-      photonPos[i * 3 + 2] = (Math.random() - 0.5) * 5;
-      photonSpeeds[i] = 0.03 + Math.random() * 0.04;
-    }
-    photonGeom.setAttribute('position', new THREE.BufferAttribute(photonPos, 3));
-    const photonMat = new THREE.PointsMaterial({
-      color: 0xffe885,
-      size: 0.08,
-      transparent: true,
-      opacity: 0.85,
-      blending: THREE.AdditiveBlending
-    });
-    const photonParticles = new THREE.Points(photonGeom, photonMat);
-    scene.add(photonParticles);
-
-    // Bioluminescent Spore Motes
-    const sporeCount = 140;
-    const sporeGeom = new THREE.BufferGeometry();
-    const sporePos = new Float32Array(sporeCount * 3);
-    for (let i = 0; i < sporeCount * 3; i += 3) {
-      sporePos[i] = (Math.random() - 0.5) * 12;
-      sporePos[i + 1] = (Math.random() - 0.5) * 12;
-      sporePos[i + 2] = (Math.random() - 0.5) * 10;
-    }
-    sporeGeom.setAttribute('position', new THREE.BufferAttribute(sporePos, 3));
-    const sporeMat = new THREE.PointsMaterial({
-      color: 0x00ff88,
-      size: 0.055,
-      transparent: true,
-      opacity: 0.65,
-      blending: THREE.AdditiveBlending
-    });
-    const sporeParticles = new THREE.Points(sporeGeom, sporeMat);
-    scene.add(sporeParticles);
-
-    /* ----------------------------------------------------
-       7. 3D HOTSPOT ANATOMY EXPLORER
-       ---------------------------------------------------- */
+    // 3D Hotspot Anatomical Explorer
     const HOTSPOT_DATA = [
       {
         name: "Waxy Cuticle & Bloom",
-        pos3D: new THREE.Vector3(0.48, 1.6, 0.1),
+        pos3D: new THREE.Vector3(0.44, 2.5, 0.0),
         sub: "Hydrophobic Lipid Protection",
-        body: "A fine waxy layer composed of long-chain fatty esters and triterpenoids. It minimizes non-stomatal water evaporation, reflects harsh ultraviolet radiation, and acts as a barrier against fungal spores.",
+        body: "A fine waxy bloom composed of long-chain fatty esters and triterpenoids. It minimizes non-stomatal water evaporation, reflects harsh ultraviolet radiation, and acts as a barrier against fungal spores.",
         tissue: "Cuticular Waxes",
-        curriculum: "Life Processes (Plant Protection)",
-        cam: { x: 1.1, y: 1.6, z: 3.8, targetY: 1.6 }
+        curriculum: "Life Processes (Plant Protection)"
       },
       {
         name: "Lignified Fibrous Rind",
-        pos3D: new THREE.Vector3(0.5, -0.2, 0.0),
+        pos3D: new THREE.Vector3(0.44, 0.0, 0.0),
         sub: "Mechanical Sclerenchyma Sheath",
-        body: "Dense outer cortical ring heavily impregnated with lignin and cellulose microfibrils. Provides high tensile strength and rigidity, preventing mature 4-6 meter canes from lodging under storm-force winds.",
+        body: "Dense outer cortical ring heavily impregnated with lignin and cellulose microfibrils. Provides high tensile strength and rigidity, preventing mature canes from lodging under storm-force winds.",
         tissue: "Sclerenchyma Fibers",
-        curriculum: "Structural Tissues",
-        cam: { x: 1.2, y: -0.2, z: 3.6, targetY: -0.2 }
+        curriculum: "Structural Tissues"
       },
       {
         name: "Closed Vascular Bundles",
-        pos3D: new THREE.Vector3(0.24, -1.2, 0.15),
+        pos3D: new THREE.Vector3(0.2, -2.2, 0.1),
         sub: "Xylem & Phloem Transport Engine",
-        body: "Scattered monocot vascular bundles lacking secondary cambium. Outer phloem sieve tubes translocate synthesized sucrose downward; inner xylem vessels channel water and soil nitrogen upward via transpiration pull.",
+        body: "Scattered monocot vascular bundles lacking secondary cambium. Outer phloem sieve tubes translocate synthesized sucrose downward; inner xylem vessels channel water upward via transpiration pull.",
         tissue: "Conducting Bundles",
-        curriculum: "Plant Transportation (Xylem/Phloem)",
-        cam: { x: 0.85, y: -1.2, z: 3.2, targetY: -1.2 }
+        curriculum: "Plant Transportation (Xylem/Phloem)"
       },
       {
         name: "Storage Parenchyma (Pith)",
-        pos3D: new THREE.Vector3(-0.15, -2.2, 0.0),
+        pos3D: new THREE.Vector3(-0.1, -4.0, 0.0),
         sub: "Sucrose Accumulation Vacuoles",
-        body: "Large, thin-walled hexagonal parenchyma cells filling the culm interior. Central vacuoles store concentrated disaccharide sucrose (C12H22O11) dissolved in aqueous sap, achieving concentrations beyond 20-22° Brix.",
+        body: "Large, thin-walled hexagonal parenchyma cells filling the culm interior. Central vacuoles store concentrated disaccharide sucrose (C12H22O11) dissolved in aqueous sap, reaching high Brix concentrations.",
         tissue: "Storage Ground Tissue",
-        curriculum: "Carbohydrate Storage & Osmosis",
-        cam: { x: -0.9, y: -2.2, z: 3.4, targetY: -2.2 }
+        curriculum: "Carbohydrate Storage & Osmosis"
       }
     ];
 
-    let hotspotsVisible = false;
-
-    function toggleHotspots() {
+    window.toggleHotspots = function() {
       hotspotsVisible = !hotspotsVisible;
       const layer = document.getElementById('hotspotsLayer');
       layer.style.opacity = hotspotsVisible ? '1' : '0';
@@ -1955,9 +2154,9 @@
       document.getElementById('hotspotToggleBtn').classList.toggle('active', hotspotsVisible);
       if (!hotspotsVisible) closeHotspot();
       playChime(640);
-    }
+    };
 
-    function selectHotspot(idx) {
+    window.selectHotspot = function(idx) {
       selectedHotspotIdx = idx;
       const data = HOTSPOT_DATA[idx];
       const card = document.getElementById('hotspotCard');
@@ -1967,40 +2166,22 @@
       document.getElementById('hcTissue').innerText = data.tissue;
       document.getElementById('hcCurriculum').innerText = data.curriculum;
       card.classList.add('visible');
-
-      // Glide camera to macro view
-      gsap.to(camera.position, {
-        x: data.cam.x,
-        y: data.cam.y,
-        z: data.cam.z,
-        duration: 1.4,
-        ease: "power3.inOut"
-      });
-      gsap.to(cameraTarget, {
-        x: 0,
-        y: data.cam.targetY,
-        z: 0,
-        duration: 1.4,
-        ease: "power3.inOut"
-      });
       playChime(880);
-    }
+    };
 
-    function closeHotspot() {
+    window.closeHotspot = function() {
       selectedHotspotIdx = -1;
       document.getElementById('hotspotCard').classList.remove('visible');
-      // Restore camera to active section pose
-      updateCameraForSection(currentSlide);
       playChime(440);
-    }
+    };
 
     function updateHotspotsScreenPos() {
-      if (!hotspotsVisible) return;
+      if (!hotspotsVisible || typeof heroGroup === 'undefined' || typeof camera === 'undefined') return;
       const wp = new THREE.Vector3();
       HOTSPOT_DATA.forEach((h, i) => {
         const pin = document.getElementById(`pin${i}`);
         if (!pin) return;
-        plantGroup.localToWorld(wp.copy(h.pos3D));
+        heroGroup.localToWorld(wp.copy(h.pos3D));
         wp.project(camera);
 
         const x = (wp.x * 0.5 + 0.5) * window.innerWidth;
@@ -2008,145 +2189,11 @@
 
         pin.style.left = `${x}px`;
         pin.style.top = `${y}px`;
-
-        // Hide pin if behind camera
         pin.style.display = wp.z > 1 ? 'none' : 'flex';
       });
     }
 
-    /* ----------------------------------------------------
-       8. C4 AGRONOMIC & BRIX SIMULATOR ENGINE
-       ---------------------------------------------------- */
-    let simDrawerVisible = false;
-
-    function toggleSimDrawer() {
-      simDrawerVisible = !simDrawerVisible;
-      const drawer = document.getElementById('simDrawer');
-      drawer.classList.toggle('visible', simDrawerVisible);
-      document.getElementById('simToggleBtn').classList.toggle('active', simDrawerVisible);
-      playChime(580);
-    }
-
-    function updateSim() {
-      const sun = parseFloat(document.getElementById('sunSlider').value);
-      const water = parseFloat(document.getElementById('waterSlider').value);
-      const npk = parseFloat(document.getElementById('npkSlider').value);
-
-      document.getElementById('sunReadout').innerText = `${sun.toFixed(1)} hrs/day`;
-      document.getElementById('waterReadout').innerText = `${Math.round(water)} mm/yr`;
-      document.getElementById('npkReadout').innerText = `${npk.toFixed(1)}x (${npk > 1.2 ? 'High N' : npk < 0.8 ? 'Deficient' : 'Optimal'})`;
-
-      const sunNorm = (sun - 4) / 8.0;
-      const waterNorm = Math.min(water / 1500.0, 1.3);
-      const npkBalance = 1.0 - Math.abs(npk - 1.0) * 0.4;
-
-      const brix = 13.5 + (sunNorm * 5.2) + (waterNorm * 2.8) + (npkBalance * 2.5);
-      const yieldTha = (brix / 20.0) * 98.0 * (0.4 + 0.6 * waterNorm);
-      const eff = 1.8 + (sunNorm * 0.8) + (npkBalance * 0.4);
-      const transloc = Math.round(60 + brix * 1.6);
-
-      document.getElementById('simBrixVal').innerText = `${brix.toFixed(1)}° Bx`;
-      document.getElementById('simYieldVal').innerText = `${yieldTha.toFixed(1)} T/Ha`;
-      document.getElementById('simEffVal').innerText = `${eff.toFixed(1)}%`;
-      document.getElementById('simTransVal').innerText = `${transloc} cm/hr`;
-      document.getElementById('hudBrix').innerText = `${brix.toFixed(1)}° Bx`;
-
-      // Live 3D Model Reaction: stalk thickness & foliage hue
-      const scaleX = (0.7 + (waterNorm * 0.35)) * CULTIVARS[activeCultivarKey].thickness;
-      internodes.forEach(mesh => {
-        mesh.scale.set(scaleX, 1, scaleX);
-      });
-      // Leaf nitrogen green adaptation
-      const leafG = Math.floor(0x40 + (npk * 0x30));
-      leafMaterial.color.setRGB(0.2, leafG / 255.0, 0.15);
-    }
-
-    /* ----------------------------------------------------
-       9. DYNAMIC ATMOSPHERIC ENVIRONMENTS
-       ---------------------------------------------------- */
-    const ENVIRONMENTS = {
-      noon: {
-        label: "Noon",
-        hud: "EQUATORIAL NOON",
-        bgColor: 0x010402,
-        fogColor: 0x010402,
-        sunColor: 0xfff8ee,
-        sunInt: 2.2,
-        ambColor: 0x1a2e20,
-        ambInt: 0.95,
-        stalkEmissive: 0x000000,
-        leafEmissive: 0x000000
-      },
-      dawn: {
-        label: "Dawn",
-        hud: "DAWN MIST",
-        bgColor: 0x0a0604,
-        fogColor: 0x0a0604,
-        sunColor: 0xffb070,
-        sunInt: 1.8,
-        ambColor: 0x3d2015,
-        ambInt: 0.8,
-        stalkEmissive: 0x140602,
-        leafEmissive: 0x0a1406
-      },
-      midnight: {
-        label: "Midnight",
-        hud: "BIOLUMINESCENT NIGHT",
-        bgColor: 0x010408,
-        fogColor: 0x010408,
-        sunColor: 0x38bdf8,
-        sunInt: 1.2,
-        ambColor: 0x051829,
-        ambInt: 0.6,
-        stalkEmissive: 0x002e1b,
-        leafEmissive: 0x002816
-      }
-    };
-
-    function cycleEnvironment() {
-      const keys = ['noon', 'dawn', 'midnight'];
-      const nextIdx = (keys.indexOf(currentEnv) + 1) % keys.length;
-      currentEnv = keys[nextIdx];
-      const env = ENVIRONMENTS[currentEnv];
-
-      document.getElementById('envLabel').innerText = env.label;
-      document.getElementById('hudEnv').innerText = env.hud;
-      document.body.style.background = currentEnv === 'midnight' ? '#010408' : currentEnv === 'dawn' ? '#0a0604' : '#010402';
-
-      gsap.to(scene.background, {
-        r: ((env.bgColor >> 16) & 255) / 255,
-        g: ((env.bgColor >> 8) & 255) / 255,
-        b: (env.bgColor & 255) / 255,
-        duration: 1.2
-      });
-      gsap.to(scene.fog.color, {
-        r: ((env.fogColor >> 16) & 255) / 255,
-        g: ((env.fogColor >> 8) & 255) / 255,
-        b: (env.fogColor & 255) / 255,
-        duration: 1.2
-      });
-      gsap.to(sunLight, { intensity: env.sunInt, duration: 1.2 });
-      gsap.to(sunLight.color, {
-        r: ((env.sunColor >> 16) & 255) / 255,
-        g: ((env.sunColor >> 8) & 255) / 255,
-        b: (env.sunColor & 255) / 255,
-        duration: 1.2
-      });
-      gsap.to(ambientLight, { intensity: env.ambInt, duration: 1.2 });
-
-      // Emissive bioluminescence in midnight mode
-      stalkMaterial.emissive.setHex(env.stalkEmissive);
-      leafMaterial.emissive.setHex(env.leafEmissive);
-
-      playChime(currentEnv === 'midnight' ? 784 : 523);
-    }
-
-    /* ----------------------------------------------------
-       10. CLASSROOM PRESENTER SUITE (HOTKEYS & NOTES)
-       ---------------------------------------------------- */
-    let presenterModeActive = false;
-    let notesVisible = false;
-
+    // Classroom Presenter Suite
     const CBSE_NOTES = [
       {
         title: "00: Raw Essence & Anatomy",
@@ -2206,7 +2253,7 @@
       }
     ];
 
-    function togglePresenterMode() {
+    window.togglePresenterMode = function() {
       presenterModeActive = !presenterModeActive;
       document.getElementById('presenterBar').classList.toggle('visible', presenterModeActive);
       document.getElementById('presenterBtn').classList.toggle('active', presenterModeActive);
@@ -2217,15 +2264,15 @@
         if (laserActive) toggleLaser();
       }
       playChime(660);
-    }
+    };
 
-    function toggleNotes() {
+    window.toggleNotes = function() {
       notesVisible = !notesVisible;
       document.getElementById('presenterNotesPanel').classList.toggle('visible', notesVisible);
       document.getElementById('notesBtn').classList.toggle('active', notesVisible);
       updatePresenterNotes();
       playChime(550);
-    }
+    };
 
     function updatePresenterNotes() {
       const note = CBSE_NOTES[currentSlide] || CBSE_NOTES[0];
@@ -2239,47 +2286,45 @@
       if (notesVisible) updatePresenterNotes();
     }
 
-    function nextSlide() {
+    window.nextSlide = function() {
       if (currentSlide < 6) {
         scrollToSection(currentSlide + 1);
       }
-    }
+    };
 
-    function prevSlide() {
+    window.prevSlide = function() {
       if (currentSlide > 0) {
         scrollToSection(currentSlide - 1);
       }
-    }
+    };
 
-    // Virtual Laser Pointer
     const laserPointerEl = document.getElementById('laserPointer');
-    function toggleLaser() {
+    window.toggleLaser = function() {
       laserActive = !laserActive;
       document.body.classList.toggle('laser-active', laserActive);
       document.getElementById('laserBtn').classList.toggle('active', laserActive);
       playChime(laserActive ? 920 : 350);
-    }
+    };
 
     window.addEventListener('mousemove', (e) => {
-      if (laserActive) {
+      if (laserActive && laserPointerEl) {
         laserPointerEl.style.left = `${e.clientX}px`;
         laserPointerEl.style.top = `${e.clientY}px`;
       }
     });
 
-    function toggleFullscreen() {
+    window.toggleFullscreen = function() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen().catch(() => {});
       } else {
         document.exitFullscreen().catch(() => {});
       }
-    }
+    };
 
-    function toggleUI() {
+    window.toggleUI = function() {
       document.body.classList.toggle('ui-hidden');
-    }
+    };
 
-    // Keyboard Hotkey Navigation
     window.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       const key = e.key.toLowerCase();
@@ -2302,407 +2347,104 @@
       }
     });
 
-    /* ----------------------------------------------------
-       11. MOBILE GYROSCOPE TILT PARALLAX
-       ---------------------------------------------------- */
-    let gyroX = 0, gyroY = 0;
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientation', (e) => {
-        if (e.gamma !== null && e.beta !== null) {
-          gyroX = THREE.MathUtils.clamp(e.gamma / 30.0, -1, 1);
-          gyroY = THREE.MathUtils.clamp((e.beta - 45.0) / 30.0, -1, 1);
-        }
-      });
-    }
+    // C4 Agronomic & Brix Simulator
+    window.toggleSimDrawer = function() {
+      simDrawerVisible = !simDrawerVisible;
+      document.getElementById('simDrawer').classList.toggle('visible', simDrawerVisible);
+      document.getElementById('simToggleBtn').classList.toggle('active', simDrawerVisible);
+      playChime(580);
+    };
 
-    /* ----------------------------------------------------
-       12. DECONSTRUCT & CULTIVAR SWITCHING
-       ---------------------------------------------------- */
-    function toggleDissection() {
-      isDissected = !isDissected;
-      const label = document.getElementById('dissectLabel');
-      const btn = document.getElementById('dissectBtn');
+    window.updateSim = function() {
+      const sun = parseFloat(document.getElementById('sunSlider').value);
+      const water = parseFloat(document.getElementById('waterSlider').value);
+      const npk = parseFloat(document.getElementById('npkSlider').value);
 
-      if (isDissected) {
-        label.innerText = 'Reassemble';
-        btn.classList.add('active');
-        playChime(784); // High bell chime
+      document.getElementById('sunReadout').innerText = `${sun.toFixed(1)} hrs/day`;
+      document.getElementById('waterReadout').innerText = `${Math.round(water)} mm/yr`;
+      document.getElementById('npkReadout').innerText = `${npk.toFixed(1)}x (${npk > 1.2 ? 'High N' : npk < 0.8 ? 'Deficient' : 'Optimal'})`;
 
-        // Explode internodes apart vertically
-        internodes.forEach(mesh => {
-          const idx = mesh.userData.index;
-          const offset = (idx - (numInternodes - 1) / 2) * 0.75;
-          gsap.to(mesh.position, { y: mesh.userData.origY + offset, duration: 1.2, ease: "power2.out" });
-        });
-        nodeMeshes.forEach(mesh => {
-          const idx = mesh.userData.index;
-          const offset = (idx - (numInternodes - 1) / 2) * 0.75;
-          gsap.to(mesh.position, { y: mesh.userData.origY + offset, duration: 1.2, ease: "power2.out" });
-        });
-        // Reveal internal vascular core
-        gsap.to(vascularMat, { opacity: 0.82, duration: 1.0 });
-        gsap.to(vascularCore.scale, { y: 1.45, duration: 1.2, ease: "power2.out" });
-      } else {
-        label.innerText = 'Deconstruct';
-        btn.classList.remove('active');
-        playChime(440); // Standard A chime
+      const sunNorm = (sun - 4) / 8.0;
+      const waterNorm = Math.min(water / 1500.0, 1.3);
+      const npkBalance = 1.0 - Math.abs(npk - 1.0) * 0.4;
 
-        internodes.forEach(mesh => {
-          gsap.to(mesh.position, { y: mesh.userData.origY, duration: 1.0, ease: "power2.inOut" });
-        });
-        nodeMeshes.forEach(mesh => {
-          gsap.to(mesh.position, { y: mesh.userData.origY, duration: 1.0, ease: "power2.inOut" });
-        });
-        gsap.to(vascularMat, { opacity: 0.0, duration: 0.8 });
-        gsap.to(vascularCore.scale, { y: 1.0, duration: 1.0, ease: "power2.inOut" });
+      const brix = 13.5 + (sunNorm * 5.2) + (waterNorm * 2.8) + (npkBalance * 2.5);
+      const yieldTha = (brix / 20.0) * 98.0 * (0.4 + 0.6 * waterNorm);
+      const eff = 1.8 + (sunNorm * 0.8) + (npkBalance * 0.4);
+      const transloc = Math.round(60 + brix * 1.6);
+
+      document.getElementById('simBrixVal').innerText = `${brix.toFixed(1)}° Bx`;
+      document.getElementById('simYieldVal').innerText = `${yieldTha.toFixed(1)} T/Ha`;
+      document.getElementById('simEffVal').innerText = `${eff.toFixed(1)}%`;
+      document.getElementById('simTransVal').innerText = `${transloc} cm/hr`;
+      document.getElementById('hudBrix').innerText = `${brix.toFixed(1)}° Bx`;
+    };
+
+    // Atmospheric Environments
+    const ENVIRONMENTS = {
+      noon: {
+        label: "Noon",
+        bgColor: 0x010402,
+        keyInt: 5.0,
+        keyCol: 0xfff5e6,
+        rimInt: 3.8,
+        rimCol: 0xe0c367,
+        fillInt: 1.8,
+        fillCol: 0x00ff88
+      },
+      dawn: {
+        label: "Dawn",
+        bgColor: 0x0a0604,
+        keyInt: 4.2,
+        keyCol: 0xffb070,
+        rimInt: 4.0,
+        rimCol: 0xffd180,
+        fillInt: 1.4,
+        fillCol: 0x2e8b57
+      },
+      midnight: {
+        label: "Midnight",
+        bgColor: 0x010408,
+        keyInt: 2.5,
+        keyCol: 0x38bdf8,
+        rimInt: 3.5,
+        rimCol: 0x00ff88,
+        fillInt: 2.2,
+        fillCol: 0x00f0ff
       }
-    }
+    };
 
-    function switchCultivar(id) {
-      if (!CULTIVARS[id]) return;
-      activeCultivarKey = id;
-      const data = CULTIVARS[id];
+    window.cycleEnvironment = function() {
+      const keys = ['noon', 'dawn', 'midnight'];
+      const nextIdx = (keys.indexOf(currentEnv) + 1) % keys.length;
+      currentEnv = keys[nextIdx];
+      const env = ENVIRONMENTS[currentEnv];
 
-      document.querySelectorAll('.cultivar-chip').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('onclick').includes(id));
-      });
+      document.getElementById('envLabel').innerText = env.label;
+      document.body.style.background = currentEnv === 'midnight' ? '#010408' : currentEnv === 'dawn' ? '#0a0604' : '#010402';
 
-      // Animate stalk pigment
-      gsap.to(stalkMaterial.color, {
-        r: ((data.rindColor >> 16) & 255) / 255,
-        g: ((data.rindColor >> 8) & 255) / 255,
-        b: (data.rindColor & 255) / 255,
-        duration: 0.8
-      });
-
-      // Animate girth scale
-      internodes.forEach(mesh => {
-        gsap.to(mesh.scale, { x: data.thickness, z: data.thickness, duration: 0.8 });
-      });
-
-      // Rebuild foliage with new leaf count and color
-      buildFoliage(data.leafCount, data.leafColor);
-      document.getElementById('hudBrix').innerText = data.brix;
-      playChime(523.25);
-    }
-
-    function toggleVFX() {
-      vfxHigh = !vfxHigh;
-      const label = document.getElementById('vfxLabel');
-      const btn = document.getElementById('vfxToggleBtn');
-      if (vfxHigh) {
-        label.innerText = "VFX: High";
-        btn.classList.add('active');
-        godRayGroup.visible = true;
-        photonParticles.visible = true;
-        document.getElementById('hudVascular').innerText = "ACTIVE TRANSLOCATION";
-      } else {
-        label.innerText = "VFX: Eco";
-        btn.classList.remove('active');
-        godRayGroup.visible = false;
-        photonParticles.visible = false;
-        document.getElementById('hudVascular').innerText = "ECO DORMANT";
-      }
-      playChime(392);
-    }
-
-    /* ----------------------------------------------------
-       13. SCROLLYTELLING POSES & OBSERVER
-       ---------------------------------------------------- */
-    const SECTIONS = [
-      { id: 0, title: "00 // RAW ESSENCE", brix: "21.0° Bx", cam: { x: 0, y: 0, z: 10.5 }, target: { x: 0, y: 0, z: 0 }, rotY: 0 },
-      { id: 1, title: "01 // LIVING SEED", brix: "14.2° Bx", cam: { x: 2.2, y: -2.4, z: 7.2 }, target: { x: 0, y: -2.2, z: 0 }, rotY: 0.85 },
-      { id: 2, title: "02 // SOLAR ENGINE", brix: "18.8° Bx", cam: { x: -2.4, y: 2.4, z: 7.6 }, target: { x: 0, y: 2.2, z: 0 }, rotY: -0.65 },
-      { id: 3, title: "03 // PRECISE HARVEST", brix: "21.2° Bx", cam: { x: 1.8, y: -1.8, z: 6.8 }, target: { x: 0, y: -1.6, z: 0 }, rotY: 1.4 },
-      { id: 4, title: "04 // RACE AGAINST TIME", brix: "20.1° Bx", cam: { x: -1.9, y: 0.3, z: 6.5 }, target: { x: 0, y: 0.2, z: 0 }, rotY: -1.2 },
-      { id: 5, title: "05 // PURE PRESSURE", brix: "19.5° Bx", cam: { x: 1.6, y: -0.6, z: 5.6 }, target: { x: 0, y: -0.4, z: 0 }, rotY: 2.2 },
-      { id: 6, title: "06 // NUCLEATION", brix: "22.6° Bx", cam: { x: -1.4, y: 0.0, z: 5.2 }, target: { x: 0, y: 0.0, z: 0 }, rotY: -2.6 }
-    ];
-
-    let currentSectionIdx = 0;
-    const cameraTarget = new THREE.Vector3(0, 0, 0);
-
-    function updateCameraForSection(idx) {
-      if (selectedHotspotIdx !== -1) return;
-      const targetSec = SECTIONS[idx] || SECTIONS[0];
-      gsap.to(camera.position, {
-        x: targetSec.cam.x,
-        y: targetSec.cam.y,
-        z: targetSec.cam.z,
-        duration: 1.5,
-        ease: "power2.out"
-      });
-      gsap.to(cameraTarget, {
-        x: targetSec.target.x,
-        y: targetSec.target.y,
-        z: targetSec.target.z,
-        duration: 1.5,
-        ease: "power2.out"
-      });
-      gsap.to(plantGroup.rotation, {
-        y: targetSec.rotY,
-        duration: 1.5,
-        ease: "power2.out"
-      });
-    }
-
-    function handleScrollObserver() {
-      const scrollY = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = Math.min(Math.max(scrollY / (maxScroll || 1), 0), 1);
-
-      // Update progress bar
-      document.getElementById('progressBar').style.width = `${progress * 100}%`;
-
-      // Foreground canopy fronds parting animation
-      const partRatio = Math.min(scrollY / (window.innerHeight * 0.75), 1.0);
-      const frondLeft = document.getElementById('frondLeft');
-      const frondRight = document.getElementById('frondRight');
-      if (frondLeft && frondRight) {
-        frondLeft.style.transform = `translate(${-partRatio * 35}vw, ${-partRatio * 15}vh)`;
-        frondLeft.style.opacity = `${(1.0 - partRatio) * 0.85}`;
-        frondRight.style.transform = `translate(${partRatio * 35}vw, ${partRatio * 15}vh)`;
-        frondRight.style.opacity = `${(1.0 - partRatio) * 0.85}`;
-      }
-
-      // Check card intersections
-      const sections = document.querySelectorAll('.scroll-section');
-      const vhMid = window.innerHeight * 0.5;
-
-      sections.forEach((sec, idx) => {
-        const rect = sec.getBoundingClientRect();
-        const card = sec.querySelector('.text-card');
-        const inView = rect.top <= vhMid && rect.bottom >= vhMid;
-
-        if (card) {
-          if (inView) {
-            card.classList.add('is-visible');
-          } else {
-            card.classList.remove('is-visible');
-          }
-        }
-
-        if (inView && currentSectionIdx !== idx) {
-          currentSectionIdx = idx;
-          currentSlide = idx;
-          updateCameraForSection(idx);
-
-          // Update spine dots
-          document.querySelectorAll('.spine-dot').forEach((dot, dIdx) => {
-            dot.classList.toggle('active', dIdx === idx);
-          });
-
-          // Update Telemetry HUD
-          document.getElementById('hudChapter').innerText = SECTIONS[idx].title;
-          document.getElementById('hudBrix').innerText = SECTIONS[idx].brix;
-          updatePresenterHUD();
-        }
-      });
-    }
-
-    window.addEventListener('scroll', handleScrollObserver, { passive: true });
-
-    function scrollToSection(idx) {
-      if (selectedHotspotIdx !== -1) closeHotspot();
-      const sec = document.getElementById(`sec-${idx}`);
-      if (sec) {
-        sec.scrollIntoView({ behavior: 'smooth' });
-        playChime(440 + idx * 45);
-      }
-    }
-
-    /* ----------------------------------------------------
-       14. MOUSE MOVEMENT & INTERACTION
-       ---------------------------------------------------- */
-    let mouseX = 0, mouseY = 0;
-    let targetRotX = 0, targetRotY = 0;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-
-      targetRotY = mouseX * 0.25;
-      targetRotX = -mouseY * 0.15;
-
-      // Unproject cursor light into 3D space
-      const vector = new THREE.Vector3(mouseX, mouseY, 0.5);
-      vector.unproject(camera);
-      const dir = vector.sub(camera.position).normalize();
-      const distance = -camera.position.z / dir.z;
-      const pos = camera.position.clone().add(dir.multiplyScalar(distance * 0.65));
-      cursorLight.position.copy(pos);
-    });
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    /* ----------------------------------------------------
-       15. MAIN ANIMATION LOOP
-       ---------------------------------------------------- */
-    const clock = new THREE.Clock();
-
-    function animate() {
-      requestAnimationFrame(animate);
-      const time = clock.getElapsedTime();
-
-      // Idle float & subtle mouse tilt + mobile gyro tilt
-      stalkGroup.rotation.y += (targetRotY + (gyroX * 0.3) - stalkGroup.rotation.y) * 0.05;
-      stalkGroup.rotation.x += (targetRotX + (gyroY * 0.2) - stalkGroup.rotation.x) * 0.05;
-      stalkGroup.position.y = Math.sin(time * 0.8) * 0.08;
-
-      // Vertex-Level Wind Flutter Physics on Leaves
-      leafMeshes.forEach((mesh, idx) => {
-        const posAttr = mesh.geometry.attributes.position;
-        const origPos = mesh.userData.origPositions;
-        if (!origPos) return;
-
-        const count = posAttr.count;
-        const waveSpeed = time * 2.2 + idx * 0.8;
-
-        for (let i = 0; i < count; i++) {
-          const u = (i / count);
-          const origX = origPos[i * 3];
-          const origY = origPos[i * 3 + 1];
-          const origZ = origPos[i * 3 + 2];
-
-          // Harmonic flutter increases exponentially toward the leaf tip
-          const flutterAmp = Math.pow(u, 2.2) * 0.08;
-          const flutterY = Math.sin(waveSpeed + u * 4.0) * flutterAmp;
-          const flutterZ = Math.cos(waveSpeed * 0.9 + u * 3.5) * (flutterAmp * 0.6);
-
-          posAttr.setXYZ(i, origX, origY + flutterY, origZ + flutterZ);
-        }
-        posAttr.needsUpdate = true;
-      });
-
-      // Animate Dual Vascular Particle Streams
-      const xp = xylemGeom.attributes.position.array;
-      for (let i = 0; i < xylemCount; i++) {
-        xp[i * 3 + 1] += xylemSpeeds[i];
-        if (xp[i * 3 + 1] > 3.8) xp[i * 3 + 1] = -3.5; // Loop upward
-      }
-      xylemGeom.attributes.position.needsUpdate = true;
-
-      const pp = phloemGeom.attributes.position.array;
-      for (let i = 0; i < phloemCount; i++) {
-        pp[i * 3 + 1] -= phloemSpeeds[i];
-        if (pp[i * 3 + 1] < -3.5) pp[i * 3 + 1] = 3.8; // Loop downward
-      }
-      phloemGeom.attributes.position.needsUpdate = true;
-
-      // Animate Photon Cascade Streams
-      if (vfxHigh) {
-        const ppos = photonGeom.attributes.position.array;
-        for (let i = 0; i < photonCount; i++) {
-          ppos[i * 3 + 1] -= photonSpeeds[i];
-          if (ppos[i * 3 + 1] < -4) {
-            ppos[i * 3 + 1] = 7;
-            ppos[i * 3] = (Math.random() - 0.5) * 6;
-          }
-        }
-        photonGeom.attributes.position.needsUpdate = true;
-
-        // Slow god-ray rotation
-        godRayGroup.children.forEach((ray, i) => {
-          ray.rotation.y = Math.sin(time * 0.15 + i) * 0.1;
+      if (typeof keyLight !== 'undefined') {
+        gsap.to(keyLight, { intensity: env.keyInt, duration: 1.0 });
+        gsap.to(keyLight.color, {
+          r: ((env.keyCol >> 16) & 255) / 255,
+          g: ((env.keyCol >> 8) & 255) / 255,
+          b: (env.keyCol & 255) / 255,
+          duration: 1.0
         });
       }
-
-      // Bioluminescent Spores Gentle Brown Drift
-      const spos = sporeGeom.attributes.position.array;
-      for (let i = 0; i < sporeCount * 3; i += 3) {
-        spos[i + 1] += Math.sin(time * 0.5 + spos[i]) * 0.003;
+      if (typeof rimLight !== 'undefined') {
+        gsap.to(rimLight, { intensity: env.rimInt, duration: 1.0 });
       }
-      sporeGeom.attributes.position.needsUpdate = true;
-
-      // Update 3D Hotspot Screen-Space Positions
-      updateHotspotsScreenPos();
-
-      camera.lookAt(cameraTarget);
-      renderer.render(scene, camera);
-    }
-
-    animate();
-    handleScrollObserver();
-
-    /* ----------------------------------------------------
-       16. WEB AUDIO AMBIENT SOUND GENERATOR
-       ---------------------------------------------------- */
-    let audioCtx = null;
-
-    function initAudio() {
-      if (audioCtx) return;
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
-
-        // Synthesize low organic tropical breeze noise
-        const bufferSize = audioCtx.sampleRate * 2;
-        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const output = noiseBuffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          output[i] = Math.random() * 2 - 1;
-        }
-
-        const whiteNoise = audioCtx.createBufferSource();
-        whiteNoise.buffer = noiseBuffer;
-        whiteNoise.loop = true;
-
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(240, audioCtx.currentTime);
-
-        const gainNode = audioCtx.createGain();
-        gainNode.gain.setValueAtTime(0.022, audioCtx.currentTime);
-
-        whiteNoise.connect(filter);
-        filter.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-        whiteNoise.start(0);
-      } catch (err) {}
-    }
-
-    function toggleAudio() {
-      soundActive = !soundActive;
-      const label = document.getElementById('soundLabel');
-      const btn = document.getElementById('soundBtn');
-
-      if (soundActive) {
-        initAudio();
-        if (audioCtx && audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        label.innerText = 'Playing';
-        btn.classList.add('active');
-        playChime(523.25);
-      } else {
-        if (audioCtx && audioCtx.state === 'running') {
-          audioCtx.suspend();
-        }
-        label.innerText = 'Muted';
-        btn.classList.remove('active');
+      if (typeof emeraldFill !== 'undefined') {
+        gsap.to(emeraldFill, { intensity: env.fillInt, duration: 1.0 });
       }
-    }
+      if (typeof scene !== 'undefined' && scene.fog) {
+        scene.fog.color.setHex(env.bgColor);
+      }
 
-    function playChime(freq) {
-      if (!audioCtx || !soundActive) return;
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 1.2);
-      } catch (err) {}
-    }
+      playChime(currentEnv === 'midnight' ? 784 : 523);
+    };
+
   </script>
 </body>
 </html>
-
