@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SACCHARUM // THE LIVING BIOSPHERE — Infinite 3D Experience</title>
+  <title>SACCHARUM // THE LIVING BIOSPHERE — 3D Showcase & Scrollytelling</title>
   
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
-  <!-- GSAP for Smooth Hardware-Accelerated Animations -->
+  <!-- GSAP for Smooth Hardware-Accelerated Animation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   
   <style>
@@ -27,9 +27,9 @@
       --text-muted: #94a3b8;
       --text-dim: #64748b;
       
-      --glass-amoled: rgba(6, 10, 7, 0.84);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.95);
+      --glass-amoled: rgba(6, 10, 7, 0.86);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.95);
       
       --font-serif: 'Cinzel', serif;
       --font-mono: 'Space Grotesk', monospace;
@@ -64,7 +64,7 @@
       transition: width 0.08s ease-out;
     }
 
-    /* Subtle Anamorphic Cinema Bars (Quiet Luxury) */
+    /* Anamorphic Cinema Bars (Quiet Luxury) */
     .cinema-letterbox {
       position: fixed;
       left: 0;
@@ -90,7 +90,7 @@
     .cinema-letterbox.bottom { bottom: 0; }
 
     /* ========================================================
-       ELEGANT INTRO PROLOGUE (QUIET & INSTANTANEOUS)
+       INTRO PROLOGUE (INSTANT & SEAMLESS)
        ======================================================== */
     #cinematic-intro-overlay {
       position: fixed;
@@ -103,15 +103,15 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.06) 0%, rgba(0, 0, 0, 0.92) 65%, #000000 100%);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.08) 0%, rgba(0, 0, 0, 0.94) 65%, #000000 100%);
+      transition: opacity 0.6s ease;
       pointer-events: auto;
     }
 
     #cinematic-intro-overlay.dismissed {
       opacity: 0;
-      visibility: hidden;
       pointer-events: none;
+      display: none !important;
     }
 
     .intro-content {
@@ -164,7 +164,7 @@
     }
 
     .intro-btn {
-      margin-top: 12px;
+      margin-top: 10px;
       font-family: var(--font-mono);
       font-size: 0.85rem;
       font-weight: 600;
@@ -197,7 +197,7 @@
     }
 
     /* ========================================================
-       CANVAS LAYERS (CLEAN & NON-OVERSTIMULATING)
+       CANVAS LAYERS (FIXED PARALLAX BACKGROUND)
        ======================================================== */
     #dome-canvas {
       position: fixed;
@@ -369,9 +369,7 @@
       text-transform: uppercase;
     }
 
-    .spine-dot:hover .spine-tooltip {
-      opacity: 1;
-    }
+    .spine-dot:hover .spine-tooltip { opacity: 1; }
 
     /* Telemetry HUD (Fixed Bottom Bar) */
     .telemetry-hud {
@@ -452,7 +450,210 @@
     }
 
     /* ========================================================
-       SCROLLING STORY TRACK & CLEAN TWO-COLUMN LAYOUT
+       HERO 3D VARIETIES & PROJECTS CAROUSEL (FIXED POSITIONING)
+       ======================================================== */
+    .carousel-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 24px 40px;
+      box-sizing: border-box;
+      position: relative;
+      pointer-events: auto;
+    }
+
+    .carousel-dock {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(10px, 2vw, 24px);
+      margin: 12px 0;
+    }
+
+    /* Big Clickable Liquid Glass Navigation Arrows */
+    .carousel-nav-btn {
+      width: 54px;
+      height: 54px;
+      min-width: 54px;
+      border-radius: 50%;
+      background: var(--glass-amoled);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel), 0 8px 24px rgba(0, 0, 0, 0.4);
+      color: var(--emerald-neon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 25;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(16px);
+    }
+
+    .carousel-nav-btn:hover {
+      border-color: var(--emerald-neon);
+      background: rgba(0, 255, 136, 0.2);
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
+    }
+
+    /* Flanking Side Preview Cards */
+    .side-preview-card {
+      background: var(--glass-amoled);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel);
+      border-radius: 20px;
+      padding: 18px 14px;
+      width: clamp(160px, 16vw, 210px);
+      cursor: pointer;
+      opacity: 0.75;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(20px);
+      transition: all 0.25s ease;
+    }
+
+    .side-preview-card:hover {
+      opacity: 1;
+      border-color: var(--emerald-neon);
+      transform: translateY(-4px);
+    }
+
+    .side-card-name {
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .side-card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--emerald-neon);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Center Featured Stage */
+    .center-featured-card {
+      flex: 1;
+      max-width: 580px;
+      background: var(--glass-amoled);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel), 0 30px 70px rgba(0, 0, 0, 0.95);
+      border-radius: 26px;
+      padding: clamp(20px, 3.5vw, 34px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      backdrop-filter: blur(30px);
+      position: relative;
+    }
+
+    .variety-pill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--emerald-neon);
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .variety-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.2vw, 2.7rem);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .variety-botanical {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--amber-gold);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .variety-desc {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .variety-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    .variety-spec-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .variety-spec-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .variety-spec-val {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--emerald-neon);
+    }
+
+    /* Carousel Dot Strip */
+    .carousel-dots-strip {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .carousel-dot.active {
+      background: var(--emerald-neon);
+      box-shadow: 0 0 12px var(--emerald-neon);
+      transform: scale(1.3);
+      border-color: #ffffff;
+    }
+
+    /* ========================================================
+       SCROLLYTELLING STORY CHAPTERS (NEVER DISAPPEARING)
        ======================================================== */
     .story-track {
       position: relative;
@@ -480,168 +681,6 @@
     .scrolly-section.align-center {
       justify-content: center;
       text-align: center;
-    }
-
-    /* Hero Monolith Presentation */
-    .hero-container {
-      width: 100%;
-      height: 75vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .hero-meta {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      line-height: 1.5;
-    }
-
-    .hero-meta .r-col {
-      text-align: right;
-    }
-
-    .hero-title-group {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: auto 0;
-    }
-
-    .hero-title-word {
-      font-family: var(--font-serif);
-      font-size: clamp(3rem, 7.8vw, 8.5rem);
-      font-weight: 800;
-      letter-spacing: clamp(4px, 1.2vw, 16px);
-      text-transform: uppercase;
-      color: #ffffff;
-      line-height: 0.95;
-      text-shadow: 0 0 35px rgba(255, 255, 255, 0.25), 0 0 70px rgba(0, 255, 136, 0.35);
-    }
-
-    .hero-title-word.r {
-      text-align: right;
-    }
-
-    .hero-footer {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-
-    .hero-stats {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-      display: flex;
-      gap: 20px;
-    }
-
-    .hero-stats b {
-      color: var(--emerald-neon);
-    }
-
-    .scroll-cue {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      color: var(--emerald-neon);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      animation: floatCue 2s infinite ease-in-out;
-    }
-
-    @keyframes floatCue {
-      0%, 100% { transform: translateY(0); opacity: 0.8; }
-      50% { transform: translateY(5px); opacity: 1; }
-    }
-
-    /* Tri-Pillar Dossier Cards */
-    .dossier-grid {
-      width: 100%;
-      max-width: 1150px;
-      margin: 0 auto;
-      pointer-events: auto;
-    }
-
-    .dossier-header {
-      text-align: center;
-      margin-bottom: 26px;
-    }
-
-    .dossier-header h2 {
-      font-family: var(--font-serif);
-      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: 2px;
-    }
-
-    .dossier-header p {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 1.5px;
-      color: var(--emerald-neon);
-      text-transform: uppercase;
-      margin-top: 6px;
-    }
-
-    .dossier-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .dossier-item {
-      background: rgba(8, 12, 9, 0.82);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-bevel), 0 20px 40px rgba(0, 0, 0, 0.95);
-      border-radius: 18px;
-      padding: 22px;
-      cursor: pointer;
-      backdrop-filter: blur(20px);
-      transition: all 0.25s ease;
-    }
-
-    .dossier-item:hover {
-      border-color: var(--emerald-neon);
-      transform: translateY(-4px);
-      box-shadow: var(--glass-bevel), 0 25px 50px rgba(0, 0, 0, 0.98), 0 0 25px rgba(0, 255, 136, 0.25);
-    }
-
-    .dossier-tag {
-      font-family: var(--font-mono);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--emerald-neon);
-      margin-bottom: 8px;
-    }
-
-    .dossier-title {
-      font-family: var(--font-serif);
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 8px;
-    }
-
-    .dossier-desc {
-      font-size: 0.8rem;
-      color: #cbd5e1;
-      line-height: 1.55;
     }
 
     /* Content Cards (Quiet Luxury Glass) */
@@ -846,6 +885,81 @@
       line-height: 1.4;
     }
 
+    /* Tri-Pillar Dossier Cards */
+    .dossier-grid {
+      width: 100%;
+      max-width: 1150px;
+      margin: 0 auto;
+      pointer-events: auto;
+    }
+
+    .dossier-header {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .dossier-header h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 2px;
+    }
+
+    .dossier-header p {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      color: var(--emerald-neon);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    .dossier-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .dossier-item {
+      background: rgba(8, 12, 9, 0.82);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel), 0 20px 40px rgba(0, 0, 0, 0.95);
+      border-radius: 18px;
+      padding: 22px;
+      cursor: pointer;
+      backdrop-filter: blur(20px);
+      transition: all 0.25s ease;
+    }
+
+    .dossier-item:hover {
+      border-color: var(--emerald-neon);
+      transform: translateY(-4px);
+      box-shadow: var(--glass-bevel), 0 25px 50px rgba(0, 0, 0, 0.98), 0 0 25px rgba(0, 255, 136, 0.25);
+    }
+
+    .dossier-tag {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--emerald-neon);
+      margin-bottom: 8px;
+    }
+
+    .dossier-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .dossier-desc {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+    }
+
     /* Interactive CBSE Quiz */
     .quiz-card {
       max-width: 620px;
@@ -959,9 +1073,9 @@
       .spine-rail { display: none; }
       .telemetry-hud { padding: 8px 14px; bottom: 8px; }
       .quick-glide-controls { display: none; }
+      .side-preview-card { display: none; }
+      .carousel-dock { justify-content: center; }
       .dossier-row { grid-template-columns: 1fr; }
-      .hero-title-group { flex-direction: column; gap: 8px; text-align: center; }
-      .hero-title-word.r { text-align: center; }
       .scrolly-section { padding: 75px 16px; }
       .scrolly-section.align-left, .scrolly-section.align-right { justify-content: center; }
       .matrix-grid { grid-template-columns: 1fr; }
@@ -975,7 +1089,7 @@
 
   <!-- Anamorphic Letterbox Cinema Bars -->
   <div class="cinema-letterbox top">
-    <span>LAT 17.3850° N // SECUNDERABAD DOME SANCTUARY</span>
+    <span>LAT 17.3850° N // SECUNDERABAD BIOSPHERE DOME</span>
     <span id="domeStatusText">GEODESIC DOME // 3D LIVING BIOSPHERE</span>
   </div>
   <div class="cinema-letterbox bottom">
@@ -983,7 +1097,7 @@
     <span>SOLO MASTERWORK // RYAN FREDRICK RAVURU</span>
   </div>
 
-  <!-- Fullscreen Minimalist Intro Prologue -->
+  <!-- Minimalist Intro Prologue -->
   <div id="cinematic-intro-overlay">
     <div class="intro-content">
       <div class="intro-badge">● BIOSPHERE CONSERVATORY ONLINE</div>
@@ -1022,7 +1136,7 @@
     <div class="header-controls">
       <button class="ctrl-pill" onclick="jumpToAct(0)">
         <span>↺</span>
-        <span>Reset Apex</span>
+        <span>Varieties Carousel</span>
       </button>
       <button class="ctrl-pill" id="soundToggleBtn" onclick="toggleSound()">
         <span>🎵</span>
@@ -1033,7 +1147,7 @@
 
   <!-- Vertical Chapter Spine Rail (Right Side) -->
   <div class="spine-rail">
-    <div class="spine-dot active" onclick="jumpToAct(0)"><span class="spine-tooltip">00 Monolith Culm</span></div>
+    <div class="spine-dot active" onclick="jumpToAct(0)"><span class="spine-tooltip">00 Varieties Carousel</span></div>
     <div class="spine-dot" onclick="jumpToAct(1)"><span class="spine-tooltip">01 Ancient Kolhu</span></div>
     <div class="spine-dot" onclick="jumpToAct(2)"><span class="spine-tooltip">02 Exploded Anatomy</span></div>
     <div class="spine-dot" onclick="jumpToAct(3)"><span class="spine-tooltip">03 Agro-Climate</span></div>
@@ -1057,7 +1171,7 @@
   <div class="telemetry-hud">
     <div class="telemetry-item">
       <span class="ti-label">CHAPTER</span>
-      <span class="ti-val" id="hudActId">00 // MONOLITH</span>
+      <span class="ti-val" id="hudActId">00 // CAROUSEL</span>
     </div>
     <div class="telemetry-div"></div>
     <div class="telemetry-item">
@@ -1082,44 +1196,79 @@
   </div>
 
   <!-- ========================================================
-       SCROLLING STORY TRACK (12 CONTINUOUS ACTS)
+       SCROLLING STORY TRACK
        ======================================================== -->
   <main class="story-track" id="storyTrack">
 
-    <!-- ACT 0: Hero Monolith Presentation -->
-    <section class="scrolly-section align-center" id="act0">
-      <div class="hero-container">
-        <div class="hero-meta">
-          <div>
-            <span>CBSE CLASS 10 GEOGRAPHY // CH. 4</span><br />
-            <span>COMMERCIAL CASH CROP // TROPICAL & SUBTROPICAL</span>
+    <!-- ACT 0: Interactive 3D Cultivars & Projects Carousel (Fixed Positioning) -->
+    <section class="carousel-section" id="act0">
+      <div class="carousel-dock">
+        <!-- Left Nav Arrow -->
+        <button class="carousel-nav-btn" onclick="prevVariety()" aria-label="Previous Variety" title="Previous Variety">
+          &#10094;
+        </button>
+
+        <!-- Left Side Flank Preview Card -->
+        <div class="side-preview-card" onclick="prevVariety()" id="leftSideCard">
+          <span class="side-card-tag" id="leftCardTag">&larr; PREV PROJECT</span>
+          <div class="side-card-name" id="leftCardName">Wild Kans</div>
+        </div>
+
+        <!-- Center Featured Stage Card -->
+        <div class="center-featured-card" id="centerFeaturedCard">
+          <span class="variety-pill" id="vPill">TROPICAL NOBLE CANE</span>
+          <h1 class="variety-title" id="vTitle">NOBLE CANE</h1>
+          <p class="variety-botanical" id="vBotanical">Saccharum officinarum</p>
+          <p class="variety-desc" id="vDesc">
+            The true tropical cane featuring thick, juicy purple-green stalks loaded with high sucrose juice. Forms the backbone of high-recovery sugar mills across Peninsular India.
+          </p>
+
+          <div class="variety-specs-grid">
+            <div class="variety-spec-box">
+              <div class="variety-spec-label">Sucrose Content</div>
+              <div class="variety-spec-val" id="specSucrose">14% – 17%</div>
+            </div>
+            <div class="variety-spec-box">
+              <div class="variety-spec-label">Growing Belt</div>
+              <div class="variety-spec-val" id="specBelt">Peninsular India</div>
+            </div>
+            <div class="variety-spec-box">
+              <div class="variety-spec-label">Stalk Girth</div>
+              <div class="variety-spec-val" id="specThickness">Thick (3.5 – 5 cm)</div>
+            </div>
+            <div class="variety-spec-box">
+              <div class="variety-spec-label">Frost Tolerance</div>
+              <div class="variety-spec-val" id="specFrost">Low (Maritime)</div>
+            </div>
           </div>
-          <div class="r-col">
-            <span>RESEARCH ARCHITECT // RYAN FREDRICK RAVURU</span><br />
-            <span>SECUNDERABAD DOME CONSERVATORY</span>
+
+          <div class="carousel-dots-strip" id="dotsStrip">
+            <div class="carousel-dot active" onclick="setVariety(0)"></div>
+            <div class="carousel-dot" onclick="setVariety(1)"></div>
+            <div class="carousel-dot" onclick="setVariety(2)"></div>
+            <div class="carousel-dot" onclick="setVariety(3)"></div>
+            <div class="carousel-dot" onclick="setVariety(4)"></div>
           </div>
         </div>
 
-        <div class="hero-title-group">
-          <h1 class="hero-title-word">SACCHARUM</h1>
-          <h1 class="hero-title-word r">OFFICINARUM</h1>
+        <!-- Right Side Flank Preview Card -->
+        <div class="side-preview-card" onclick="nextVariety()" id="rightSideCard">
+          <span class="side-card-tag" id="rightCardTag">NEXT PROJECT &rarr;</span>
+          <div class="side-card-name" id="rightCardName">Indian Cane</div>
         </div>
 
-        <div class="hero-footer">
-          <div class="hero-stats">
-            <span>GLOBAL RANK: <b>#2 INDIA</b></span>
-            <span>CLIMATE: <b>HOT & HUMID</b></span>
-            <span>CYCLE: <b>10-12 MONTHS</b></span>
-          </div>
-          <div class="scroll-cue">
-            <span>DESCEND INTO BIOSPHERE</span>
-            <span>▼</span>
-          </div>
-        </div>
+        <!-- Right Nav Arrow -->
+        <button class="carousel-nav-btn" onclick="nextVariety()" aria-label="Next Variety" title="Next Variety">
+          &#10094;
+        </button>
+      </div>
+
+      <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--emerald-neon); letter-spacing: 2px;">
+        <span>▼ SCROLL DOWN TO EXPLORE 11 AGRONOMIC CHAPTERS ▼</span>
       </div>
     </section>
 
-    <!-- INTERMEZZO: Tri-Pillar Dossier (From Video 4) -->
+    <!-- Tri-Pillar Strategic Dossier (001, 002, 003) -->
     <section class="scrolly-section align-center" id="dossier-sec" style="min-height: 75vh;">
       <div class="dossier-grid">
         <div class="dossier-header">
@@ -1532,7 +1681,7 @@
           You have traversed all 12 botanical and industrial dimensions of <i>Saccharum officinarum</i>. Re-enter the apex to continue exploring the living biosphere.
         </p>
         <button class="infinite-btn" onclick="jumpToAct(0)">
-          <span>↺ RE-ENTER THE BIOSPHERE [ACT 00]</span>
+          <span>↺ RETURN TO VARIETIES CAROUSEL [ACT 00]</span>
         </button>
       </div>
     </section>
@@ -1550,42 +1699,163 @@
   </footer>
 
   <!-- ========================================================
-       CORE 3D ENGINE, RESPAWNING SYSTEM, & SCROLL SYNCHRONIZER
+       CORE 3D ENGINE, CAROUSEL SYSTEM & BIDIRECTIONAL SCROLL
        ======================================================== -->
   <script>
     /* ----------------------------------------------------
-       1. GLOBAL ENGINE STATE & PERSISTENT RESPAWN TIMERS
+       1. CULTIVARS & PROJECTS CAROUSEL DATA (5 VARIETIES)
+       ---------------------------------------------------- */
+    const varieties = [
+      {
+        id: "noble",
+        name: "NOBLE CANE",
+        botanical: "Saccharum officinarum",
+        tag: "TROPICAL SWEET GIANT",
+        desc: "The true tropical cane featuring thick, juicy purple-green stalks loaded with high sucrose juice. Forms the backbone of high-recovery sugar mills across Peninsular India.",
+        sucrose: "14% – 17%",
+        belt: "Peninsular India (Maha / TN)",
+        thickness: "Thick (3.5 – 5 cm)",
+        frost: "Low (Maritime)",
+        color: "#10b981",
+        stalkGirth: 32,
+        leafCount: 5
+      },
+      {
+        id: "barberi",
+        name: "NORTH INDIAN CANE",
+        botanical: "Saccharum barberi",
+        tag: "SUBTROPICAL HARDY STALK",
+        desc: "Indigenous to the subtropical Indo-Gangetic Plains. Slender, fibrous stalks capable of surviving harsh continental winters, summer heatwaves, and drought.",
+        sucrose: "10% – 12%",
+        belt: "Subtropical North India (UP, Bihar)",
+        thickness: "Slender (1.5 – 2.5 cm)",
+        frost: "High Frost Tolerance",
+        color: "#f59e0b",
+        stalkGirth: 20,
+        leafCount: 4
+      },
+      {
+        id: "sinense",
+        name: "CHINESE CANE",
+        botanical: "Saccharum sinense",
+        tag: "HIGH-FIBRE ANCESTRAL",
+        desc: "Early-maturing cane with high fibre bagasse and long internodes. Highly adaptable to marginal soils, traditionally cultivated across Eastern and Central Asia.",
+        sucrose: "9% – 11%",
+        belt: "East Asia & Eastern India",
+        thickness: "Medium-Thin (2.0 – 3 cm)",
+        frost: "Moderate Resistance",
+        color: "#06b6d4",
+        stalkGirth: 24,
+        leafCount: 4
+      },
+      {
+        id: "co0238",
+        name: "WONDER HYBRID Co 0238",
+        botanical: "Karan 4 (SBI Coimbatore)",
+        tag: "NATIONAL BLOCKBUSTER",
+        desc: "Bred at ICAR-SBI Coimbatore, this revolutionary hybrid transformed North India's sugar industry with unprecedented stalk girth, rapid growth, and early 12% sugar recovery.",
+        sucrose: "12.5% – 14.5%",
+        belt: "Subtropical & Tropical India",
+        thickness: "Very Thick (3.8 – 4.8 cm)",
+        frost: "High Cold Tolerance",
+        color: "#00ff88",
+        stalkGirth: 36,
+        leafCount: 6
+      },
+      {
+        id: "spontaneum",
+        name: "WILD KANS CANE",
+        botanical: "Saccharum spontaneum",
+        tag: "DISEASE-RESISTANT ANCESTOR",
+        desc: "Perennial wild riverbank grass immune to Red Rot, drought, and waterlogging. Contributed critical resistance genes in modern noble hybrid breeding.",
+        sucrose: "3% – 5% (Low Sweetness)",
+        belt: "River floodplains across India",
+        thickness: "Thin & Hollow (0.8 – 1.5 cm)",
+        frost: "Extreme Resilience",
+        color: "#bf5af2",
+        stalkGirth: 16,
+        leafCount: 3
+      }
+    ];
+
+    let currentVarietyIdx = 0;
+
+    function updateCarouselUI() {
+      const total = varieties.length;
+      const cur = varieties[currentVarietyIdx];
+      const prev = varieties[(currentVarietyIdx - 1 + total) % total];
+      const next = varieties[(currentVarietyIdx + 1) % total];
+
+      // Update Center Card
+      document.getElementById('vPill').innerText = cur.tag;
+      document.getElementById('vTitle').innerText = cur.name;
+      document.getElementById('vBotanical').innerText = cur.botanical;
+      document.getElementById('vDesc').innerText = cur.desc;
+      document.getElementById('specSucrose').innerText = cur.sucrose;
+      document.getElementById('specBelt').innerText = cur.belt;
+      document.getElementById('specThickness').innerText = cur.thickness;
+      document.getElementById('specFrost').innerText = cur.frost;
+
+      // Update Left Side Flank
+      document.getElementById('leftCardName').innerText = prev.name;
+      // Update Right Side Flank
+      document.getElementById('rightCardName').innerText = next.name;
+
+      // Update Dots
+      document.querySelectorAll('.carousel-dot').forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentVarietyIdx);
+      });
+
+      // Trigger instant 3D model refresh
+      triggerRespawn(0);
+      playTone(587.33); // D5
+    }
+
+    function prevVariety() {
+      currentVarietyIdx = (currentVarietyIdx - 1 + varieties.length) % varieties.length;
+      updateCarouselUI();
+    }
+
+    function nextVariety() {
+      currentVarietyIdx = (currentVarietyIdx + 1) % varieties.length;
+      updateCarouselUI();
+    }
+
+    function setVariety(idx) {
+      currentVarietyIdx = idx;
+      updateCarouselUI();
+    }
+
+    /* ----------------------------------------------------
+       2. GLOBAL ENGINE STATE
        ---------------------------------------------------- */
     const engine = {
       width: window.innerWidth,
       height: window.innerHeight,
       activeAct: 0,
-      prevAct: -1,
       introDismissed: false,
-      mouse: { x: 0, y: 0, tx: 0, ty: 0 },
       camera: {
         x: 0, y: 0, zoom: 1.0,
         tx: 0, ty: 0, tZoom: 1.0,
         tiltY: 0, tTiltY: 0
       },
-      // Respawn timer per act (0 to 1 emergence)
-      respawnTimers: new Array(12).fill(0),
+      // Respawn emergence value per act (0.0 to 1.0)
+      emergence: new Array(12).fill(1.0),
       particles: [],
       soundEnabled: true,
       audioCtx: null,
       windGain: null
     };
 
-    // Initialize 30 Serene Bioluminescent Spores (Not overstimulating!)
     function initParticles() {
       engine.particles = [];
-      for (let i = 0; i < 32; i++) {
+      for (let i = 0; i < 30; i++) {
         engine.particles.push({
           x: Math.random() * engine.width,
           y: Math.random() * engine.height,
-          size: 1.2 + Math.random() * 2.2,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: -0.15 - Math.random() * 0.3,
+          size: 1.2 + Math.random() * 2.0,
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: -0.15 - Math.random() * 0.25,
           color: i % 2 === 0 ? '#00ff88' : '#00f0ff',
           pulse: Math.random() * Math.PI * 2
         });
@@ -1593,49 +1863,46 @@
     }
 
     /* ----------------------------------------------------
-       2. ELEGANT INTRO PROLOGUE
+       3. INTRO PROLOGUE DISMISSAL
        ---------------------------------------------------- */
     function dismissIntroAndStart() {
       if (engine.introDismissed) return;
       engine.introDismissed = true;
-      
       const overlay = document.getElementById('cinematic-intro-overlay');
       overlay.classList.add('dismissed');
-      
       initAudio();
-      playTone(523.25); // C5
-      respawnActiveAct();
+      playTone(523.25);
+      triggerRespawn(0);
     }
 
-    // Auto-dismiss on wheel or touch
     window.addEventListener('wheel', (e) => {
-      if (!engine.introDismissed && e.deltaY > 5) {
-        dismissIntroAndStart();
-      }
+      if (!engine.introDismissed && e.deltaY > 5) dismissIntroAndStart();
     }, { passive: true });
 
     window.addEventListener('touchmove', () => {
-      if (!engine.introDismissed) {
-        dismissIntroAndStart();
-      }
+      if (!engine.introDismissed) dismissIntroAndStart();
     }, { passive: true });
 
     /* ----------------------------------------------------
-       3. RESPAWN MECHANIC (CRITICAL USER REQUIREMENT!)
-       Every time an act enters view or is revisited,
-       the 3D model re-assembles, breathes, and materializes!
+       4. CRITICAL BUG FIX: BIDIRECTIONAL SCROLL DETECTOR
+       Ensures elements REAPPEAR smoothly when scrolling UP or DOWN!
        ---------------------------------------------------- */
+    const sectionIds = [
+      'act0', 'act1', 'act2', 'act3', 'act4', 'act5',
+      'act6', 'act7', 'act8', 'act9', 'act10', 'act11'
+    ];
+
     function triggerRespawn(actIdx) {
       if (actIdx < 0 || actIdx > 11) return;
-      engine.respawnTimers[actIdx] = 0; // Reset to 0 so it animates from 0 to 1!
-      
+      engine.emergence[actIdx] = 0.0; // Reset emergence so it animates into view!
+
       // Update Telemetry labels
       const actNames = [
-        '00 // MONOLITH', '01 // KOLHU', '02 // MORPHOLOGY', '03 // PEDOCLIMATE',
+        '00 // CAROUSEL', '01 // KOLHU', '02 // MORPHOLOGY', '03 // PEDOCLIMATE',
         '04 // SPROUTING', '05 // PATHOLOGY', '06 // PENINSULA', '07 // MILLING',
         '08 // GUR CAULDRON', '09 // E20 REFINERY', '10 // GENOMICS', '11 // CBSE EVAL'
       ];
-      document.getElementById('hudActId').innerText = actNames[actIdx] || '00 // MONOLITH';
+      document.getElementById('hudActId').innerText = actNames[actIdx] || '00 // CAROUSEL';
 
       // Update Spine Rail Dots
       document.querySelectorAll('.spine-dot').forEach((d, i) => {
@@ -1648,24 +1915,15 @@
       playTone(659.25); // E5
     }
 
-    /* ----------------------------------------------------
-       4. FOOLPROOF SCROLL DETECTOR & SYNCHRONIZER
-       Guarantees act is NEVER lost and ALWAYS respawns
-       ---------------------------------------------------- */
-    const sectionIds = [
-      'act0', 'act1', 'act2', 'act3', 'act4', 'act5',
-      'act6', 'act7', 'act8', 'act9', 'act10', 'act11'
-    ];
-
     function checkActiveSectionOnScroll() {
       const scrollY = window.scrollY || window.pageYOffset;
-      const viewH = window.innerHeight;
-      const centerY = scrollY + viewH * 0.45;
+      const vh = window.innerHeight;
+      const viewCenter = scrollY + vh * 0.45;
 
-      // Progress bar
-      const totalH = document.documentElement.scrollHeight - viewH;
+      // Update top progress bar
+      const totalH = document.documentElement.scrollHeight - vh;
       if (totalH > 0) {
-        document.getElementById('progressBar').style.width = (scrollY / totalH) * 100 + '%';
+        document.getElementById('progressBar').style.width = Math.min(100, Math.max(0, (scrollY / totalH) * 100)) + '%';
       }
 
       let closestAct = 0;
@@ -1675,17 +1933,16 @@
         const el = document.getElementById(id);
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        const elCenter = scrollY + rect.top + rect.height * 0.5;
-        const dist = Math.abs(elCenter - centerY);
-
+        const sectionCenter = scrollY + rect.top + rect.height * 0.5;
+        const dist = Math.abs(sectionCenter - viewCenter);
         if (dist < minDistance) {
           minDistance = dist;
           closestAct = idx;
         }
       });
 
+      // ALWAYS synchronize on change (BOTH SCROLLING DOWN AND UP!)
       if (closestAct !== engine.activeAct) {
-        engine.prevAct = engine.activeAct;
         engine.activeAct = closestAct;
         triggerRespawn(closestAct);
         updateCameraFraming(closestAct);
@@ -1698,23 +1955,25 @@
       const isMobile = window.innerWidth < 900;
       
       if (actIdx === 0) {
+        // Carousel section - Centered
         engine.camera.tx = 0;
         engine.camera.ty = 0;
-        engine.camera.tZoom = isMobile ? 0.8 : 1.0;
+        engine.camera.tZoom = isMobile ? 0.75 : 1.0;
         engine.camera.tTiltY = 0;
       } else if (actIdx === 11) {
+        // Quiz section - Model hovers overhead
         engine.camera.tx = 0;
         engine.camera.ty = isMobile ? -140 : -130;
         engine.camera.tZoom = isMobile ? 0.72 : 0.88;
         engine.camera.tTiltY = 0;
       } else if (actIdx % 2 === 1) {
-        // Card is Left -> Model is Right!
+        // Card Left -> 3D Model Right!
         engine.camera.tx = isMobile ? 0 : 310;
         engine.camera.ty = isMobile ? -140 : 0;
         engine.camera.tZoom = isMobile ? 0.75 : 0.95;
         engine.camera.tTiltY = isMobile ? 0 : -0.14;
       } else {
-        // Card is Right -> Model is Left!
+        // Card Right -> 3D Model Left!
         engine.camera.tx = isMobile ? 0 : -310;
         engine.camera.ty = isMobile ? -140 : 0;
         engine.camera.tZoom = isMobile ? 0.75 : 0.95;
@@ -1736,7 +1995,7 @@
       if (engine.activeAct < 11) {
         jumpToAct(engine.activeAct + 1);
       } else {
-        jumpToAct(0); // Loop back
+        jumpToAct(0); // Seamless Loop!
       }
     }
 
@@ -1748,17 +2007,13 @@
       }
     }
 
-    // Keyboard navigation
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        glideNext();
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        glidePrev();
-      }
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') glideNext();
+      else if (e.key === 'ArrowUp' || e.key === 'PageUp') glidePrev();
     });
 
     /* ----------------------------------------------------
-       5. 3D GEODESIC DOME & ATMOSPHERE (CALM & TRANQUIL)
+       5. 3D GEODESIC DOME & CELESTIAL BACKGROUND
        ---------------------------------------------------- */
     const domeCanvas = document.getElementById('dome-canvas');
     const domeCtx = domeCanvas.getContext('2d');
@@ -1766,29 +2021,29 @@
     function drawTranquilDome(c, w, h, t, camX, camY) {
       c.clearRect(0, 0, w, h);
 
-      // Deep, Soft Celestial Atmosphere
+      // Deep Celestial Sky
       const skyGrad = c.createLinearGradient(0, 0, 0, h);
       skyGrad.addColorStop(0, '#000000');
-      skyGrad.addColorStop(0.45, '#020a05');
+      skyGrad.addColorStop(0.5, '#020a05');
       skyGrad.addColorStop(1, '#000000');
       c.fillStyle = skyGrad;
       c.fillRect(0, 0, w, h);
 
-      // Gentle, Ambient Aurora Ribbons (Breathe slowly, not aggressive)
+      // Ambient Aurora Waves
       c.save();
       c.globalCompositeOperation = 'lighter';
       for (let i = 0; i < 2; i++) {
         c.beginPath();
         const baseHue = i === 0 ? 152 : 185;
         const grad = c.createLinearGradient(0, 0, 0, h * 0.55);
-        grad.addColorStop(0, `hsla(${baseHue}, 80%, 65%, 0.15)`);
-        grad.addColorStop(0.6, `hsla(${baseHue}, 70%, 45%, 0.05)`);
+        grad.addColorStop(0, `hsla(${baseHue}, 80%, 65%, 0.14)`);
+        grad.addColorStop(0.6, `hsla(${baseHue}, 70%, 45%, 0.04)`);
         grad.addColorStop(1, 'transparent');
         c.fillStyle = grad;
 
         c.moveTo(0, 0);
         for (let x = 0; x <= w; x += 40) {
-          const wave = Math.sin(t * 0.0008 + x * 0.003 + i * 2) * 40;
+          const wave = Math.sin(t * 0.0008 + x * 0.003 + i * 2) * 35;
           c.lineTo(x, h * 0.2 + wave);
         }
         c.lineTo(w, 0);
@@ -1797,21 +2052,19 @@
       }
       c.restore();
 
-      // Delicate Hairline Geodesic Biosphere Dome Framework
+      // Hairline Geodesic Biosphere Dome Framework
       c.save();
       const centerX = w / 2 + camX * 0.12;
       const centerY = h * 0.72 + camY * 0.15;
       const radX = w * 0.72;
       const radY = h * 0.62;
 
-      // Outer Perimeter Arc
       c.beginPath();
       c.ellipse(centerX, centerY, radX, radY, 0, Math.PI, 0);
       c.strokeStyle = 'rgba(0, 255, 136, 0.22)';
       c.lineWidth = 1.2;
       c.stroke();
 
-      // 4 Fine Latitude Rings
       for (let lat = 1; lat <= 4; lat++) {
         const frac = lat / 5;
         const ringRadX = radX * Math.sin(frac * Math.PI * 0.5);
@@ -1824,7 +2077,6 @@
         c.stroke();
       }
 
-      // Longitudinal Rib Arches
       const ribCount = 10;
       const apexX = centerX;
       const apexY = centerY - radY;
@@ -1851,7 +2103,7 @@
       c.lineWidth = 1.8;
       c.stroke();
 
-      // Soft Reflective Water Surface at Base
+      // Reflective Base Water Surface
       const waterLine = h * 0.68;
       const wGrad = c.createLinearGradient(0, waterLine, 0, h);
       wGrad.addColorStop(0, 'rgba(2, 8, 4, 0.65)');
@@ -1859,31 +2111,21 @@
       c.fillStyle = wGrad;
       c.fillRect(0, waterLine, w, h - waterLine);
 
-      // Subtle Water Surface Ripple Highlight
-      c.beginPath();
-      c.moveTo(w * 0.25, waterLine + 12);
-      c.lineTo(w * 0.75, waterLine + 12);
-      c.strokeStyle = 'rgba(0, 255, 136, 0.15)';
-      c.lineWidth = 2;
-      c.stroke();
-
       c.restore();
     }
 
     /* ----------------------------------------------------
-       6. 3D VIRTUAL STAGE CANVAS: RESPONSIVE RESPAWNING MODELS
+       6. 3D CENTERPIECE MODELS (RESPONSIVE & REAPPEARING)
        ---------------------------------------------------- */
     const stageCanvas = document.getElementById('stage-canvas');
     const stageCtx = stageCanvas.getContext('2d');
 
-    // Helper: Draw igloo.inc Style Technical HUD Bracket
     function drawTechHUD(c, actNumber, actTitle, emergence) {
       c.save();
       c.globalAlpha = emergence * 0.85;
-      c.strokeStyle = 'rgba(0, 240, 255, 0.4)';
+      c.strokeStyle = 'rgba(0, 240, 255, 0.35)';
       c.lineWidth = 1;
 
-      // Left Bracket
       c.beginPath();
       c.moveTo(-160, -170);
       c.lineTo(-180, -170);
@@ -1891,7 +2133,6 @@
       c.lineTo(-160, 170);
       c.stroke();
 
-      // Right Bracket
       c.beginPath();
       c.moveTo(160, -170);
       c.lineTo(180, -170);
@@ -1899,7 +2140,6 @@
       c.lineTo(160, 170);
       c.stroke();
 
-      // Monospace Coordinates & Data Tag
       c.font = '600 10px monospace';
       c.fillStyle = 'rgba(255, 255, 255, 0.6)';
       c.textAlign = 'left';
@@ -1910,49 +2150,51 @@
       c.restore();
     }
 
-    // 00: Towering Masterwork Culm
-    function drawMonumentalCulm(c, t, em) {
+    // 00: Dynamic Cultivar Stalk (Renders active variety from Carousel!)
+    function drawActiveVarietyStalk(c, t, em) {
       c.save();
       c.scale(em, em);
-      drawTechHUD(c, 'ACT_00', 'SACCHARUM MONOLITH', em);
+      const cur = varieties[currentVarietyIdx];
+      drawTechHUD(c, 'VARIETY_0' + (currentVarietyIdx + 1), cur.name, em);
 
-      // Base Pedestal
+      // Base Glow
       c.beginPath();
-      c.ellipse(0, 210, 130 * em, 35 * em, 0, 0, Math.PI * 2);
+      c.ellipse(0, 210, 120 * em, 32 * em, 0, 0, Math.PI * 2);
       c.fillStyle = 'rgba(0, 255, 136, 0.12)';
       c.fill();
 
-      // 4 Main Stalk Internodes
+      // Custom Cultivar Stalk
+      const girth = cur.stalkGirth;
       for (let s = 0; s < 4; s++) {
         const yTop = -160 + s * 80;
-        const stalkGrad = c.createLinearGradient(-26, 0, 26, 0);
+        const stalkGrad = c.createLinearGradient(-girth, 0, girth, 0);
         stalkGrad.addColorStop(0, '#042f1a');
-        stalkGrad.addColorStop(0.4, '#10b981');
-        stalkGrad.addColorStop(0.8, '#059669');
+        stalkGrad.addColorStop(0.4, cur.color);
+        stalkGrad.addColorStop(0.8, '#047857');
         stalkGrad.addColorStop(1, '#022c16');
 
         c.fillStyle = stalkGrad;
         c.beginPath();
-        c.roundRect(-24, yTop, 48, 74, 10);
+        c.roundRect(-girth * 0.5, yTop, girth, 74, 10);
         c.fill();
 
         // Node Ring
         c.beginPath();
-        c.ellipse(0, yTop + 74, 28, 8, 0, 0, Math.PI * 2);
+        c.ellipse(0, yTop + 74, girth * 0.55, 7, 0, 0, Math.PI * 2);
         c.fillStyle = '#ffd60a';
         c.fill();
       }
 
-      // Arching Emerald Foliage
-      for (let l = 0; l < 4; l++) {
+      // Arching Foliage
+      for (let l = 0; l < cur.leafCount; l++) {
         const side = l % 2 === 0 ? 1 : -1;
-        const ly = -120 + l * 50;
+        const ly = -130 + l * 45;
         const sway = Math.sin(t * 0.002 + l) * 10;
 
         c.beginPath();
-        c.moveTo(side * 22, ly);
-        c.quadraticCurveTo(side * (100 + sway), ly - 30, side * (160 + sway), ly + 40);
-        c.quadraticCurveTo(side * (90 + sway), ly + 10, side * 22, ly + 12);
+        c.moveTo(side * 20, ly);
+        c.quadraticCurveTo(side * (95 + sway), ly - 28, side * (155 + sway), ly + 38);
+        c.quadraticCurveTo(side * (85 + sway), ly + 10, side * 20, ly + 12);
         c.fillStyle = 'rgba(0, 255, 136, 0.7)';
         c.fill();
       }
@@ -1965,7 +2207,6 @@
       c.scale(em, em);
       drawTechHUD(c, 'ACT_01', 'VEDIC KOLHU MORTAR', em);
 
-      // Granite Basin
       c.beginPath();
       c.ellipse(0, 100, 105, 42, 0, 0, Math.PI * 2);
       c.fillStyle = '#334155';
@@ -1975,13 +2216,11 @@
       c.fillStyle = '#0f172a';
       c.fill();
 
-      // Molten Amber Juice Reservoir
       c.beginPath();
       c.ellipse(0, 62, 68, 22, 0, 0, Math.PI * 2);
       c.fillStyle = '#d97706';
       c.fill();
 
-      // Rotating Wooden Pestle
       c.save();
       c.translate(0, 60);
       c.rotate(Math.sin(t * 0.002) * 0.3);
@@ -1990,7 +2229,6 @@
       c.roundRect(-16, -160, 32, 170, 10);
       c.fill();
       c.restore();
-
       c.restore();
     }
 
@@ -2028,7 +2266,6 @@
       c.scale(em, em);
       drawTechHUD(c, 'ACT_03', 'PEDOCLIMATIC REGIME', em);
 
-      // Sun Core (21°C - 27°C)
       c.beginPath();
       c.arc(0, -90, 42, 0, Math.PI * 2);
       c.fillStyle = '#ffd60a';
@@ -2037,7 +2274,6 @@
       c.fill();
       c.shadowBlur = 0;
 
-      // Rain Lines
       c.strokeStyle = 'rgba(0, 240, 255, 0.4)';
       c.lineWidth = 1.2;
       for (let r = 0; r < 14; r++) {
@@ -2049,7 +2285,6 @@
         c.stroke();
       }
 
-      // Soil Block
       c.beginPath();
       c.roundRect(-120, 80, 240, 75, 10);
       c.fillStyle = '#451a03';
@@ -2063,21 +2298,17 @@
       c.scale(em, em);
       drawTechHUD(c, 'ACT_04', 'VEGETATIVE SETT MULTIPLICATION', em);
 
-      // Seed Cane Sett
       c.beginPath();
       c.roundRect(-110, 60, 220, 36, 12);
       c.fillStyle = '#059669';
       c.fill();
 
-      // 3 Sprouting Nodes
       [-60, 0, 60].forEach((nx, i) => {
-        // Node Ring
         c.beginPath();
         c.ellipse(nx, 78, 6, 18, 0, 0, Math.PI * 2);
         c.fillStyle = '#ffd60a';
         c.fill();
 
-        // Green Shoot Emergence
         const sh = 55 + Math.sin(t * 0.002 + i) * 8;
         c.beginPath();
         c.moveTo(nx, 60);
@@ -2086,7 +2317,6 @@
         c.fillStyle = '#00ff88';
         c.fill();
 
-        // Sett Roots
         c.strokeStyle = '#fef08a';
         c.lineWidth = 1.2;
         c.beginPath();
@@ -2105,25 +2335,21 @@
       c.scale(em, em);
       drawTechHUD(c, 'ACT_05', 'VASCULAR PATHOLOGY SCANNER', em);
 
-      // Cane Stalk Body
       c.beginPath();
       c.roundRect(-40, -140, 80, 280, 14);
       c.fillStyle = '#064e3b';
       c.fill();
 
-      // Healthy Left Half
       c.beginPath();
       c.roundRect(-36, -136, 36, 272, 8);
       c.fillStyle = '#10b981';
       c.fill();
 
-      // Infected Right Half (Red Rot)
       c.beginPath();
       c.roundRect(0, -136, 36, 272, 8);
       c.fillStyle = '#b91c1c';
       c.fill();
 
-      // Diagnostic White Pith Patches
       c.fillStyle = 'rgba(255, 255, 255, 0.75)';
       for (let p = 0; p < 3; p++) {
         c.beginPath();
@@ -2131,7 +2357,6 @@
         c.fill();
       }
 
-      // Moving Laser Line
       const scanY = -130 + ((t * 0.12) % 260);
       c.beginPath();
       c.moveTo(-90, scanY);
@@ -2148,7 +2373,6 @@
       c.scale(em, em);
       drawTechHUD(c, 'ACT_06', 'PENINSULAR MARITIME DYNAMICS', em);
 
-      // Peninsular Triangle
       c.beginPath();
       c.moveTo(0, 150);
       c.lineTo(110, -70);
@@ -2160,7 +2384,6 @@
       c.lineWidth = 2;
       c.stroke();
 
-      // Western Ghats Ridge
       c.strokeStyle = '#ffd60a';
       c.lineWidth = 3;
       c.beginPath();
@@ -2169,7 +2392,6 @@
       c.lineTo(-25, 100);
       c.stroke();
 
-      // Maritime Trade Wind Curves
       c.strokeStyle = 'rgba(0, 240, 255, 0.5)';
       c.lineWidth = 1.5;
       for (let w = 0; w < 3; w++) {
@@ -2188,7 +2410,6 @@
       c.scale(em, em);
       drawTechHUD(c, 'ACT_07', '3-ROLLER MILLING TANDEM', em);
 
-      // 3 Heavy Steel Rollers
       const rollers = [
         { x: 0, y: -45, r: 48, dir: 1 },
         { x: -55, y: 45, r: 44, dir: -1 },
@@ -2209,7 +2430,6 @@
         c.restore();
       }
 
-      // Swirling Cane Juice Whirlpool Below
       c.beginPath();
       c.ellipse(0, 140, 100, 32, 0, 0, Math.PI * 2);
       c.fillStyle = '#059669';
@@ -2223,19 +2443,16 @@
       c.scale(em, em);
       drawTechHUD(c, 'ACT_08', 'GUR CAULDRON & SUCROSE CRYSTAL', em);
 
-      // Boiling Copper Pan (118°C)
       c.beginPath();
       c.ellipse(0, 75, 110, 42, 0, 0, Math.PI * 2);
       c.fillStyle = '#b45309';
       c.fill();
 
-      // Molten Syrup
       c.beginPath();
       c.ellipse(0, 60, 92, 30, 0, 0, Math.PI * 2);
       c.fillStyle = '#d97706';
       c.fill();
 
-      // Floating Sucrose Octahedron
       c.save();
       c.translate(0, -60);
       c.rotate(t * 0.0018);
@@ -2252,7 +2469,6 @@
       c.stroke();
       c.fill();
       c.restore();
-
       c.restore();
     }
 
@@ -2262,7 +2478,6 @@
       c.scale(em, em);
       drawTechHUD(c, 'ACT_09', 'E20 BIOREFINERY COMPLEX', em);
 
-      // Central Distillation Column
       c.beginPath();
       c.roundRect(-28, -90, 56, 180, 12);
       c.fillStyle = '#0f172a';
@@ -2271,7 +2486,6 @@
       c.lineWidth = 2;
       c.stroke();
 
-      // 3 Orbiting Nodes
       const nodes = [
         { label: '⚡ POWER', col: '#ffd60a', offset: 0 },
         { label: '⛽ E20 FUEL', col: '#00f0ff', offset: (Math.PI * 2) / 3 },
@@ -2337,7 +2551,6 @@
       c.scale(em, em);
       drawTechHUD(c, 'ACT_11', 'CBSE EXAMINATION EVALUATOR', em);
 
-      // Rotating Gyroscope Rings
       for (let r = 1; r <= 2; r++) {
         c.save();
         c.rotate(t * 0.0015 * (r === 1 ? 1 : -1));
@@ -2349,7 +2562,6 @@
         c.restore();
       }
 
-      // Center Crystal
       c.beginPath();
       c.arc(0, 0, 36, 0, Math.PI * 2);
       c.fillStyle = '#047857';
@@ -2369,17 +2581,16 @@
     const mistCtx = mistCanvas.getContext('2d');
 
     function renderWorld(timestamp) {
-      // Smooth Camera Interpolation
       engine.camera.x += (engine.camera.tx - engine.camera.x) * 0.08;
       engine.camera.y += (engine.camera.ty - engine.camera.y) * 0.08;
       engine.camera.zoom += (engine.camera.tZoom - engine.camera.zoom) * 0.08;
       engine.camera.tiltY += (engine.camera.tTiltY - engine.camera.tiltY) * 0.08;
 
-      // Update respawn timer for active act
-      if (engine.respawnTimers[engine.activeAct] < 1.0) {
-        engine.respawnTimers[engine.activeAct] += 0.035;
-        if (engine.respawnTimers[engine.activeAct] > 1.0) {
-          engine.respawnTimers[engine.activeAct] = 1.0;
+      // Animate active act emergence to 1.0
+      if (engine.emergence[engine.activeAct] < 1.0) {
+        engine.emergence[engine.activeAct] += 0.035;
+        if (engine.emergence[engine.activeAct] > 1.0) {
+          engine.emergence[engine.activeAct] = 1.0;
         }
       }
 
@@ -2389,7 +2600,7 @@
       // 1. Draw Dome & Celestial Sky
       drawTranquilDome(domeCtx, w, h, timestamp, engine.camera.x, engine.camera.y);
 
-      // 2. Draw 3D Centerpiece Model Stage
+      // 2. Draw 3D Model Stage Canvas
       stageCtx.clearRect(0, 0, w, h);
       stageCtx.save();
       const centerX = w / 2 + engine.camera.x;
@@ -2397,10 +2608,10 @@
       stageCtx.translate(centerX, centerY);
       stageCtx.scale(engine.camera.zoom, engine.camera.zoom);
 
-      const em = engine.respawnTimers[engine.activeAct]; // Current act emergence
+      const em = engine.emergence[engine.activeAct];
 
       switch (engine.activeAct) {
-        case 0: drawMonumentalCulm(stageCtx, timestamp, em); break;
+        case 0: drawActiveVarietyStalk(stageCtx, timestamp, em); break;
         case 1: drawAncientKolhuPress(stageCtx, timestamp, em); break;
         case 2: drawExplodedCulm(stageCtx, timestamp, em); break;
         case 3: drawAgroClimateBiosphere(stageCtx, timestamp, em); break;
@@ -2412,11 +2623,11 @@
         case 9: drawCircularBiorefinery(stageCtx, timestamp, em); break;
         case 10: drawCRISPRHelix(stageCtx, timestamp, em); break;
         case 11: drawExamEvaluationSphere(stageCtx, timestamp, em); break;
-        default: drawMonumentalCulm(stageCtx, timestamp, em); break;
+        default: drawActiveVarietyStalk(stageCtx, timestamp, em); break;
       }
       stageCtx.restore();
 
-      // 3. Draw Serene Spores (Gentle and Tranquil)
+      // 3. Draw Ambient Gentle Spores
       mistCtx.clearRect(0, 0, w, h);
       mistCtx.save();
       for (let p of engine.particles) {
@@ -2653,6 +2864,7 @@
        ---------------------------------------------------- */
     window.addEventListener('DOMContentLoaded', () => {
       resizeCanvases();
+      updateCarouselUI();
       loadQuiz(0);
       triggerRespawn(0);
       updateCameraFraming(0);
@@ -2661,4 +2873,3 @@
   </script>
 </body>
 </html>
-
