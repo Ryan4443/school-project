@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SACCHARUM // THE LIVING CANE EXPERIENCE | CBSE Class 10 Solo Showcase</title>
+  <title>SACCHARUM ULTIMATE // 3D KINETIC MULTIVERSE | CBSE Class 10 Solo Masterpiece</title>
   
-  <!-- Premium Fonts -->
+  <!-- Premium Fonts: Italian Editorial Luxury + Space-Age Tech Monospace + Ultra-Clean Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,22 +17,22 @@
 
   <style>
     :root {
-      --bg-dark: #030504;
+      --bg-dark: #020403;
       --emerald-neon: #10b981;
       --emerald-glow: #34d399;
-      --purple-aura: #a855f7;
-      --purple-neon: #c084fc;
+      --amethyst-neon: #a855f7;
+      --amethyst-bright: #c084fc;
       --amber-gold: #f59e0b;
       --amber-bright: #fde047;
-      --cyan-water: #06b6d4;
-      --cyan-neon: #22d3ee;
+      --cyan-sky: #06b6d4;
+      --cyan-bright: #22d3ee;
       --text-muted: #94a3b8;
       --text-light: #f8fafc;
       
-      --glass-bg: rgba(7, 13, 9, 0.76);
-      --glass-border: rgba(255, 255, 255, 0.15);
-      --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.6);
-      --shadow-3d: 0 30px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(16, 185, 129, 0.25);
+      --glass-bg: rgba(6, 12, 8, 0.78);
+      --glass-border: rgba(255, 255, 255, 0.16);
+      --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.38), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.65);
+      --shadow-3d: 0 35px 70px -15px rgba(0, 0, 0, 0.95), 0 0 45px rgba(16, 185, 129, 0.28);
       
       --font-display: 'Cinzel', serif;
       --font-tech: 'Space Grotesk', monospace;
@@ -66,7 +66,7 @@
       pointer-events: auto;
     }
 
-    /* Cinematic Film Overlays */
+    /* Cinematic Visual Layers */
     .film-grain {
       position: fixed;
       top: 0;
@@ -75,11 +75,11 @@
       height: 100vh;
       pointer-events: none;
       z-index: 2;
-      opacity: 0.04;
+      opacity: 0.045;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    .vignette-effect {
+    .vignette-layer {
       position: fixed;
       top: 0;
       left: 0;
@@ -87,91 +87,91 @@
       height: 100vh;
       pointer-events: none;
       z-index: 3;
-      background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(2, 4, 3, 0.72) 75%, #020302 100%);
+      background: radial-gradient(circle at 50% 50%, transparent 28%, rgba(2, 4, 3, 0.75) 75%, #010302 100%);
     }
 
-    .vfx-nebula {
+    .ambient-nebula-vfx {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 82vw;
-      height: 82vh;
-      max-width: 1100px;
-      max-height: 1100px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(168, 85, 247, 0.12) 45%, transparent 70%);
-      filter: blur(95px);
+      width: 85vw;
+      height: 85vh;
+      max-width: 1200px;
+      max-height: 1200px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(168, 85, 247, 0.14) 45%, transparent 72%);
+      filter: blur(100px);
       z-index: 2;
       pointer-events: none;
-      transition: background 1.4s ease;
+      transition: background 1.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Top Progress Bar */
+    /* Top Kinetic Progress Bar */
     #progressBar {
       position: fixed;
       top: 0;
       left: 0;
       height: 3px;
       width: 0%;
-      background: linear-gradient(90deg, var(--emerald-glow), var(--purple-neon), var(--amber-bright), var(--cyan-neon));
-      box-shadow: 0 0 16px var(--emerald-neon);
+      background: linear-gradient(90deg, var(--emerald-glow), var(--amethyst-bright), var(--amber-bright), var(--cyan-bright));
+      box-shadow: 0 0 18px var(--emerald-glow);
       z-index: 999;
       transition: width 0.1s ease-out;
     }
 
-    /* iPhone-Level Floating Glass Header */
+    /* iPhone-Level Floating Dynamic Island Command Header */
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      padding: 18px 44px;
+      padding: 18px 42px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 50;
-      background: linear-gradient(180deg, rgba(3, 5, 4, 0.94) 0%, rgba(3, 5, 4, 0) 100%);
+      background: linear-gradient(180deg, rgba(2, 4, 3, 0.95) 0%, rgba(2, 4, 3, 0) 100%);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
 
-    .brand-meta {
+    .brand-group {
       display: flex;
       align-items: center;
       gap: 16px;
     }
 
-    .brand-logo {
+    .brand-name {
       font-family: var(--font-display);
-      font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+      font-size: clamp(1.2rem, 1.8vw, 1.55rem);
       font-weight: 900;
       letter-spacing: 4px;
       color: #ffffff;
       text-transform: uppercase;
-      text-shadow: 0 0 25px rgba(255, 255, 255, 0.35);
+      text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
     }
 
-    .solo-indicator {
+    .solo-tag {
       font-family: var(--font-tech);
       font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 2px;
       color: var(--emerald-glow);
       background: rgba(16, 185, 129, 0.14);
-      border: 1px solid rgba(52, 211, 153, 0.4);
+      border: 1px solid rgba(52, 211, 153, 0.45);
       padding: 4px 12px;
       border-radius: 999px;
       text-transform: uppercase;
-      box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);
     }
 
-    .header-actions {
+    .header-dock {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .interactive-pill {
+    .island-btn {
       font-family: var(--font-tech);
       font-size: 0.72rem;
       font-weight: 600;
@@ -186,27 +186,27 @@
       align-items: center;
       gap: 8px;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
     }
 
-    .interactive-pill:hover {
+    .island-btn:hover {
       border-color: var(--emerald-glow);
       color: #ffffff;
       transform: translateY(-2px);
-      box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.45);
     }
 
-    .interactive-pill.active {
+    .island-btn.active {
       background: rgba(16, 185, 129, 0.25);
       border-color: var(--emerald-glow);
       color: var(--emerald-glow);
-      box-shadow: 0 0 22px rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.55);
     }
 
-    /* Vertical Chapter Navigation Spine */
-    .spine-rail {
+    /* Fixed Vertical Chapter Rail on Right */
+    .chapter-spine-rail {
       position: fixed;
-      right: 30px;
+      right: 28px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 40;
@@ -215,7 +215,7 @@
       gap: 14px;
     }
 
-    .rail-dot {
+    .spine-dot-node {
       width: 9px;
       height: 9px;
       border-radius: 50%;
@@ -226,19 +226,19 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .rail-dot:hover {
-      background: var(--purple-neon);
+    .spine-dot-node:hover {
+      background: var(--amethyst-bright);
       transform: scale(1.6);
     }
 
-    .rail-dot.active {
+    .spine-dot-node.active {
       background: var(--emerald-glow);
       box-shadow: 0 0 16px var(--emerald-glow);
       transform: scale(1.8);
       border-color: #fff;
     }
 
-    .rail-tooltip {
+    .spine-label-tip {
       position: absolute;
       right: 22px;
       top: 50%;
@@ -258,18 +258,18 @@
       text-transform: uppercase;
     }
 
-    .rail-dot:hover .rail-tooltip {
+    .spine-dot-node:hover .spine-label-tip {
       opacity: 1;
     }
 
     /* Scrollytelling Stages */
-    .story-track {
+    .viewport-track {
       position: relative;
       z-index: 10;
       pointer-events: none;
     }
 
-    .story-slide {
+    .scrolly-slide {
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -279,21 +279,21 @@
       perspective: 1000px;
     }
 
-    .story-slide.center {
+    .scrolly-slide.center {
       justify-content: center;
       text-align: center;
     }
 
-    .story-slide.left {
+    .scrolly-slide.left {
       justify-content: flex-start;
     }
 
-    .story-slide.right {
+    .scrolly-slide.right {
       justify-content: flex-end;
     }
 
     /* Hero Monolith Layout */
-    .hero-box {
+    .hero-container {
       width: 100%;
       height: 84vh;
       display: flex;
@@ -303,7 +303,7 @@
       pointer-events: none;
     }
 
-    .hero-top-info {
+    .hero-meta-row {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -311,7 +311,7 @@
       padding-top: 30px;
     }
 
-    .hero-top-info .info-tag-left, .hero-top-info .info-tag-right {
+    .hero-meta-row .meta-tag-l, .hero-meta-row .meta-tag-r {
       font-family: var(--font-tech);
       font-size: 0.72rem;
       letter-spacing: 2px;
@@ -320,11 +320,11 @@
       line-height: 1.6;
     }
 
-    .hero-top-info .info-tag-right {
+    .hero-meta-row .meta-tag-r {
       text-align: right;
     }
 
-    .hero-split-text {
+    .hero-split-monolith {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -333,7 +333,7 @@
       pointer-events: none;
     }
 
-    .giant-word {
+    .monolith-word {
       font-family: var(--font-display);
       font-size: clamp(3.2rem, 8.5vw, 9.4rem);
       font-weight: 900;
@@ -341,14 +341,14 @@
       text-transform: uppercase;
       line-height: 0.95;
       color: #ffffff;
-      text-shadow: 0 0 50px rgba(255, 255, 255, 0.25), 0 0 100px rgba(16, 185, 129, 0.4);
+      text-shadow: 0 0 50px rgba(255, 255, 255, 0.25), 0 0 100px rgba(16, 185, 129, 0.45);
     }
 
-    .giant-word.right {
+    .monolith-word.right {
       text-align: right;
     }
 
-    .hero-bottom-info {
+    .hero-footer-stats {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -356,7 +356,7 @@
       padding-bottom: 24px;
     }
 
-    .hero-stats-capsules {
+    .hero-pill-stats {
       font-family: var(--font-tech);
       font-size: 0.7rem;
       letter-spacing: 1.5px;
@@ -365,7 +365,7 @@
       gap: 24px;
     }
 
-    .hero-stats-capsules b {
+    .hero-pill-stats b {
       color: var(--emerald-glow);
     }
 
@@ -386,13 +386,13 @@
       50% { transform: translateY(7px); opacity: 1; }
     }
 
-    /* iPhone-Level Glassmorphic 3D Card with Tilt Physics */
-    .vfx-card {
+    /* iPhone-Level 3D Glass Card with Gyro Tilt Physics */
+    .apple-glass-card {
       pointer-events: auto;
       max-width: 560px;
       background: var(--glass-bg);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-bevel), var(--shadow-3d);
       border-radius: 28px;
@@ -402,12 +402,12 @@
       transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .vfx-card:hover {
+    .apple-glass-card:hover {
       border-color: rgba(52, 211, 153, 0.45);
-      box-shadow: var(--glass-bevel), 0 35px 70px -15px rgba(0, 0, 0, 0.95), 0 0 45px rgba(16, 185, 129, 0.35);
+      box-shadow: var(--glass-bevel), 0 35px 75px -15px rgba(0, 0, 0, 0.95), 0 0 50px rgba(16, 185, 129, 0.4);
     }
 
-    .card-vfx-badge {
+    .card-topic-tag {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -418,7 +418,7 @@
       text-transform: uppercase;
       color: var(--emerald-glow);
       background: rgba(16, 185, 129, 0.14);
-      border: 1px solid rgba(52, 211, 153, 0.35);
+      border: 1px solid rgba(52, 211, 153, 0.38);
       padding: 4px 12px;
       border-radius: 8px;
       margin-bottom: 14px;
@@ -444,14 +444,14 @@
       margin-bottom: 18px;
     }
 
-    .card-description {
+    .card-body-text {
       font-size: clamp(0.9rem, 1.1vw, 1.0rem);
       color: #cbd5e1;
       line-height: 1.68;
       margin-bottom: 22px;
     }
 
-    /* Grid Metrics */
+    /* 2x2 Metric Grid */
     .metric-grid-2x2 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -459,7 +459,7 @@
       margin-bottom: 20px;
     }
 
-    .metric-item {
+    .metric-cell {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: 14px;
@@ -467,11 +467,11 @@
       transition: background 0.25s ease;
     }
 
-    .metric-item:hover {
+    .metric-cell:hover {
       background: rgba(255, 255, 255, 0.08);
     }
 
-    .metric-label {
+    .metric-tag {
       font-family: var(--font-tech);
       font-size: 0.65rem;
       letter-spacing: 1px;
@@ -480,15 +480,15 @@
       margin-bottom: 4px;
     }
 
-    .metric-value {
+    .metric-val {
       font-family: var(--font-display);
       font-size: 1.25rem;
       font-weight: 700;
       color: var(--emerald-glow);
     }
 
-    /* CBSE Exam Callout */
-    .cbse-exam-box {
+    /* CBSE High-Yield Exam Highlight */
+    .cbse-exam-highlight {
       background: rgba(245, 158, 11, 0.09);
       border-left: 3px solid var(--amber-gold);
       border-radius: 0 12px 12px 0;
@@ -499,7 +499,7 @@
       margin-top: 14px;
     }
 
-    .cbse-exam-box strong {
+    .cbse-exam-highlight strong {
       color: #fff;
       font-family: var(--font-tech);
       font-size: 0.74rem;
@@ -510,7 +510,7 @@
     }
 
     /* Action Trigger Button */
-    .glow-action-btn {
+    .glow-pop-btn {
       font-family: var(--font-tech);
       font-size: 0.8rem;
       font-weight: 700;
@@ -530,33 +530,33 @@
       margin-top: 6px;
     }
 
-    .glow-action-btn:hover {
+    .glow-pop-btn:hover {
       transform: translateY(-2px) scale(1.04);
       box-shadow: 0 0 38px rgba(52, 211, 153, 0.7);
       background: linear-gradient(135deg, var(--emerald-glow), var(--emerald-neon));
     }
 
-    /* North vs South Comparison Matrix */
-    .compare-matrix {
+    /* Comparison Matrix */
+    .compare-matrix-box {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin-top: 12px;
     }
 
-    .compare-side {
+    .matrix-panel {
       background: rgba(0, 0, 0, 0.45);
       border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: 14px;
       padding: 14px;
     }
 
-    .compare-side.south {
+    .matrix-panel.south {
       border-color: rgba(52, 211, 153, 0.4);
       background: rgba(16, 185, 129, 0.07);
     }
 
-    .compare-side-title {
+    .matrix-title {
       font-family: var(--font-tech);
       font-size: 0.74rem;
       font-weight: 700;
@@ -565,28 +565,28 @@
       margin-bottom: 8px;
     }
 
-    .compare-side.south .compare-side-title {
+    .matrix-panel.south .matrix-title {
       color: var(--emerald-glow);
     }
 
-    .compare-side.north .compare-side-title {
+    .matrix-panel.north .matrix-title {
       color: #94a3b8;
     }
 
-    .compare-side-list {
+    .matrix-list {
       list-style: none;
       font-size: 0.78rem;
       line-height: 1.6;
       color: #cbd5e1;
     }
 
-    .compare-side-list li {
+    .matrix-list li {
       margin-bottom: 6px;
       position: relative;
       padding-left: 12px;
     }
 
-    .compare-side-list li::before {
+    .matrix-list li::before {
       content: '▸';
       position: absolute;
       left: 0;
@@ -594,7 +594,7 @@
     }
 
     /* By-Product Cascade Cards */
-    .byproduct-row {
+    .byproduct-card-row {
       display: flex;
       align-items: flex-start;
       gap: 12px;
@@ -606,18 +606,18 @@
       transition: all 0.25s ease;
     }
 
-    .byproduct-row:hover {
+    .byproduct-card-row:hover {
       background: rgba(255, 255, 255, 0.08);
       border-color: var(--emerald-glow);
       transform: translateX(4px);
     }
 
-    .byproduct-icon {
+    .byproduct-emoji-icon {
       font-size: 1.3rem;
       line-height: 1;
     }
 
-    .byproduct-content h4 {
+    .byproduct-details h4 {
       font-family: var(--font-tech);
       font-size: 0.8rem;
       letter-spacing: 1px;
@@ -626,26 +626,26 @@
       margin-bottom: 3px;
     }
 
-    .byproduct-content p {
+    .byproduct-details p {
       font-size: 0.78rem;
       color: var(--text-muted);
       line-height: 1.45;
     }
 
     /* Interactive CBSE Quiz */
-    .quiz-card {
+    .quiz-card-wrapper {
       max-width: 660px;
       width: 100%;
     }
 
-    .quiz-options-group {
+    .quiz-options-flow {
       display: flex;
       flex-direction: column;
       gap: 9px;
       margin: 16px 0;
     }
 
-    .quiz-option-button {
+    .quiz-option-pill {
       font-family: var(--font-body);
       font-size: 0.9rem;
       color: #cbd5e1;
@@ -661,26 +661,26 @@
       align-items: center;
     }
 
-    .quiz-option-button:hover {
+    .quiz-option-pill:hover {
       background: rgba(16, 185, 129, 0.16);
       border-color: var(--emerald-glow);
       color: #fff;
     }
 
-    .quiz-option-button.correct {
+    .quiz-option-pill.correct {
       background: rgba(16, 185, 129, 0.35) !important;
       border-color: var(--emerald-glow) !important;
       color: #fff !important;
       font-weight: 700;
     }
 
-    .quiz-option-button.wrong {
+    .quiz-option-pill.wrong {
       background: rgba(239, 68, 68, 0.35) !important;
       border-color: #ef4444 !important;
       color: #fca5a5 !important;
     }
 
-    .quiz-feedback-box {
+    .quiz-feedback-banner {
       font-family: var(--font-tech);
       font-size: 0.84rem;
       letter-spacing: 1px;
@@ -690,14 +690,14 @@
       display: none;
     }
 
-    /* Floating VFX Notification */
-    .vfx-hud-status {
+    /* Floating Dynamic Island Notification Toast */
+    .dynamic-toast {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 60;
-      background: rgba(3, 5, 4, 0.94);
+      background: rgba(2, 4, 3, 0.94);
       border: 1px solid var(--emerald-glow);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85), 0 0 28px rgba(16, 185, 129, 0.4);
       backdrop-filter: blur(18px);
@@ -712,10 +712,10 @@
       color: #fff;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .vfx-hud-status.visible {
+    .dynamic-toast.visible {
       opacity: 1;
       pointer-events: auto;
     }
@@ -724,7 +724,7 @@
     footer {
       position: relative;
       z-index: 20;
-      background: #020302;
+      background: #010202;
       border-top: 1px solid var(--glass-border);
       padding: 45px 25px;
       text-align: center;
@@ -742,24 +742,24 @@
       header {
         padding: 14px 18px;
       }
-      .spine-rail {
+      .chapter-spine-rail {
         display: none;
       }
-      .hero-split-text {
+      .hero-split-monolith {
         flex-direction: column;
         gap: 10px;
         text-align: center;
       }
-      .giant-word.right {
+      .monolith-word.right {
         text-align: center;
       }
       .metric-grid-2x2 {
         grid-template-columns: 1fr;
       }
-      .compare-matrix {
+      .compare-matrix-box {
         grid-template-columns: 1fr;
       }
-      .story-slide {
+      .scrolly-slide {
         padding: 75px 16px;
       }
     }
@@ -775,72 +775,73 @@
 
   <!-- Atmospheric VFX Layers -->
   <div class="film-grain"></div>
-  <div class="vignette-effect"></div>
-  <div class="vfx-nebula" id="vfxNebula"></div>
+  <div class="vignette-layer"></div>
+  <div class="ambient-nebula-vfx" id="ambientNebulaVfx"></div>
 
-  <!-- Header -->
+  <!-- iPhone-Level Header Island -->
   <header>
-    <div class="brand-meta">
-      <span class="brand-logo">SACCHARUM</span>
-      <span class="solo-indicator">SOLO PROJECT // RYAN FREDRICK RAVURU</span>
+    <div class="brand-group">
+      <span class="brand-name">SACCHARUM</span>
+      <span class="solo-tag">SOLO PROJECT // RYAN FREDRICK RAVURU</span>
     </div>
 
-    <div class="header-actions">
-      <button class="interactive-pill" id="actionVfxBtn" onclick="triggerPopAction()">
-        <span id="actionBtnIcon">🥤</span>
-        <span id="actionBtnText">Interact with 3D</span>
+    <div class="header-dock">
+      <button class="island-btn" id="actionPillBtn" onclick="triggerInteractivePop()">
+        <span id="dockActionIcon">🥤</span>
+        <span id="dockActionLabel">Interact with 3D</span>
       </button>
-      <button class="interactive-pill" id="orbitModeBtn" onclick="toggleFreeOrbit()">
+      <button class="island-btn" id="soundscapeBtn" onclick="cycleSoundscape()">
+        <span id="soundscapeIcon">🎵</span>
+        <span id="soundscapeLabel">Sound: Wind & Field</span>
+      </button>
+      <button class="island-btn" id="orbitModeBtn" onclick="toggleFreeOrbit()">
         <span id="orbitIcon">🪐</span>
         <span id="orbitText">360° Free Orbit</span>
-      </button>
-      <button class="interactive-pill" id="soundBtn" onclick="toggleAudio()">
-        <span id="soundLabel">🔊 Sound: ON</span>
       </button>
     </div>
   </header>
 
   <!-- Navigation Spine -->
-  <div class="spine-rail">
-    <div class="rail-dot active" onclick="scrollToStage(0)"><span class="rail-tooltip">00 Monolith Stalk</span></div>
-    <div class="rail-dot" onclick="scrollToStage(1)"><span class="rail-tooltip">01 Sprouting Sett & Soil</span></div>
-    <div class="rail-dot" onclick="scrollToStage(2)"><span class="rail-tooltip">02 Monsoon & Sun Biosphere</span></div>
-    <div class="rail-dot" onclick="scrollToStage(3)"><span class="rail-tooltip">03 Fresh Cane Juice Glass</span></div>
-    <div class="rail-dot" onclick="scrollToStage(4)"><span class="rail-tooltip">04 3D India Map & Shift</span></div>
-    <div class="rail-dot" onclick="scrollToStage(5)"><span class="rail-tooltip">05 Roadside Cane Crusher</span></div>
-    <div class="rail-dot" onclick="scrollToStage(6)"><span class="rail-tooltip">06 Boiling Gur & E20 Flame</span></div>
-    <div class="rail-dot" onclick="scrollToStage(7)"><span class="rail-tooltip">07 Golden Sugar Cubes Quiz</span></div>
+  <div class="chapter-spine-rail">
+    <div class="spine-dot-node active" onclick="scrollToStage(0)"><span class="spine-label-tip">00 Living Stalk</span></div>
+    <div class="spine-dot-node" onclick="scrollToStage(1)"><span class="spine-label-tip">01 Sprouting Sett & Soil</span></div>
+    <div class="spine-dot-node" onclick="scrollToStage(2)"><span class="spine-label-tip">02 Monsoon Biosphere</span></div>
+    <div class="spine-dot-node" onclick="scrollToStage(3)"><span class="spine-label-tip">03 Fresh Ganne Ka Ras</span></div>
+    <div class="spine-dot-node" onclick="scrollToStage(4)"><span class="spine-label-tip">04 3D India Map & Shift</span></div>
+    <div class="spine-dot-node" onclick="scrollToStage(5)"><span class="spine-label-tip">05 Mechanical Cane Crusher</span></div>
+    <div class="spine-dot-node" onclick="scrollToStage(6)"><span class="spine-label-tip">06 Boiling Gur & E20 Biofuel</span></div>
+    <div class="spine-dot-node" onclick="scrollToStage(7)"><span class="spine-label-tip">07 Sucrose Cubes & Quiz</span></div>
   </div>
 
-  <!-- Storyline Sections -->
-  <main class="story-track">
+  <!-- Storyline Viewport Track -->
+  <main class="viewport-track">
 
     <!-- STAGE 0: HERO MONOLITH STALK -->
-    <section class="story-slide center" id="stage0">
-      <div class="hero-box">
-        <div class="hero-top-info">
-          <div class="info-tag-left">
+    <section class="scrolly-slide center" id="stage0">
+      <div class="hero-container">
+        <div class="hero-meta-row">
+          <div class="meta-tag-l">
             [C4 PHOTOSYNTHETIC PERENNIAL]<br>
             SACCHARUM OFFICINARUM<br>
             2ND LARGEST GLOBAL PRODUCER
           </div>
-          <div class="info-tag-right">
+          <div class="meta-tag-r">
             [CBSE CLASS 10 GEOGRAPHY]<br>
             CHAPTER 4: AGRICULTURE<br>
             SOLO RESEARCH STUDY
           </div>
         </div>
 
-        <div class="hero-split-text">
-          <div class="giant-word">BORN OF</div>
-          <div class="giant-word right">THE SOIL</div>
+        <div class="hero-split-monolith">
+          <div class="monolith-word">BORN OF</div>
+          <div class="monolith-word right">THE SOIL</div>
         </div>
 
-        <div class="hero-bottom-info">
-          <div class="hero-stats-capsules">
+        <div class="hero-footer-stats">
+          <div class="hero-pill-stats">
             <span>CROP: <b>SUGARCANE (ईख)</b></span>
             <span>FAMILY: <b>POACEAE (GRASS)</b></span>
-            <span>RANK: <b>#2 WORLDWIDE</b></span>
+            <span>INDIA: <b>#2 GLOBAL HARVEST</b></span>
           </div>
           <div class="scroll-down-cue">
             <span>SCROLL TO EXPLORE 3D AGRICULTURAL CHRONICLES</span>
@@ -852,135 +853,135 @@
       </div>
     </section>
 
-    <!-- STAGE 1: SPROUTING STEM SETT & SOIL (100% RELATABLE FARMING) -->
-    <section class="story-slide left" id="stage1">
-      <div class="vfx-card">
-        <div class="card-vfx-badge">CHAPTER 01 // 3D MORPH: THE SPROUTING SETT</div>
+    <!-- STAGE 1: SPROUTING STEM SETT & SOIL -->
+    <section class="scrolly-slide left" id="stage1">
+      <div class="apple-glass-card">
+        <div class="card-topic-tag">CHAPTER 01 // 3D MORPH: THE SPROUTING SETT</div>
         <h2 class="card-title">THE STEM SETT</h2>
         <div class="card-subtitle">Farmer Planting Technology & Bud Germination</div>
-        <p class="card-description">
-          Sugarcane is never grown from seeds. Indian farmers plant <strong>stem setts (गन्ने के टुकड़े)</strong> with 2–3 swollen nodal buds directly into moist soil furrows. In the 3D viewport, watch an actual cutting anchored in rich alluvial earth with a fresh green tiller shoot pushing upwards and delicate white rootlets spreading into the soil.
+        <p class="card-body-text">
+          Sugarcane is never grown from delicate seeds. Indian farmers plant <strong>stem setts (गन्ने के टुकड़े)</strong> with 2–3 swollen nodal buds directly into moist soil furrows. In the 3D viewport, examine a horizontal cutting anchored in layered alluvial soil with a fresh green tiller shoot pushing upwards and delicate white rootlets spreading into the soil.
         </p>
 
         <div class="metric-grid-2x2">
-          <div class="metric-item">
-            <div class="metric-label">Botanical Unit</div>
-            <div class="metric-value">Stem Setts</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Botanical Unit</div>
+            <div class="metric-val">Stem Setts</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Setts Per Hectare</div>
-            <div class="metric-value">~35,000 Setts</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Setts Per Hectare</div>
+            <div class="metric-val">~35,000 Setts</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Germination Window</div>
-            <div class="metric-value">12 – 18 Days</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Germination Window</div>
+            <div class="metric-val">12 – 18 Days</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Eye-Bud Alignment</div>
-            <div class="metric-value">180° Alternating</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Eye-Bud Alignment</div>
+            <div class="metric-val">180° Alternating</div>
           </div>
         </div>
 
-        <div class="cbse-exam-box">
+        <div class="cbse-exam-highlight">
           <strong>CBSE Board Focus:</strong>
           Vegetative propagation via setts guarantees genetically identical clones with uniform sucrose recovery and protects young tillers from seed blight.
         </div>
       </div>
     </section>
 
-    <!-- STAGE 2: TROPICAL MONSOON & SUN (100% RELATABLE WEATHER) -->
-    <section class="story-slide right" id="stage2">
-      <div class="vfx-card">
-        <div class="card-vfx-badge">CHAPTER 02 // 3D MORPH: MONSOON & SUN BIOSPHERE</div>
+    <!-- STAGE 2: TROPICAL MONSOON & SUN BIOSPHERE -->
+    <section class="scrolly-slide right" id="stage2">
+      <div class="apple-glass-card">
+        <div class="card-topic-tag">CHAPTER 02 // 3D MORPH: MONSOON & SUN BIOSPHERE</div>
         <h2 class="card-title">HEAT, WATER & LABOUR</h2>
         <div class="card-subtitle">Tropical Atmospheric Growth Matrix</div>
-        <p class="card-description">
+        <p class="card-body-text">
           The 3D model transforms into an agricultural weather terrarium. An intense golden tropical sun radiates optimal heat at <strong>21°C–27°C</strong>, while active 3D monsoon rain droplets shower down over rich alluvial and black cotton soil, simulating the mandatory <strong>75–100 cm annual rainfall</strong>.
         </p>
 
         <div class="metric-grid-2x2">
-          <div class="metric-item">
-            <div class="metric-label">Optimal Heat</div>
-            <div class="metric-value">21°C – 27°C</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Optimal Heat</div>
+            <div class="metric-val">21°C – 27°C</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Annual Rainfall</div>
-            <div class="metric-value">75 – 100 cm</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Annual Rainfall</div>
+            <div class="metric-val">75 – 100 cm</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Soil Adaptability</div>
-            <div class="metric-value">Alluvial & Black</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Soil Adaptability</div>
+            <div class="metric-val">Alluvial & Black</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Critical Danger</div>
-            <div class="metric-value">Frost (Inverts Sugar)</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Critical Danger</div>
+            <div class="metric-val">Frost (Inverts Sugar)</div>
           </div>
         </div>
 
-        <div class="cbse-exam-box">
+        <div class="cbse-exam-highlight">
           <strong>CBSE Agricultural Criteria:</strong>
           In low-rainfall regions (&lt;75 cm), canal or tubewell irrigation is compulsory. Intensive manual labour is required from sowing to harvesting because machines cannot operate on small, fragmented Indian farm holdings.
         </div>
       </div>
     </section>
 
-    <!-- STAGE 3: FRESH SUGARCANE JUICE GLASS (100% RELATABLE INDIAN ICON) -->
-    <section class="story-slide left" id="stage3">
-      <div class="vfx-card">
-        <div class="card-vfx-badge">CHAPTER 03 // 3D MORPH: FRESH GANNE KA RAS</div>
+    <!-- STAGE 3: FRESH SUGARCANE JUICE (GANNE KA RAS) -->
+    <section class="scrolly-slide left" id="stage3">
+      <div class="apple-glass-card">
+        <div class="card-topic-tag">CHAPTER 03 // 3D MORPH: FRESH GANNE KA RAS</div>
         <h2 class="card-title">GANNE KA RAS</h2>
         <div class="card-subtitle">Sweet Sucrose Sap, Floating Ice & Mint Sprig</div>
-        <p class="card-description">
+        <p class="card-body-text">
           Nothing is more relatable than a fresh, chilled glass of <strong>Ganne Ka Ras (गन्ने का रस)</strong>. The 3D scene morphs into an authentic frosted glass filled with vibrant sweet cane juice, floating translucent ice cubes, effervescent fizzy bubbles, a lemon slice on the rim, and a fresh mint sprig.
         </p>
 
         <div class="metric-grid-2x2">
-          <div class="metric-item">
-            <div class="metric-label">Juice Water Content</div>
-            <div class="metric-value">75% – 82%</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Juice Water Content</div>
+            <div class="metric-val">75% – 82%</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Sucrose Recovery</div>
-            <div class="metric-value">12% – 18%</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Sucrose Recovery</div>
+            <div class="metric-val">12% – 18%</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Organic Acids & Minerals</div>
-            <div class="metric-value">Iron, Calcium, K+</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Organic Minerals</div>
+            <div class="metric-val">Iron, Calcium, K+</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Storage Tissue</div>
-            <div class="metric-value">Pith Parenchyma</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Storage Tissue</div>
+            <div class="metric-val">Pith Parenchyma</div>
           </div>
         </div>
 
-        <button class="glow-action-btn" onclick="stirJuiceVfx()">
+        <button class="glow-pop-btn" onclick="stirJuiceVfx()">
           <span>🥤 Swirl Juice & Ice Cubes</span>
         </button>
       </div>
     </section>
 
-    <!-- STAGE 4: 3D INDIA TOPOGRAPHY & NORTH-SOUTH SHIFT (100% RELATABLE CBSE MAP) -->
-    <section class="story-slide right" id="stage4">
-      <div class="vfx-card">
-        <div class="card-vfx-badge">CHAPTER 04 // 3D MORPH: INDIA'S SUGAR BELT MAP</div>
+    <!-- STAGE 4: 3D INDIA MAP & THE NORTH-TO-SOUTH SHIFT -->
+    <section class="scrolly-slide right" id="stage4">
+      <div class="apple-glass-card">
+        <div class="card-topic-tag">CHAPTER 04 // 3D MORPH: INDIA'S SUGAR BELT MAP</div>
         <h2 class="card-title">THE PENINSULAR SHIFT</h2>
         <div class="card-subtitle">Why Sugar Mills Migrated to South India</div>
-        <p class="card-description">
-          A 3D topographical map of India emerges in the viewport. Glowing amber markers highlight the traditional Northern plains (UP & Bihar), while radiant emerald beacons and tropical maritime breeze streams highlight Peninsular India (Maharashtra, Karnataka, Tamil Nadu, and Telangana).
+        <p class="card-body-text">
+          A 3D topographical map plate of India emerges in the viewport. Glowing amber markers highlight the traditional Northern plains (UP & Bihar), while radiant emerald beacons and tropical maritime breeze streams highlight Peninsular India (Maharashtra, Karnataka, Tamil Nadu, and Telangana).
         </p>
 
-        <div class="compare-matrix">
-          <div class="compare-side south">
-            <div class="compare-side-title">Peninsular South (Leader)</div>
-            <ul class="compare-side-list">
+        <div class="compare-matrix-box">
+          <div class="matrix-panel south">
+            <div class="matrix-title">Peninsular South (Leader)</div>
+            <ul class="matrix-list">
               <li><strong>Higher Sucrose:</strong> Marine tropical humidity prevents drying up of cane juice.</li>
               <li><strong>Longer Crushing:</strong> 7 to 8 months without winter frost interruptions.</li>
               <li><strong>Cooperative Success:</strong> Flourishing farmer-run cooperative mills.</li>
             </ul>
           </div>
-          <div class="compare-side north">
-            <div class="compare-side-title">Northern Plains (Traditional)</div>
-            <ul class="compare-side-list">
+          <div class="matrix-panel north">
+            <div class="matrix-title">Northern Plains (Traditional)</div>
+            <ul class="matrix-list">
               <li><strong>Shorter Season:</strong> Only 3 to 4 winter months before summer heat.</li>
               <li><strong>Frost Risk:</strong> Severe frost destroys sucrose via inversion.</li>
               <li><strong>Older Machinery:</strong> Traditional private mills with higher transit delay.</li>
@@ -988,78 +989,78 @@
           </div>
         </div>
 
-        <div class="cbse-exam-box">
+        <div class="cbse-exam-highlight">
           <strong>CBSE 5-Mark Must-Know:</strong>
           Four decisive factors: 1) Maritime climate preventing drying up, 2) Higher sucrose yield per quintal, 3) Longer crushing season of 7–8 months, and 4) Outstanding efficiency of cooperative mills in Maharashtra.
         </div>
       </div>
     </section>
 
-    <!-- STAGE 5: MECHANICAL CRUSHER MILL & 24-HR CLOCK (100% RELATABLE MACHINERY) -->
-    <section class="story-slide left" id="stage5">
-      <div class="vfx-card">
-        <div class="card-vfx-badge">CHAPTER 05 // 3D MORPH: ROADSIDE CRUSHER & GEARS</div>
+    <!-- STAGE 5: ROADSIDE MECHANICAL CANE CRUSHER MILL -->
+    <section class="scrolly-slide left" id="stage5">
+      <div class="apple-glass-card">
+        <div class="card-topic-tag">CHAPTER 05 // 3D MORPH: ROADSIDE CRUSHER & GEARS</div>
         <h2 class="card-title">THE 24-HOUR RACE</h2>
         <div class="card-subtitle">Heavy Grooved Rollers & The Invertase Countdown</div>
-        <p class="card-description">
+        <p class="card-body-text">
           Witness the iconic grooved iron rollers of a mechanical crusher mill in action. Counter-rotating steel cylinders exert hydraulic pressure, squeezing green cane into golden juice, with a holographic countdown chronometer ticking down the critical 24-hour delivery window.
         </p>
 
         <div class="metric-grid-2x2">
-          <div class="metric-item">
-            <div class="metric-label">Crushing Deadline</div>
-            <div class="metric-value">&lt; 24 Hours</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Crushing Deadline</div>
+            <div class="metric-val">&lt; 24 Hours</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Daily Sucrose Loss</div>
-            <div class="metric-value">~1.2% / Day Delay</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Daily Sucrose Loss</div>
+            <div class="metric-val">~1.2% / Day Delay</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Extraction System</div>
-            <div class="metric-value">Heavy Roller Mill</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Extraction System</div>
+            <div class="metric-val">Heavy Roller Mill</div>
           </div>
-          <div class="metric-item">
-            <div class="metric-label">Centrifugal Spin</div>
-            <div class="metric-value">1,200 RPM</div>
+          <div class="metric-cell">
+            <div class="metric-tag">Centrifugal Spin</div>
+            <div class="metric-val">1,200 RPM</div>
           </div>
         </div>
 
-        <div class="cbse-exam-box">
+        <div class="cbse-exam-highlight">
           <strong>Weight-Losing Raw Material:</strong>
           Sugar mills must be established directly within sugarcane farming belts. Transporting heavy stalks over long distances causes severe economic loss because the cane dries up.
         </div>
       </div>
     </section>
 
-    <!-- STAGE 6: BOILING GUR & E20 FUEL NOZZLE (100% RELATABLE BY-PRODUCTS) -->
-    <section class="story-slide right" id="stage6">
-      <div class="vfx-card">
-        <div class="card-vfx-badge">CHAPTER 06 // 3D MORPH: BOILING GUR & E20 NOZZLE</div>
+    <!-- STAGE 6: BOILING GUR & E20 BIO-FLAME NOZZLE -->
+    <section class="scrolly-slide right" id="stage6">
+      <div class="apple-glass-card">
+        <div class="card-topic-tag">CHAPTER 06 // 3D MORPH: BOILING GUR & E20 NOZZLE</div>
         <h2 class="card-title">CIRCULAR BIO-ECONOMY</h2>
         <div class="card-subtitle">Gur, Khandsari, Bagasse Electricity & E20 Ethanol</div>
-        <p class="card-description">
-          The 3D model transforms into a traditional iron boiling kadhai filled with bubbling golden **Gur (Jaggery / गुड़)** and solid jaggery blocks, alongside a modern **E20 Bio-Ethanol Fuel Nozzle** with a clean bio-flame and green electrical sparks from burning bagasse!
+        <p class="card-body-text">
+          The 3D model transforms into a traditional iron boiling kadhai filled with bubbling golden <strong>Gur (Jaggery / गुड़)</strong> and solid jaggery blocks, alongside a modern <strong>E20 Bio-Ethanol Fuel Nozzle</strong> with a clean bio-flame and green electrical sparks from burning bagasse!
         </p>
 
-        <div class="byproduct-row">
-          <div class="byproduct-icon">⚡</div>
-          <div class="byproduct-content">
+        <div class="byproduct-card-row">
+          <div class="byproduct-emoji-icon">⚡</div>
+          <div class="byproduct-details">
             <h4>Bagasse (Crushed Fiber)</h4>
             <p>Burned in cogeneration boilers to generate 100% of mill electricity, exporting surplus green power to the state electrical grid. Also manufactured into eco-paper.</p>
           </div>
         </div>
 
-        <div class="byproduct-row">
-          <div class="byproduct-icon">⛽</div>
-          <div class="byproduct-content">
+        <div class="byproduct-card-row">
+          <div class="byproduct-emoji-icon">⛽</div>
+          <div class="byproduct-details">
             <h4>Molasses & Ethanol (E20)</h4>
             <p>Dark viscous residue fermented into anhydrous 99.8% bio-ethanol for India's 20% petrol blending mandate, cutting crude imports and vehicular greenhouse gases.</p>
           </div>
         </div>
 
-        <div class="byproduct-row">
-          <div class="byproduct-icon">🌱</div>
-          <div class="byproduct-content">
+        <div class="byproduct-card-row">
+          <div class="byproduct-emoji-icon">🌱</div>
+          <div class="byproduct-details">
             <h4>Press Mud (Filter Cake)</h4>
             <p>Mineral and phosphorus-rich organic residue recycled directly back to farmer fields as a potent natural organic soil conditioner.</p>
           </div>
@@ -1067,10 +1068,10 @@
       </div>
     </section>
 
-    <!-- STAGE 7: GOLDEN SUGAR CUBES & BOARD QUIZ (100% RELATABLE EVALUATION) -->
-    <section class="story-slide center" id="stage7">
-      <div class="vfx-card quiz-card">
-        <div class="card-vfx-badge">CHAPTER 07 // 3D MORPH: CRYSTAL SUGAR CUBES</div>
+    <!-- STAGE 7: SUCROSE CUBES & BOARD QUIZ -->
+    <section class="scrolly-slide center" id="stage7">
+      <div class="apple-glass-card quiz-card-wrapper">
+        <div class="card-topic-tag">CHAPTER 07 // 3D MORPH: CRYSTAL SUGAR CUBES</div>
         <h2 class="card-title">CBSE BOARD EXAM QUIZ</h2>
         <div class="card-subtitle">Mastery Evaluation on Class 10 Sugarcane Agriculture</div>
 
@@ -1083,10 +1084,10 @@
           Loading question...
         </h3>
 
-        <div class="quiz-options-group" id="quizOptionsContainer"></div>
-        <div class="quiz-feedback-box" id="quizFeedbackMessage"></div>
+        <div class="quiz-options-flow" id="quizOptionsContainer"></div>
+        <div class="quiz-feedback-banner" id="quizFeedbackMessage"></div>
 
-        <button class="glow-action-btn" id="nextQuestionButton" onclick="handleNextQuestion()" style="display: none; width: 100%; justify-content: center; margin-top: 14px;">
+        <button class="glow-pop-btn" id="nextQuestionButton" onclick="handleNextQuestion()" style="display: none; width: 100%; justify-content: center; margin-top: 14px;">
           <span>Next Board Question →</span>
         </button>
       </div>
@@ -1094,60 +1095,97 @@
 
   </main>
 
-  <!-- Floating VFX HUD Status -->
-  <div class="vfx-hud-status" id="vfxHudToast">
-    <span id="hudIcon">✨</span>
-    <span id="hudMessage">3D Model Transformation Initialized</span>
+  <!-- Dynamic Island Notification Toast -->
+  <div class="dynamic-toast" id="dynamicToast">
+    <span id="toastIcon">✨</span>
+    <span id="toastMessage">3D Model Transformation Initialized</span>
   </div>
 
   <!-- Footer -->
   <footer>
     <p>SACCHARUM // THE LIVING SUGARCANE ODYSSEY • CBSE CLASS 10 SOCIAL SCIENCE</p>
     <p style="margin-top: 6px; color: #cbd5e1;">Solo Research Project by <b>Ryan Fredrick Ravuru</b></p>
-    <p style="margin-top: 4px; font-size: 0.7rem; color: var(--emerald-glow);">Real-Time Multi-Object Three.js Engine • Interactive Agricultural VFX</p>
+    <p style="margin-top: 4px; font-size: 0.7rem; color: var(--emerald-glow);">Real-Time Multi-Object Three.js Engine • Procedural Agricultural VFX</p>
   </footer>
 
   <!-- WebGL 3D Engine & Interactive Logic -->
   <script>
     /* ==========================================================================
-       1. SYNTHETIC AUDIO ENGINE (Web Audio API)
+       1. SYNTHETIC BINAURAL AUDIO ENGINE (Procedural Noise & Harmonizers)
        ========================================================================== */
-    let isAudioActive = true;
     let audioCtx = null;
+    let soundscapeMode = 1; // 1: Wind & Rain, 2: Juice Stall Ambiance, 0: Muted
+    let ambientGain = null;
+    let rainSource = null;
 
-    function getAudio() {
+    function initAudioEngine() {
       if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Procedural White Noise Generator for wind/rain
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(450, audioCtx.currentTime);
+
+        ambientGain = audioCtx.createGain();
+        ambientGain.gain.setValueAtTime(0.018, audioCtx.currentTime);
+
+        whiteNoise.connect(filter);
+        filter.connect(ambientGain);
+        ambientGain.connect(audioCtx.destination);
+        whiteNoise.start(0);
       }
       if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
-      return audioCtx;
     }
 
-    function playNote(freq = 520, duration = 0.8, type = 'sine') {
-      if (!isAudioActive) return;
+    function playTone(freq = 520, duration = 0.8, type = 'sine') {
+      if (soundscapeMode === 0) return;
       try {
-        const ctx = getAudio();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
+        initAudioEngine();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
         osc.type = type;
-        osc.frequency.setValueAtTime(freq, ctx.currentTime);
-        gain.gain.setValueAtTime(0.08, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
         osc.connect(gain);
-        gain.connect(ctx.destination);
+        gain.connect(audioCtx.destination);
         osc.start();
-        osc.stop(ctx.currentTime + duration);
+        osc.stop(audioCtx.currentTime + duration);
       } catch (e) {
         console.warn('Audio blocked:', e);
       }
     }
 
-    function toggleAudio() {
-      isAudioActive = !isAudioActive;
-      document.getElementById('soundLabel').textContent = isAudioActive ? '🔊 Sound: ON' : '🔇 Sound: OFF';
-      if (isAudioActive) playNote(660);
+    function cycleSoundscape() {
+      initAudioEngine();
+      soundscapeMode = (soundscapeMode + 1) % 3;
+      const label = document.getElementById('soundscapeLabel');
+      if (soundscapeMode === 1) {
+        label.textContent = 'Sound: Wind & Rain';
+        if (ambientGain) ambientGain.gain.setTargetAtTime(0.022, audioCtx.currentTime, 0.2);
+        playTone(660);
+      } else if (soundscapeMode === 2) {
+        label.textContent = 'Sound: Cyber Synth';
+        if (ambientGain) ambientGain.gain.setTargetAtTime(0.005, audioCtx.currentTime, 0.2);
+        playTone(880, 1.0, 'triangle');
+      } else {
+        label.textContent = 'Sound: Muted';
+        if (ambientGain) ambientGain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
+      }
     }
 
     /* ==========================================================================
@@ -1155,7 +1193,7 @@
        ========================================================================== */
     const canvas = document.getElementById('webgl-canvas');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x030504, 0.035);
+    scene.fog = new THREE.FogExp2(0x020403, 0.035);
 
     const camera = new THREE.PerspectiveCamera(44, window.innerWidth / window.innerHeight, 0.1, 80);
     camera.position.set(0, 0, 8.5);
@@ -1171,24 +1209,24 @@
     orbit.dampingFactor = 0.05;
     orbit.enabled = false;
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    // Lighting Rig
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.72);
     scene.add(ambientLight);
 
-    const sunLight = new THREE.DirectionalLight(0xfffaed, 1.4);
+    const sunLight = new THREE.DirectionalLight(0xfffaed, 1.45);
     sunLight.position.set(6, 8, 6);
     scene.add(sunLight);
 
-    const emeraldLight = new THREE.PointLight(0x10b981, 3.2, 25);
+    const emeraldLight = new THREE.PointLight(0x10b981, 3.4, 25);
     emeraldLight.position.set(-5, 2, -2);
     scene.add(emeraldLight);
 
-    const purpleLight = new THREE.PointLight(0xa855f7, 3.5, 25);
+    const purpleLight = new THREE.PointLight(0xa855f7, 3.6, 25);
     purpleLight.position.set(5, -2, -3);
     scene.add(purpleLight);
 
     /* ==========================================================================
-       3. EIGHT 100% RELATABLE 3D VISUAL OBJECTS (ONE PER SLIDE)
+       3. EIGHT 100% RELATABLE 3D VISUAL OBJECTS
        ========================================================================== */
     const modelGroups = [];
 
@@ -1199,7 +1237,7 @@
     scene.add(group0Stalk);
     modelGroups.push(group0Stalk);
 
-    const stalkRindMat = new THREE.MeshStandardMaterial({ color: 0x3d7031, roughness: 0.45, metalness: 0.15 });
+    const stalkRindMat = new THREE.MeshStandardMaterial({ color: 0x3d7031, roughness: 0.42, metalness: 0.15 });
     const stalkNodeMat = new THREE.MeshStandardMaterial({ color: 0xb5893a, roughness: 0.6, metalness: 0.1 });
 
     for (let i = 0; i < 6; i++) {
@@ -1234,20 +1272,17 @@
     scene.add(group1Sett);
     modelGroups.push(group1Sett);
 
-    // Soil Mound Disc
     const soilMat = new THREE.MeshStandardMaterial({ color: 0x2e2014, roughness: 0.9, metalness: 0.05 });
     const soilMound = new THREE.Mesh(new THREE.CylinderGeometry(2.0, 2.4, 0.5, 32), soilMat);
     soilMound.position.y = -1.2;
     group1Sett.add(soilMound);
 
-    // Thick horizontal cane sett
     const settMat = new THREE.MeshStandardMaterial({ color: 0x4d7c2a, roughness: 0.55, metalness: 0.1 });
     const settStick = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 2.4, 20), settMat);
     settStick.rotation.z = Math.PI / 2;
     settStick.position.y = -0.8;
     group1Sett.add(settStick);
 
-    // Sprouting fresh green tiller shoot pushing straight up
     const shootGreenMat = new THREE.MeshStandardMaterial({ color: 0x4ade80, emissive: 0x22c55e, emissiveIntensity: 0.45 });
     const shootPath = new THREE.CubicBezierCurve3(
       new THREE.Vector3(0, -0.6, 0),
@@ -1258,7 +1293,6 @@
     const shootSprout = new THREE.Mesh(new THREE.TubeGeometry(shootPath, 20, 0.12, 8, false), shootGreenMat);
     group1Sett.add(shootSprout);
 
-    // Spreading fibrous white roots
     const rootMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.8 });
     for (let r = 0; r < 12; r++) {
       const rootCurve = new THREE.CubicBezierCurve3(
@@ -1278,18 +1312,15 @@
     scene.add(group2Climate);
     modelGroups.push(group2Climate);
 
-    // Golden solar core (21°C - 27°C)
     const sunMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0xfbbf24, emissiveIntensity: 0.95 });
     const sunSphere = new THREE.Mesh(new THREE.SphereGeometry(1.15, 32, 32), sunMat);
     sunSphere.position.set(0, 1.2, 0);
     group2Climate.add(sunSphere);
 
-    // Alluvial Soil Base Disk
     const soilBase = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 2.2, 0.4, 32), soilMat);
     soilBase.position.y = -1.5;
     group2Climate.add(soilBase);
 
-    // 3D Falling Rain Streaks (75 - 100 cm)
     const rainCount = 220;
     const rainGeo = new THREE.BufferGeometry();
     const rainCoords = new Float32Array(rainCount * 3);
@@ -1310,7 +1341,6 @@
     scene.add(group3Juice);
     modelGroups.push(group3Juice);
 
-    // Transparent Glass Tumbler
     const glassMat = new THREE.MeshPhysicalMaterial({
       color: 0xffffff,
       transmission: 0.92,
@@ -1323,7 +1353,6 @@
     const glassMesh = new THREE.Mesh(new THREE.CylinderGeometry(1.05, 0.85, 2.8, 32, 1, true), glassMat);
     group3Juice.add(glassMesh);
 
-    // Rich Greenish-Gold Sugarcane Juice Inside
     const juiceMat = new THREE.MeshStandardMaterial({
       color: 0x84cc16,
       roughness: 0.2,
@@ -1335,13 +1364,11 @@
     juiceMesh.position.y = -0.15;
     group3Juice.add(juiceMesh);
 
-    // Foamy Froth on top of juice
     const frothMat = new THREE.MeshStandardMaterial({ color: 0xfef9c3, roughness: 0.8, metalness: 0.0 });
     const frothMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.99, 0.99, 0.25, 32), frothMat);
     frothMesh.position.y = 1.08;
     group3Juice.add(frothMesh);
 
-    // Floating Translucent Ice Cubes
     const iceMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, transmission: 0.95, roughness: 0.1, ior: 1.31 });
     const iceCubes = [];
     for (let ic = 0; ic < 4; ic++) {
@@ -1352,14 +1379,12 @@
       iceCubes.push(ice);
     }
 
-    // Lemon Slice on the glass rim
     const lemonMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.4 });
     const lemonSlice = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 0.08, 16), lemonMat);
     lemonSlice.position.set(0.95, 1.35, 0);
     lemonSlice.rotation.x = Math.PI / 2.5;
     group3Juice.add(lemonSlice);
 
-    // Effervescent Juice Bubbles inside
     const bubbleCount = 60;
     const bubbleGeo = new THREE.BufferGeometry();
     const bubblePos = new Float32Array(bubbleCount * 3);
@@ -1380,25 +1405,21 @@
     scene.add(group4Map);
     modelGroups.push(group4Map);
 
-    // 3D Topographic Plate representing India
     const mapMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5, metalness: 0.2 });
     const mapPlate = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.5, 0.3, 32), mapMat);
     mapPlate.rotation.x = Math.PI / 3;
     group4Map.add(mapPlate);
 
-    // North Sugar Belt Node (UP/Bihar) - Amber Warning Beacon
     const northNodeMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0xd97706, emissiveIntensity: 0.6 });
     const northBeacon = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.8, 12), northNodeMat);
     northBeacon.position.set(-0.2, 0.9, 0.5);
     group4Map.add(northBeacon);
 
-    // South Peninsular Sugar Belt Node (Maharashtra / Karnataka / Tamil Nadu) - Radiant Emerald
     const southNodeMat = new THREE.MeshStandardMaterial({ color: 0x10b981, emissive: 0x34d399, emissiveIntensity: 0.9 });
     const southBeacon = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 1.5, 12), southNodeMat);
     southBeacon.position.set(0.1, -0.6, 0.8);
     group4Map.add(southBeacon);
 
-    // Maritime Tropical Coastal Breeze Ring surrounding the South
     const breezeMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true, transparent: true, opacity: 0.65 });
     const breezeRing = new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.04, 12, 36), breezeMat);
     breezeRing.rotation.x = Math.PI / 3;
@@ -1414,7 +1435,6 @@
     const ironMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.85, roughness: 0.3 });
     const gearMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.9, roughness: 0.2, wireframe: true });
 
-    // Three counter-rotating grooved steel rollers
     const roller1 = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 2.2, 24), ironMat);
     roller1.rotation.z = Math.PI / 2;
     roller1.position.set(0, 0.75, 0);
@@ -1430,13 +1450,11 @@
     roller3.position.set(0.7, -0.7, 0);
     group5Mill.add(roller3);
 
-    // Classic Iron Flywheel on the side
     const flywheel = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.08, 12, 32), gearMat);
     flywheel.position.set(1.15, 0, 0);
     flywheel.rotation.y = Math.PI / 2;
     group5Mill.add(flywheel);
 
-    // Extracted fresh juice waterfall cascade
     const juiceStreamMat = new THREE.MeshBasicMaterial({ color: 0xa3e635, transparent: true, opacity: 0.8 });
     const juiceStream = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 2.2, 8), juiceStreamMat);
     juiceStream.position.set(0, -1.6, 0);
@@ -1449,13 +1467,11 @@
     scene.add(group6Gur);
     modelGroups.push(group6Gur);
 
-    // Traditional Iron Kadhai / Boiling Pan
     const kadhaiMat = new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.8, roughness: 0.4 });
     const kadhai = new THREE.Mesh(new THREE.CylinderGeometry(1.8, 1.2, 0.6, 32, 1, true), kadhaiMat);
     kadhai.position.set(-0.9, -0.6, 0);
     group6Gur.add(kadhai);
 
-    // Bubbling Golden Jaggery (Gur) Liquid
     const gurLiquidMat = new THREE.MeshStandardMaterial({
       color: 0xd97706,
       emissive: 0xb45309,
@@ -1466,20 +1482,17 @@
     gurLiquid.position.set(-0.9, -0.5, 0);
     group6Gur.add(gurLiquid);
 
-    // Solid Block of Golden Gur (Jaggery Mold)
     const gurBlockMat = new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.7 });
     const gurBlock = new THREE.Mesh(new THREE.ConeGeometry(0.7, 1.0, 16), gurBlockMat);
     gurBlock.position.set(-0.9, 0.3, 0);
     group6Gur.add(gurBlock);
 
-    // E20 Bio-Ethanol Green Fuel Nozzle
     const nozzleMat = new THREE.MeshStandardMaterial({ color: 0x10b981, metalness: 0.7, roughness: 0.3 });
     const nozzleHead = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 1.8, 16), nozzleMat);
     nozzleHead.position.set(1.4, 0.4, 0);
     nozzleHead.rotation.z = -Math.PI / 4;
     group6Gur.add(nozzleHead);
 
-    // Pulsing Blue-Green Biofuel Flame
     const bioFlameMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x06b6d4, emissiveIntensity: 0.9 });
     const bioFlame = new THREE.Mesh(new THREE.ConeGeometry(0.35, 1.2, 16), bioFlameMat);
     bioFlame.position.set(2.1, 1.1, 0);
@@ -1515,7 +1528,6 @@
     cube3.rotation.y = Math.PI / 5;
     group7Sugar.add(cube3);
 
-    // Orbiting Golden Knowledge Halo
     const haloMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24, wireframe: true, transparent: true, opacity: 0.65 });
     const halo = new THREE.Mesh(new THREE.TorusGeometry(1.7, 0.04, 12, 36), haloMat);
     halo.rotation.x = Math.PI / 2.3;
@@ -1554,42 +1566,42 @@
         modelPos: { x: 0, y: -0.2, z: 0 },
         camPos: { x: 0, y: 0, z: 8.2 },
         camLook: { x: 0, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(168, 85, 247, 0.12) 45%, transparent 70%)",
+        nebula: "radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(168, 85, 247, 0.14) 45%, transparent 72%)",
         dustHex: 0x10b981,
-        title: "00 // THE SUGARCANE STALK",
+        title: "00 // THE LIVING CANE CULM",
         btnIcon: "🌾",
-        btnText: "Sway Canopy"
+        btnText: "Breeze Surge"
       },
       {
         activeModel: 1,
         modelPos: { x: 1.8, y: 0.1, z: 0 },
         camPos: { x: 0, y: 0.1, z: 7.2 },
         camLook: { x: 0.4, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(52, 211, 153, 0.22) 0%, rgba(16, 185, 129, 0.09) 45%, transparent 70%)",
+        nebula: "radial-gradient(circle, rgba(52, 211, 153, 0.24) 0%, rgba(16, 185, 129, 0.1) 45%, transparent 72%)",
         dustHex: 0x34d399,
-        title: "01 // SPROUTING STEM SETT",
+        title: "01 // SPROUTING STEM SETT & SOIL",
         btnIcon: "🌱",
-        btnText: "Burst Root Growth"
+        btnText: "Burst Rootlets"
       },
       {
         activeModel: 2,
         modelPos: { x: -1.8, y: 0.1, z: 0 },
         camPos: { x: 0, y: 0.2, z: 7.4 },
         camLook: { x: -0.4, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(56, 189, 248, 0.12) 48%, transparent 70%)",
+        nebula: "radial-gradient(circle, rgba(245, 158, 11, 0.24) 0%, rgba(56, 189, 248, 0.14) 48%, transparent 72%)",
         dustHex: 0xf59e0b,
         title: "02 // MONSOON & SUN BIOSPHERE",
         btnIcon: "☀️",
-        btnText: "Intensify Rain & Heat"
+        btnText: "Monsoon Rain Flash"
       },
       {
         activeModel: 3,
         modelPos: { x: 1.7, y: 0.1, z: 0.2 },
         camPos: { x: 0, y: 0, z: 6.8 },
         camLook: { x: 0.35, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(132, 204, 22, 0.22) 0%, rgba(245, 158, 11, 0.12) 48%, transparent 70%)",
+        nebula: "radial-gradient(circle, rgba(132, 204, 22, 0.24) 0%, rgba(245, 158, 11, 0.14) 48%, transparent 72%)",
         dustHex: 0x84cc16,
-        title: "03 // FRESH CANE JUICE (GANNE KA RAS)",
+        title: "03 // FRESH GANNE KA RAS",
         btnIcon: "🥤",
         btnText: "Swirl Juice & Ice"
       },
@@ -1598,29 +1610,29 @@
         modelPos: { x: -1.7, y: 0, z: 0 },
         camPos: { x: 0, y: 0.1, z: 7.2 },
         camLook: { x: -0.35, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(6, 182, 212, 0.22) 0%, rgba(16, 185, 129, 0.12) 48%, transparent 70%)",
+        nebula: "radial-gradient(circle, rgba(6, 182, 212, 0.24) 0%, rgba(16, 185, 129, 0.14) 48%, transparent 72%)",
         dustHex: 0x22d3ee,
         title: "04 // 3D INDIA MAP // PENINSULAR SHIFT",
         btnIcon: "🧭",
-        btnText: "Pulse Maritime Breeze"
+        btnText: "Maritime Breeze Surge"
       },
       {
         activeModel: 5,
         modelPos: { x: 1.7, y: 0, z: 0 },
         camPos: { x: 0, y: 0, z: 7.2 },
         camLook: { x: 0.35, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(239, 68, 68, 0.18) 0%, rgba(245, 158, 11, 0.12) 48%, transparent 70%)",
+        nebula: "radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, rgba(245, 158, 11, 0.14) 48%, transparent 72%)",
         dustHex: 0xf87171,
-        title: "05 // ROADSIDE CANE CRUSHER MILL",
+        title: "05 // MECHANICAL CANE CRUSHER",
         btnIcon: "⚙️",
-        btnText: "Spin Roller Gears"
+        btnText: "Spin Crusher Gears"
       },
       {
         activeModel: 6,
         modelPos: { x: -1.7, y: 0.1, z: 0 },
         camPos: { x: 0, y: 0.1, z: 7.4 },
         camLook: { x: -0.35, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(16, 185, 129, 0.14) 48%, transparent 70%)",
+        nebula: "radial-gradient(circle, rgba(245, 158, 11, 0.24) 0%, rgba(16, 185, 129, 0.16) 48%, transparent 72%)",
         dustHex: 0xfbbf24,
         title: "06 // BOILING GUR & E20 BIO-FLAME",
         btnIcon: "🔥",
@@ -1631,7 +1643,7 @@
         modelPos: { x: 0, y: -0.1, z: -0.4 },
         camPos: { x: 0, y: 0.2, z: 8.0 },
         camLook: { x: 0, y: 0, z: 0 },
-        nebula: "radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(168, 85, 247, 0.15) 48%, transparent 70%)",
+        nebula: "radial-gradient(circle, rgba(245, 158, 11, 0.24) 0%, rgba(168, 85, 247, 0.16) 48%, transparent 72%)",
         dustHex: 0xfde047,
         title: "07 // PURE SUCROSE CRYSTAL CUBES",
         btnIcon: "✨",
@@ -1644,11 +1656,10 @@
       const cfg = slideConfigs[idx];
       if (!cfg) return;
 
-      // Model Scale & Visibility Transitions
       modelGroups.forEach((grp, mIdx) => {
         if (mIdx === cfg.activeModel) {
           grp.visible = true;
-          gsap.to(grp.scale, { x: 1, y: 1, z: 1, duration: 1.2, ease: "back.out(1.7)" });
+          gsap.to(grp.scale, { x: 1, y: 1, z: 1, duration: 1.25, ease: "back.out(1.75)" });
           gsap.to(grp.position, {
             x: cfg.modelPos.x,
             y: cfg.modelPos.y,
@@ -1670,7 +1681,6 @@
         }
       });
 
-      // Smooth camera movement
       gsap.to(camera.position, {
         x: cfg.camPos.x,
         y: cfg.camPos.y,
@@ -1679,25 +1689,24 @@
         ease: "power2.out"
       });
 
-      document.getElementById('vfxNebula').style.background = cfg.nebula;
+      document.getElementById('ambientNebulaVfx').style.background = cfg.nebula;
       dustMat.color.setHex(cfg.dustHex);
 
-      document.querySelectorAll('.rail-dot').forEach((dot, dIdx) => {
+      document.querySelectorAll('.spine-dot-node').forEach((dot, dIdx) => {
         dot.classList.toggle('active', dIdx === idx);
       });
 
-      // Update Header Action Pill based on active slide!
-      document.getElementById('actionBtnIcon').textContent = cfg.btnIcon;
-      document.getElementById('actionBtnText').textContent = cfg.btnText;
+      document.getElementById('dockActionIcon').textContent = cfg.btnIcon;
+      document.getElementById('dockActionLabel').textContent = cfg.btnText;
 
-      showHud(cfg.title);
+      showToast(cfg.title);
     }
 
     function scrollToStage(idx) {
       const el = document.getElementById('stage' + idx);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
-        playNote(480 + idx * 45);
+        playTone(480 + idx * 45);
       }
     }
 
@@ -1708,7 +1717,7 @@
       const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       document.getElementById('progressBar').style.width = pct + '%';
 
-      const slides = document.querySelectorAll('.story-slide');
+      const slides = document.querySelectorAll('.scrolly-slide');
       let found = 0;
       slides.forEach((sl, i) => {
         const rect = sl.getBoundingClientRect();
@@ -1720,16 +1729,16 @@
       if (found !== currentSlide) {
         currentSlide = found;
         applySlideTransition(currentSlide);
-        playNote(460 + currentSlide * 44, 0.7);
+        playTone(460 + currentSlide * 44, 0.7);
       }
     });
 
     /* ==========================================================================
-       6. INTERACTIVE ACTIONS (iPhone Pop-Out Effects)
+       6. INTERACTIVE ACTIONS (Apple Elastic Pop & Sound)
        ========================================================================== */
     function stirJuiceVfx() {
-      playNote(880, 1.2, 'sine');
-      showHud("🥤 Fresh Cane Juice Swirled with Ice & Mint");
+      playTone(880, 1.2, 'sine');
+      showToast("🥤 Fresh Cane Juice Swirled with Crushed Ice & Mint");
       gsap.to(juiceMesh.rotation, { y: "+=6.28", duration: 1.2, ease: "power2.out" });
       iceCubes.forEach(ic => {
         gsap.to(ic.position, {
@@ -1742,19 +1751,18 @@
       });
     }
 
-    function triggerPopAction() {
+    function triggerInteractivePop() {
       const cfg = slideConfigs[currentSlide];
       const activeGrp = modelGroups[cfg.activeModel];
-      playNote(780, 0.9, 'triangle');
-      showHud(`💥 3D Kinetic Pop: ${cfg.btnText}`);
+      playTone(780, 0.9, 'triangle');
+      showToast(`💥 3D Kinetic Pop: ${cfg.btnText}`);
 
-      // iPhone Elastic Pop effect
+      // Apple Elastic Pop Effect
       gsap.fromTo(activeGrp.scale,
         { x: 1.45, y: 1.45, z: 1.45 },
         { x: 1, y: 1, z: 1, duration: 1.0, ease: "elastic.out(1, 0.35)" }
       );
 
-      // Trigger bespoke action per slide
       if (currentSlide === 3) stirJuiceVfx();
     }
 
@@ -1768,27 +1776,27 @@
         btn.classList.add('active');
         text.textContent = 'Free Orbit: ON';
         icon.textContent = '🖐️';
-        showHud('🪐 360° Free Orbit Activated: Drag to examine 3D model freely');
-        playNote(780);
+        showToast('🪐 360° Free Orbit Activated: Drag to examine 3D model freely');
+        playTone(780);
       } else {
         btn.classList.remove('active');
         text.textContent = '360° Free Orbit';
         icon.textContent = '🪐';
-        showHud('📜 Locked to Scrollytelling Stage Guide');
-        playNote(420);
+        showToast('📜 Locked to Scrollytelling Stage Guide');
+        playTone(420);
         applySlideTransition(currentSlide);
       }
     }
 
     let toastTimer = null;
-    function showHud(txt) {
-      const hud = document.getElementById('vfxHudToast');
-      const msg = document.getElementById('hudMessage');
-      if (!hud || !msg) return;
+    function showToast(txt) {
+      const toast = document.getElementById('dynamicToast');
+      const msg = document.getElementById('toastMessage');
+      if (!toast || !msg) return;
       msg.textContent = txt;
-      hud.classList.add('visible');
+      toast.classList.add('visible');
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => hud.classList.remove('visible'), 3200);
+      toastTimer = setTimeout(() => toast.classList.remove('visible'), 3200);
     }
 
     /* ==========================================================================
@@ -1869,7 +1877,7 @@
 
       q.opts.forEach((optText, i) => {
         const btn = document.createElement('button');
-        btn.className = 'quiz-option-button';
+        btn.className = 'quiz-option-pill';
         btn.innerHTML = `<span><b>${String.fromCharCode(65 + i)}.</b> ${optText}</span><span class="badge-icon"></span>`;
         btn.onclick = () => chooseAnswer(i, btn);
         optsContainer.appendChild(btn);
@@ -1878,7 +1886,7 @@
 
     function chooseAnswer(idx, btn) {
       const q = examQuestions[currentQIdx];
-      const allBtns = document.querySelectorAll('.quiz-option-button');
+      const allBtns = document.querySelectorAll('.quiz-option-pill');
       allBtns.forEach(b => b.onclick = null);
 
       const fb = document.getElementById('quizFeedbackMessage');
@@ -1892,8 +1900,8 @@
         fb.style.border = '1px solid var(--emerald-glow)';
         fb.style.color = '#a7f3d0';
         fb.innerHTML = `★ <strong>BRILLIANT!</strong> ${q.exp}`;
-        playNote(880, 0.8);
-        triggerPopAction(); // Celebrate correct answer with 3D Pop!
+        playTone(880, 0.8);
+        triggerInteractivePop();
       } else {
         btn.classList.add('wrong');
         btn.querySelector('.badge-icon').textContent = '✗ Incorrect';
@@ -1902,7 +1910,7 @@
         fb.style.border = '1px solid #ef4444';
         fb.style.color = '#fca5a5';
         fb.innerHTML = `★ <strong>CBSE EXAM CONCEPT:</strong> ${q.exp}`;
-        playNote(260, 0.7, 'sawtooth');
+        playTone(260, 0.7, 'sawtooth');
       }
 
       document.getElementById('quizScoreText').textContent = `SCORE: ${scoreCount} / ${examQuestions.length}`;
@@ -1913,7 +1921,7 @@
       if (currentQIdx < examQuestions.length - 1) {
         currentQIdx++;
         renderQuizStage();
-        playNote(600);
+        playTone(600);
       } else {
         const optsContainer = document.getElementById('quizOptionsContainer');
         optsContainer.innerHTML = `
@@ -1925,7 +1933,7 @@
             <p style="color: #cbd5e1; font-size: 0.92rem; line-height: 1.6;">
               ${scoreCount >= 4 ? 'Mastery Achieved! You have thoroughly conquered all CBSE Class 10 Sugarcane Agriculture concepts.' : 'Solid effort! Re-read the North vs South migration and by-products chapters to lock in 100% in your board exams.'}
             </p>
-            <button class="glow-action-btn" onclick="restartQuizStage()" style="margin-top: 16px;">
+            <button class="glow-pop-btn" onclick="restartQuizStage()" style="margin-top: 16px;">
               <span>Restart Quiz ↺</span>
             </button>
           </div>
@@ -1933,8 +1941,8 @@
         document.getElementById('quizQuestionPrompt').textContent = "Evaluation Summary";
         document.getElementById('quizFeedbackMessage').style.display = 'none';
         document.getElementById('nextQuestionButton').style.display = 'none';
-        playNote(1040, 1.2);
-        triggerPopAction();
+        playTone(1040, 1.2);
+        triggerInteractivePop();
       }
     }
 
@@ -1942,11 +1950,11 @@
       currentQIdx = 0;
       scoreCount = 0;
       renderQuizStage();
-      playNote(520);
+      playTone(520);
     }
 
     /* ==========================================================================
-       8. MAIN RENDER LOOP & CARD 3D TILT PHYSICS
+       8. MAIN RENDER LOOP & APPLE-LEVEL 3D GYRO-TILT
        ========================================================================== */
     let mouseX = 0, mouseY = 0;
     window.addEventListener('mousemove', (e) => {
@@ -1954,7 +1962,7 @@
       mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
 
       // iPhone-Level 3D Card Hover Tilt Physics
-      const activeCard = document.querySelector(`#stage${currentSlide} .vfx-card`);
+      const activeCard = document.querySelector(`#stage${currentSlide} .apple-glass-card`);
       if (activeCard) {
         const tiltX = -mouseY * 8;
         const tiltY = mouseX * 8;
@@ -1968,7 +1976,6 @@
       requestAnimationFrame(animateMultiverse);
       const elapsed = clock.getElapsedTime();
 
-      // Continuous Bespoke Animations on Each Model:
       // Model 0: Stalk sway
       group0Stalk.rotation.y = elapsed * 0.35;
       group0Stalk.rotation.x = Math.sin(elapsed * 1.2) * 0.04;
@@ -2019,7 +2026,6 @@
       renderer.render(scene, camera);
     }
 
-    // Responsive Canvas Resizing & Viewport Math
     function onWindowResize() {
       const w = window.innerWidth;
       const h = window.innerHeight;
@@ -2041,7 +2047,6 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       onWindowResize();
-      // Initially show only model 0
       modelGroups.forEach((grp, idx) => {
         grp.visible = (idx === 0);
         if (idx !== 0) grp.scale.set(0.001, 0.001, 0.001);
