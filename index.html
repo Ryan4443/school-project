@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SACCHARUM // THE OMNISCIENCE — Cinematic 2.5D Parallax Experience</title>
+  <title>SACCHARUM // THE OMNISCIENCE — Multi-Layered 2.5D Monsoon Parallax</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
-  <!-- GSAP for 120Hz Hardware-Accelerated Smooth Animation -->
+  <!-- GSAP for 120Hz Hardware-Accelerated Animation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   
@@ -24,15 +24,14 @@
       --amber-gold: #ffd60a;
       --amber-glow: #f59e0b;
       --amethyst-neon: #bf5af2;
-      --amethyst-glow: #a855f7;
       --coral-neon: #ff375f;
       --text-muted: #8e8e93;
       --text-dim: #636366;
       --text-main: #f2f2f7;
       
-      --glass-amoled: rgba(6, 9, 7, 0.78);
-      --glass-border: rgba(255, 255, 255, 0.12);
-      --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.95);
+      --glass-amoled: rgba(6, 9, 7, 0.82);
+      --glass-border: rgba(255, 255, 255, 0.14);
+      --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.38), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.95);
       
       --font-serif: 'Cinzel', serif;
       --font-mono: 'Space Grotesk', monospace;
@@ -66,6 +65,38 @@
       z-index: 999;
       transition: width 0.08s ease-out;
     }
+
+    /* Fixed 2.5D Canvas Stages (Layered like Video 3 Cloud Parallax) */
+    #bg-cloud-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      background: var(--black-amoled);
+    }
+
+    #stage-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    #fg-mist-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 5;
+      pointer-events: none;
+    }
   
     /* AMOLED Ambient Nebulae */
     .amoled-glow-orb {
@@ -79,7 +110,7 @@
       max-height: 1200px;
       background: radial-gradient(circle, rgba(0, 255, 136, 0.12) 0%, rgba(0, 240, 255, 0.06) 38%, rgba(191, 90, 242, 0.04) 65%, transparent 75%);
       filter: blur(120px);
-      z-index: 1;
+      z-index: 2;
       pointer-events: none;
       transition: background 1.2s ease;
     }
@@ -91,20 +122,21 @@
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: 2;
-      background: radial-gradient(circle at 50% 50%, transparent 42%, rgba(0, 0, 0, 0.82) 80%, #000000 100%);
+      z-index: 6;
+      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.82) 80%, #000000 100%);
     }
 
-    /* Fixed Full-Screen Viewport Canvas (The Virtual Camera Stage) */
-    #stage-canvas {
+    /* Natural Sugarcane Canopy Silhouette Overlay (From Video 3 Cave Silhouette) */
+    .canopy-silhouette-frame {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 3;
+      z-index: 4;
       pointer-events: none;
-      background: var(--black-amoled);
+      background: radial-gradient(circle at 50% 50%, transparent 35%, rgba(0, 0, 0, 0.75) 75%, #000000 95%);
+      transition: opacity 0.5s ease;
     }
   
     /* Floating Header Dynamic Island */
@@ -250,7 +282,7 @@
       opacity: 1;
     }
 
-    /* FLOATING CAMERA CONTROL OVERLAY (FROM VIDEO 2 FIGMA PARALLAX) */
+    /* FLOATING CAMERA & MIST HUD CHIPS */
     .camera-hud-chip {
       position: fixed;
       top: 80px;
@@ -374,7 +406,7 @@
       text-align: center;
     }
 
-    /* Hero Monolith Presentation */
+    /* Hero Monolith Presentation with Depth Layering */
     .hero-container {
       width: 100%;
       height: 82vh;
@@ -467,10 +499,10 @@
       50% { transform: translateY(7px); opacity: 1; }
     }
 
-    /* 2.5D Deep-Layered AMOLED Glass Card */
+    /* 2.5D Deep-Layered AMOLED Glass Card (High-Density Knowledge) */
     .amoled-card {
       pointer-events: auto;
-      max-width: 580px;
+      max-width: 600px;
       background: var(--glass-amoled);
       backdrop-filter: blur(36px);
       -webkit-backdrop-filter: blur(36px);
@@ -830,8 +862,17 @@
   <!-- Top Progress Bar -->
   <div id="progressBar"></div>
 
-  <!-- Virtual Camera 2.5D Full-Screen Stage Canvas -->
+  <!-- Background Volumetric Cloud / Mist Canvas (Depth Layer 1) -->
+  <canvas id="bg-cloud-canvas"></canvas>
+
+  <!-- Virtual Camera 2.5D Stage Canvas (Depth Layer 3) -->
   <canvas id="stage-canvas"></canvas>
+
+  <!-- Foreground Drifting Vapor & Fog Canvas (Depth Layer 5 - Occluding Front) -->
+  <canvas id="fg-mist-canvas"></canvas>
+
+  <!-- Natural Cane Canopy Silhouette Frame (Depth Layer 4 - Parts Open on Scroll) -->
+  <div class="canopy-silhouette-frame" id="canopyFrame"></div>
 
   <!-- Vignette & Glow Overlays -->
   <div class="vignette-amoled"></div>
@@ -847,7 +888,11 @@
     <div class="header-dock">
       <button class="island-btn" id="cameraModeBtn" onclick="cycleCameraAngle()">
         <span>🎥</span>
-        <span id="cameraModeLabel">Cam: Cinematic Parallax</span>
+        <span id="cameraModeLabel">Cam: Parallax Cinematic</span>
+      </button>
+      <button class="island-btn" id="mistToggleBtn" onclick="toggleMistDensity()">
+        <span>☁️</span>
+        <span id="mistLabel">Monsoon Vapor: High</span>
       </button>
       <button class="island-btn" id="soundscapeBtn" onclick="cycleSoundEngine()">
         <span id="soundIcon">🎵</span>
@@ -856,10 +901,10 @@
     </div>
   </header>
 
-  <!-- Camera HUD Chip (From Video 2 Parallax Animation) -->
+  <!-- Camera HUD Chip (From Video 2 & 3 Parallax Animation) -->
   <div class="camera-hud-chip">
-    <span>CAM FOCUS:</span>
-    <b id="camFocusLabel">00 // MACRO MONOLITH</b>
+    <span>ATMOSPHERE:</span>
+    <b id="camFocusLabel">00 // MONSOON MIST PARALLAX</b>
   </div>
 
   <!-- Vertical Chapter Spine Rail on Right -->
@@ -881,7 +926,7 @@
   <!-- Dynamic Toast Feedback -->
   <div class="dynamic-toast" id="systemToast">
     <span id="toastIcon">⚡</span>
-    <span id="toastMsg">Camera Position Re-Aligned</span>
+    <span id="toastMsg">Volumetric Monsoon Fog Engaged</span>
   </div>
 
   <!-- Context-Aware Pagani Telemetry HUD (Bottom Bar) -->
@@ -949,7 +994,7 @@
             <span>INDIA: <b>#2 WORLDWIDE</b></span>
           </div>
           <div class="scroll-cue-pill">
-            <span>SCROLL TO ENTER 2.5D KINETIC EXPEDITION</span>
+            <span>SCROLL TO DIVE THROUGH MONSOON CLOUDS</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
             </svg>
@@ -963,9 +1008,9 @@
       <div class="amoled-card">
         <div class="act-badge">ACT 01 // GENESIS & ANCIENT PRESS</div>
         <h2 class="card-title">ROOTS OF SHARKARA</h2>
-        <div class="card-subtitle">Camera Dollies to the Ancient Stone Kolhu Press</div>
+        <div class="card-subtitle">Camera Dollies Through Mist: Oxen Stone Kolhu Press</div>
         <p class="card-body-text">
-          The camera glides right, revealing the ancient Indian <strong>Stone Kolhu</strong>—a massive hemispherical mortar where oxen turned a heavy pestle to crush raw cane stalks. Sanskrit scriptures celebrated the plant as <strong>Ikshu (इक्षु)</strong>, deriving <em>Sharkara (शर्करा)</em>—the origin of "Sugar"—and <em>Khanda (खण्ड)</em>—the ancestor of "Candy".
+          As the morning field fog parts, the ancient Indian <strong>Stone Kolhu</strong> emerges—a hemispherical granite mortar where oxen rotated a heavy pestle to crush raw cane stalks. Sanskrit scriptures revered the perennial as <strong>Ikshu (इक्षु)</strong>, birthing <em>Sharkara (शर्करा)</em>—the linguistic ancestor of "Sugar"—and <em>Khanda (खण्ड)</em>—the root of "Candy".
         </p>
 
         <div class="metrics-2x2">
@@ -989,7 +1034,7 @@
 
         <div class="cbse-callout-box">
           <strong>Historical Milestone:</strong>
-          Around 350 CE in the Gupta Empire, Indian chemists discovered that clarifying and evaporating cane juice yielded pure, dry crystals, making India the birthplace of portable solid sugar.
+          Around 350 CE during the Gupta Dynasty, Indian alchemists discovered how to evaporate cane juice into pure crystalline sugar, pioneering the world's first portable, non-perishable sugar crystals.
         </div>
       </div>
     </section>
@@ -1001,7 +1046,7 @@
         <h2 class="card-title">DISSECTED CULM</h2>
         <div class="card-subtitle">Camera Zooms In: Stalk Separates into Concentric Layers</div>
         <p class="card-body-text">
-          The camera swoops into a close macro focus as the sugarcane stalk separates in 3D perspective into concentric floating layers: outer waxy cuticle bloom, dense fibrous cortex rind, pulsing vascular xylem/phloem conduits, and the sucrose-rich parenchyma pith.
+          The camera swoops into macro focus through drifting vapor as the central sugarcane stalk separates in 3D perspective into concentric floating anatomical layers: outer waxy cuticle bloom, dense fibrous rind shell, pulsing vascular xylem/phloem conduits, and sucrose-packed parenchyma storage cells.
         </p>
 
         <div class="metrics-2x2">
@@ -1024,20 +1069,20 @@
         </div>
 
         <div class="cbse-callout-box">
-          <strong>CBSE Anatomy Concept:</strong>
-          Sugarcane is propagated vegetatively through <strong>stem setts</strong> containing dormant nodal buds. This clonal technique ensures genetic consistency, uniform sucrose concentration, and high yield.
+          <strong>CBSE Botanical Fact:</strong>
+          Sugarcane is vegetatively propagated using stem cuttings called <strong>setts</strong>. Each node features a dormant bud and adventitious root primordia ring, guaranteeing identical clonal performance and high recovery.
         </div>
       </div>
     </section>
 
-    <!-- ACT 3: AGRO-CLIMATIC BIOSPHERE -->
+    <!-- ACT 3: AGRO-CLIMATIC BIOSPHERE (SUN & RAIN) -->
     <section class="scrolly-section align-left" id="act3">
       <div class="amoled-card">
         <div class="act-badge">ACT 03 // AGRO-CLIMATIC BIOSPHERE</div>
         <h2 class="card-title">HEAT, WATER & SOIL</h2>
-        <div class="card-subtitle">Camera Pans to Atmospheric Sun & Monsoon Rain Strata</div>
+        <div class="card-subtitle">Atmospheric Monsoon Rain Streaks & Tropical Sun Rays</div>
         <p class="card-body-text">
-          The visual item transforms into an active <strong>Agro-Climatic Biosphere</strong>. The camera pulls back to reveal a radiating tropical sun disc alongside dynamic monsoon rain streaks falling through deep Alluvial and Black Cotton soil horizons.
+          The scene transforms into a living <strong>Agro-Climatic Biosphere</strong>. The camera sweeps through rain mist, revealing a tropical sun disk alongside monsoon rain streaks penetrating deep into stratified Alluvial and Black Cotton soil horizons.
         </p>
 
         <div class="metrics-2x2">
@@ -1061,7 +1106,7 @@
 
         <div class="cbse-callout-box">
           <strong>Exam Key Points:</strong>
-          In regions receiving less than 75 cm rainfall (e.g. western UP or parts of Maharashtra), canal or tubewell irrigation is compulsory. It requires intensive manual labour from sowing to harvest.
+          In regions receiving less than 75 cm rainfall (like western UP or parts of Maharashtra), canal or tubewell irrigation is compulsory. It requires intensive manual labour from sowing to harvesting.
         </div>
       </div>
     </section>
@@ -1071,9 +1116,9 @@
       <div class="amoled-card">
         <div class="act-badge">ACT 04 // SPROUTING SETT & RATOON</div>
         <h2 class="card-title">FIELD HUSBANDRY</h2>
-        <div class="card-subtitle">Camera Lowers to Ground Level: Sett Sprouting Shoots & Roots</div>
+        <div class="card-subtitle">Ground Macro: 3-Budded Sett Sprouting Shoots & Radial Roots</div>
         <p class="card-body-text">
-          The camera tilts down to furrow level where a 3-budded <strong>seed sett</strong> rests in the moist earth. As you watch, vibrant emerald shoots emerge skyward while a radial network of adventitious roots penetrates the nutrient-rich soil.
+          The camera drops to ground level furrow view. A 3-budded <strong>seed sett</strong> rests in moist fertile soil. Emerald shoots emerge skyward through the soil vapor, supported by an expanding radial network of adventitious roots.
         </p>
 
         <div class="metrics-2x2">
@@ -1090,14 +1135,14 @@
             <div class="metric-val">1 – 2 Cycles</div>
           </div>
           <div class="metric-cell">
-            <div class="metric-tag">Husbandry Work</div>
+            <div class="metric-tag">Field Work</div>
             <div class="metric-val">Earthing Up & Mulch</div>
           </div>
         </div>
 
         <div class="cbse-callout-box">
           <strong>Ratoon Cropping Defined:</strong>
-          After the first cutting, roots left in the soil sprout a second crop called <strong>ratoon</strong>, saving farmers seed sett procurement and land preparation costs.
+          After the first cutting, root systems left intact in the soil sprout a second crop (ratoon), saving farmers substantial seed sett procurement and land preparation costs.
         </div>
       </div>
     </section>
@@ -1107,9 +1152,9 @@
       <div class="amoled-card">
         <div class="act-badge">ACT 05 // PESTS & PATHOLOGY</div>
         <h2 class="card-title">VASCULAR DEFENSE</h2>
-        <div class="card-subtitle">Camera Enters the Stem: Red Rot Fungal Mycelia Diagnostic</div>
+        <div class="card-subtitle">Internal Stem X-Ray: Red Rot Fungal Diagnostic</div>
         <p class="card-body-text">
-          The camera enters the inner vascular cylinder in a futuristic medical X-ray view. It illuminates the deadly fungus <em>Colletotrichum falcatum</em> (<strong>Red Rot</strong>, the "Cancer of Sugarcane"), displaying crimson fungal streaks contrasted against heat-treated sterile tissue.
+          The camera enters the stem core in an X-ray scanner view, illuminating the invasion of <em>Colletotrichum falcatum</em> (<strong>Red Rot</strong>, the "Cancer of Sugarcane"), displaying crimson fungal hyphae contrasted against heat-treated sterile tissue.
         </p>
 
         <div class="metrics-2x2">
@@ -1133,7 +1178,7 @@
 
         <div class="cbse-callout-box">
           <strong>Biosecurity Protocol:</strong>
-          Dipping seed setts in a 52°C water bath for 30 minutes destroys internal dormant fungal hyphae before planting, safeguarding entire acreage from epidemics.
+          Dipping seed setts in a 52°C hot water bath for 30 minutes destroys internal dormant fungal hyphae prior to field planting, safeguarding entire acreage from epidemics.
         </div>
       </div>
     </section>
@@ -1143,9 +1188,9 @@
       <div class="amoled-card">
         <div class="act-badge">ACT 06 // INDUSTRIAL MIGRATION</div>
         <h2 class="card-title">THE PENINSULAR SHIFT</h2>
-        <div class="card-subtitle">Camera Elevates to a 2.5D Relief Map Plate of India</div>
+        <div class="card-subtitle">Overhead View: 2.5D Topographical Plate with Coastal Waves</div>
         <p class="card-body-text">
-          The camera pans up to an isometric 2.5D topographical relief plate of India. Coastal breeze waves sweep across Maharashtra, Karnataka, and Tamil Nadu, illustrating why the sugar industry relocated from the chilly northern plains to the peninsular south.
+          The camera glides over an isometric 2.5D topographical relief plate of India. Coastal maritime breeze waves sweep across Maharashtra, Karnataka, and Tamil Nadu, explaining why the sugar manufacturing hub migrated southwards.
         </p>
 
         <div class="matrix-box-row">
@@ -1170,7 +1215,7 @@
         </div>
 
         <div class="cbse-callout-box">
-          <strong>Key Producers:</strong>
+          <strong>Major Producers:</strong>
           Uttar Pradesh, Maharashtra, Karnataka, Tamil Nadu, Andhra Pradesh, Telangana, Bihar, Punjab, and Haryana.
         </div>
       </div>
@@ -1181,7 +1226,7 @@
       <div class="amoled-card">
         <div class="act-badge">ACT 07 // LOGISTICS & MILLING</div>
         <h2 class="card-title">THE 24-HOUR RACE</h2>
-        <div class="card-subtitle">Camera Tracks to Heavy 3-Roller Tandem with Swirling Juice Splash</div>
+        <div class="card-subtitle">3-Roller Hydraulic Tandem with Explosive Swirling Juice Splash</div>
         <p class="card-body-text">
           The scene morphs into heavy industrial grooved cast-iron rollers spinning under 250 bar hydraulic pressure. As cane enters the pinch point, an explosive <strong>swirling vortex of golden-green cane juice</strong> erupts around the machinery (inspired by the dynamic juice splash in the reference video).
         </p>
@@ -1217,9 +1262,9 @@
       <div class="amoled-card">
         <div class="act-badge">ACT 08 // CULINARY HERITAGE</div>
         <h2 class="card-title">MOLTEN GUR & SUCROSE</h2>
-        <div class="card-subtitle">Camera Dips Low: Boiling Jaggery Cauldron to Crystalline Gem</div>
+        <div class="card-subtitle">Steam Plumes Rise from 118°C Jaggery Boiling Pan to Crystal Gem</div>
         <p class="card-body-text">
-          The visual item transforms into a steaming wide copper boiling pan at 118°C. Bubbling golden sugarcane juice evaporates into rich, unrefined <strong>Gur (Jaggery)</strong>, cooling into solid mineral-rich blocks, alongside a floating geometric sucrose crystal ($C_{12}H_{22}O_{11}$).
+          Steam vapors billow from an open copper boiling pan at 118°C. Bubbling golden sugarcane juice evaporates into rich, unrefined <strong>Gur (Jaggery)</strong>, cooling into solid mineral-rich blocks, alongside a floating geometric sucrose crystal ($C_{12}H_{22}O_{11}$).
         </p>
 
         <div class="metrics-2x2">
@@ -1294,7 +1339,7 @@
       <div class="amoled-card">
         <div class="act-badge">ACT 10 // AGRITECH & BIOTECHNOLOGY</div>
         <h2 class="card-title">GENOMIC FRONTIERS</h2>
-        <div class="card-subtitle">Camera Micro-Zooms: Shimmering CRISPR DNA Helix & Drip Nozzles</div>
+        <div class="card-subtitle">Micro-Zoom: Shimmering CRISPR DNA Helix & Drip Nozzles</div>
         <p class="card-body-text">
           The item morphs into a glowing 2.5D double-helix DNA strand with CRISPR gene editing scissors enhancing drought resistance genes, alongside sub-surface drip irrigation pulses that conserve 40% of agricultural water.
         </p>
@@ -1354,15 +1399,16 @@
 
   <!-- Footer -->
   <footer>
-    <p>SACCHARUM // THE OMNISCIENCE — CINEMATIC 2.5D AMOLED PARALLAX CINEMA</p>
+    <p>SACCHARUM // THE OMNISCIENCE — MULTI-LAYERED 2.5D MONSOON PARALLAX</p>
     <p style="margin-top: 6px;">DESIGNED & DEVELOPED AS A SOLO MASTERPIECE BY <b>RYAN FREDRICK RAVURU</b></p>
-    <p style="margin-top: 4px; font-size: 0.7rem; color: #64748b;">CBSE CLASS 10 GEOGRAPHY // MULTI-ACT DYNAMIC CAMERA ENGINE // ZERO 3D MESH MODELS</p>
+    <p style="margin-top: 4px; font-size: 0.7rem; color: #64748b;">CBSE CLASS 10 GEOGRAPHY // VOLUMETRIC MONSOON CLOUD & PARALLAX ENGINE // ZERO 3D MESH MODELS</p>
   </footer>
 
   <!-- ========================================================
-       VIRTUAL CAMERA & MULTI-SCENE 2.5D KINETIC ENGINE
+       MULTI-LAYER VOLUMETRIC CLOUD & 2.5D KINETIC ENGINE
        (Combines Video 1 Watch Explosion + Pagani HUD + Juice Splash
-        AND Video 2 Figma Parallax Camera Pan & Morphing Items)
+        AND Video 2 Figma Parallax Camera Pan & Morphing Items
+        AND Video 3 Volumetric Clouds Passing Behind/In Front of Text)
        ======================================================== -->
   <script>
     gsap.registerPlugin(ScrollTrigger);
@@ -1371,19 +1417,15 @@
        1. GLOBAL ENGINE STATE & VIRTUAL CAMERA
        ---------------------------------------------------- */
     const engine = {
-      // Virtual Camera coordinates (interpolated smoothly)
       camera: {
         x: 0,
         y: 0,
         zoom: 1.0,
         tiltX: 0,
         tiltY: 0,
-        rotation: 0,
         targetX: 0,
         targetY: 0,
-        targetZoom: 1.0,
-        targetTiltX: 0,
-        targetTiltY: 0
+        targetZoom: 1.0
       },
       activeAct: 0,
       scrollProgress: 0,
@@ -1391,12 +1433,13 @@
       audioMode: 0,
       soundRunning: false,
       burstActive: false,
-      cameraModeIdx: 0 // 0: Auto Parallax, 1: Macro Focus, 2: Wide Cinematic
+      cameraModeIdx: 0, // 0: Auto Parallax, 1: Macro Focus, 2: Wide Aerial
+      mistDensity: 1.0  // 0.5: Low, 1.0: High, 1.5: Heavy
     };
 
-    /* Per-Act Camera Target Settings (From Video 2 Parallax Animation) */
+    /* Per-Act Camera Configurations */
     const actCameraConfigs = [
-      { targetX: 0, targetY: 0, targetZoom: 0.95, label: "00 // MACRO MONOLITH" },
+      { targetX: 0, targetY: 0, targetZoom: 0.95, label: "00 // MONSOON MIST PARALLAX" },
       { targetX: 200, targetY: -20, targetZoom: 1.15, label: "01 // ANCIENT KOLHU PRESS" },
       { targetX: -180, targetY: 10, targetZoom: 1.25, label: "02 // 2.5D EXPLODED CULM" },
       { targetX: 190, targetY: -40, targetZoom: 1.05, label: "03 // AGRO-CLIMATIC BIOSPHERE" },
@@ -1427,7 +1470,73 @@
     ];
 
     /* ----------------------------------------------------
-       2. CANVAS SETUP & PARTICLE ENGINES
+       2. VOLUMETRIC CLOUD & MIST GENERATOR (FROM VIDEO 3)
+       Passes behind AND in front of text layers!
+       ---------------------------------------------------- */
+    const bgCloudCanvas = document.getElementById('bg-cloud-canvas');
+    const bgCloudCtx = bgCloudCanvas.getContext('2d');
+
+    const fgMistCanvas = document.getElementById('fg-mist-canvas');
+    const fgMistCtx = fgMistCanvas.getContext('2d');
+
+    let bgCloudPuffs = [];
+    let fgMistPuffs = [];
+
+    class VolumetricCloudPuff {
+      constructor(isForeground = false) {
+        this.isFg = isForeground;
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * (window.innerWidth + 400) - 200;
+        this.y = Math.random() * window.innerHeight;
+        this.radius = this.isFg ? (Math.random() * 180 + 140) : (Math.random() * 260 + 180);
+        this.speedX = (Math.random() * 0.25 + 0.1) * (this.isFg ? 1.4 : 0.7);
+        this.alpha = (Math.random() * 0.12 + 0.04) * (this.isFg ? 0.75 : 1.0);
+        this.pulseAngle = Math.random() * Math.PI * 2;
+        this.hue = Math.random() > 0.6 ? 152 : 185; // Emerald / Cyan bioluminescent hue
+      }
+      update() {
+        this.x += this.speedX;
+        this.pulseAngle += 0.005;
+        if (this.x - this.radius > window.innerWidth + 200) {
+          this.x = -this.radius - 100;
+          this.y = Math.random() * window.innerHeight;
+        }
+      }
+      draw(c, camX, camY) {
+        const parFactor = this.isFg ? 0.28 : 0.08;
+        const px = this.x + camX * parFactor;
+        const py = this.y + camY * parFactor + Math.sin(this.pulseAngle) * 8;
+        const r = this.radius * (1 + Math.sin(this.pulseAngle) * 0.08);
+
+        c.save();
+        const grad = c.createRadialGradient(px, py, 0, px, py, r);
+        const op = this.alpha * engine.mistDensity;
+        grad.addColorStop(0, `hsla(${this.hue}, 40%, 80%, ${op})`);
+        grad.addColorStop(0.45, `hsla(${this.hue}, 60%, 40%, ${op * 0.6})`);
+        grad.addColorStop(1, 'transparent');
+
+        c.fillStyle = grad;
+        c.beginPath();
+        c.arc(px, py, r, 0, Math.PI * 2);
+        c.fill();
+        c.restore();
+      }
+    }
+
+    function initClouds() {
+      bgCloudPuffs = [];
+      fgMistPuffs = [];
+      const countBg = window.innerWidth > 768 ? 22 : 12;
+      const countFg = window.innerWidth > 768 ? 16 : 8;
+
+      for (let i = 0; i < countBg; i++) bgCloudPuffs.push(new VolumetricCloudPuff(false));
+      for (let i = 0; i < countFg; i++) fgMistPuffs.push(new VolumetricCloudPuff(true));
+    }
+
+    /* ----------------------------------------------------
+       3. CANVAS RESIZING & PARTICLES
        ---------------------------------------------------- */
     const stageCanvas = document.getElementById('stage-canvas');
     const ctx = stageCanvas.getContext('2d');
@@ -1436,10 +1545,17 @@
     let juiceVortexDrops = [];
     let shockwaves = [];
 
-    function resizeStageCanvas() {
-      stageCanvas.width = window.innerWidth * window.devicePixelRatio;
-      stageCanvas.height = window.innerHeight * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    function resizeAllCanvases() {
+      const dpr = window.devicePixelRatio || 1;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      [bgCloudCanvas, stageCanvas, fgMistCanvas].forEach(canv => {
+        canv.width = w * dpr;
+        canv.height = h * dpr;
+        const c = canv.getContext('2d');
+        c.scale(dpr, dpr);
+      });
     }
 
     /* Ambient Bioluminescent Spores */
@@ -1448,7 +1564,7 @@
       reset() {
         this.x = Math.random() * window.innerWidth;
         this.y = Math.random() * window.innerHeight;
-        this.z = Math.random() * 2 + 0.5; // Parallax depth factor
+        this.z = Math.random() * 2 + 0.5;
         this.size = Math.random() * 2.2 + 0.8;
         this.vx = (Math.random() - 0.5) * 0.4;
         this.vy = -(Math.random() * 0.5 + 0.2);
@@ -1459,7 +1575,6 @@
         this.x += this.vx;
         this.y += this.vy;
 
-        // Mouse avoidance
         const dx = engine.mouse.x - this.x;
         const dy = engine.mouse.y - this.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -1472,7 +1587,6 @@
         if (this.y < -30) { this.y = window.innerHeight + 20; this.x = Math.random() * window.innerWidth; }
       }
       draw(c, camX, camY) {
-        // Multi-plane parallax offset
         const px = this.x + camX * (this.z * 0.15);
         const py = this.y + camY * (this.z * 0.15);
 
@@ -1487,7 +1601,7 @@
       }
     }
 
-    /* Dynamic Swirling Juice Splash Droplets (Raw Pressery Video Inspiration) */
+    /* Dynamic Swirling Juice Splash Droplets (Raw Pressery Inspiration) */
     class SwirlingJuiceDrop {
       constructor() {
         this.angle = Math.random() * Math.PI * 2;
@@ -1538,8 +1652,7 @@
     }
 
     /* ----------------------------------------------------
-       3. 2.5D PROCEDURAL RENDERERS FOR EACH TRANSFORMED ITEM
-       (Items change as camera position shifts per act!)
+       4. 2.5D PROCEDURAL RENDERERS FOR TRANSFORMED ITEMS
        ---------------------------------------------------- */
 
     // ACT 0: Towering Monumental Cane Culm
@@ -1548,14 +1661,12 @@
       const w = 58;
       c.save();
 
-      // Ambient spotlight
       const spot = c.createRadialGradient(0, 0, 10, 0, 0, 260);
       spot.addColorStop(0, 'rgba(0, 255, 136, 0.2)');
       spot.addColorStop(1, 'transparent');
       c.fillStyle = spot;
       c.fillRect(-280, -320, 560, 640);
 
-      // Gradient Stalk
       const grad = c.createLinearGradient(-w / 2, 0, w / 2, 0);
       grad.addColorStop(0, '#04160d');
       grad.addColorStop(0.25, '#0e4225');
@@ -1568,7 +1679,6 @@
       c.roundRect(-w / 2, -h / 2, w, h, 20);
       c.fill();
 
-      // Nodes
       for (let i = -2; i <= 2; i++) {
         const ny = i * (h / 5);
         c.beginPath();
@@ -1578,14 +1688,12 @@
         c.shadowBlur = 10;
         c.fill();
 
-        // Alternating Bud
         c.beginPath();
         c.ellipse((i % 2 === 0 ? 1 : -1) * (w * 0.46), ny - 3, 5, 8, 0.2, 0, Math.PI * 2);
         c.fillStyle = '#f59e0b';
         c.fill();
       }
 
-      // Specular highlight line
       c.beginPath();
       c.moveTo(-w * 0.18, -h / 2 + 15);
       c.lineTo(-w * 0.18, h / 2 - 15);
@@ -1593,7 +1701,6 @@
       c.lineWidth = 2.5;
       c.stroke();
 
-      // Swaying top leaves
       c.lineWidth = 4;
       c.strokeStyle = '#00ff88';
       c.shadowColor = '#00ff88';
@@ -1612,7 +1719,6 @@
     // ACT 1: Ancient Indian Stone Kolhu Press
     function drawAncientKolhuPress(c, t) {
       c.save();
-      // Stone Bowl (Mortar)
       c.fillStyle = '#1c1917';
       c.strokeStyle = '#ffd60a';
       c.lineWidth = 2;
@@ -1625,13 +1731,11 @@
       c.fill();
       c.stroke();
 
-      // Inner Cavity with golden crushed juice
       c.beginPath();
       c.ellipse(0, 40, 95, 24, 0, 0, Math.PI * 2);
       c.fillStyle = 'rgba(255, 214, 10, 0.35)';
       c.fill();
 
-      // Rotating Wooden Pestle
       const pestleAngle = Math.sin(t * 0.0018) * 0.35 - 0.25;
       c.save();
       c.translate(0, 40);
@@ -1645,14 +1749,12 @@
       c.fill();
       c.stroke();
 
-      // Horizontal Oxen Beam
       c.beginPath();
       c.roundRect(-120, -180, 240, 18, 6);
       c.fillStyle = '#78350f';
       c.fill();
       c.restore();
 
-      // Sanskrit Inscription Badge: शर्करा // Ikshu
       c.font = "bold 16px 'Space Grotesk', monospace";
       c.fillStyle = "#ffd60a";
       c.textAlign = "center";
@@ -1679,7 +1781,6 @@
       c.roundRect(-20, -h / 2 + 30, 38, h - 60, 10);
       c.fill();
       c.stroke();
-      // Cuticle Callout
       drawCallout(c, 0, 0, -80, -30, "WAXY CUTICLE", "Glaucous bloom");
       c.restore();
 
@@ -1695,7 +1796,6 @@
         c.moveTo(i * 8, -h / 2);
         c.lineTo(i * 8, h / 2);
         c.stroke();
-        // Pulsing sap particle
         const py = ((t * 0.12 + i * 40) % h) - h / 2;
         c.beginPath();
         c.arc(i * 8, py, 3, 0, Math.PI * 2);
@@ -1724,7 +1824,6 @@
       c.beginPath();
       c.roundRect(-w * 0.38, -h / 2, w * 0.76, h, 12);
       c.fill();
-      // Sugar dots
       c.fillStyle = '#ffd60a';
       for (let y = -h / 2 + 20; y < h / 2 - 20; y += 22) {
         for (let x = -w * 0.25; x <= w * 0.25; x += 14) {
@@ -1791,7 +1890,6 @@
     // ACT 3: Agro-Climatic Biosphere (Sun & Monsoon Rain)
     function drawAgroClimateBiosphere(c, t) {
       c.save();
-      // Radiating Sun Disc
       c.beginPath();
       c.arc(0, -90, 60, 0, Math.PI * 2);
       const sunGrad = c.createRadialGradient(0, -90, 10, 0, -90, 80);
@@ -1801,7 +1899,6 @@
       c.fillStyle = sunGrad;
       c.fill();
 
-      // Rotating Heat Rays (21°C - 27°C)
       c.save();
       c.translate(0, -90);
       c.rotate(t * 0.001);
@@ -1816,7 +1913,6 @@
       }
       c.restore();
 
-      // Soil Horizon Plate
       c.fillStyle = '#1c1917';
       c.strokeStyle = '#44403c';
       c.lineWidth = 1.5;
@@ -1825,7 +1921,6 @@
       c.fill();
       c.stroke();
 
-      // Soil Layers: Alluvial & Black Soil
       c.fillStyle = '#0a2e1d';
       c.fillRect(-155, 85, 310, 35);
       c.fillStyle = '#171412';
@@ -1837,7 +1932,6 @@
       c.fillStyle = "#94a3b8";
       c.fillText("BLACK COTTON REGUR STRATUM", -135, 146);
 
-      // Monsoon Rain Streaks
       c.strokeStyle = 'rgba(0, 240, 255, 0.65)';
       c.lineWidth = 1.5;
       for (let i = 0; i < 22; i++) {
@@ -1855,13 +1949,11 @@
     // ACT 4: Sprouting Seed Sett (Low Ground View)
     function drawSproutingSett(c, t) {
       c.save();
-      // Soil Bed
       c.fillStyle = '#14110e';
       c.beginPath();
       c.ellipse(0, 60, 180, 45, 0, 0, Math.PI * 2);
       c.fill();
 
-      // Seed Sett Cylinder lying in furrow
       c.save();
       c.rotate(0.12);
       const settGrad = c.createLinearGradient(-120, 0, 120, 0);
@@ -1876,7 +1968,6 @@
       c.fill();
       c.stroke();
 
-      // Nodes on sett
       for (let nx of [-60, 0, 60]) {
         c.beginPath();
         c.ellipse(nx, 29, 6, 19, 0, 0, Math.PI * 2);
@@ -1885,7 +1976,6 @@
       }
       c.restore();
 
-      // Emerging Green Shoots
       c.strokeStyle = '#00ff88';
       c.lineWidth = 3.5;
       c.shadowColor = '#00ff88';
@@ -1898,7 +1988,6 @@
         c.stroke();
       }
 
-      // Root network branching down
       c.strokeStyle = 'rgba(255, 255, 255, 0.4)';
       c.lineWidth = 1.4;
       c.shadowBlur = 0;
@@ -1925,7 +2014,6 @@
       const w = 90;
       const h = 320;
 
-      // X-Ray Cyan Scanner Shell
       c.strokeStyle = '#00f0ff';
       c.lineWidth = 2;
       c.shadowColor = '#00f0ff';
@@ -1937,7 +2025,6 @@
       c.fill();
       c.stroke();
 
-      // Scanning Laser Bar
       const scanY = (Math.sin(t * 0.003) * 0.45) * h;
       c.beginPath();
       c.moveTo(-w / 2 - 20, scanY);
@@ -1946,7 +2033,6 @@
       c.lineWidth = 2.5;
       c.stroke();
 
-      // Fungal Red Rot Infection Core (Colletotrichum falcatum)
       c.fillStyle = 'rgba(255, 55, 95, 0.85)';
       c.shadowColor = '#ff375f';
       c.shadowBlur = 20;
@@ -1958,7 +2044,6 @@
         c.fill();
       }
 
-      // 52°C Hot Water Sanitation Shield on Left
       c.font = "bold 11px 'Space Grotesk', monospace";
       c.fillStyle = "#ff375f";
       c.textAlign = "center";
@@ -1972,7 +2057,6 @@
     // ACT 6: 2.5D Peninsular India Relief Plate
     function drawPeninsularReliefPlate(c, t) {
       c.save();
-      // Floating 3D Plate Base
       c.fillStyle = '#0a0f0d';
       c.strokeStyle = '#00ff88';
       c.lineWidth = 1.5;
@@ -1988,7 +2072,6 @@
       c.fill();
       c.stroke();
 
-      // Northern Plains Section (Frost Alert)
       c.fillStyle = 'rgba(148, 163, 184, 0.25)';
       c.beginPath();
       c.moveTo(0, -135);
@@ -2001,7 +2084,6 @@
       c.textAlign = "center";
       c.fillText("NORTH PLAINS // FROST RISK", 0, -65);
 
-      // Peninsular Deccan Plateau (High Sucrose Leader)
       c.fillStyle = 'rgba(0, 255, 136, 0.28)';
       c.beginPath();
       c.moveTo(-110, -35);
@@ -2013,7 +2095,6 @@
       c.fillText("PENINSULAR SOUTH // 11-13% RECOVERY", 0, 15);
       c.fillText("7-8 MO CRUSHING SEASON", 0, 35);
 
-      // Animated Coastal Maritime Breeze Waves
       c.strokeStyle = 'rgba(0, 240, 255, 0.6)';
       c.lineWidth = 1.5;
       for (let i = 0; i < 4; i++) {
@@ -2035,25 +2116,18 @@
       const r = 50;
       const angle = t * 0.003;
 
-      // Draw 3 Counter-Rotating Grooved Rollers
-      // Top Roller
       drawGroovedRoller(c, 0, -45, r, angle, '#ffd60a');
-      // Feed Roller (Bottom Left)
       drawGroovedRoller(c, -55, 45, r, -angle, '#00ff88');
-      // Discharge Roller (Bottom Right)
       drawGroovedRoller(c, 55, 45, r, -angle, '#00f0ff');
 
-      // Crushed Cane Entering Center
       c.fillStyle = '#165c34';
       c.fillRect(-12, -15, 24, 60);
 
-      // SWIRLING JUICE VORTEX (Raw Pressery Splash from 00:11)
       for (let jp of juiceVortexDrops) {
         jp.update();
         jp.draw(c, 0, 10);
       }
 
-      // Hydraulic Pressure Gauge Callout
       c.font = "bold 11px 'Space Grotesk', monospace";
       c.fillStyle = "#ffffff";
       c.textAlign = "center";
@@ -2078,7 +2152,6 @@
       c.fill();
       c.stroke();
 
-      // Gear teeth / grooves
       for (let i = 0; i < 8; i++) {
         c.beginPath();
         c.moveTo(0, 0);
@@ -2094,7 +2167,6 @@
     // ACT 8: Molten Golden Gur Cauldron & Crystallizing Sucrose Gem
     function drawMoltenGurAndCrystal(c, t) {
       c.save();
-      // Copper Boiling Cauldron
       c.fillStyle = '#451a03';
       c.strokeStyle = '#ffd60a';
       c.lineWidth = 2;
@@ -2107,13 +2179,11 @@
       c.fill();
       c.stroke();
 
-      // Molten Boiling Jaggery Surface
       c.fillStyle = '#f59e0b';
       c.beginPath();
       c.ellipse(0, 30, 90, 22, 0, 0, Math.PI * 2);
       c.fill();
 
-      // Rising steam / bubbles
       for (let i = 0; i < 8; i++) {
         const bx = Math.sin(t * 0.003 + i) * 60;
         const by = 25 - ((t * 0.08 + i * 25) % 80);
@@ -2123,7 +2193,6 @@
         c.fill();
       }
 
-      // Floating Geometric Sucrose Crystal (C12H22O11)
       c.save();
       c.translate(0, -90);
       c.rotate(t * 0.0015);
@@ -2156,7 +2225,6 @@
     // ACT 9: Zero-Waste Circular Bio-Refinery & E20
     function drawCircularBiorefinery(c, t) {
       c.save();
-      // Central Fermentation Reactor
       c.fillStyle = '#064e3b';
       c.strokeStyle = '#00ff88';
       c.lineWidth = 2.5;
@@ -2168,19 +2236,14 @@
       c.fill();
       c.stroke();
 
-      // Shimmering Liquid Inside
       c.fillStyle = 'rgba(0, 255, 136, 0.35)';
       c.fillRect(-40, 0, 80, 65);
 
-      // Three Orbiting Circular Byproduct Nodes: Bagasse, E20, Press Mud
       const rad = 125;
       const angleOffset = t * 0.0018;
 
-      // 1. Bagasse Power Turbine Node
       drawByproductNode(c, Math.cos(angleOffset) * rad, Math.sin(angleOffset) * rad * 0.5, "⚡ BAGASSE COGEN", "#ffd60a");
-      // 2. E20 Ethanol Canister Node
       drawByproductNode(c, Math.cos(angleOffset + (2 * Math.PI) / 3) * rad, Math.sin(angleOffset + (2 * Math.PI) / 3) * rad * 0.5, "⛽ E20 ETHANOL 99.8%", "#00ff88");
-      // 3. Press Mud Fertilizer Node
       drawByproductNode(c, Math.cos(angleOffset + (4 * Math.PI) / 3) * rad, Math.sin(angleOffset + (4 * Math.PI) / 3) * rad * 0.5, "🌱 PRESS MUD COMPOST", "#00f0ff");
 
       c.font = "bold 11px 'Space Grotesk', monospace";
@@ -2217,7 +2280,6 @@
       const h = 280;
       const w = 70;
 
-      // Rotating 2.5D Double-Helix
       for (let i = -14; i <= 14; i++) {
         const y = i * 10;
         const phase = t * 0.003 + i * 0.25;
@@ -2225,7 +2287,6 @@
         const x2 = -x1;
         const z1 = Math.cos(phase);
 
-        // Connecting Base Pair Rung
         c.beginPath();
         c.moveTo(x1, y);
         c.lineTo(x2, y);
@@ -2233,7 +2294,6 @@
         c.lineWidth = 1.6;
         c.stroke();
 
-        // Strand Nucleotides
         c.beginPath();
         c.arc(x1, y, z1 > 0 ? 4 : 2.5, 0, Math.PI * 2);
         c.fillStyle = '#00f0ff';
@@ -2249,7 +2309,6 @@
         c.fill();
       }
 
-      // CRISPR Scissor Overlay
       c.font = "bold 11px 'Space Grotesk', monospace";
       c.fillStyle = "#ffd60a";
       c.textAlign = "center";
@@ -2272,7 +2331,6 @@
       c.fill();
       c.stroke();
 
-      // Pulsing energy rings
       for (let i = 1; i <= 3; i++) {
         const ringR = ((t * 0.05 + i * 35) % (r * 1.5));
         c.beginPath();
@@ -2294,14 +2352,17 @@
     }
 
     /* ----------------------------------------------------
-       4. MAIN RENDER LOOP: VIRTUAL CAMERA & MULTI-PLANE PARALLAX
+       5. MAIN COMPOSITING RENDER LOOP (ALL 3 LAYERS)
        ---------------------------------------------------- */
-    function renderMainStage() {
+    function renderCompositeWorld() {
       const w = window.innerWidth;
       const h = window.innerHeight;
       const t = performance.now();
 
+      // Clear all 3 stage layers
+      bgCloudCtx.clearRect(0, 0, w, h);
       ctx.clearRect(0, 0, w, h);
+      fgMistCtx.clearRect(0, 0, w, h);
 
       // 1. Smooth Camera Interpolation (Lerp)
       const cam = engine.camera;
@@ -2309,17 +2370,22 @@
       cam.y += (cam.targetY - cam.y) * 0.07;
       cam.zoom += (cam.targetZoom - cam.zoom) * 0.07;
 
-      // Mouse Parallax Influence
       const mouseOffsetX = (engine.mouse.x - w / 2) * 0.04;
       const mouseOffsetY = (engine.mouse.y - h / 2) * 0.04;
 
-      // 2. Draw Background Ambient Spores (Multi-plane parallax)
+      // 2. LAYER 1: Background Volumetric Monsoon Clouds (Passing BEHIND)
+      for (let cp of bgCloudPuffs) {
+        cp.update();
+        cp.draw(bgCloudCtx, cam.x, cam.y);
+      }
+
+      // 3. LAYER 2: Ambient Bioluminescent Spores
       for (let p of ambientParticles) {
         p.update(cam.x, cam.y);
         p.draw(ctx, cam.x, cam.y);
       }
 
-      // 3. Draw Expanding Shockwaves
+      // 4. Expanding Shockwaves
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
         sw.radius += 8;
@@ -2341,12 +2407,11 @@
         }
       }
 
-      // 4. Transform to Virtual Camera Space
+      // 5. LAYER 3: Virtual Camera Centerpiece (Transformed Item)
       ctx.save();
       ctx.translate(w / 2 + cam.x + mouseOffsetX, h / 2 + cam.y + mouseOffsetY);
       ctx.scale(cam.zoom, cam.zoom);
 
-      // 5. Render the ACTIVE ACT'S TRANSFORMED ITEM (NOT FIXED!)
       const act = engine.activeAct;
       switch (act) {
         case 0: drawMonumentalCulm(ctx, t); break;
@@ -2364,30 +2429,41 @@
         default: drawMonumentalCulm(ctx, t); break;
       }
 
-      // Extra splash burst if triggered manually
       if (engine.burstActive && act !== 7) {
         for (let jp of juiceVortexDrops) {
           jp.update();
           jp.draw(ctx, 0, 0);
         }
       }
-
       ctx.restore();
 
-      requestAnimationFrame(renderMainStage);
+      // 6. LAYER 5: Foreground Drifting Mist / Fog (Passing IN FRONT of Typography)
+      for (let fp of fgMistPuffs) {
+        fp.update();
+        fp.draw(fgMistCtx, cam.x, cam.y);
+      }
+
+      requestAnimationFrame(renderCompositeWorld);
     }
 
     /* ----------------------------------------------------
-       5. SCROLLTRIGGER & DYNAMIC CAMERA ORCHESTRATION
+       6. SCROLLTRIGGER & DYNAMIC CAMERA ORCHESTRATION
        ---------------------------------------------------- */
     function setupScrollTriggers() {
-      // Top progress bar tracker
       window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const frac = docHeight > 0 ? scrollTop / docHeight : 0;
         engine.scrollProgress = frac;
         document.getElementById('progressBar').style.width = (frac * 100) + '%';
+
+        // Canopy silhouette frame parts open as you descend past Hero (from Video 3)
+        const frame = document.getElementById('canopyFrame');
+        if (scrollTop > 150) {
+          frame.style.opacity = Math.max(0.15, 1 - (scrollTop - 150) / 400);
+        } else {
+          frame.style.opacity = '1';
+        }
       });
 
       const sections = document.querySelectorAll('.scrolly-section');
@@ -2406,14 +2482,12 @@
     function activateAct(idx) {
       engine.activeAct = idx;
 
-      // Update right spine dots
       const dots = document.querySelectorAll('.spine-dot');
       dots.forEach((dot, dIdx) => {
         if (dIdx === idx) dot.classList.add('active');
         else dot.classList.remove('active');
       });
 
-      // Update Virtual Camera Target Coordinates (Camera Pans & Zooms per Act!)
       const config = actCameraConfigs[idx];
       if (config) {
         engine.camera.targetX = config.targetX;
@@ -2422,7 +2496,6 @@
         document.getElementById('camFocusLabel').innerText = config.label;
       }
 
-      // Update Pagani Telemetry HUD Gauges to Match Active Stage
       const tele = actTelemetryConfigs[idx];
       if (tele) {
         document.getElementById('hudMetricLabel1').innerText = tele.l1;
@@ -2435,7 +2508,6 @@
         document.getElementById('hudMetricVal4').innerText = tele.v4;
       }
 
-      // Update ambient orb glow hue
       const orb = document.getElementById('ambientGlowOrb');
       if (idx === 0) orb.style.background = 'radial-gradient(circle, rgba(0, 255, 136, 0.12) 0%, rgba(0, 240, 255, 0.06) 38%, transparent 75%)';
       else if (idx === 1) orb.style.background = 'radial-gradient(circle, rgba(255, 214, 10, 0.14) 0%, rgba(0, 255, 136, 0.06) 45%, transparent 75%)';
@@ -2466,7 +2538,6 @@
     }
 
     function triggerCameraDolly() {
-      // Toggle dolly perspective shift
       engine.camera.targetX = (Math.random() - 0.5) * 380;
       engine.camera.targetY = (Math.random() - 0.5) * 120;
       engine.camera.targetZoom = 1.0 + Math.random() * 0.35;
@@ -2485,12 +2556,28 @@
       } else if (engine.cameraModeIdx === 2) {
         label.innerText = 'Cam: Wide Aerial';
         engine.camera.targetZoom = 0.85;
-        showToast('🔭 Wide Cinematic Perspective');
+        showToast('🔭 Wide Aerial Perspective');
       } else {
         label.innerText = 'Cam: Parallax Auto';
         const cfg = actCameraConfigs[engine.activeAct];
         engine.camera.targetZoom = cfg ? cfg.targetZoom : 1.0;
         showToast('🎥 Dynamic Chapter Parallax Restored');
+      }
+    }
+
+    function toggleMistDensity() {
+      if (engine.mistDensity === 1.0) {
+        engine.mistDensity = 1.6;
+        document.getElementById('mistLabel').innerText = 'Monsoon Vapor: Dense';
+        showToast('☁️ Heavy Volumetric Monsoon Vapor Active');
+      } else if (engine.mistDensity === 1.6) {
+        engine.mistDensity = 0.4;
+        document.getElementById('mistLabel').innerText = 'Monsoon Vapor: Light';
+        showToast('🌤️ Light Morning Field Mist Active');
+      } else {
+        engine.mistDensity = 1.0;
+        document.getElementById('mistLabel').innerText = 'Monsoon Vapor: High';
+        showToast('☁️ Balanced Atmospheric Fog Restored');
       }
     }
 
@@ -2505,7 +2592,7 @@
     }
 
     /* ----------------------------------------------------
-       6. WEB AUDIO PROCEDURAL SYNTHESIZER
+       7. PROCEDURAL AUDIO SYNTHESIZER
        ---------------------------------------------------- */
     let audioCtx = null;
     let windGain = null;
@@ -2522,7 +2609,6 @@
         output[i] = Math.random() * 2 - 1;
       }
 
-      // Wind Synthesizer
       const whiteNoise = audioCtx.createBufferSource();
       whiteNoise.buffer = noiseBuffer;
       whiteNoise.loop = true;
@@ -2540,7 +2626,6 @@
       windGain.connect(audioCtx.destination);
       whiteNoise.start();
 
-      // Rain Crackle Synthesizer
       const rainNoise = audioCtx.createBufferSource();
       rainNoise.buffer = noiseBuffer;
       rainNoise.loop = true;
@@ -2609,7 +2694,7 @@
     }
 
     /* ----------------------------------------------------
-       7. INTERACTIVE CBSE BOARD EXAM SIMULATOR (ACT 11)
+       8. CBSE BOARD EXAM SIMULATOR
        ---------------------------------------------------- */
     const quizData = [
       {
@@ -2732,12 +2817,13 @@
     }
 
     /* ----------------------------------------------------
-       8. INITIALIZATION
+       9. INITIALIZATION
        ---------------------------------------------------- */
     window.addEventListener('DOMContentLoaded', () => {
-      resizeStageCanvas();
+      resizeAllCanvases();
+      initClouds();
       initParticles();
-      renderMainStage();
+      renderCompositeWorld();
       setupScrollTriggers();
       loadQuizQuestion();
 
@@ -2754,7 +2840,8 @@
       });
 
       window.addEventListener('resize', () => {
-        resizeStageCanvas();
+        resizeAllCanvases();
+        initClouds();
         initParticles();
         ScrollTrigger.refresh();
       });
