@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SACCHARUM // THE OMNISCIENCE — Multi-Layered 2.5D Monsoon Parallax</title>
+  <title>SACCHARUM // THE OMNISCIENCE — Cinematic Shutter Entrance & 2.5D Monsoon Parallax</title>
   
-  <!-- Fonts -->
+  <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   
-  <!-- GSAP for 120Hz Hardware-Accelerated Animation -->
+  <!-- GSAP for 120Hz Hardware-Accelerated Smooth Animation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   
@@ -65,6 +65,155 @@
       z-index: 999;
       transition: width 0.08s ease-out;
     }
+
+    /* ========================================================
+       HALF-LIFE ALYX STYLE STAGGERED VERTICAL SHUTTER CURTAIN
+       (Inspired by YouTube Short Video 4)
+       ======================================================== */
+    #entrance-curtain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1000;
+      display: grid;
+      grid-template-columns: repeat(18, 1fr);
+      pointer-events: auto;
+      transition: visibility 0.8s ease;
+    }
+
+    #entrance-curtain.hidden {
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    .shutter-slat {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #050806 0%, #0d1610 50%, #030604 100%);
+      border-right: 1px solid rgba(0, 255, 136, 0.18);
+      border-left: 1px solid rgba(0, 0, 0, 0.8);
+      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.95);
+      position: relative;
+      transform: translateY(0%);
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .shutter-slat::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 255, 136, 0.03) 3px, rgba(0, 255, 136, 0.03) 6px);
+      pointer-events: none;
+    }
+
+    /* Central Entrance HUD Overlay */
+    .entrance-hud-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1010;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      pointer-events: auto;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .entrance-hud-center.faded {
+      opacity: 0;
+      transform: translate(-50%, -60%) scale(0.92);
+      pointer-events: none;
+    }
+
+    .entrance-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      color: var(--emerald-neon);
+      background: rgba(0, 255, 136, 0.12);
+      border: 1px solid var(--emerald-neon);
+      padding: 6px 18px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.4);
+    }
+
+    .entrance-main-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 5.5vw, 5.2rem);
+      font-weight: 900;
+      letter-spacing: 8px;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-shadow: 0 0 45px rgba(255, 255, 255, 0.3), 0 0 80px rgba(0, 255, 136, 0.5);
+      line-height: 1.05;
+    }
+
+    .entrance-sub-tag {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 2.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .entrance-enter-btn {
+      margin-top: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #000000;
+      background: linear-gradient(135deg, var(--emerald-neon), #00cc66);
+      border: 1px solid #ffffff;
+      padding: 14px 38px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 0 35px rgba(0, 255, 136, 0.75);
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .entrance-enter-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      background: linear-gradient(135deg, #ffffff, var(--emerald-neon));
+      box-shadow: 0 0 50px rgba(0, 255, 136, 1);
+    }
+
+    /* Anamorphic Cinematic Letterbox Bars (Top & Bottom) */
+    .cinema-letterbox {
+      position: fixed;
+      left: 0;
+      width: 100vw;
+      height: 32px;
+      background: #000000;
+      z-index: 95;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 36px;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      letter-spacing: 2px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+    }
+
+    .cinema-letterbox.top { top: 0; }
+    .cinema-letterbox.bottom { bottom: 0; border-top: 1px solid rgba(255, 255, 255, 0.08); }
 
     /* Fixed 2.5D Canvas Stages (Layered like Video 3 Cloud Parallax) */
     #bg-cloud-canvas {
@@ -126,7 +275,7 @@
       background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.82) 80%, #000000 100%);
     }
 
-    /* Natural Sugarcane Canopy Silhouette Overlay (From Video 3 Cave Silhouette) */
+    /* Natural Sugarcane Canopy Silhouette Overlay */
     .canopy-silhouette-frame {
       position: fixed;
       top: 0;
@@ -142,14 +291,14 @@
     /* Floating Header Dynamic Island */
     header {
       position: fixed;
-      top: 0;
+      top: 32px;
       left: 0;
       width: 100%;
-      padding: 16px 36px;
+      padding: 14px 36px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 100;
+      z-index: 90;
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0) 100%);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -285,9 +434,9 @@
     /* FLOATING CAMERA & MIST HUD CHIPS */
     .camera-hud-chip {
       position: fixed;
-      top: 80px;
+      top: 96px;
       right: 36px;
-      z-index: 95;
+      z-index: 85;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -306,10 +455,10 @@
       color: var(--emerald-neon);
     }
 
-    /* Pagani-Style Telemetry HUD (Fixed Bottom Bar, Updates Contextually) */
+    /* Pagani-Style Telemetry HUD (Fixed Bottom Bar) */
     .telemetry-hud {
       position: fixed;
-      bottom: 24px;
+      bottom: 42px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 60;
@@ -387,7 +536,7 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 100px clamp(24px, 6vw, 120px);
+      padding: 120px clamp(24px, 6vw, 120px);
       box-sizing: border-box;
       position: relative;
       perspective: 1200px;
@@ -406,10 +555,10 @@
       text-align: center;
     }
 
-    /* Hero Monolith Presentation with Depth Layering */
+    /* Hero Monolith Presentation */
     .hero-container {
       width: 100%;
-      height: 82vh;
+      height: 80vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -499,7 +648,103 @@
       50% { transform: translateY(7px); opacity: 1; }
     }
 
-    /* 2.5D Deep-Layered AMOLED Glass Card (High-Density Knowledge) */
+    /* ========================================================
+       001 / 002 / 003 DOSSIER CARDS (FROM HALF-LIFE ALYX VIDEO 4)
+       ======================================================== */
+    .dossier-grid-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      pointer-events: auto;
+    }
+
+    .dossier-header-text {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .dossier-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .dossier-subhead {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      color: var(--emerald-neon);
+      text-transform: uppercase;
+    }
+
+    .dossier-cards-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .dossier-card {
+      background: rgba(10, 14, 11, 0.75);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-bevel), 0 25px 50px rgba(0, 0, 0, 0.95);
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      backdrop-filter: blur(25px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dossier-card:hover {
+      border-color: var(--emerald-neon);
+      transform: translateY(-6px);
+      box-shadow: var(--glass-bevel), 0 35px 70px rgba(0, 0, 0, 0.98), 0 0 35px rgba(0, 255, 136, 0.3);
+    }
+
+    .dossier-num-tag {
+      font-family: var(--font-mono);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--emerald-neon);
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    }
+
+    .dossier-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .dossier-card-desc {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .dossier-card-link {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--amber-gold);
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 2.5D Deep-Layered AMOLED Glass Card */
     .amoled-card {
       pointer-events: auto;
       max-width: 600px;
@@ -780,7 +1025,7 @@
     /* Dynamic Island Notification Toast */
     .dynamic-toast {
       position: fixed;
-      top: 80px;
+      top: 90px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 95;
@@ -835,6 +1080,9 @@
       .camera-hud-chip {
         display: none;
       }
+      .dossier-cards-row {
+        grid-template-columns: 1fr;
+      }
       .hero-monolith-title {
         flex-direction: column;
         gap: 10px;
@@ -862,16 +1110,61 @@
   <!-- Top Progress Bar -->
   <div id="progressBar"></div>
 
+  <!-- Anamorphic Letterbox Cinema Bars (Video 4 Style) -->
+  <div class="cinema-letterbox top">
+    <span>LAT 17.3850° N // LON 78.4867° E [SECUNDERABAD BIOSPHERE]</span>
+    <span>C4 CARBON FIXATION // OCTOPLOID (2n=80-120)</span>
+  </div>
+  <div class="cinema-letterbox bottom">
+    <span>CBSE CLASS 10 GEOGRAPHY // AGRICULTURE CHAPTER 4</span>
+    <span>SOLO DOSSIER: RYAN FREDRICK RAVURU</span>
+  </div>
+
+  <!-- ========================================================
+       HALF-LIFE ALYX STYLE STAGGERED SHUTTER CURTAIN ENTRANCE
+       ======================================================== -->
+  <div id="entrance-curtain">
+    <!-- 18 Vertical Metallic Obsidian Slats -->
+    <div class="shutter-slat" style="--i: 0;"></div>
+    <div class="shutter-slat" style="--i: 1;"></div>
+    <div class="shutter-slat" style="--i: 2;"></div>
+    <div class="shutter-slat" style="--i: 3;"></div>
+    <div class="shutter-slat" style="--i: 4;"></div>
+    <div class="shutter-slat" style="--i: 5;"></div>
+    <div class="shutter-slat" style="--i: 6;"></div>
+    <div class="shutter-slat" style="--i: 7;"></div>
+    <div class="shutter-slat" style="--i: 8;"></div>
+    <div class="shutter-slat" style="--i: 9;"></div>
+    <div class="shutter-slat" style="--i: 10;"></div>
+    <div class="shutter-slat" style="--i: 11;"></div>
+    <div class="shutter-slat" style="--i: 12;"></div>
+    <div class="shutter-slat" style="--i: 13;"></div>
+    <div class="shutter-slat" style="--i: 14;"></div>
+    <div class="shutter-slat" style="--i: 15;"></div>
+    <div class="shutter-slat" style="--i: 16;"></div>
+    <div class="shutter-slat" style="--i: 17;"></div>
+
+    <!-- Entrance HUD in Center -->
+    <div class="entrance-hud-center" id="entranceHUD">
+      <div class="entrance-badge">SYSTEM SECURITY // SECURE BIOSPHERE</div>
+      <h1 class="entrance-main-title">SACCHARUM<br>// OMNISCIENCE</h1>
+      <div class="entrance-sub-tag">2.5D Multi-Layered Kinetic Parallax Expedition</div>
+      <button class="entrance-enter-btn" onclick="executeCinematicEntrance()">
+        <span>⚡ INITIATE EXPEDITION</span>
+      </button>
+    </div>
+  </div>
+
   <!-- Background Volumetric Cloud / Mist Canvas (Depth Layer 1) -->
   <canvas id="bg-cloud-canvas"></canvas>
 
   <!-- Virtual Camera 2.5D Stage Canvas (Depth Layer 3) -->
   <canvas id="stage-canvas"></canvas>
 
-  <!-- Foreground Drifting Vapor & Fog Canvas (Depth Layer 5 - Occluding Front) -->
+  <!-- Foreground Drifting Vapor & Fog Canvas (Depth Layer 5) -->
   <canvas id="fg-mist-canvas"></canvas>
 
-  <!-- Natural Cane Canopy Silhouette Frame (Depth Layer 4 - Parts Open on Scroll) -->
+  <!-- Natural Cane Canopy Silhouette Frame (Depth Layer 4) -->
   <div class="canopy-silhouette-frame" id="canopyFrame"></div>
 
   <!-- Vignette & Glow Overlays -->
@@ -886,13 +1179,13 @@
     </div>
 
     <div class="header-dock">
+      <button class="island-btn" onclick="replayCinematicEntrance()">
+        <span>🎬</span>
+        <span>Replay Entrance</span>
+      </button>
       <button class="island-btn" id="cameraModeBtn" onclick="cycleCameraAngle()">
         <span>🎥</span>
         <span id="cameraModeLabel">Cam: Parallax Cinematic</span>
-      </button>
-      <button class="island-btn" id="mistToggleBtn" onclick="toggleMistDensity()">
-        <span>☁️</span>
-        <span id="mistLabel">Monsoon Vapor: High</span>
       </button>
       <button class="island-btn" id="soundscapeBtn" onclick="cycleSoundEngine()">
         <span id="soundIcon">🎵</span>
@@ -901,7 +1194,7 @@
     </div>
   </header>
 
-  <!-- Camera HUD Chip (From Video 2 & 3 Parallax Animation) -->
+  <!-- Camera HUD Chip -->
   <div class="camera-hud-chip">
     <span>ATMOSPHERE:</span>
     <b id="camFocusLabel">00 // MONSOON MIST PARALLAX</b>
@@ -998,6 +1291,48 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
             </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 001 / 002 / 003 DOSSIER CARDS (FROM HALF-LIFE ALYX VIDEO 4) -->
+    <section class="scrolly-section align-center" style="min-height: 80vh;">
+      <div class="dossier-grid-section">
+        <div class="dossier-header-text">
+          <h2 class="dossier-headline">TRI-PILLAR KNOWLEDGE DOSSIERS</h2>
+          <div class="dossier-subhead">High-Yield Strategic Vectors for CBSE Class 10 Board Examinations</div>
+        </div>
+
+        <div class="dossier-cards-row">
+          <!-- Card 001 -->
+          <div class="dossier-card" onclick="jumpToAct(2)">
+            <div class="dossier-num-tag">001</div>
+            <h3 class="dossier-card-title">Botanical Cytology & Exploded Culm</h3>
+            <p class="dossier-card-desc">
+              Octoploid cytogenetics (2n=80-120), C4 dicarboxylic acid photosynthetic machinery, nodal intercalary meristem, and concentric exploded vascular bundles.
+            </p>
+            <div class="dossier-card-link">Inspect Culm Architecture →</div>
+          </div>
+
+          <!-- Card 002 -->
+          <div class="dossier-card" onclick="jumpToAct(6)">
+            <div class="dossier-num-tag">002</div>
+            <h3 class="dossier-card-title">The Great Peninsular Migration</h3>
+            <p class="dossier-card-desc">
+              Why the Indian sugar industry relocated southwards: maritime tropical humidity, zero winter frost, 11-13% sucrose recovery, and farmer-owned cooperative mills.
+            </p>
+            <div class="dossier-card-link">Explore Topographical Shift →</div>
+          </div>
+
+          <!-- Card 003 -->
+          <div class="dossier-card" onclick="jumpToAct(9)">
+            <div class="dossier-num-tag">003</div>
+            <h3 class="dossier-card-title">The National E20 Bio-Refinery</h3>
+            <p class="dossier-card-desc">
+              Zero-waste circular economy: high-pressure bagasse turbine cogeneration, 99.8% anhydrous power ethanol for 20% petrol blending, and press mud fertilizer.
+            </p>
+            <div class="dossier-card-link">Enter Bio-Refinery Matrix →</div>
           </div>
         </div>
       </div>
@@ -1405,16 +1740,13 @@
   </footer>
 
   <!-- ========================================================
-       MULTI-LAYER VOLUMETRIC CLOUD & 2.5D KINETIC ENGINE
-       (Combines Video 1 Watch Explosion + Pagani HUD + Juice Splash
-        AND Video 2 Figma Parallax Camera Pan & Morphing Items
-        AND Video 3 Volumetric Clouds Passing Behind/In Front of Text)
+       KINETIC ENGINE & SHUTTER ENTRANCE LOGIC
        ======================================================== -->
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
     /* ----------------------------------------------------
-       1. GLOBAL ENGINE STATE & VIRTUAL CAMERA
+       1. GLOBAL STATE & VIRTUAL CAMERA
        ---------------------------------------------------- */
     const engine = {
       camera: {
@@ -1433,8 +1765,9 @@
       audioMode: 0,
       soundRunning: false,
       burstActive: false,
-      cameraModeIdx: 0, // 0: Auto Parallax, 1: Macro Focus, 2: Wide Aerial
-      mistDensity: 1.0  // 0.5: Low, 1.0: High, 1.5: Heavy
+      cameraModeIdx: 0,
+      mistDensity: 1.0,
+      entranceExecuted: false
     };
 
     /* Per-Act Camera Configurations */
@@ -1470,8 +1803,62 @@
     ];
 
     /* ----------------------------------------------------
-       2. VOLUMETRIC CLOUD & MIST GENERATOR (FROM VIDEO 3)
-       Passes behind AND in front of text layers!
+       2. HALF-LIFE ALYX STYLE STAGGERED SHUTTER ENTRANCE
+       (Slicing Obsidian Glass Slats with Sub-Bass Sound)
+       ---------------------------------------------------- */
+    function executeCinematicEntrance() {
+      if (engine.entranceExecuted) return;
+      engine.entranceExecuted = true;
+
+      // Initialize soundscape and play entrance bass sweep
+      initAudio();
+      playEntranceSound();
+
+      // Fade out the center entrance prompt
+      const hud = document.getElementById('entranceHUD');
+      hud.classList.add('faded');
+
+      // Stagger vertical slats up and down (Alyx Style from 00:01)
+      const slats = document.querySelectorAll('.shutter-slat');
+      slats.forEach((slat, idx) => {
+        const dir = idx % 2 === 0 ? -110 : 110;
+        const delay = (idx * 0.038) + 0.15;
+        setTimeout(() => {
+          slat.style.transform = `translateY(${dir}%)`;
+        }, delay * 1000);
+      });
+
+      // Detonate full-screen kinetic shockwaves
+      setTimeout(() => {
+        addShockwave(window.innerWidth / 2, window.innerHeight / 2, '#00ff88');
+        addShockwave(window.innerWidth / 2, window.innerHeight / 2, '#00f0ff');
+      }, 500);
+
+      // Hide curtain container from pointer events
+      setTimeout(() => {
+        document.getElementById('entrance-curtain').classList.add('hidden');
+        showToast('⚡ Saccharum Biosphere Initialized');
+      }, 1200);
+    }
+
+    function replayCinematicEntrance() {
+      const curtain = document.getElementById('entrance-curtain');
+      const hud = document.getElementById('entranceHUD');
+      curtain.classList.remove('hidden');
+      hud.classList.remove('faded');
+
+      const slats = document.querySelectorAll('.shutter-slat');
+      slats.forEach((slat) => {
+        slat.style.transform = 'translateY(0%)';
+      });
+
+      engine.entranceExecuted = false;
+      showToast('🎬 Replaying Cinematic Shutter Entrance');
+      playSynthTone(520);
+    }
+
+    /* ----------------------------------------------------
+       3. VOLUMETRIC CLOUD & MIST ENGINES
        ---------------------------------------------------- */
     const bgCloudCanvas = document.getElementById('bg-cloud-canvas');
     const bgCloudCtx = bgCloudCanvas.getContext('2d');
@@ -1494,7 +1881,7 @@
         this.speedX = (Math.random() * 0.25 + 0.1) * (this.isFg ? 1.4 : 0.7);
         this.alpha = (Math.random() * 0.12 + 0.04) * (this.isFg ? 0.75 : 1.0);
         this.pulseAngle = Math.random() * Math.PI * 2;
-        this.hue = Math.random() > 0.6 ? 152 : 185; // Emerald / Cyan bioluminescent hue
+        this.hue = Math.random() > 0.6 ? 152 : 185;
       }
       update() {
         this.x += this.speedX;
@@ -1536,7 +1923,7 @@
     }
 
     /* ----------------------------------------------------
-       3. CANVAS RESIZING & PARTICLES
+       4. CANVAS RESIZING & PARTICLES
        ---------------------------------------------------- */
     const stageCanvas = document.getElementById('stage-canvas');
     const ctx = stageCanvas.getContext('2d');
@@ -1558,7 +1945,6 @@
       });
     }
 
-    /* Ambient Bioluminescent Spores */
     class AmbientSpore {
       constructor() { this.reset(); }
       reset() {
@@ -1601,7 +1987,6 @@
       }
     }
 
-    /* Dynamic Swirling Juice Splash Droplets (Raw Pressery Inspiration) */
     class SwirlingJuiceDrop {
       constructor() {
         this.angle = Math.random() * Math.PI * 2;
@@ -1652,7 +2037,7 @@
     }
 
     /* ----------------------------------------------------
-       4. 2.5D PROCEDURAL RENDERERS FOR TRANSFORMED ITEMS
+       5. 2.5D PROCEDURAL RENDERERS FOR TRANSFORMED ITEMS
        ---------------------------------------------------- */
 
     // ACT 0: Towering Monumental Cane Culm
@@ -2352,19 +2737,17 @@
     }
 
     /* ----------------------------------------------------
-       5. MAIN COMPOSITING RENDER LOOP (ALL 3 LAYERS)
+       6. MAIN COMPOSITING RENDER LOOP (ALL LAYERS)
        ---------------------------------------------------- */
     function renderCompositeWorld() {
       const w = window.innerWidth;
       const h = window.innerHeight;
       const t = performance.now();
 
-      // Clear all 3 stage layers
       bgCloudCtx.clearRect(0, 0, w, h);
       ctx.clearRect(0, 0, w, h);
       fgMistCtx.clearRect(0, 0, w, h);
 
-      // 1. Smooth Camera Interpolation (Lerp)
       const cam = engine.camera;
       cam.x += (cam.targetX - cam.x) * 0.07;
       cam.y += (cam.targetY - cam.y) * 0.07;
@@ -2373,19 +2756,19 @@
       const mouseOffsetX = (engine.mouse.x - w / 2) * 0.04;
       const mouseOffsetY = (engine.mouse.y - h / 2) * 0.04;
 
-      // 2. LAYER 1: Background Volumetric Monsoon Clouds (Passing BEHIND)
+      // 1. LAYER 1: Background Volumetric Clouds
       for (let cp of bgCloudPuffs) {
         cp.update();
         cp.draw(bgCloudCtx, cam.x, cam.y);
       }
 
-      // 3. LAYER 2: Ambient Bioluminescent Spores
+      // 2. LAYER 2: Ambient Bioluminescent Spores
       for (let p of ambientParticles) {
         p.update(cam.x, cam.y);
         p.draw(ctx, cam.x, cam.y);
       }
 
-      // 4. Expanding Shockwaves
+      // 3. Shockwaves
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
         sw.radius += 8;
@@ -2407,7 +2790,7 @@
         }
       }
 
-      // 5. LAYER 3: Virtual Camera Centerpiece (Transformed Item)
+      // 4. LAYER 3: Virtual Camera Centerpiece (Transformed Item)
       ctx.save();
       ctx.translate(w / 2 + cam.x + mouseOffsetX, h / 2 + cam.y + mouseOffsetY);
       ctx.scale(cam.zoom, cam.zoom);
@@ -2437,7 +2820,7 @@
       }
       ctx.restore();
 
-      // 6. LAYER 5: Foreground Drifting Mist / Fog (Passing IN FRONT of Typography)
+      // 5. LAYER 5: Foreground Drifting Mist
       for (let fp of fgMistPuffs) {
         fp.update();
         fp.draw(fgMistCtx, cam.x, cam.y);
@@ -2447,7 +2830,7 @@
     }
 
     /* ----------------------------------------------------
-       6. SCROLLTRIGGER & DYNAMIC CAMERA ORCHESTRATION
+       7. SCROLLTRIGGER ORCHESTRATION
        ---------------------------------------------------- */
     function setupScrollTriggers() {
       window.addEventListener('scroll', () => {
@@ -2457,7 +2840,6 @@
         engine.scrollProgress = frac;
         document.getElementById('progressBar').style.width = (frac * 100) + '%';
 
-        // Canopy silhouette frame parts open as you descend past Hero (from Video 3)
         const frame = document.getElementById('canopyFrame');
         if (scrollTop > 150) {
           frame.style.opacity = Math.max(0.15, 1 - (scrollTop - 150) / 400);
@@ -2565,22 +2947,6 @@
       }
     }
 
-    function toggleMistDensity() {
-      if (engine.mistDensity === 1.0) {
-        engine.mistDensity = 1.6;
-        document.getElementById('mistLabel').innerText = 'Monsoon Vapor: Dense';
-        showToast('☁️ Heavy Volumetric Monsoon Vapor Active');
-      } else if (engine.mistDensity === 1.6) {
-        engine.mistDensity = 0.4;
-        document.getElementById('mistLabel').innerText = 'Monsoon Vapor: Light';
-        showToast('🌤️ Light Morning Field Mist Active');
-      } else {
-        engine.mistDensity = 1.0;
-        document.getElementById('mistLabel').innerText = 'Monsoon Vapor: High';
-        showToast('☁️ Balanced Atmospheric Fog Restored');
-      }
-    }
-
     function showToast(msg) {
       const toast = document.getElementById('systemToast');
       const text = document.getElementById('toastMsg');
@@ -2592,7 +2958,7 @@
     }
 
     /* ----------------------------------------------------
-       7. PROCEDURAL AUDIO SYNTHESIZER
+       8. PROCEDURAL AUDIO SYNTHESIZER
        ---------------------------------------------------- */
     let audioCtx = null;
     let windGain = null;
@@ -2641,6 +3007,37 @@
       rainFilter.connect(rainGain);
       rainGain.connect(audioCtx.destination);
       rainNoise.start();
+    }
+
+    function playEntranceSound() {
+      if (!audioCtx) return;
+      try {
+        // Deep sub-bass rumble drop
+        const bassOsc = audioCtx.createOscillator();
+        const bassGain = audioCtx.createGain();
+        bassOsc.type = 'sawtooth';
+        bassOsc.frequency.setValueAtTime(110, audioCtx.currentTime);
+        bassOsc.frequency.exponentialRampToValueAtTime(32, audioCtx.currentTime + 1.2);
+        bassGain.gain.setValueAtTime(0.18, audioCtx.currentTime);
+        bassGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+        bassOsc.connect(bassGain);
+        bassGain.connect(audioCtx.destination);
+        bassOsc.start();
+        bassOsc.stop(audioCtx.currentTime + 1.25);
+
+        // Futuristic high-frequency chime
+        const chimeOsc = audioCtx.createOscillator();
+        const chimeGain = audioCtx.createGain();
+        chimeOsc.type = 'sine';
+        chimeOsc.frequency.setValueAtTime(660, audioCtx.currentTime);
+        chimeOsc.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.6);
+        chimeGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        chimeGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.65);
+        chimeOsc.connect(chimeGain);
+        chimeGain.connect(audioCtx.destination);
+        chimeOsc.start();
+        chimeOsc.stop(audioCtx.currentTime + 0.7);
+      } catch (e) {}
     }
 
     function cycleSoundEngine() {
@@ -2694,7 +3091,7 @@
     }
 
     /* ----------------------------------------------------
-       8. CBSE BOARD EXAM SIMULATOR
+       9. CBSE BOARD EXAM SIMULATOR
        ---------------------------------------------------- */
     const quizData = [
       {
@@ -2817,7 +3214,7 @@
     }
 
     /* ----------------------------------------------------
-       9. INITIALIZATION
+       10. INITIALIZATION
        ---------------------------------------------------- */
     window.addEventListener('DOMContentLoaded', () => {
       resizeAllCanvases();
