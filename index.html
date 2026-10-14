@@ -1,2450 +1,955 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saccharum — Botanical Alchemy // AAA 3D Conservatory</title>
-  
-  <!-- Premium Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  
+  <title>BMW M4 CSL — Cinematic 3D Experience</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-dark: #010402;
-      --text-main: #ffffff;
-      --text-muted: #8e9992;
-      --text-dim: #546358;
-      --accent: #e0c367;
-      --accent-glow: #ffd60a;
-      --emerald-neon: #00ff88;
-      --emerald-glow: #10b981;
-      --cyan-neon: #00f0ff;
-      --glass-panel: rgba(6, 12, 8, 0.82);
-      --glass-border: rgba(255, 255, 255, 0.14);
-      --glass-bevel: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.95);
-      
-      --font-serif: 'Playfair Display', serif;
-      --font-sans: 'Inter', sans-serif;
-      --font-mono: 'Space Grotesk', monospace;
-    }
-
-    * {
-      box-sizing: border-box;
+    * { box-sizing: border-box; }
+    body {
       margin: 0;
-      padding: 0;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    html, body {
-      width: 100%;
-      background: var(--bg-dark);
-      color: var(--text-main);
-      font-family: var(--font-sans);
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
       overflow-x: hidden;
-      scroll-behavior: smooth;
     }
-
-    /* Subtle Cinematic Film Grain Overlay */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* WebGL Canvas Viewport */
-    #webgl-container {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
+    body.locked-scroll {
+      overflow: hidden;
       height: 100vh;
-      z-index: 1;
-      pointer-events: none;
     }
-
-    /* Top Reading Progress Bar */
-    #progressBar {
+    h1, h2, .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .glass-panel {
+      background: rgba(10, 10, 14, 0.65);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    }
+    /* Ignition Button Pulse */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 25px rgba(220, 38, 38, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+    }
+    .ignition-btn {
+      animation: pulse-ring 2s infinite;
+      background: radial-gradient(circle at 30% 30%, #ef4444, #991b1b 70%, #450a0a 100%);
+    }
+    /* Cinematic Letterbox Bars */
+    .letterbox-top, .letterbox-bottom {
       position: fixed;
-      top: 0;
-      left: 0;
-      height: 2.5px;
-      width: 0%;
-      background: linear-gradient(90deg, var(--emerald-neon), var(--cyan-neon), var(--accent));
-      box-shadow: 0 0 14px var(--emerald-neon);
-      z-index: 999;
-      transition: width 0.05s ease-out;
-    }
-
-    /* ========================================================
-       CINEMATIC FOREGROUND CANOPY LAYERING (START EXPERIENCE)
-       ======================================================== */
-    .foreground-canopy-frond {
-      position: fixed;
-      pointer-events: none;
-      z-index: 25;
-      opacity: 0.85;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
-    }
-
-    .foreground-canopy-frond.left {
-      top: -5%;
-      left: -8%;
-      width: clamp(280px, 35vw, 520px);
-      height: auto;
-      filter: blur(8px) drop-shadow(0 20px 30px rgba(0,0,0,0.9));
-      transform-origin: top left;
-    }
-
-    .foreground-canopy-frond.right {
-      bottom: -6%;
-      right: -8%;
-      width: clamp(300px, 38vw, 550px);
-      height: auto;
-      filter: blur(12px) drop-shadow(0 -20px 30px rgba(0,0,0,0.9));
-      transform-origin: bottom right;
-    }
-
-    /* Vignette Overlay */
-    .vignette-amoled {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 5;
-      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(1, 4, 2, 0.8) 80%, #000000 100%);
-    }
-
-    /* Navigation Bar */
-    nav {
-      position: fixed;
-      top: 0;
       left: 0;
       right: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.8rem 6vw;
-      z-index: 100;
-      background: linear-gradient(to bottom, rgba(1, 4, 2, 0.95), transparent);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-
-    .brand-cluster {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .logo {
-      font-family: var(--font-serif);
-      font-weight: 900;
-      font-size: 1.45rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #ffffff;
-      text-shadow: 0 0 25px rgba(255, 255, 255, 0.35);
-    }
-
-    .tagline {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.35em;
-      color: var(--accent);
-      font-weight: 600;
-      font-family: var(--font-mono);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .nav-pill-btn {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--glass-border);
-      padding: 7px 16px;
-      border-radius: 999px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.25s ease;
-      text-transform: uppercase;
-      backdrop-filter: blur(12px);
-    }
-
-    .nav-pill-btn:hover {
-      border-color: var(--emerald-neon);
-      color: #ffffff;
-      box-shadow: 0 0 16px rgba(0, 255, 136, 0.3);
-      transform: translateY(-1px);
-    }
-
-    .nav-pill-btn.active {
-      background: rgba(0, 255, 136, 0.18);
-      border-color: var(--emerald-neon);
-      color: var(--emerald-neon);
-      box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
-    }
-
-    /* Vertical Chapter Spine Rail (Right Edge) */
-    .spine-rail {
-      position: fixed;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 90;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .spine-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      cursor: pointer;
-      position: relative;
-      transition: all 0.25s ease;
-    }
-
-    .spine-dot:hover {
-      background: var(--accent);
-      transform: scale(1.4);
-    }
-
-    .spine-dot.active {
-      background: var(--emerald-neon);
-      box-shadow: 0 0 14px var(--emerald-neon);
-      transform: scale(1.6);
-      border-color: #ffffff;
-    }
-
-    .spine-tooltip {
-      position: absolute;
-      right: 22px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #000000;
-      border: 1px solid var(--glass-border);
-      color: #fff;
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      letter-spacing: 1px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-      text-transform: uppercase;
-    }
-
-    .spine-dot:hover .spine-tooltip { opacity: 1; }
-
-    /* Telemetry HUD Dock (Fixed Bottom Bar) */
-    .telemetry-hud {
-      position: fixed;
-      bottom: 34px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 60;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: var(--glass-panel);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-bevel), 0 20px 40px rgba(0, 0, 0, 0.95), 0 0 25px rgba(0, 255, 136, 0.15);
-      backdrop-filter: blur(24px);
-      padding: 9px 24px;
-      border-radius: 999px;
-    }
-
-    .telemetry-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .ti-label {
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      letter-spacing: 1.5px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-    }
-
-    .ti-val {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .telemetry-div {
-      width: 1px;
-      height: 22px;
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    /* Scrollytelling Sections */
-    main {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-    }
-
-    .scroll-section {
-      min-height: 150vh;
-      width: 100%;
-      position: relative;
-    }
-
-    .sticky-content {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0 8vw;
-      box-sizing: border-box;
+      height: 0vh;
+      background: #000;
+      z-index: 35;
+      transition: height 0.7s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
     }
-
-    .align-center { justify-content: center; text-align: center; }
-    .align-left { justify-content: flex-start; }
-    .align-right { justify-content: flex-end; text-align: right; }
-
-    /* Enhanced Liquid Glass Text Cards */
-    .text-card {
-      width: 100%;
-      max-width: 480px;
-      padding: 2.2rem;
-      background: var(--glass-panel);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-bevel), 0 25px 60px rgba(0, 0, 0, 0.95);
-      border-radius: 26px;
-      position: relative;
-      pointer-events: auto;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.3s;
-    }
-
-    .text-card.is-visible {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
-
-    .text-card:hover {
-      border-color: rgba(0, 255, 136, 0.4);
-      box-shadow: var(--glass-bevel), 0 30px 70px rgba(0, 0, 0, 0.98), 0 0 30px rgba(0, 255, 136, 0.2);
-    }
-
-    h1, h2 {
-      font-family: var(--font-serif);
-      font-weight: 800;
-      line-height: 1.05;
-      margin-bottom: 1.2rem;
-      color: #ffffff;
-    }
-
-    h1 { font-size: clamp(3.2rem, 5.5vw, 5.5rem); letter-spacing: 0.02em; }
-    h2 { font-size: clamp(2.2rem, 3.6vw, 3.2rem); letter-spacing: 0.02em; }
-
-    .gradient-text {
-      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .label {
-      color: var(--accent);
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.3em;
-      font-size: 0.68rem;
-      margin-bottom: 0.8rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--font-mono);
-    }
-
-    p {
-      font-size: 1.02rem;
-      line-height: 1.7;
-      color: var(--text-muted);
-      font-weight: 300;
-    }
-
-    /* Metric Badges Grid inside Cards */
-    .card-metrics-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .metric-chip {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 10px;
-      padding: 8px 10px;
-      text-align: left;
-    }
-
-    .align-right .metric-chip {
-      text-align: right;
-    }
-
-    .mc-label {
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .mc-val {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--emerald-neon);
-    }
-
-    /* Variety Showcase Strip inside Hero */
-    .variety-selector-bar {
-      display: flex;
-      gap: 6px;
-      margin-top: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .v-pill {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 5px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-transform: uppercase;
-    }
-
-    .v-pill:hover, .v-pill.active {
-      border-color: var(--emerald-neon);
-      color: #ffffff;
-      background: rgba(0, 255, 136, 0.15);
-      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-    }
-
-    /* Return to Apex Hub */
-    .return-hub {
-      padding: 40px 24px 80px;
-      text-align: center;
-      pointer-events: auto;
-    }
-
-    .return-btn {
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: #000000;
-      background: var(--accent);
-      border: none;
-      padding: 14px 36px;
-      border-radius: 999px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 0 25px rgba(224, 195, 103, 0.4);
-      transition: all 0.25s ease;
-      text-transform: uppercase;
-    }
-
-    .return-btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 0 35px var(--accent);
-    }
-
-    /* Footer */
-    footer {
-      position: relative;
-      z-index: 20;
-      background: #000000;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 40px 20px;
-      text-align: center;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 2px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-    }
-
-    footer b { color: var(--accent); }
-
-    @media (max-width: 900px) {
-      .sticky-content {
-        justify-content: center !important;
-        text-align: center !important;
-        padding: 0 1.5rem;
-      }
-      .text-card {
-        padding: 1.6rem;
-        max-width: 100%;
-      }
-      .align-right .metric-chip {
-        text-align: center;
-      }
-      nav { padding: 1.2rem 1.5rem; }
-      .spine-rail { display: none; }
-      .telemetry-hud { padding: 7px 16px; bottom: 12px; }
-      .foreground-canopy-frond { display: none; }
-    }
-  
-    /* UI Hidden Mode */
-    body.ui-hidden nav,
-    body.ui-hidden .spine-rail,
-    body.ui-hidden .telemetry-hud,
-    body.ui-hidden #presenterBar,
-    body.ui-hidden #presenterNotesPanel,
-    body.ui-hidden #hotspotsLayer,
-    body.ui-hidden #simDrawer,
-    body.ui-hidden #hotspotCard,
-    body.ui-hidden .scroll-section {
-      opacity: 0 !important;
-      pointer-events: none !important;
-      transition: opacity 0.4s ease;
-    }
-
-    /* Virtual Laser Pointer Cursor */
-    #laserPointer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #ff2a5f;
-      box-shadow: 0 0 14px #ff2a5f, 0 0 28px rgba(255, 42, 95, 0.8);
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 99999;
-      display: none;
-    }
-    #laserPointer::after {
-      content: "";
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 42, 95, 0.6);
-      animation: laserPulse 1s infinite alternate;
-    }
-    @keyframes laserPulse {
-      from { transform: scale(1); opacity: 0.8; }
-      to { transform: scale(1.6); opacity: 0.2; }
-    }
-    body.laser-active {
-      cursor: none !important;
-    }
-    body.laser-active #laserPointer {
-      display: block;
-    }
-
-    /* Interactive 3D Hotspot Screen-Space Layer */
-    #hotspotsLayer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 50;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .hotspot-pin {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      pointer-events: auto;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), opacity 0.3s ease;
-    }
-    .hotspot-pin:hover {
-      transform: translate(-50%, -50%) scale(1.15);
-    }
-    .hotspot-dot {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(0, 255, 136, 0.9);
-      box-shadow: 0 0 16px var(--emerald-neon), 0 0 32px rgba(0, 255, 136, 0.4);
-      border: 2px solid #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .hotspot-dot::after {
-      content: "";
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      border: 1px dashed rgba(0, 255, 136, 0.7);
-      animation: spinPulse 4s linear infinite;
-    }
-    @keyframes spinPulse {
-      0% { transform: rotate(0deg) scale(0.9); opacity: 0.5; }
-      50% { transform: rotate(180deg) scale(1.15); opacity: 1; }
-      100% { transform: rotate(360deg) scale(0.9); opacity: 0.5; }
-    }
-    .hotspot-badge {
-      background: var(--glass-panel);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      border-radius: 8px;
-      padding: 4px 10px;
-      font-size: 0.7rem;
-      font-family: var(--font-mono);
-      color: #fff;
-      white-space: nowrap;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Hotspot Detail Floating Card */
-    #hotspotCard {
-      position: fixed;
-      top: 100px;
-      right: 36px;
-      width: 360px;
-      max-width: calc(100vw - 72px);
-      background: var(--glass-panel);
-      backdrop-filter: blur(32px);
-      -webkit-backdrop-filter: blur(32px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), var(--glass-bevel);
-      z-index: 120;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(12px) scale(0.96);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    #hotspotCard.visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0) scale(1);
-    }
-    .hc-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    .hc-badge {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--emerald-neon);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    .hc-close {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 1.1rem;
-      line-height: 1;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-    .hc-close:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
-    .hc-title {
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #fff;
-    }
-    .hc-sub {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-    .hc-body {
-      font-size: 0.82rem;
-      line-height: 1.6;
-      color: #d1d5db;
-      margin-bottom: 16px;
-    }
-    .hc-metrics {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 10px 12px;
-    }
-    .hcm-item span { display: block; }
-    .hcm-lbl {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: var(--text-dim);
-    }
-    .hcm-val {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    /* Presenter Bottom Bar */
-    #presenterBar {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 18px;
-      background: rgba(4, 10, 6, 0.88);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid rgba(0, 255, 136, 0.35);
-      border-radius: 9999px;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 20px rgba(0, 255, 136, 0.2);
-      z-index: 100;
-      opacity: 0;
-      pointer-events: none;
-      transform: translate(-50%, 15px);
-      transition: all 0.35s ease;
-    }
-    #presenterBar.visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translate(-50%, 0);
-    }
-    .p-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      font-family: var(--font-mono);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-    .p-btn:hover {
-      background: rgba(0, 255, 136, 0.2);
-      border-color: var(--emerald-neon);
-      transform: translateY(-1px);
-    }
-    .p-btn.active {
-      background: rgba(255, 42, 95, 0.25);
-      border-color: #ff2a5f;
-      color: #fff;
-      box-shadow: 0 0 12px rgba(255, 42, 95, 0.4);
-    }
-    .p-slide-indicator {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      color: var(--accent);
-      padding: 0 8px;
-    }
-
-    /* Presenter Notes Glass Drawer */
-    #presenterNotesPanel {
-      position: fixed;
-      top: 90px;
-      left: 36px;
-      width: 380px;
-      max-width: calc(100vw - 72px);
-      background: var(--glass-panel);
-      backdrop-filter: blur(32px);
-      -webkit-backdrop-filter: blur(32px);
-      border: 1px solid rgba(0, 255, 136, 0.28);
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85);
-      z-index: 110;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateX(-15px);
-      transition: all 0.35s ease;
-    }
-    #presenterNotesPanel.visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(0);
-    }
-    .pn-tag {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: var(--emerald-neon);
-      background: rgba(0, 255, 136, 0.12);
-      padding: 3px 8px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      letter-spacing: 0.08em;
-    }
-    .pn-title {
-      font-family: var(--font-serif);
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 8px;
-    }
-    .pn-points {
-      list-style: none;
-      font-size: 0.8rem;
-      line-height: 1.6;
-      color: #d1d5db;
-    }
-    .pn-points li {
-      position: relative;
-      padding-left: 18px;
-      margin-bottom: 8px;
-    }
-    .pn-points li::before {
-      content: "▹";
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-    }
-    .pn-points b { color: #fff; }
-
-    /* C4 Agronomic & Brix Simulator Drawer */
-    #simDrawer {
-      position: fixed;
-      top: 86px;
-      right: 36px;
-      width: 400px;
-      max-width: calc(100vw - 72px);
-      max-height: calc(100vh - 120px);
-      overflow-y: auto;
-      background: var(--glass-panel);
-      backdrop-filter: blur(36px);
-      -webkit-backdrop-filter: blur(36px);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 32px 70px rgba(0, 0, 0, 0.85), var(--glass-bevel);
-      z-index: 115;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateX(20px);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    #simDrawer.visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(0);
-    }
-    .sim-slider-row {
-      margin-bottom: 16px;
-    }
-    .sim-slider-label {
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: #e5e7eb;
-      margin-bottom: 6px;
-    }
-    .sim-slider-label span:last-child {
-      color: var(--emerald-neon);
-      font-weight: 700;
-    }
-    input[type=range] {
-      width: 100%;
-      -webkit-appearance: none;
-      background: rgba(255, 255, 255, 0.1);
-      height: 6px;
-      border-radius: 3px;
-      outline: none;
-    }
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--emerald-neon);
-      box-shadow: 0 0 10px var(--emerald-neon);
-      cursor: pointer;
-      transition: transform 0.1s;
-    }
-    input[type=range]::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
-    }
-    .sim-results-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin: 18px 0;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 14px;
-    }
-    .sim-res-box { text-align: left; }
-    .sim-res-box .s-lbl {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: var(--text-dim);
-      display: block;
-      margin-bottom: 2px;
-    }
-    .sim-res-box .s-val {
-      font-family: var(--font-mono);
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-    }
-    .c4-pathway-box {
-      background: rgba(0, 255, 136, 0.04);
-      border: 1px dashed rgba(0, 255, 136, 0.3);
-      border-radius: 12px;
-      padding: 12px;
-      margin-top: 12px;
-    }
-    .c4-pathway-title {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--emerald-neon);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-    }
-    .c4-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 0.72rem;
-      font-family: var(--font-mono);
-      color: #d1d5db;
-    }
-    .c4-step-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .c4-step-num {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(0, 255, 136, 0.2);
-      color: var(--emerald-neon);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.65rem;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
+    .letterbox-top { top: 0; }
+    .letterbox-bottom { bottom: 0; }
+    body.cinematic-mode .letterbox-top,
+    body.cinematic-mode .letterbox-bottom {
+      height: 9vh;
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 3px; }
   </style>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
 </head>
-<body>
-  <!-- Virtual Laser Pointer -->
-  <div id="laserPointer"></div>
+<body class="locked-scroll select-none">
 
-  <!-- Top Progress Bar -->
-  <div id="progressBar"></div>
+  <!-- CINEMATIC BLACK BARS (Active during Intro) -->
+  <div class="letterbox-top"></div>
+  <div class="letterbox-bottom"></div>
 
-  <!-- Foreground Canopy Layering (Soft focus silhouettes that part as you scroll) -->
-  <svg class="foreground-canopy-frond left" id="frondLeft" viewBox="0 0 400 300" fill="none">
-    <path d="M-50 0 C50 60 180 120 320 180 C260 210 120 220 -50 260 Z" fill="#011a0c" opacity="0.95"/>
-    <path d="M-80 -20 C80 40 240 100 380 220 C280 240 100 230 -80 200 Z" fill="#032915" opacity="0.8"/>
-  </svg>
-  <svg class="foreground-canopy-frond right" id="frondRight" viewBox="0 0 400 300" fill="none">
-    <path d="M450 300 C350 240 220 180 80 120 C140 90 280 80 450 40 Z" fill="#011a0c" opacity="0.95"/>
-    <path d="M480 320 C320 260 160 200 20 80 C120 60 300 70 480 100 Z" fill="#032915" opacity="0.8"/>
-  </svg>
-
-  <div class="vignette-amoled"></div>
-
-  <!-- Navigation -->
-  <nav>
-    <div class="brand-cluster">
-      <div class="logo">Saccharum</div>
-      <div class="tagline">Botanical Alchemy &bull; Made by Ryan and Adarsh</div>
-    </div>
-    <div class="nav-actions">
-      <button class="nav-pill-btn" id="dissectBtn" onclick="toggleDissection()">
-        <span>🔬</span>
-        <span id="dissectLabel">Deconstruct</span>
-      </button>
-      <button class="nav-pill-btn" id="hotspotToggleBtn" onclick="toggleHotspots()" title="Inspect 3D biological anatomical markers">
-        <span>🎯</span>
-        <span>Hotspots</span>
-      </button>
-      <button class="nav-pill-btn" id="simToggleBtn" onclick="toggleSimDrawer()" title="C4 Photosynthetic & Agronomic Simulator">
-        <span>🧪</span>
-        <span>C4 Lab</span>
-      </button>
-      <button class="nav-pill-btn" id="envBtn" onclick="cycleEnvironment()" title="Cycle Lighting & Atmospheric Presets">
-        <span>🌅</span>
-        <span id="envLabel">Noon</span>
-      </button>
-      <button class="nav-pill-btn" id="vfxToggleBtn" onclick="toggleVFX()">
-        <span>✨</span>
-        <span id="vfxLabel">VFX: High</span>
-      </button>
-            <button class="nav-pill-btn" id="presenterBtn" onclick="togglePresenterMode()" title="Toggle Classroom Presenter Mode (Hotkey: P)">
-        <span>🎓</span>
-        <span>Presenter</span>
-      </button>
-      <button class="nav-pill-btn" id="soundBtn" onclick="toggleAudio()">
-        <span>🎵</span>
-        <span id="soundLabel">Ambient</span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Right Spine Rail -->
-  <div class="spine-rail">
-    <div class="spine-dot active" onclick="scrollToSection(0)"><span class="spine-tooltip">Raw Essence</span></div>
-    <div class="spine-dot" onclick="scrollToSection(1)"><span class="spine-tooltip">01 Propagation</span></div>
-    <div class="spine-dot" onclick="scrollToSection(2)"><span class="spine-tooltip">02 Photosynthesis</span></div>
-    <div class="spine-dot" onclick="scrollToSection(3)"><span class="spine-tooltip">03 The Cut</span></div>
-    <div class="spine-dot" onclick="scrollToSection(4)"><span class="spine-tooltip">04 The Window</span></div>
-    <div class="spine-dot" onclick="scrollToSection(5)"><span class="spine-tooltip">05 Extraction</span></div>
-    <div class="spine-dot" onclick="scrollToSection(6)"><span class="spine-tooltip">06 Nucleation</span></div>
-  </div>
-
-  <!-- Telemetry HUD Bar (Fixed Bottom) -->
-  <div class="telemetry-hud">
-    <div class="telemetry-item">
-      <span class="ti-label">CHAPTER</span>
-      <span class="ti-val" id="hudChapter">00 // RAW ESSENCE</span>
-    </div>
-    <div class="telemetry-div"></div>
-    <div class="telemetry-item">
-      <span class="ti-label">PURITY</span>
-      <span class="ti-val" id="hudBrix">18.4° Bx</span>
-    </div>
-    <div class="telemetry-div"></div>
-    <div class="telemetry-item">
-      <span class="ti-label">VFX CORE</span>
-      <span class="ti-val" id="hudVFX" style="color: var(--emerald-neon);">PHOTON HARVEST</span>
-    </div>
-  </div>
-
-  <!-- 3D Canvas Container -->
-  <div id="webgl-container"></div>
-
-  <!-- Scrollytelling Story Track -->
-  
-  <!-- 3D Hotspots Screen-Space Layer -->
-  <div id="hotspotsLayer">
-    <div class="hotspot-pin" id="pin0" onclick="selectHotspot(0)">
-      <div class="hotspot-dot"></div>
-      <div class="hotspot-badge">Waxy Cuticle</div>
-    </div>
-    <div class="hotspot-pin" id="pin1" onclick="selectHotspot(1)">
-      <div class="hotspot-dot"></div>
-      <div class="hotspot-badge">Fibrous Rind</div>
-    </div>
-    <div class="hotspot-pin" id="pin2" onclick="selectHotspot(2)">
-      <div class="hotspot-dot"></div>
-      <div class="hotspot-badge">Vascular Bundles</div>
-    </div>
-    <div class="hotspot-pin" id="pin3" onclick="selectHotspot(3)">
-      <div class="hotspot-dot"></div>
-      <div class="hotspot-badge">Storage Pith</div>
-    </div>
-  </div>
-
-  <!-- Hotspot Detail Card -->
-  <div id="hotspotCard">
-    <div class="hc-header">
-      <span class="hc-badge">● 3D ANATOMY EXPLORER</span>
-      <button class="hc-close" onclick="closeHotspot()">✕</button>
-    </div>
-    <h3 class="hc-title" id="hcTitle">Waxy Cuticle</h3>
-    <div class="hc-sub" id="hcSub">Epidermal Secretion Layer</div>
-    <p class="hc-body" id="hcBody">Lipid wax bloom containing triterpenoids and long-chain fatty acids prevents transpiration loss and protects the stem against insect vectors.</p>
-    <div class="hc-metrics">
-      <div class="hcm-item">
-        <span class="hcm-lbl">TISSUE TYPE</span>
-        <span class="hcm-val" id="hcTissue">Epidermis</span>
+  <!-- 1. START IGNITION OVERLAY SCREEN -->
+  <div id="ignition-screen" class="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-between py-12 px-6 transition-opacity duration-700">
+    <!-- Top M Badge -->
+    <div class="flex items-center gap-3">
+      <div class="flex h-5">
+        <span class="w-2 bg-sky-400 skew-x-[-18deg]"></span>
+        <span class="w-2 bg-blue-700 skew-x-[-18deg]"></span>
+        <span class="w-2 bg-red-600 skew-x-[-18deg]"></span>
       </div>
-      <div class="hcm-item">
-        <span class="hcm-lbl">CBSE TOPIC</span>
-        <span class="hcm-val" id="hcCurriculum">Life Processes</span>
+      <span class="font-display font-bold tracking-[0.3em] text-xs md:text-sm text-zinc-300">BMW M4 CSL // STUDIO UNVEIL</span>
+    </div>
+
+    <!-- Center Ignition Button & Model Dropper -->
+    <div class="flex flex-col items-center text-center max-w-md">
+      <p id="model-status-badge" class="text-[11px] font-mono uppercase tracking-[0.25em] text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-4 py-1.5 rounded-full mb-8">
+        3D Showroom Ready — Drop .GLB or Load Below
+      </p>
+
+      <button id="start-ignition-btn" class="ignition-btn w-36 h-36 rounded-full border-4 border-zinc-700 flex flex-col items-center justify-center cursor-pointer active:scale-95 transition-transform">
+        <span class="text-[10px] font-mono tracking-[0.25em] text-red-200 uppercase mb-1">Push</span>
+        <span class="font-display font-extrabold text-xl tracking-widest text-white">START</span>
+        <span class="font-display font-bold text-xs tracking-[0.2em] text-red-100">ENGINE</span>
+      </button>
+
+      <p class="text-xs text-zinc-400 mt-6 tracking-wide">
+        Turn up your volume. Initiates 3D cloth uncover, dynamic macro camera cuts, and twin-turbo inline-6 exhaust audio.
+      </p>
+
+      <!-- Load Local .GLB before starting -->
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <label class="cursor-pointer px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold uppercase tracking-wider transition flex items-center gap-2">
+          <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+          </svg>
+          <span id="pre-upload-text">Select Your BMW M4 CSL .GLB</span>
+          <input id="glb-input-splash" type="file" accept=".glb,.gltf" class="hidden" />
+        </label>
+      </div>
+    </div>
+
+    <div class="text-[11px] font-mono uppercase tracking-[0.25em] text-zinc-600">
+      S58 3.0L TWIN-TURBO // 543 HP // 7,200 RPM
+    </div>
+  </div>
+
+  <!-- 2. INTRO HUD OVERLAY (Shown during dynamic camera cuts) -->
+  <div id="intro-hud" class="fixed inset-0 z-40 pointer-events-none opacity-0 transition-opacity duration-500 flex flex-col justify-between p-8 md:p-16">
+    <div class="flex justify-between items-start mt-10">
+      <div>
+        <p id="cut-tag" class="text-xs font-mono uppercase tracking-[0.3em] text-red-500">SEQUENCE 01 // UNCOVERING</p>
+        <h2 id="cut-title" class="text-2xl md:text-4xl font-display font-bold tracking-wider uppercase mt-1">UNVEILING THE BEAST</h2>
+      </div>
+      <button id="skip-intro-btn" class="pointer-events-auto px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-mono uppercase tracking-widest transition">
+        Skip Intro →
+      </button>
+    </div>
+
+    <!-- Live RPM Tachometer Bar -->
+    <div class="mb-10 max-w-md">
+      <div class="flex justify-between text-xs font-mono mb-1.5">
+        <span class="text-zinc-400">ENGINE TELEMETRY</span>
+        <span id="rpm-readout" class="text-red-400 font-bold">1,100 RPM</span>
+      </div>
+      <div class="w-full h-2 bg-zinc-900 rounded-full overflow-hidden border border-white/10">
+        <div id="rpm-bar" class="h-full bg-gradient-to-r from-sky-500 via-blue-600 to-red-600 w-[15%] transition-all duration-75"></div>
       </div>
     </div>
   </div>
 
-  <!-- Presenter Bottom Dock -->
-  <div id="presenterBar">
-    <button class="p-btn" onclick="prevSlide()" title="Previous Chapter (Hotkey: Left Arrow)">◀ Prev</button>
-    <div class="p-slide-indicator" id="presenterSlideIndex">Slide 1 of 7</div>
-    <button class="p-btn" onclick="nextSlide()" title="Next Chapter (Hotkey: Right Arrow / Space)">Next ▶</button>
-    <div style="width: 1px; height: 16px; background: rgba(255,255,255,0.2); margin: 0 4px;"></div>
-    <button class="p-btn" id="laserBtn" onclick="toggleLaser()" title="Toggle Virtual Laser Pointer (Hotkey: L)">🔴 Laser</button>
-    <button class="p-btn" id="notesBtn" onclick="toggleNotes()" title="Toggle Key Speaker Notes (Hotkey: P)">📝 Notes</button>
-    <button class="p-btn" onclick="toggleFullscreen()" title="Fullscreen Mode (Hotkey: F)">⛶ Max</button>
-    <button class="p-btn" onclick="toggleUI()" title="Clean View (Hotkey: H)">👁 Clean</button>
-  </div>
+  <!-- 3. FIXED 3D CANVAS -->
+  <div id="canvas-container" class="fixed inset-0 z-0 pointer-events-none"></div>
 
-  <!-- Presenter Speaker Notes Drawer -->
-  <div id="presenterNotesPanel">
-    <span class="pn-tag">CBSE CLASS 10 SCIENCE // TALKING POINTS</span>
-    <h4 class="pn-title" id="pnTitle">00: Raw Essence & Anatomy</h4>
-    <ul class="pn-points" id="pnPoints">
-      <li><b>Species:</b> <i>Saccharum officinarum</i>, Poaceae family; C4 monocot tall perennial grass.</li>
-      <li><b>Unique Characteristic:</b> Accumulates massive quantities of sucrose in parenchymal stem vacuoles (up to 50% dry weight).</li>
-      <li><b>Adaptation:</b> High water-use efficiency and zero photorespiration under intense tropical irradiation.</li>
-    </ul>
-  </div>
-
-  <!-- C4 Agronomic & Brix Simulator Drawer -->
-  <div id="simDrawer">
-    <div class="hc-header">
-      <span class="hc-badge">🧪 C4 BIO-AGRONOMY SIMULATOR</span>
-      <button class="hc-close" onclick="toggleSimDrawer()">✕</button>
-    </div>
-    <h3 class="hc-title" style="font-size: 1.25rem;">Live Growth Engine</h3>
-    <p class="hc-body" style="margin-bottom: 14px;">Adjust environmental variables to simulate sucrose accumulation, stalk girth, and photosynthetic yield in real time.</p>
-
-    <div class="sim-slider-row">
-      <div class="sim-slider-label">
-        <span>☀️ Daily Sunlight</span>
-        <span id="sunReadout">8.0 hrs/day</span>
+  <!-- 4. TOP NAVBAR (Visible after intro) -->
+  <header id="main-navbar" class="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 md:px-10 py-3.5 glass-panel border-t-0 border-x-0 opacity-0 transition-opacity duration-700">
+    <div class="flex items-center gap-3">
+      <div class="flex h-4">
+        <span class="w-1.5 bg-sky-400 skew-x-[-18deg]"></span>
+        <span class="w-1.5 bg-blue-700 skew-x-[-18deg]"></span>
+        <span class="w-1.5 bg-red-600 skew-x-[-18deg]"></span>
       </div>
-      <input type="range" id="sunSlider" min="4" max="12" step="0.5" value="8" oninput="updateSim()" />
+      <span class="font-display font-bold tracking-[0.2em] text-xs md:text-sm">BMW M4 CSL</span>
     </div>
 
-    <div class="sim-slider-row">
-      <div class="sim-slider-label">
-        <span>💧 Annual Irrigation</span>
-        <span id="waterReadout">1200 mm/yr</span>
-      </div>
-      <input type="range" id="waterSlider" min="400" max="2400" step="50" value="1200" oninput="updateSim()" />
+    <!-- Paint Color Swatches -->
+    <div class="hidden md:flex items-center gap-2 bg-black/50 px-3 py-1.5 rounded-full border border-white/10">
+      <span class="text-[10px] font-mono uppercase text-zinc-400 mr-1">Paint:</span>
+      <button data-color="#111318" title="Frozen Black Metallic" class="paint-btn w-4 h-4 rounded-full bg-zinc-900 border border-white/60 hover:scale-125 transition"></button>
+      <button data-color="#858a94" title="Brooklyn Grey" class="paint-btn w-4 h-4 rounded-full bg-zinc-400 border border-white/30 hover:scale-125 transition"></button>
+      <button data-color="#dc2626" title="Toronto Red" class="paint-btn w-4 h-4 rounded-full bg-red-600 border border-white/30 hover:scale-125 transition"></button>
+      <button data-color="#eab308" title="Sao Paulo Yellow" class="paint-btn w-4 h-4 rounded-full bg-yellow-500 border border-white/30 hover:scale-125 transition"></button>
+      <button data-color="#047857" title="Isle of Man Green" class="paint-btn w-4 h-4 rounded-full bg-emerald-700 border border-white/30 hover:scale-125 transition"></button>
     </div>
 
-    <div class="sim-slider-row">
-      <div class="sim-slider-label">
-        <span>🧪 Soil N-P-K Ratio</span>
-        <span id="npkReadout">1.0x (Balanced)</span>
-      </div>
-      <input type="range" id="npkSlider" min="0.5" max="2.0" step="0.1" value="1.0" oninput="updateSim()" />
-    </div>
-
-    <div class="sim-results-grid">
-      <div class="sim-res-box">
-        <span class="s-lbl">PREDICTED BRIX</span>
-        <span class="s-val" id="simBrixVal" style="color: var(--emerald-neon);">18.4° Bx</span>
-      </div>
-      <div class="sim-res-box">
-        <span class="s-lbl">FIELD YIELD</span>
-        <span class="s-val" id="simYieldVal">89.9 T/Ha</span>
-      </div>
-      <div class="sim-res-box">
-        <span class="s-lbl">C4 SOLAR EFFICIENCY</span>
-        <span class="s-val" id="simEffVal" style="color: var(--accent);">2.6%</span>
-      </div>
-      <div class="sim-res-box">
-        <span class="s-lbl">TRANSLOCATION</span>
-        <span class="s-val" id="simTransVal">93 cm/hr</span>
-      </div>
-    </div>
-
-    <div class="c4-pathway-box">
-      <div class="c4-pathway-title">Hatch-Slack C4 Biochemical Pathway</div>
-      <div class="c4-steps">
-        <div class="c4-step-item"><div class="c4-step-num">1</div><span>CO₂ captured in Mesophyll by PEP Carboxylase</span></div>
-        <div class="c4-step-item"><div class="c4-step-num">2</div><span>Converted to 4-Carbon Oxaloacetate & Malate</span></div>
-        <div class="c4-step-item"><div class="c4-step-num">3</div><span>Pumped into Bundle Sheath cells (Kranz Anatomy)</span></div>
-        <div class="c4-step-item"><div class="c4-step-num">4</div><span>RuBisCO fixes high-pressure CO₂ into Sucrose</span></div>
-      </div>
-    </div>
-  </div>
-
-  <main>
-    
-    <!-- 00: Raw Essence -->
-    <div class="scroll-section" id="sec-0">
-      <div class="sticky-content align-center">
-        <div class="text-card is-visible">
-          <span class="label">● The Botanical Monolith</span>
-          <h1 class="gradient-text">RAW<br>ESSENCE</h1>
-          <p style="margin: 0 auto; max-width: 420px;">
-            Scroll to witness the metamorphosis of <i>Saccharum officinarum</i> from raw tropical earth to pure, light-refracting sucrose crystals.
-          </p>
-
-          <!-- Interactive Variety Switcher -->
-          <div class="variety-selector-bar">
-            <span class="v-pill active" onclick="switchCultivar(0)">Noble Cane</span>
-            <span class="v-pill" onclick="switchCultivar(1)">North Indian</span>
-            <span class="v-pill" onclick="switchCultivar(2)">Chinese Cane</span>
-            <span class="v-pill" onclick="switchCultivar(3)">Wonder Hybrid</span>
-            <span class="v-pill" onclick="switchCultivar(4)">Wild Kans</span>
-          </div>
-
-          <div class="card-metrics-row">
-            <div class="metric-chip">
-              <div class="mc-label">Scientific Name</div>
-              <div class="mc-val" id="cultivarSci">S. officinarum</div>
-            </div>
-            <div class="metric-chip">
-              <div class="mc-label">Typical Sucrose</div>
-              <div class="mc-val" id="cultivarBrix">14% - 17%</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 01: Propagation -->
-    <div class="scroll-section" id="sec-1">
-      <div class="sticky-content align-right">
-        <div class="text-card">
-          <span class="label">01 — Propagation</span>
-          <h2 class="gradient-text">LIVING SEED</h2>
-          <p>
-            Cultivated not from a seed, but from life itself. We embed mature, three-budded stem setts directly into moist furrow soil—cloning the ultimate genetic yield for the next generation.
-          </p>
-          <div class="card-metrics-row">
-            <div class="metric-chip">
-              <div class="mc-label">Sett Cutting</div>
-              <div class="mc-val">3-Budded Nodes</div>
-            </div>
-            <div class="metric-chip">
-              <div class="mc-label">Root Primordia</div>
-              <div class="mc-val">Adventitious</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 02: Photosynthesis -->
-    <div class="scroll-section" id="sec-2">
-      <div class="sticky-content align-left">
-        <div class="text-card">
-          <span class="label">02 — Photosynthesis</span>
-          <h2 class="gradient-text">SOLAR ENGINE</h2>
-          <p>
-            Fourteen months of equatorial fire. The sweeping tropical foliage acts as a massive photosynthetic engine, driving enzymatic sucrose synthesis deep within the vascular core of the plant.
-          </p>
-          <div class="card-metrics-row">
-            <div class="metric-chip">
-              <div class="mc-label">Thermal Optimum</div>
-              <div class="mc-val">21°C — 27°C</div>
-            </div>
-            <div class="metric-chip">
-              <div class="mc-label">Annual Rain</div>
-              <div class="mc-val">75 — 100 cm</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 03: The Cut -->
-    <div class="scroll-section" id="sec-3">
-      <div class="sticky-content align-right">
-        <div class="text-card">
-          <span class="label">03 — The Cut</span>
-          <h2 class="gradient-text">PRECISE HARVEST</h2>
-          <p>
-            Precision at peak saturation. Harvesting is an unforgiving science, executed with sharp steel at the exact physiological moment sucrose levels reach their absolute zenith in the stalk.
-          </p>
-          <div class="card-metrics-row">
-            <div class="metric-chip">
-              <div class="mc-label">Peak Girth</div>
-              <div class="mc-val">3.5 — 5.0 cm</div>
-            </div>
-            <div class="metric-chip">
-              <div class="mc-label">Growth Span</div>
-              <div class="mc-val">10 — 12 Months</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 04: The Window -->
-    <div class="scroll-section" id="sec-4">
-      <div class="sticky-content align-left">
-        <div class="text-card">
-          <span class="label">04 — The Window</span>
-          <h2 class="gradient-text">RACE AGAINST TIME</h2>
-          <p>
-            The instant the culm is severed, chemical inversion begins. The harvest is rushed to crushing mills within a non-negotiable 24-hour window before enzymes convert sucrose into invert sugars.
-          </p>
-          <div class="card-metrics-row">
-            <div class="metric-chip">
-              <div class="mc-label">Crush Window</div>
-              <div class="mc-val">&lt; 24 Hours</div>
-            </div>
-            <div class="metric-chip">
-              <div class="mc-label">Inversion Threat</div>
-              <div class="mc-val">Dextran Loss</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 05: Extraction -->
-    <div class="scroll-section" id="sec-5">
-      <div class="sticky-content align-right">
-        <div class="text-card">
-          <span class="label">05 — Extraction</span>
-          <h2 class="gradient-text">PURE PRESSURE</h2>
-          <p>
-            Relentless mechanical force. Massive serrated steel rollers exert over 250 bars of hydraulic pressure, crushing the fibrous rind and liberating 96% of the golden saccharine sap.
-          </p>
-          <div class="card-metrics-row">
-            <div class="metric-chip">
-              <div class="mc-label">Roller Force</div>
-              <div class="mc-val">250 Bar</div>
-            </div>
-            <div class="metric-chip">
-              <div class="mc-label">Byproduct Fuel</div>
-              <div class="mc-val">Bagasse Cogen</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 06: Nucleation -->
-    <div class="scroll-section" id="sec-6">
-      <div class="sticky-content align-left">
-        <div class="text-card">
-          <span class="label">06 — Nucleation</span>
-          <h2 class="gradient-text">CRYSTALLIZATION</h2>
-          <p>
-            The pure chemical essence. Through thermal evaporation (118°C strike) and vacuum nucleation, the golden syrup precipitates into sparkling, light-refracting octahedral crystal geometry.
-          </p>
-          <div class="card-metrics-row">
-            <div class="metric-chip">
-              <div class="mc-label">Formula</div>
-              <div class="mc-val">C₁₂H₂₂O₁₁</div>
-            </div>
-            <div class="metric-chip">
-              <div class="mc-label">Optical Rotation</div>
-              <div class="mc-val">+66.5° Dextro</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Endless Loop Apex Return -->
-    <div class="return-hub">
-      <button class="return-btn" onclick="scrollToSection(0)">
-        <span>↺ RE-ENTER THE BIOSPHERE [APEX]</span>
+    <!-- Interactive Controls: Rev Engine, Replay Intro, Load GLB -->
+    <div class="flex items-center gap-2">
+      <button id="rev-btn" class="px-3.5 py-2 rounded-full bg-red-600/20 hover:bg-red-600 border border-red-500/50 text-xs font-mono uppercase tracking-wider text-white transition active:scale-95">
+        🔊 Rev Engine
       </button>
+      <button id="replay-intro-btn" class="hidden sm:inline-block px-3 py-2 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-xs font-mono uppercase tracking-wider text-zinc-300 transition">
+        Replay Intro
+      </button>
+      <label class="cursor-pointer bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold tracking-wider uppercase px-3.5 py-2 rounded-full transition flex items-center gap-1.5">
+        <span id="nav-upload-label">Load .GLB</span>
+        <input id="glb-input-nav" type="file" accept=".glb,.gltf" class="hidden" />
+      </label>
     </div>
+  </header>
+
+  <!-- 5. SCROLLABLE 3D SHOWCASE SECTIONS (500vh total) -->
+  <main id="scroll-content" class="relative z-10 w-full opacity-0 transition-opacity duration-700">
+
+    <!-- SECTION 1: HERO (0% - 25% Scroll) -->
+    <section class="h-screen w-full flex flex-col justify-between pt-24 pb-12 px-6 md:px-16 max-w-7xl mx-auto">
+      <div class="max-w-2xl">
+        <p class="text-red-500 font-mono uppercase tracking-[0.35em] text-xs font-semibold mb-2">COMPETITION SPORT LIGHTWEIGHT</p>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-none">
+          BMW M4 <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-white to-sky-400">CSL.</span>
+        </h1>
+      </div>
+
+      <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+        <div class="glass-panel p-5 rounded-2xl max-w-md">
+          <p class="text-xs md:text-sm text-zinc-300 leading-relaxed">
+            Scroll down to scrub 360° around the bodywork, inspect track telemetry, and engage the <strong>X-Ray Chassis Breakdown</strong>.
+          </p>
+        </div>
+        <div class="flex items-center gap-3 text-xs font-mono uppercase tracking-[0.25em] text-zinc-400">
+          <span id="scroll-angle-badge">ROTATION: 0°</span>
+          <div class="w-5 h-8 border border-white/30 rounded-full flex justify-center pt-1.5">
+            <div class="w-1 h-2 bg-red-500 rounded-full animate-bounce"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: S58 POWERTRAIN SPECS (25% - 50% Scroll) -->
+    <section class="h-screen w-full flex items-center justify-start px-6 md:px-16 max-w-7xl mx-auto">
+      <div class="glass-panel p-8 md:p-10 rounded-3xl max-w-lg border-l-4 border-l-red-600">
+        <span class="text-xs font-mono uppercase tracking-widest text-red-400">01 // S58 TWIN-TURBO INLINE-6</span>
+        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Track-Bred Brutality</h2>
+        <p class="text-zinc-300 text-sm md:text-base leading-relaxed mb-6">
+          Boost pressure increased to 30.5 psi with a forged lightweight crankshaft and 3D-printed cylinder head core, rocketing the M4 CSL to a 7:15.677 Nürburgring lap record.
+        </p>
+        <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-5">
+          <div>
+            <p class="text-[11px] font-mono text-zinc-400 uppercase">Output</p>
+            <p class="text-2xl font-display font-bold text-white mt-1">543 HP</p>
+          </div>
+          <div>
+            <p class="text-[11px] font-mono text-zinc-400 uppercase">0–100 KM/H</p>
+            <p class="text-2xl font-display font-bold text-red-500 mt-1">3.6s</p>
+          </div>
+          <div>
+            <p class="text-[11px] font-mono text-zinc-400 uppercase">Top Speed</p>
+            <p class="text-2xl font-display font-bold text-white mt-1">307 KM/H</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: CARBON DIET & AERO (50% - 75% Scroll) -->
+    <section class="h-screen w-full flex items-center justify-end px-6 md:px-16 max-w-7xl mx-auto">
+      <div class="glass-panel p-8 md:p-10 rounded-3xl max-w-lg border-r-4 border-r-sky-400">
+        <span class="text-xs font-mono uppercase tracking-widest text-sky-400">02 // CARBON FIBER ARCHITECTURE</span>
+        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">100 KG Lighter</h2>
+        <p class="text-zinc-300 text-sm md:text-base leading-relaxed mb-6">
+          CFRP hood, roof, integrated ducktail trunk lid, full M Carbon bucket seats, and a titanium exhaust silencer strip every gram of excess mass.
+        </p>
+        <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-5">
+          <div>
+            <p class="text-[11px] font-mono text-zinc-400 uppercase">Curb Weight</p>
+            <p class="text-2xl font-display font-bold text-white mt-1">1,625 KG</p>
+          </div>
+          <div>
+            <p class="text-[11px] font-mono text-zinc-400 uppercase">Braking System</p>
+            <p class="text-2xl font-display font-bold text-sky-400 mt-1">M Carbon Ceramic</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: X-RAY CHASSIS REVEAL (75% - 100% Scroll — Matches 00:00:08 in Video!) -->
+    <section class="h-screen w-full flex flex-col items-center justify-end pb-16 px-6 text-center max-w-4xl mx-auto">
+      <div class="glass-panel p-8 md:p-10 rounded-3xl w-full border border-sky-500/40">
+        <span class="text-xs font-mono uppercase tracking-[0.3em] text-sky-400">03 // X-RAY ENGINEERING SCAN ACTIVE</span>
+        <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-3">Exposed Structural Precision</h2>
+        <p class="text-zinc-300 text-sm md:text-base max-w-xl mx-auto mb-6">
+          Outer shell switched to translucent CAD wireframe to expose the internal geometry, drivetrain layout, and high-output laser optics.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-7 py-3 rounded-full bg-red-600 hover:bg-red-500 text-white font-semibold text-xs tracking-widest uppercase transition">
+            Back to Top
+          </button>
+          <button id="manual-xray-btn" class="px-7 py-3 rounded-full border border-sky-400/60 hover:bg-sky-400/20 text-sky-300 font-semibold text-xs tracking-widest uppercase transition">
+            Toggle X-Ray Lock
+          </button>
+        </div>
+      </div>
+    </section>
 
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>
-      <b>Saccharum // Botanical Alchemy</b> &bull; CBSE Class 10 Geography Chapter 4 Masterwork
-    </p>
-    <p style="margin-top: 6px; font-size: 0.65rem; color: var(--text-dim);">
-      Project Architecture by <b>Ryan Fredrick Ravuru and Adarsh</b> &bull; Secunderabad, Telangana
-    </p>
-  </footer>
+  <!-- THREE.JS & WEB AUDIO ENGINE -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-  <!-- ========================================================
-       THREE.JS WEBGL ENGINE: AAA FOLIAGE, GOD RAYS & DYNAMIC VFX
-       ======================================================== -->
-  <script>
-    /* ----------------------------------------------------
-       1. CULTIVAR DATA MATRIX
-       ---------------------------------------------------- */
-    const cultivars = [
-      { name: "Noble Cane", sci: "S. officinarum", brix: "14% - 17%", color: 0x3d6323, ringColor: 0x9e9175, leafColor: 0x10b981, girth: 0.44, leaves: 6 },
-      { name: "North Indian", sci: "S. barberi", brix: "10% - 12%", color: 0x5a6320, ringColor: 0xb5a075, leafColor: 0x22c55e, girth: 0.35, leaves: 4 },
-      { name: "Chinese Cane", sci: "S. sinense", brix: "9% - 11%", color: 0x2e5c3e, ringColor: 0x8a997d, leafColor: 0x14b8a6, girth: 0.38, leaves: 5 },
-      { name: "Wonder Hybrid", sci: "Co 0238", brix: "13% - 15%", color: 0x1fad4a, ringColor: 0xd4af37, leafColor: 0x00ff88, girth: 0.48, leaves: 7 },
-      { name: "Wild Kans", sci: "S. spontaneum", brix: "3% - 5%", color: 0x573b66, ringColor: 0x8b709e, leafColor: 0xbf5af2, girth: 0.28, leaves: 3 }
-    ];
-
-    let currentCultivar = 0;
-    let isDissected = false;
-    let vfxLevel = 1; // 1: High, 0: Low
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const container = document.getElementById('webgl-container');
-      const scene = new THREE.Scene();
-      scene.fog = new THREE.FogExp2(0x010402, 0.026);
-
-      const camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.1, 100);
-      camera.position.set(0, 0, 14);
-
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
-      renderer.setSize(innerWidth, innerHeight);
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.45;
-      container.appendChild(renderer.domElement);
-
-      // AAA Studio Lighting Architecture
-      scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-
-      // Key Warm Sun Spotlight
-      const keyLight = new THREE.SpotLight(0xfff5e6, 5.0);
-      keyLight.position.set(9, 15, 9);
-      keyLight.angle = Math.PI / 4.2;
-      keyLight.penumbra = 0.65;
-      scene.add(keyLight);
-
-      // Gold Back Rim Light
-      const rimLight = new THREE.DirectionalLight(0xe0c367, 3.8);
-      rimLight.position.set(-8, -2, -7);
-      scene.add(rimLight);
-
-      // Emerald Atmospheric Bounce Fill
-      const emeraldFill = new THREE.DirectionalLight(0x00ff88, 1.8);
-      emeraldFill.position.set(6, -6, 3);
-      scene.add(emeraldFill);
-
-      // Interactive Mouse Follow Light (Casts Dynamic Specular Shimmer on Culm & Leaves)
-      const cursorLight = new THREE.PointLight(0x00ff88, 2.2, 9);
-      cursorLight.position.set(0, 0, 4);
-      scene.add(cursorLight);
-
-      /* ----------------------------------------------------
-         VFX 1: VOLUMETRIC GOD-RAY LIGHT SHAFTS
-         ---------------------------------------------------- */
-      const godRaysGroup = new THREE.Group();
-      const rayGeo = new THREE.CylinderGeometry(0.2, 4.2, 18, 24, 1, true);
-      const rayMat = new THREE.MeshBasicMaterial({
-        color: 0x00ff88,
-        transparent: true,
-        opacity: 0.045,
-        blending: THREE.AdditiveBlending,
-        side: THREE.DoubleSide,
-        depthWrite: false
-      });
-
-      for (let r = 0; r < 4; r++) {
-        const ray = new THREE.Mesh(rayGeo, rayMat);
-        ray.position.set(2 + r * 1.5, 6, -2 + r * 0.8);
-        ray.rotation.z = -0.35 + (r * 0.08);
-        ray.rotation.x = 0.2;
-        godRaysGroup.add(ray);
+    // =========================================================================
+    // 1. PROCEDURAL WEB AUDIO ENGINE (Twin-Turbo Inline-6 + Dark Bass Beat)
+    // =========================================================================
+    class M4SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.isRunning = false;
+        this.rpm = 900;
+        this.targetRpm = 900;
       }
-      scene.add(godRaysGroup);
 
-      // Procedural Noise Bump Texture
-      function createNoiseTexture() {
-        const c = document.createElement('canvas');
-        c.width = c.height = 512;
-        const ctx = c.getContext('2d');
-        for (let x = 0; x < 512; x++) {
-          for (let y = 0; y < 512; y++) {
-            const val = Math.floor(Math.random() * 255);
-            ctx.fillStyle = `rgb(${val},${val},${val})`;
-            ctx.fillRect(x, y, 2, 12);
-          }
+      init() {
+        if (this.ctx) return;
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        this.ctx = new AudioCtx();
+
+        // Master Gain
+        this.masterGain = this.ctx.createGain();
+        this.masterGain.gain.value = 0.45;
+        this.masterGain.connect(this.ctx.destination);
+
+        // Waveshaper Distortion for aggressive exhaust growl
+        this.distortion = this.ctx.createWaveShaper();
+        this.distortion.curve = this.makeDistortionCurve(85);
+        this.distortion.oversample = '4x';
+
+        // Lowpass Filter that opens up as RPM rises
+        this.exhaustFilter = this.ctx.createBiquadFilter();
+        this.exhaustFilter.type = 'lowpass';
+        this.exhaustFilter.frequency.value = 180;
+        this.exhaustFilter.Q.value = 4.5;
+
+        this.engineGain = this.ctx.createGain();
+        this.engineGain.gain.value = 0.01;
+
+        // 3 Detuned Oscillators simulating 6-cylinder firing harmonics
+        this.osc1 = this.ctx.createOscillator();
+        this.osc2 = this.ctx.createOscillator();
+        this.osc3 = this.ctx.createOscillator();
+        this.osc1.type = 'sawtooth';
+        this.osc2.type = 'sawtooth';
+        this.osc3.type = 'triangle';
+
+        this.osc1.connect(this.distortion);
+        this.osc2.connect(this.distortion);
+        this.osc3.connect(this.distortion);
+        this.distortion.connect(this.exhaustFilter);
+        this.exhaustFilter.connect(this.engineGain);
+        this.engineGain.connect(this.masterGain);
+
+        this.osc1.start();
+        this.osc2.start();
+        this.osc3.start();
+        this.isRunning = true;
+
+        this.startCinematicBassBeat();
+      }
+
+      makeDistortionCurve(amount) {
+        const n = 44100;
+        const curve = new Float32Array(n);
+        const deg = Math.PI / 180;
+        for (let i = 0; i < n; ++i) {
+          const x = (i * 2) / n - 1;
+          curve[i] = ((3 + amount) * x * 20 * deg) / (Math.PI + amount * Math.abs(x));
         }
-        const tex = new THREE.CanvasTexture(c);
-        tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-        tex.repeat.set(2, 4);
-        return tex;
-      }
-      const organicBumpMap = createNoiseTexture();
-
-      // Materials
-      const stalkMaterial = new THREE.MeshPhysicalMaterial({
-        color: cultivars[0].color,
-        roughness: 0.32,
-        metalness: 0.08,
-        clearcoat: 1.0,
-        clearcoatRoughness: 0.14,
-        bumpMap: organicBumpMap,
-        bumpScale: 0.0035
-      });
-
-      const nodeMaterial = new THREE.MeshStandardMaterial({
-        color: cultivars[0].ringColor,
-        roughness: 0.72,
-        bumpMap: organicBumpMap,
-        bumpScale: 0.005
-      });
-
-      const waxMaterial = new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        roughness: 0.9,
-        transparent: true,
-        opacity: 0.35
-      });
-
-      const coreMaterial = new THREE.MeshStandardMaterial({
-        color: 0xe8e1cd,
-        roughness: 0.95
-      });
-
-      const crystalMaterial = new THREE.MeshPhysicalMaterial({
-        color: 0xffffff,
-        transmission: 1.0,
-        opacity: 1.0,
-        metalness: 0.08,
-        roughness: 0.04,
-        ior: 1.62,
-        thickness: 3.5,
-        clearcoat: 1.0,
-        clearcoatRoughness: 0.05
-      });
-
-      // Master Hero Group
-      const heroGroup = new THREE.Group();
-      scene.add(heroGroup);
-
-      /* ----------------------------------------------------
-         AAA BOTANICAL LEAF GENERATOR (KEELED 3D RIBBON MESH)
-         ---------------------------------------------------- */
-      function createBotanicalLeaf(length, maxWidth, archHeight, droopY, lateralCurl, color) {
-        const segments = 26;
-        const geom = new THREE.BufferGeometry();
-        const positions = [];
-        const uvs = [];
-        const indices = [];
-
-        for (let i = 0; i <= segments; i++) {
-          const u = i / segments;
-          // Smooth arch and gravitational droop
-          const x = u * length;
-          const arch = Math.sin(u * Math.PI * 0.55) * archHeight;
-          const droop = Math.pow(u, 2.2) * droopY;
-          const y = arch - droop;
-          const z = Math.sin(u * 1.8) * lateralCurl;
-
-          // Realistic lanceolate leaf blade taper
-          const w = maxWidth * Math.sin(Math.pow(u, 0.65) * Math.PI) * (1.0 - u * 0.35);
-          // V-shaped keeled cross section
-          const keel = 0.08 * Math.sin(u * Math.PI);
-
-          // 3 vertices per row: Left edge, Center midrib, Right edge
-          positions.push(x, y + keel, z - w); // Left
-          positions.push(x, y, z);             // Center midrib
-          positions.push(x, y + keel, z + w); // Right
-
-          uvs.push(0.0, u, 0.5, u, 1.0, u);
-        }
-
-        for (let i = 0; i < segments; i++) {
-          const r1 = i * 3;
-          const r2 = (i + 1) * 3;
-          // Left facet
-          indices.push(r1, r2, r1 + 1);
-          indices.push(r1 + 1, r2, r2 + 1);
-          // Right facet
-          indices.push(r1 + 1, r2 + 1, r1 + 2);
-          indices.push(r1 + 2, r2 + 1, r2 + 2);
-        }
-
-        geom.setIndex(indices);
-        geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-        geom.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
-        geom.computeVertexNormals();
-
-        const mat = new THREE.MeshPhysicalMaterial({
-          color: color || 0x10b981,
-          roughness: 0.32,
-          metalness: 0.05,
-          clearcoat: 0.45,
-          clearcoatRoughness: 0.18,
-          transmission: 0.18, // Subsurface organic translucency
-          thickness: 0.6,
-          side: THREE.DoubleSide
-        });
-
-        const mesh = new THREE.Mesh(geom, mat);
-        mesh.userData = { originalPositions: positions.slice(), length, segments };
-        return mesh;
+        return curve;
       }
 
-      // Procedural Segment Assembly
-      const numSegments = 6;
-      const segLength = 2.2;
-      const totalHeight = numSegments * segLength;
-      const segmentMeshes = [];
-      const ringMeshes = [];
-      const leafMeshes = [];
+      // Starter crank + aggressive cold-start flare
+      playColdStart() {
+        this.init();
+        const now = this.ctx.currentTime;
+        this.engineGain.gain.setValueAtTime(0.05, now);
+        this.engineGain.gain.exponentialRampToValueAtTime(0.65, now + 0.6);
+        this.engineGain.gain.exponentialRampToValueAtTime(0.28, now + 2.5);
 
-      for (let i = 0; i < numSegments; i++) {
-        const t = i / numSegments;
-        const radiusBottom = 0.44 - t * 0.08;
-        const radiusTop = 0.40 - t * 0.08;
-
-        const segGroup = new THREE.Group();
-        segGroup.position.y = i * segLength - totalHeight / 2 + segLength / 2;
-        heroGroup.add(segGroup);
-        segmentMeshes.push(segGroup);
-
-        // Cylinder Body
-        const segGeo = new THREE.CylinderGeometry(radiusTop, radiusBottom, segLength, 48, 12);
-        const segment = new THREE.Mesh(segGeo, stalkMaterial);
-        segGroup.add(segment);
-
-        // Waxy Bloom Ring Band
-        const waxGeo = new THREE.CylinderGeometry(radiusBottom * 1.01, radiusBottom * 1.02, 0.25, 48);
-        const waxBand = new THREE.Mesh(waxGeo, waxMaterial);
-        waxBand.position.y = -segLength / 2 + 0.25;
-        segGroup.add(waxBand);
-
-        // Nodal Swell Ring
-        const ringGeo = new THREE.TorusGeometry(radiusBottom * 1.04, 0.055, 24, 48);
-        const ring = new THREE.Mesh(ringGeo, nodeMaterial);
-        ring.rotation.x = Math.PI / 2;
-        ring.position.y = -segLength / 2;
-        segGroup.add(ring);
-        ringMeshes.push(ring);
-
-        // Eye Bud Primordium (Alternating sides)
-        const budGeo = new THREE.SphereGeometry(0.09, 16, 16);
-        const bud = new THREE.Mesh(budGeo, nodeMaterial);
-        const budSide = i % 2 === 0 ? 1 : -1;
-        bud.position.set(budSide * (radiusBottom * 1.02), -segLength / 2 + 0.12, 0);
-        segGroup.add(bud);
-
-        // AAA Keeled 3D Botanical Leaves (Alternating natural angles)
-        if (i >= 1) {
-          const leafLen = 3.6 + (i * 0.35);
-          const leafW = 0.34 + (i * 0.02);
-          const archH = 0.75 + (i * 0.12);
-          const droop = 1.8 + (i * 0.25);
-          const lateralCurl = (i % 2 === 0 ? 0.3 : -0.3);
-
-          const leafMesh = createBotanicalLeaf(leafLen, leafW, archH, droop, lateralCurl, cultivars[0].leafColor);
-          leafMesh.position.set(budSide * 0.25, -segLength / 2 + 0.08, 0);
-          
-          // Rotation outward from stalk
-          const yawAngle = (budSide === 1 ? 0 : Math.PI) + (i * 0.35);
-          leafMesh.rotation.set(0.12, yawAngle, -0.22);
-          segGroup.add(leafMesh);
-          leafMeshes.push(leafMesh);
-        }
+        // Cold start RPM flare to 3,200 RPM then settle to idle
+        this.targetRpm = 3400;
+        setTimeout(() => { this.targetRpm = 1100; }, 900);
       }
 
-      // Severed Top Cap (Parenchyma Core)
-      const capGeo = new THREE.CircleGeometry(0.32, 48);
-      const topCap = new THREE.Mesh(capGeo, coreMaterial);
-      topCap.rotation.x = -Math.PI / 2;
-      topCap.position.y = totalHeight / 2 - segLength / 2 + 1.1;
-      heroGroup.add(topCap);
+      // Rev to specified RPM with turbo spool + exhaust crackle on overrun
+      revEngine(peakRpm = 6800, durationMs = 1100) {
+        if (!this.isRunning) this.init();
+        const now = this.ctx.currentTime;
+        this.targetRpm = peakRpm;
+        this.engineGain.gain.cancelScheduledValues(now);
+        this.engineGain.gain.setValueAtTime(this.engineGain.gain.value, now);
+        this.engineGain.gain.linearRampToValueAtTime(0.75, now + 0.25);
 
-      // Sucrose Crystallization Swarm (Act 06)
-      const crystalSwarm = new THREE.Group();
-      for (let i = 0; i < 36; i++) {
-        const isOcta = i % 2 === 0;
-        const cGeo = isOcta
-          ? new THREE.OctahedronGeometry(Math.random() * 0.45 + 0.22)
-          : new THREE.IcosahedronGeometry(Math.random() * 0.35 + 0.18);
-        const crystal = new THREE.Mesh(cGeo, crystalMaterial);
-        crystal.position.set(
-          (Math.random() - 0.5) * 6,
-          (Math.random() - 0.5) * 7,
-          (Math.random() - 0.5) * 6
-        );
-        crystal.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
-        crystalSwarm.add(crystal);
+        // Turbo blow-off / wastegate hiss
+        setTimeout(() => {
+          this.targetRpm = 1150;
+          const releaseTime = this.ctx.currentTime;
+          this.engineGain.gain.linearRampToValueAtTime(0.22, releaseTime + 0.9);
+          this.playExhaustBurbles();
+        }, durationMs);
       }
-      crystalSwarm.scale.set(0.001, 0.001, 0.001);
-      heroGroup.add(crystalSwarm);
 
-      /* ----------------------------------------------------
-         VFX 2: DYNAMIC PARTICLE STREAMS (CHLOROPHYLL & SAP)
-         ---------------------------------------------------- */
-      // 1. Ambient Bioluminescent Spores
-      const sporeGeo = new THREE.BufferGeometry();
-      const sporeCount = 140;
-      const sporePos = new Float32Array(sporeCount * 3);
-      for (let i = 0; i < sporeCount * 3; i += 3) {
-        sporePos[i] = (Math.random() - 0.5) * 16;
-        sporePos[i + 1] = (Math.random() - 0.5) * 16;
-        sporePos[i + 2] = (Math.random() - 0.5) * 12;
-      }
-      sporeGeo.setAttribute('position', new THREE.BufferAttribute(sporePos, 3));
-      const sporeMat = new THREE.PointsMaterial({
-        color: 0x00ff88,
-        size: 0.085,
-        transparent: true,
-        opacity: 0.7,
-        blending: THREE.AdditiveBlending
-      });
-      const sporePoints = new THREE.Points(sporeGeo, sporeMat);
-      scene.add(sporePoints);
-
-      // 2. Cascading Photosynthesis Photons & Extraction Droplets
-      const photonGeo = new THREE.BufferGeometry();
-      const photonCount = 65;
-      const photonPos = new Float32Array(photonCount * 3);
-      const photonVel = new Float32Array(photonCount * 3);
-      for (let i = 0; i < photonCount * 3; i += 3) {
-        photonPos[i] = (Math.random() - 0.5) * 4;
-        photonPos[i + 1] = 4 + Math.random() * 4;
-        photonPos[i + 2] = (Math.random() - 0.5) * 4;
-        photonVel[i + 1] = -(0.03 + Math.random() * 0.05);
-      }
-      photonGeo.setAttribute('position', new THREE.BufferAttribute(photonPos, 3));
-      const photonMat = new THREE.PointsMaterial({
-        color: 0xffd60a,
-        size: 0.12,
-        transparent: true,
-        opacity: 0.8,
-        blending: THREE.AdditiveBlending
-      });
-      const photonPoints = new THREE.Points(photonGeo, photonMat);
-      scene.add(photonPoints);
-
-      /* ----------------------------------------------------
-         GSAP SCROLLTRIGGER SYNCHRONIZATION & CAMERA MOVEMENT
-         ---------------------------------------------------- */
-      gsap.registerPlugin(ScrollTrigger);
-
-      const shiftX = innerWidth <= 900 ? 0 : 4.4;
-      heroGroup.position.set(0, -0.8, 0);
-      heroGroup.rotation.set(0.1, 0, -0.15);
-
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: 'main',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1.4
-        }
-      });
-
-      // Layering Part: Foreground fronds slide away as user begins scroll!
-      timeline.to('#frondLeft', { x: '-35vw', opacity: 0, ease: 'power2.out', duration: 0.8 }, 0)
-              .to('#frondRight', { x: '35vw', opacity: 0, ease: 'power2.out', duration: 0.8 }, 0);
-
-      // Stage 0 -> 1: Propagation
-      timeline.to(heroGroup.position, { x: -shiftX, y: 1.2, z: 2.2, duration: 1, ease: 'sine.inOut' }, 0)
-              .to(heroGroup.rotation, { x: 0.35, y: Math.PI * 0.75, z: 0.25, duration: 1, ease: 'sine.inOut' }, 0);
-
-      // Stage 1 -> 2: Photosynthesis (Solar Engine)
-      timeline.to(heroGroup.position, { x: shiftX, y: -0.6, z: 3.2, duration: 1, ease: 'sine.inOut' }, 1)
-              .to(heroGroup.rotation, { x: -0.2, y: Math.PI * 1.5, z: -0.2, duration: 1, ease: 'sine.inOut' }, 1)
-              .to(keyLight, { intensity: 7.0, duration: 0.8 }, 1.2);
-
-      // Stage 2 -> 3: The Cut (Precise Harvest)
-      timeline.to(heroGroup.position, { x: -shiftX, y: -3.2, z: 2.2, duration: 1, ease: 'sine.inOut' }, 2)
-              .to(heroGroup.rotation, { x: 0.45, y: Math.PI * 2.2, z: 0.1, duration: 1, ease: 'sine.inOut' }, 2);
-
-      // Stage 3 -> 4: The Window (Race Against Time)
-      timeline.to(heroGroup.position, { x: shiftX, y: -1.8, z: 3.8, duration: 1, ease: 'sine.inOut' }, 3)
-              .to(heroGroup.rotation, { x: 1.1, y: Math.PI * 2.9, z: -0.4, duration: 1, ease: 'sine.inOut' }, 3);
-
-      // Stage 4 -> 5: Extraction (Pure Pressure)
-      timeline.to(heroGroup.position, { x: -shiftX, y: 0.2, z: 2.4, duration: 1, ease: 'sine.inOut' }, 4)
-              .to(heroGroup.rotation, { x: 0.15, y: Math.PI * 3.7, z: 1.3, duration: 1, ease: 'sine.inOut' }, 4);
-
-      // Stage 5 -> 6: Nucleation (Crystallization)
-      timeline.to(heroGroup.position, { x: shiftX, y: 0.4, z: 1.2, duration: 1, ease: 'sine.inOut' }, 5)
-              .to(heroGroup.rotation, { x: 0.25, y: Math.PI * 4.8, z: -0.1, duration: 1, ease: 'sine.inOut' }, 5)
-              .to(crystalSwarm.scale, { x: 1.15, y: 1.15, z: 1.15, duration: 0.8, ease: 'back.out(1.4)' }, 5.2)
-              .to(stalkMaterial, { opacity: 0.45, transparent: true, duration: 0.8 }, 5.2);
-
-      /* ----------------------------------------------------
-         ROBUST BIDIRECTIONAL SCROLL DETECTION
-         (Ensures elements REAPPEAR smoothly on scroll up and down!)
-         ---------------------------------------------------- */
-      const sectionNodes = document.querySelectorAll('.scroll-section');
-      const dots = document.querySelectorAll('.spine-dot');
-      const chapterTitles = [
-        '00 // RAW ESSENCE', '01 // PROPAGATION', '02 // PHOTOSYNTHESIS',
-        '03 // THE CUT', '04 // THE WINDOW', '05 // EXTRACTION', '06 // NUCLEATION'
-      ];
-      const brixValues = ['18.4° Bx', '14.2° Bx', '16.5° Bx', '18.8° Bx', '18.1° Bx', '21.4° Bx', '99.8° Bx'];
-      const vfxLabels = ['CHLOROPHYLL HAZE', 'ROOT RHIZOSPHERE', 'PHOTON HARVEST', 'LASER INCISION', '24H SAP FLUX', 'FLUID DISCHARGE', 'OCTAHEDRAL P2₁'];
-
-      function handleScrollObserver() {
-        const scrollY = window.scrollY || window.pageYOffset;
-        const vh = window.innerHeight;
-        const totalH = document.documentElement.scrollHeight - vh;
-        
-        // Progress bar
-        if (totalH > 0) {
-          document.getElementById('progressBar').style.width = Math.min(100, Math.max(0, (scrollY / totalH) * 100)) + '%';
-        }
-
-        const viewCenter = scrollY + vh * 0.45;
-        let activeIndex = 0;
-        let minDistance = Infinity;
-
-        sectionNodes.forEach((sec, idx) => {
-          const rect = sec.getBoundingClientRect();
-          const secCenter = scrollY + rect.top + rect.height * 0.5;
-          const dist = Math.abs(secCenter - viewCenter);
-          if (dist < minDistance) {
-            minDistance = dist;
-            activeIndex = idx;
-          }
-          currentSlide = activeIndex;
-          if (typeof updatePresenterHUD === "function") updatePresenterHUD();
-
-          // Card Visibility toggle (Guarantees card REAPPEARS when scrolling back UP!)
-          const card = sec.querySelector('.text-card');
-          if (card) {
-            const isInside = rect.top < vh * 0.75 && rect.bottom > vh * 0.25;
-            if (isInside) {
-              card.classList.add('is-visible');
-            } else {
-              card.classList.remove('is-visible');
+      playExhaustBurbles() {
+        if (!this.ctx) return;
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => {
+            const bufferSize = this.ctx.sampleRate * 0.06;
+            const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let j = 0; j < bufferSize; j++) {
+              data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufferSize * 0.3));
             }
-          }
-        });
+            const noise = this.ctx.createBufferSource();
+            noise.buffer = buffer;
 
-        // Update Spine Dots
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle('active', idx === activeIndex);
-        });
+            const bandpass = this.ctx.createBiquadFilter();
+            bandpass.type = 'bandpass';
+            bandpass.frequency.value = 160 + Math.random() * 120;
 
-        // Update Telemetry HUD
-        document.getElementById('hudChapter').innerText = chapterTitles[activeIndex] || '00 // RAW ESSENCE';
-        document.getElementById('hudBrix').innerText = brixValues[activeIndex] || '18.4° Bx';
-        document.getElementById('hudVFX').innerText = vfxLabels[activeIndex] || 'HARVEST CORE';
+            const popGain = this.ctx.createGain();
+            popGain.gain.value = 0.5;
+
+            noise.connect(bandpass);
+            bandpass.connect(popGain);
+            popGain.connect(this.masterGain);
+            noise.start();
+          }, i * 110 + Math.random() * 50);
+        }
       }
 
-      window.addEventListener('scroll', handleScrollObserver, { passive: true });
-      handleScrollObserver();
+      // Dark cinematic sub-bass pulse during the intro
+      startCinematicBassBeat() {
+        let step = 0;
+        const notes = [41.2, 41.2, 49.0, 36.7]; // Deep E1, G1, D1 sub bass
+        setInterval(() => {
+          if (!this.ctx || !this.isRunning) return;
+          const now = this.ctx.currentTime;
+          const sub = this.ctx.createOscillator();
+          const subGain = this.ctx.createGain();
+          sub.type = 'sine';
+          sub.frequency.setValueAtTime(notes[step % notes.length] * 2, now);
+          sub.frequency.exponentialRampToValueAtTime(notes[step % notes.length], now + 0.12);
 
-      /* ----------------------------------------------------
-         INTERACTIVE DECONSTRUCT / EXPLODED VIEW
-         ---------------------------------------------------- */
-      window.toggleDissection = function() {
-        isDissected = !isDissected;
-        const btnLabel = document.getElementById('dissectLabel');
-        const btn = document.getElementById('dissectBtn');
+          subGain.gain.setValueAtTime(0.35, now);
+          subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
 
-        btnLabel.innerText = isDissected ? 'Assemble' : 'Deconstruct';
-        btn.classList.toggle('active', isDissected);
+          sub.connect(subGain);
+          subGain.connect(this.masterGain);
+          sub.start(now);
+          sub.stop(now + 0.45);
+          step++;
+        }, 480);
+      }
 
-        segmentMeshes.forEach((seg, idx) => {
-          const originalY = idx * segLength - totalHeight / 2 + segLength / 2;
-          const targetY = isDissected ? originalY + (idx - 2.5) * 1.05 : originalY;
+      update() {
+        if (!this.isRunning || !this.ctx) return;
+        this.rpm += (this.targetRpm - this.rpm) * 0.12;
+        const baseFreq = (this.rpm / 60) * 3; // 6-cylinder firing frequency
+        this.osc1.frequency.value = baseFreq;
+        this.osc2.frequency.value = baseFreq * 0.502;
+        this.osc3.frequency.value = baseFreq * 1.5;
+        this.exhaustFilter.frequency.value = 120 + (this.rpm / 7200) * 1400;
 
-          gsap.to(seg.position, {
-            y: targetY,
-            duration: 0.95,
-            ease: 'power3.out'
-          });
-        });
+        // Update HUD RPM bar
+        const rpmReadout = document.getElementById('rpm-readout');
+        const rpmBar = document.getElementById('rpm-bar');
+        if (rpmReadout && rpmBar) {
+          rpmReadout.textContent = `${Math.round(this.rpm).toLocaleString()} RPM`;
+          rpmBar.style.width = `${Math.min(100, (this.rpm / 7200) * 100)}%`;
+        }
+      }
+    }
 
-        playChime(isDissected ? 659.25 : 440);
-      };
+    const soundEngine = new M4SoundEngine();
 
-      /* ----------------------------------------------------
-         VFX QUALITY TOGGLE
-         ---------------------------------------------------- */
-      window.toggleVFX = function() {
-        vfxLevel = vfxLevel === 1 ? 0 : 1;
-        const vfxLabel = document.getElementById('vfxLabel');
-        const vfxBtn = document.getElementById('vfxToggleBtn');
+    // =========================================================================
+    // 2. THREE.JS SCENE, STUDIO HDRI ENVIRONMENT & LIGHTING
+    // =========================================================================
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x000000, 0.045);
 
-        vfxLabel.innerText = vfxLevel === 1 ? 'VFX: High' : 'VFX: Eco';
-        vfxBtn.classList.toggle('active', vfxLevel === 1);
-        godRaysGroup.visible = (vfxLevel === 1);
-        photonPoints.visible = (vfxLevel === 1);
-        playChime(vfxLevel === 1 ? 783.99 : 392);
-      };
+    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 1.4, 6.2);
 
-      /* ----------------------------------------------------
-         CULTIVAR SWITCHER
-         ---------------------------------------------------- */
-      window.switchCultivar = function(idx) {
-        currentCultivar = idx;
-        const cur = cultivars[idx];
+    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.35;
+    container.appendChild(renderer.domElement);
 
-        document.querySelectorAll('.v-pill').forEach((pill, i) => {
-          pill.classList.toggle('active', i === idx);
-        });
+    // Crucial for dark metallic BMW M4 CSL paint: generate Studio HDRI Reflections
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
 
-        document.getElementById('cultivarSci').innerText = cur.sci;
-        document.getElementById('cultivarBrix').innerText = cur.brix;
+    // Studio Lighting Rig
+    const topStripLight = new THREE.DirectionalLight(0xffffff, 3.2);
+    topStripLight.position.set(4, 9, 5);
+    scene.add(topStripLight);
 
-        // Smoothly tween 3D materials
-        gsap.to(stalkMaterial.color, {
-          r: (cur.color >> 16 & 255) / 255,
-          g: (cur.color >> 8 & 255) / 255,
-          b: (cur.color & 255) / 255,
-          duration: 0.7
-        });
+    const redRimLight = new THREE.SpotLight(0xdc2626, 5.0, 20, Math.PI / 3, 0.5);
+    redRimLight.position.set(-6, 3, -5);
+    scene.add(redRimLight);
 
-        gsap.to(nodeMaterial.color, {
-          r: (cur.ringColor >> 16 & 255) / 255,
-          g: (cur.ringColor >> 8 & 255) / 255,
-          b: (cur.ringColor & 255) / 255,
-          duration: 0.7
-        });
+    const blueRimLight = new THREE.SpotLight(0x0284c7, 4.5, 20, Math.PI / 3, 0.5);
+    blueRimLight.position.set(6, 3, -4);
+    scene.add(blueRimLight);
 
-        leafMeshes.forEach(lm => {
-          gsap.to(lm.material.color, {
-            r: (cur.leafColor >> 16 & 255) / 255,
-            g: (cur.leafColor >> 8 & 255) / 255,
-            b: (cur.leafColor & 255) / 255,
-            duration: 0.7
-          });
-        });
+    // Overhead Physical Studio Light Bars (like in the YouTube Short)
+    const lightBarGroup = new THREE.Group();
+    for (let i = -1; i <= 1; i += 2) {
+      const barGeo = new THREE.BoxGeometry(0.12, 0.05, 5.2);
+      const barMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const bar = new THREE.Mesh(barGeo, barMat);
+      bar.position.set(i * 1.4, 2.8, 0);
+      lightBarGroup.add(bar);
+    }
+    scene.add(lightBarGroup);
 
-        playChime(523.25 + idx * 40);
-      };
+    // Glowing Turntable Floor Ring
+    const ringGeo = new THREE.RingGeometry(2.2, 2.26, 96);
+    ringGeo.rotateX(-Math.PI / 2);
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0xdc2626, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
+    const floorRing = new THREE.Mesh(ringGeo, ringMat);
+    floorRing.position.y = -0.78;
+    scene.add(floorRing);
 
-      window.scrollToSection = function(idx) {
-        const sec = document.getElementById('sec-' + idx);
-        if (sec) sec.scrollIntoView({ behavior: 'smooth' });
-      };
+    // =========================================================================
+    // 3. CAR PIVOT, PROCEDURAL M4 CSL FALLBACK & 3D SILK COVER CLOTH
+    // =========================================================================
+    const carPivot = new THREE.Group();
+    scene.add(carPivot);
 
-      /* ----------------------------------------------------
-         MOUSE & GYRO PARALLAX & HARMONIC WIND SIMULATION
-         ---------------------------------------------------- */
-      let mouseX = 0, mouseY = 0;
-      addEventListener('mousemove', e => {
-        mouseX = (e.clientX / innerWidth) * 2 - 1;
-        mouseY = -(e.clientY / innerHeight) * 2 + 1;
-        
-        // Unproject mouse coordinates into 3D space for cursor light
-        cursorLight.position.x = mouseX * 5.5;
-        cursorLight.position.y = mouseY * 4.0;
+    let currentCarModel = null;
+    let paintMaterials = [];
+    let allCarMeshes = [];
+    let manualXRayLocked = false;
+    let isXRayActive = false;
+
+    // Build a sleek M4 CSL fallback mesh so the intro & cloth work immediately
+    function createM4CSLFallback() {
+      const group = new THREE.Group();
+      const paintMat = new THREE.MeshStandardMaterial({ color: 0x111318, metalness: 0.8, roughness: 0.2 });
+      const carbonMat = new THREE.MeshStandardMaterial({ color: 0x09090b, metalness: 0.4, roughness: 0.4 });
+      const redTrimMat = new THREE.MeshBasicMaterial({ color: 0xdc2626 });
+      const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x0f172a, transparent: true, opacity: 0.45, roughness: 0.05 });
+      const laserHeadlightMat = new THREE.MeshBasicMaterial({ color: 0xfef08a }); // CSL Yellow DRLs
+      const tailLightMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+
+      paintMaterials.push(paintMat);
+
+      // Main Sculpted Body
+      const lowerBody = new THREE.Mesh(new THREE.BoxGeometry(1.92, 0.56, 4.55), paintMat);
+      lowerBody.position.y = -0.22;
+      group.add(lowerBody);
+
+      // Fastback Coupe Greenhouse
+      const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.58, 0.46, 2.1), glassMat);
+      cabin.position.set(0, 0.26, -0.15);
+      group.add(cabin);
+
+      // Carbon Roof
+      const roof = new THREE.Mesh(new THREE.BoxGeometry(1.54, 0.05, 1.9), carbonMat);
+      roof.position.set(0, 0.5, -0.15);
+      group.add(roof);
+
+      // M4 CSL Ducktail Spoiler
+      const ducktail = new THREE.Mesh(new THREE.BoxGeometry(1.78, 0.14, 0.25), paintMat);
+      ducktail.rotation.x = 0.35;
+      ducktail.position.set(0, 0.12, -2.22);
+      group.add(ducktail);
+
+      // Iconic Vertical M4 CSL Kidney Grille with Red Outline
+      [-0.22, 0.22].forEach(x => {
+        const kidneyBorder = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.42, 0.08), redTrimMat);
+        kidneyBorder.position.set(x, -0.22, 2.26);
+        const kidneyInner = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.38, 0.09), carbonMat);
+        kidneyInner.position.set(x, -0.22, 2.265);
+        group.add(kidneyBorder, kidneyInner);
       });
 
-      const clock = new THREE.Clock();
-      function animate() {
-        requestAnimationFrame(animate);
-        const t = clock.getElapsedTime();
+      // CSL Yellow Laser Headlights
+      [-0.68, -0.52, 0.52, 0.68].forEach(x => {
+        const drl = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.06, 0.08), laserHeadlightMat);
+        drl.position.set(x, -0.08, 2.26);
+        group.add(drl);
+      });
 
-        // Subtle biological breathing & sway
-        heroGroup.position.y += Math.sin(t * 1.4) * 0.0018;
-        heroGroup.rotation.y += Math.cos(t * 0.7) * 0.0005;
+      // Laser Tail Lights
+      [-0.62, 0.62].forEach(x => {
+        const tail = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.1, 0.08), tailLightMat);
+        tail.position.set(x, 0.0, -2.26);
+        group.add(tail);
+      });
 
-        // Camera damping
-        camera.position.x += (mouseX * 0.65 - camera.position.x) * 0.04;
-        camera.position.y += (mouseY * 0.45 - camera.position.y) * 0.04;
+      // 4 Forged Wheels + Red Brake Calipers
+      const wheelGeo = new THREE.CylinderGeometry(0.38, 0.38, 0.28, 32);
+      wheelGeo.rotateZ(Math.PI / 2);
+      [
+        [-0.95, -0.42, 1.42], [0.95, -0.42, 1.42],
+        [-0.95, -0.42, -1.42], [0.95, -0.42, -1.42]
+      ].forEach(([x, y, z]) => {
+        const wheel = new THREE.Mesh(wheelGeo, carbonMat);
+        wheel.position.set(x, y, z);
+        group.add(wheel);
+      });
 
-        // God-Rays slow ethereal drift
-        godRaysGroup.rotation.y = Math.sin(t * 0.3) * 0.08;
+      group.traverse(c => { if (c.isMesh) allCarMeshes.push(c); });
+      return group;
+    }
 
-        // Crystal rotation
-        crystalSwarm.children.forEach((c, idx) => {
-          c.rotation.x += 0.005;
-          c.rotation.y += 0.004;
-          c.position.y += Math.sin(t * 2 + idx) * 0.0025;
-        });
+    currentCarModel = createM4CSLFallback();
+    carPivot.add(currentCarModel);
 
-        // AAA Organic Leaf Harmonic Wind Sway (Flutter physics along leaf blade)
-        leafMeshes.forEach((leaf, lIdx) => {
-          // Base rotation flutter
-          leaf.rotation.z = Math.sin(t * 1.8 + lIdx * 0.8) * 0.045;
-          leaf.rotation.x = 0.12 + Math.cos(t * 1.4 + lIdx) * 0.035;
+    // --- 3D SILK CAR COVER (For the Uncovering Intro!) ---
+    const clothGeo = new THREE.PlaneGeometry(3.4, 5.8, 60, 90);
+    clothGeo.rotateX(-Math.PI / 2);
+    const clothBasePositions = clothGeo.attributes.position.array.slice();
 
-          // Vertex displacement along blade length for realistic tip fluttering
-          const posAttr = leaf.geometry.attributes.position;
-          const orig = leaf.userData.originalPositions;
-          const segs = leaf.userData.segments;
+    const clothMat = new THREE.MeshPhysicalMaterial({
+      color: 0x090a0f,
+      metalness: 0.35,
+      roughness: 0.25,
+      clearcoat: 0.6,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 1.0
+    });
+    const carCoverMesh = new THREE.Mesh(clothGeo, clothMat);
+    scene.add(carCoverMesh);
 
-          for (let s = 0; s <= segs; s++) {
-            const u = s / segs;
-            const flutter = Math.sin(t * 3.2 + u * 4.0 + lIdx) * (Math.pow(u, 1.6) * 0.12);
-            const rowIdx = s * 3;
+    function updateClothShape(unveilProgress, time) {
+      if (unveilProgress >= 1.0) {
+        carCoverMesh.visible = false;
+        return;
+      }
+      carCoverMesh.visible = true;
+      const pos = clothGeo.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        const ix = i * 3;
+        const ox = clothBasePositions[ix];
+        const oz = clothBasePositions[ix + 2];
 
-            // Displace y of left, center, right vertices
-            posAttr.setY(rowIdx, orig[rowIdx * 3 + 1] + flutter);
-            posAttr.setY(rowIdx + 1, orig[(rowIdx + 1) * 3 + 1] + flutter * 0.9);
-            posAttr.setY(rowIdx + 2, orig[(rowIdx + 2) * 3 + 1] + flutter);
-          }
-          posAttr.needsUpdate = true;
-        });
+        // Drape over the car silhouette
+        const carProfileY =
+          Math.exp(-((ox * ox) / 1.3 + (oz * oz) / 3.8)) * 0.95 +
+          Math.exp(-((ox * ox) / 1.1 + ((oz + 0.2) * (oz + 0.2)) / 1.2)) * 0.45 - 0.55;
 
-        // Dynamic Photon / Sap particle animation
-        if (vfxLevel === 1) {
-          const pPos = photonPoints.geometry.attributes.position.array;
-          for (let i = 1; i < photonCount * 3; i += 3) {
-            pPos[i] += photonVel[i];
-            if (pPos[i] < -4) {
-              pPos[i] = 4 + Math.random() * 2;
+        // Billowing silk wave as the cover pulls backward (-Z) and lifts up (+Y)
+        const pullWave = Math.sin(oz * 2.5 - time * 8.0) * Math.sin(ox * 3.0 + time * 5.0) * (0.06 + unveilProgress * 0.35);
+        const liftY = Math.pow(unveilProgress, 1.6) * 3.2;
+        const pullBackZ = Math.pow(unveilProgress, 1.4) * -4.5;
+
+        pos.array[ix] = ox * (1 + unveilProgress * 0.15);
+        pos.array[ix + 1] = Math.max(-0.75, carProfileY) + pullWave + liftY;
+        pos.array[ix + 2] = oz + pullBackZ;
+      }
+      pos.needsUpdate = true;
+      clothGeo.computeVertexNormals();
+      clothMat.opacity = Math.max(0, 1.0 - Math.pow(unveilProgress, 2.2));
+    }
+    updateClothShape(0, 0);
+
+    // =========================================================================
+    // 4. GLTF / GLB LOADER (Tailored to Mpgs Studios BMW M4 CSL Materials)
+    // =========================================================================
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.setDRACOLoader(dracoLoader);
+
+    function loadUserGLB(url, fileName) {
+      const badge = document.getElementById('model-status-badge');
+      badge.textContent = `Loading ${fileName}...`;
+
+      gltfLoader.load(
+        url,
+        (gltf) => {
+          if (currentCarModel) carPivot.remove(currentCarModel);
+          paintMaterials = [];
+          allCarMeshes = [];
+
+          const model = gltf.scene;
+
+          // Optimize the exact materials from Mpgs Studios BMW M4 CSL .glb
+          model.traverse((child) => {
+            if (child.isMesh && child.material) {
+              allCarMeshes.push(child);
+              const mats = Array.isArray(child.material) ? child.material : [child.material];
+              mats.forEach((mat) => {
+                const mName = (mat.name || '').toLowerCase();
+
+                // Fix pitch-black Car_Paint so it gleams under studio HDRI
+                if (mName.includes('car_paint') && !mName.includes('.001')) {
+                  mat.color.setHex(0x14171f);
+                  mat.metalness = 0.78;
+                  mat.roughness = 0.18;
+                  mat.envMapIntensity = 2.2;
+                  paintMaterials.push(mat);
+                }
+                // Make laser headlights ('lightt') & tail lights ('Red_Light') glow brightly
+                if (mName.includes('red_light')) {
+                  mat.emissive = new THREE.Color(0xff1111);
+                  mat.emissiveIntensity = 4.5;
+                }
+                if (mName.includes('lightt')) {
+                  mat.emissive = new THREE.Color(0xfef08a);
+                  mat.emissiveIntensity = 5.0;
+                }
+                // Fix Glass.001 & glasss2222 transparency
+                if (mName.includes('glass')) {
+                  mat.transparent = true;
+                  mat.opacity = 0.35;
+                  mat.roughness = 0.05;
+                }
+                // Fix Chrome1111 & Car_chrome
+                if (mName.includes('chrome') || mName.includes('mirror')) {
+                  mat.metalness = 0.95;
+                  mat.roughness = 0.08;
+                }
+              });
             }
+          });
+
+          // Auto-center & scale the 70MB model to fit the turntable
+          const box = new THREE.Box3().setFromObject(model);
+          const size = box.getSize(new THREE.Vector3());
+          const center = box.getCenter(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z) || 1;
+          const scale = 4.6 / maxDim;
+
+          model.scale.setScalar(scale);
+          model.position.set(-center.x * scale, -center.y * scale - 0.12, -center.z * scale);
+
+          const wrapper = new THREE.Group();
+          wrapper.add(model);
+          currentCarModel = wrapper;
+          carPivot.add(currentCarModel);
+
+          badge.textContent = `✓ Loaded: ${fileName} (BMW M4 CSL Ready)`;
+          document.getElementById('pre-upload-text').textContent = fileName.slice(0, 22);
+          document.getElementById('nav-upload-label').textContent = 'Model Loaded';
+        },
+        (xhr) => {
+          if (xhr.total > 0) {
+            const pct = Math.round((xhr.loaded / xhr.total) * 100);
+            badge.textContent = `Loading 3D Model... ${pct}%`;
           }
-          photonPoints.geometry.attributes.position.needsUpdate = true;
         }
+      );
+    }
 
-        updateHotspotsScreenPos();
-        renderer.render(scene, camera);
-      }
-      animate();
+    // Auto-load if user saved their file as "bmw.glb" in the same folder
+    fetch('./bmw.glb', { method: 'HEAD' })
+      .then(res => { if (res.ok) loadUserGLB('./bmw.glb', 'bmw.glb'); })
+      .catch(() => {});
 
-      addEventListener('resize', () => {
-        camera.aspect = innerWidth / innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(innerWidth, innerHeight);
+    // File Input & Drag-and-Drop Listeners
+    function onFilePicked(file) {
+      if (!file) return;
+      loadUserGLB(URL.createObjectURL(file), file.name);
+    }
+    document.getElementById('glb-input-splash').addEventListener('change', e => onFilePicked(e.target.files[0]));
+    document.getElementById('glb-input-nav').addEventListener('change', e => onFilePicked(e.target.files[0]));
+    window.addEventListener('dragover', e => e.preventDefault());
+    window.addEventListener('drop', e => {
+      e.preventDefault();
+      if (e.dataTransfer.files?.[0]) onFilePicked(e.dataTransfer.files[0]);
+    });
+
+    // =========================================================================
+    // 5. CINEMATIC INTRO SEQUENCER (Cloth Unveil + 3 Macro Cuts + Revs)
+    // =========================================================================
+    let appState = 'SPLASH'; // 'SPLASH' | 'INTRO' | 'SCROLL'
+    let introStartTime = 0;
+    let triggeredCut1 = false;
+    let triggeredCut2 = false;
+    let triggeredCut3 = false;
+
+    const cameraPosTarget = new THREE.Vector3(0, 1.4, 6.2);
+    const cameraLookTarget = new THREE.Vector3(0, 0.0, 0);
+    const currentLookAt = new THREE.Vector3(0, 0.0, 0);
+
+    function startCinematicIntro() {
+      document.getElementById('ignition-screen').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('ignition-screen').style.display = 'none';
+      }, 650);
+
+      document.body.classList.add('cinematic-mode', 'locked-scroll');
+      document.getElementById('intro-hud').style.opacity = '1';
+      document.getElementById('main-navbar').style.opacity = '0';
+      document.getElementById('scroll-content').style.opacity = '0';
+
+      appState = 'INTRO';
+      introStartTime = performance.now();
+      triggeredCut1 = triggeredCut2 = triggeredCut3 = false;
+      updateClothShape(0, 0);
+
+      soundEngine.playColdStart();
+    }
+
+    function finishIntroAndUnlockScroll() {
+      appState = 'SCROLL';
+      updateClothShape(1.0, 0);
+      document.body.classList.remove('cinematic-mode', 'locked-scroll');
+      document.getElementById('intro-hud').style.opacity = '0';
+      document.getElementById('main-navbar').style.opacity = '1';
+      document.getElementById('scroll-content').style.opacity = '1';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    document.getElementById('start-ignition-btn').addEventListener('click', startCinematicIntro);
+    document.getElementById('skip-intro-btn').addEventListener('click', finishIntroAndUnlockScroll);
+    document.getElementById('replay-intro-btn').addEventListener('click', startCinematicIntro);
+    document.getElementById('rev-btn').addEventListener('click', () => soundEngine.revEngine(7100, 1000));
+
+    // Paint Switcher Buttons
+    document.querySelectorAll('.paint-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const hex = btn.getAttribute('data-color');
+        paintMaterials.forEach(mat => mat.color.set(hex));
       });
     });
 
-    /* ----------------------------------------------------
-       WEB AUDIO SYNTHESIS
-       ---------------------------------------------------- */
-    let audioCtx = null;
-    let windGain = null;
-    let soundActive = true;
-
-    function initAudio() {
-      if (audioCtx) return;
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
-
-        const bufferSize = audioCtx.sampleRate * 2;
-        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const output = noiseBuffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          output[i] = Math.random() * 2 - 1;
-        }
-
-        const whiteNoise = audioCtx.createBufferSource();
-        whiteNoise.buffer = noiseBuffer;
-        whiteNoise.loop = true;
-
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(340, audioCtx.currentTime);
-
-        windGain = audioCtx.createGain();
-        windGain.gain.setValueAtTime(0.025, audioCtx.currentTime);
-
-        whiteNoise.connect(filter);
-        filter.connect(windGain);
-        windGain.connect(audioCtx.destination);
-        whiteNoise.start();
-      } catch (e) {}
-    }
-
-    function toggleAudio() {
-      initAudio();
-      soundActive = !soundActive;
-      const label = document.getElementById('soundLabel');
-      const btn = document.getElementById('soundBtn');
-
-      if (soundActive) {
-        label.innerText = 'Ambient';
-        btn.classList.add('active');
-        if (windGain) windGain.gain.setValueAtTime(0.025, audioCtx.currentTime);
-        playChime(523.25);
-      } else {
-        label.innerText = 'Muted';
-        btn.classList.remove('active');
-        if (windGain) windGain.gain.setValueAtTime(0, audioCtx.currentTime);
-      }
-    }
-
-    function playChime(freq) {
-      if (!audioCtx || !soundActive) return;
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 1.2);
-      } catch (err) {}
-    }
-  
-    /* ----------------------------------------------------
-       ADDITIONAL SUITE FEATURES (NON-DESTRUCTIVE)
-       ---------------------------------------------------- */
-    let currentSlide = 0;
-    let currentEnv = 'noon';
-    let presenterModeActive = false;
-    let notesVisible = false;
-    let laserActive = false;
-    let hotspotsVisible = false;
-    let simDrawerVisible = false;
-    let selectedHotspotIdx = -1;
-
-    // 3D Hotspot Anatomical Explorer
-    const HOTSPOT_DATA = [
-      {
-        name: "Waxy Cuticle & Bloom",
-        pos3D: new THREE.Vector3(0.44, 2.5, 0.0),
-        sub: "Hydrophobic Lipid Protection",
-        body: "A fine waxy bloom composed of long-chain fatty esters and triterpenoids. It minimizes non-stomatal water evaporation, reflects harsh ultraviolet radiation, and acts as a barrier against fungal spores.",
-        tissue: "Cuticular Waxes",
-        curriculum: "Life Processes (Plant Protection)"
-      },
-      {
-        name: "Lignified Fibrous Rind",
-        pos3D: new THREE.Vector3(0.44, 0.0, 0.0),
-        sub: "Mechanical Sclerenchyma Sheath",
-        body: "Dense outer cortical ring heavily impregnated with lignin and cellulose microfibrils. Provides high tensile strength and rigidity, preventing mature canes from lodging under storm-force winds.",
-        tissue: "Sclerenchyma Fibers",
-        curriculum: "Structural Tissues"
-      },
-      {
-        name: "Closed Vascular Bundles",
-        pos3D: new THREE.Vector3(0.2, -2.2, 0.1),
-        sub: "Xylem & Phloem Transport Engine",
-        body: "Scattered monocot vascular bundles lacking secondary cambium. Outer phloem sieve tubes translocate synthesized sucrose downward; inner xylem vessels channel water upward via transpiration pull.",
-        tissue: "Conducting Bundles",
-        curriculum: "Plant Transportation (Xylem/Phloem)"
-      },
-      {
-        name: "Storage Parenchyma (Pith)",
-        pos3D: new THREE.Vector3(-0.1, -4.0, 0.0),
-        sub: "Sucrose Accumulation Vacuoles",
-        body: "Large, thin-walled hexagonal parenchyma cells filling the culm interior. Central vacuoles store concentrated disaccharide sucrose (C12H22O11) dissolved in aqueous sap, reaching high Brix concentrations.",
-        tissue: "Storage Ground Tissue",
-        curriculum: "Carbohydrate Storage & Osmosis"
-      }
-    ];
-
-    window.toggleHotspots = function() {
-      hotspotsVisible = !hotspotsVisible;
-      const layer = document.getElementById('hotspotsLayer');
-      layer.style.opacity = hotspotsVisible ? '1' : '0';
-      layer.style.pointerEvents = hotspotsVisible ? 'auto' : 'none';
-      document.getElementById('hotspotToggleBtn').classList.toggle('active', hotspotsVisible);
-      if (!hotspotsVisible) closeHotspot();
-      playChime(640);
-    };
-
-    window.selectHotspot = function(idx) {
-      selectedHotspotIdx = idx;
-      const data = HOTSPOT_DATA[idx];
-      const card = document.getElementById('hotspotCard');
-      document.getElementById('hcTitle').innerText = data.name;
-      document.getElementById('hcSub').innerText = data.sub;
-      document.getElementById('hcBody').innerText = data.body;
-      document.getElementById('hcTissue').innerText = data.tissue;
-      document.getElementById('hcCurriculum').innerText = data.curriculum;
-      card.classList.add('visible');
-      playChime(880);
-    };
-
-    window.closeHotspot = function() {
-      selectedHotspotIdx = -1;
-      document.getElementById('hotspotCard').classList.remove('visible');
-      playChime(440);
-    };
-
-    function updateHotspotsScreenPos() {
-      if (!hotspotsVisible || typeof heroGroup === 'undefined' || typeof camera === 'undefined') return;
-      const wp = new THREE.Vector3();
-      HOTSPOT_DATA.forEach((h, i) => {
-        const pin = document.getElementById(`pin${i}`);
-        if (!pin) return;
-        heroGroup.localToWorld(wp.copy(h.pos3D));
-        wp.project(camera);
-
-        const x = (wp.x * 0.5 + 0.5) * window.innerWidth;
-        const y = (-(wp.y * 0.5) + 0.5) * window.innerHeight;
-
-        pin.style.left = `${x}px`;
-        pin.style.top = `${y}px`;
-        pin.style.display = wp.z > 1 ? 'none' : 'flex';
-      });
-    }
-
-    // Classroom Presenter Suite
-    const CBSE_NOTES = [
-      {
-        title: "00: Raw Essence & Anatomy",
-        points: [
-          "<b>Species:</b> <i>Saccharum officinarum</i> (Family Poaceae). Monocot perennial grass with solid jointed culms.",
-          "<b>Unique Characteristic:</b> Synthesizes and accumulates huge quantities of sucrose in parenchymal vacuoles (up to 50% dry weight).",
-          "<b>Key Adaptation:</b> High water-use efficiency and zero photorespiration under intense tropical irradiation."
-        ]
-      },
-      {
-        title: "01: Propagation (Living Seed)",
-        points: [
-          "<b>Vegetative Reproduction:</b> Avoids true seed; uses 2-3 bud stem cuttings known as <b>setts</b>.",
-          "<b>Nodal Architecture:</b> Each node carries a root band and an axillary bud (eye) protected under leaf sheaths.",
-          "<b>Ratooning:</b> After harvest, subterranean rhizome buds sprout 3-4 consecutive ratoon crops without replanting."
-        ]
-      },
-      {
-        title: "02: Photosynthesis (C4 Engine)",
-        points: [
-          "<b>Kranz Anatomy:</b> Concentric bundle sheath cells surrounding vascular bundles prevent oxygen exposure.",
-          "<b>PEP Carboxylase:</b> Fixes CO₂ into 4-carbon Oxaloacetate with zero photorespiratory energy waste.",
-          "<b>Efficiency:</b> Achieves 2.5-3.0% solar energy conversion efficiency (over double standard C3 crops)."
-        ]
-      },
-      {
-        title: "03: The Cut (Harvesting)",
-        points: [
-          "<b>Basal Sweetness:</b> Sucrose accumulates from base upward; lowest internodes contain peak Brix.",
-          "<b>Soil Flush Cut:</b> Clean ground-level cutting ensures maximum recovery and healthy ratoon emergence.",
-          "<b>Yield Metric:</b> Averaging 85-110 tonnes per hectare under optimal sub-tropical irrigation."
-        ]
-      },
-      {
-        title: "04: Race Against Time (Inversion)",
-        points: [
-          "<b>Post-Harvest Decay:</b> Plant invertase enzymes rapidly break sucrose into glucose + fructose.",
-          "<b>Critical Window:</b> Stalks must reach mechanical crushing rollers within 24-48 hours.",
-          "<b>Commercial Loss:</b> Every 24h delay reduces crystallizable sugar recovery by 0.5-1.2%."
-        ]
-      },
-      {
-        title: "05: Pure Pressure (Extraction)",
-        points: [
-          "<b>Milling Tandems:</b> Multi-roller presses apply 200+ bar pressure with counter-current imbibition water.",
-          "<b>Bagasse Byproduct:</b> Dry fibrous residue combusted in co-generation boilers to power the entire sugar mill.",
-          "<b>Juice Recovery:</b> Extracts >96% of total sucrose content in a single continuous stream."
-        ]
-      },
-      {
-        title: "06: Nucleation (Crystallization)",
-        points: [
-          "<b>Liming & Clarification:</b> Calcium hydroxide neutralizes organic acids and precipitates phosphates.",
-          "<b>Vacuum Evaporation:</b> Low boiling point (65°C) prevents caramelization and thermal degradation.",
-          "<b>Crystal Seeding:</b> Micro-seed introduces lattice templates, yielding pure monoclinic sucrose crystals."
-        ]
-      }
-    ];
-
-    window.togglePresenterMode = function() {
-      presenterModeActive = !presenterModeActive;
-      document.getElementById('presenterBar').classList.toggle('visible', presenterModeActive);
-      document.getElementById('presenterBtn').classList.toggle('active', presenterModeActive);
-      if (presenterModeActive) {
-        updatePresenterHUD();
-      } else {
-        if (notesVisible) toggleNotes();
-        if (laserActive) toggleLaser();
-      }
-      playChime(660);
-    };
-
-    window.toggleNotes = function() {
-      notesVisible = !notesVisible;
-      document.getElementById('presenterNotesPanel').classList.toggle('visible', notesVisible);
-      document.getElementById('notesBtn').classList.toggle('active', notesVisible);
-      updatePresenterNotes();
-      playChime(550);
-    };
-
-    function updatePresenterNotes() {
-      const note = CBSE_NOTES[currentSlide] || CBSE_NOTES[0];
-      document.getElementById('pnTitle').innerHTML = note.title;
-      const listEl = document.getElementById('pnPoints');
-      listEl.innerHTML = note.points.map(pt => `<li>${pt}</li>`).join('');
-    }
-
-    function updatePresenterHUD() {
-      document.getElementById('presenterSlideIndex').innerText = `Slide ${currentSlide + 1} of 7`;
-      if (notesVisible) updatePresenterNotes();
-    }
-
-    window.nextSlide = function() {
-      if (currentSlide < 6) {
-        scrollToSection(currentSlide + 1);
-      }
-    };
-
-    window.prevSlide = function() {
-      if (currentSlide > 0) {
-        scrollToSection(currentSlide - 1);
-      }
-    };
-
-    const laserPointerEl = document.getElementById('laserPointer');
-    window.toggleLaser = function() {
-      laserActive = !laserActive;
-      document.body.classList.toggle('laser-active', laserActive);
-      document.getElementById('laserBtn').classList.toggle('active', laserActive);
-      playChime(laserActive ? 920 : 350);
-    };
-
-    window.addEventListener('mousemove', (e) => {
-      if (laserActive && laserPointerEl) {
-        laserPointerEl.style.left = `${e.clientX}px`;
-        laserPointerEl.style.top = `${e.clientY}px`;
-      }
-    });
-
-    window.toggleFullscreen = function() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      } else {
-        document.exitFullscreen().catch(() => {});
-      }
-    };
-
-    window.toggleUI = function() {
-      document.body.classList.toggle('ui-hidden');
-    };
-
-    window.addEventListener('keydown', (e) => {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      const key = e.key.toLowerCase();
-      if (key === 'arrowright' || key === ' ' || key === 'pagedown') {
-        e.preventDefault();
-        nextSlide();
-      } else if (key === 'arrowleft' || key === 'pageup') {
-        e.preventDefault();
-        prevSlide();
-      } else if (key === 'p') {
-        togglePresenterMode();
-      } else if (key === 'l') {
-        toggleLaser();
-      } else if (key === 'f') {
-        toggleFullscreen();
-      } else if (key === 'h') {
-        toggleUI();
-      } else if (key >= '1' && key <= '7') {
-        scrollToSection(parseInt(key, 10) - 1);
-      }
-    });
-
-    // C4 Agronomic & Brix Simulator
-    window.toggleSimDrawer = function() {
-      simDrawerVisible = !simDrawerVisible;
-      document.getElementById('simDrawer').classList.toggle('visible', simDrawerVisible);
-      document.getElementById('simToggleBtn').classList.toggle('active', simDrawerVisible);
-      playChime(580);
-    };
-
-    window.updateSim = function() {
-      const sun = parseFloat(document.getElementById('sunSlider').value);
-      const water = parseFloat(document.getElementById('waterSlider').value);
-      const npk = parseFloat(document.getElementById('npkSlider').value);
-
-      document.getElementById('sunReadout').innerText = `${sun.toFixed(1)} hrs/day`;
-      document.getElementById('waterReadout').innerText = `${Math.round(water)} mm/yr`;
-      document.getElementById('npkReadout').innerText = `${npk.toFixed(1)}x (${npk > 1.2 ? 'High N' : npk < 0.8 ? 'Deficient' : 'Optimal'})`;
-
-      const sunNorm = (sun - 4) / 8.0;
-      const waterNorm = Math.min(water / 1500.0, 1.3);
-      const npkBalance = 1.0 - Math.abs(npk - 1.0) * 0.4;
-
-      const brix = 13.5 + (sunNorm * 5.2) + (waterNorm * 2.8) + (npkBalance * 2.5);
-      const yieldTha = (brix / 20.0) * 98.0 * (0.4 + 0.6 * waterNorm);
-      const eff = 1.8 + (sunNorm * 0.8) + (npkBalance * 0.4);
-      const transloc = Math.round(60 + brix * 1.6);
-
-      document.getElementById('simBrixVal').innerText = `${brix.toFixed(1)}° Bx`;
-      document.getElementById('simYieldVal').innerText = `${yieldTha.toFixed(1)} T/Ha`;
-      document.getElementById('simEffVal').innerText = `${eff.toFixed(1)}%`;
-      document.getElementById('simTransVal').innerText = `${transloc} cm/hr`;
-      document.getElementById('hudBrix').innerText = `${brix.toFixed(1)}° Bx`;
-    };
-
-    // Atmospheric Environments
-    const ENVIRONMENTS = {
-      noon: {
-        label: "Noon",
-        bgColor: 0x010402,
-        keyInt: 5.0,
-        keyCol: 0xfff5e6,
-        rimInt: 3.8,
-        rimCol: 0xe0c367,
-        fillInt: 1.8,
-        fillCol: 0x00ff88
-      },
-      dawn: {
-        label: "Dawn",
-        bgColor: 0x0a0604,
-        keyInt: 4.2,
-        keyCol: 0xffb070,
-        rimInt: 4.0,
-        rimCol: 0xffd180,
-        fillInt: 1.4,
-        fillCol: 0x2e8b57
-      },
-      midnight: {
-        label: "Midnight",
-        bgColor: 0x010408,
-        keyInt: 2.5,
-        keyCol: 0x38bdf8,
-        rimInt: 3.5,
-        rimCol: 0x00ff88,
-        fillInt: 2.2,
-        fillCol: 0x00f0ff
-      }
-    };
-
-    window.cycleEnvironment = function() {
-      const keys = ['noon', 'dawn', 'midnight'];
-      const nextIdx = (keys.indexOf(currentEnv) + 1) % keys.length;
-      currentEnv = keys[nextIdx];
-      const env = ENVIRONMENTS[currentEnv];
-
-      document.getElementById('envLabel').innerText = env.label;
-      document.body.style.background = currentEnv === 'midnight' ? '#010408' : currentEnv === 'dawn' ? '#0a0604' : '#010402';
-
-      if (typeof keyLight !== 'undefined') {
-        gsap.to(keyLight, { intensity: env.keyInt, duration: 1.0 });
-        gsap.to(keyLight.color, {
-          r: ((env.keyCol >> 16) & 255) / 255,
-          g: ((env.keyCol >> 8) & 255) / 255,
-          b: (env.keyCol & 255) / 255,
-          duration: 1.0
+    // X-Ray Wireframe Mode (Matches 00:00:08 in the video)
+    function setXRayMode(enabled) {
+      if (isXRayActive === enabled) return;
+      isXRayActive = enabled;
+      allCarMeshes.forEach(mesh => {
+        const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+        mats.forEach(m => {
+          const name = (m.name || '').toLowerCase();
+          if (!name.includes('light')) {
+            m.wireframe = enabled;
+          }
         });
-      }
-      if (typeof rimLight !== 'undefined') {
-        gsap.to(rimLight, { intensity: env.rimInt, duration: 1.0 });
-      }
-      if (typeof emeraldFill !== 'undefined') {
-        gsap.to(emeraldFill, { intensity: env.fillInt, duration: 1.0 });
-      }
-      if (typeof scene !== 'undefined' && scene.fog) {
-        scene.fog.color.setHex(env.bgColor);
+      });
+      floorRing.material.color.setHex(enabled ? 0x38bdf8 : 0xdc2626);
+    }
+
+    document.getElementById('manual-xray-btn').addEventListener('click', () => {
+      manualXRayLocked = !manualXRayLocked;
+      setXRayMode(manualXRayLocked);
+    });
+
+    // =========================================================================
+    // 6. SCROLL TRACKING & MASTER RENDER LOOP
+    // =========================================================================
+    let scrollTarget = 0;
+    let scrollSmooth = 0;
+
+    window.addEventListener('scroll', () => {
+      if (appState !== 'SCROLL') return;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      scrollTarget = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+    }, { passive: true });
+
+    const cutTag = document.getElementById('cut-tag');
+    const cutTitle = document.getElementById('cut-title');
+    const scrollAngleBadge = document.getElementById('scroll-angle-badge');
+
+    function animate(now) {
+      requestAnimationFrame(animate);
+      soundEngine.update();
+
+      if (appState === 'INTRO') {
+        const elapsed = (now - introStartTime) / 1000;
+
+        // PHASE 1 (0.0s - 3.5s): Uncovering the Silk Cloth
+        if (elapsed < 3.5) {
+          const u = Math.min(1, elapsed / 3.2);
+          updateClothShape(u, elapsed);
+          carPivot.rotation.y = -0.35 + elapsed * 0.08;
+          cameraPosTarget.set(2.4, 1.35 - u * 0.2, 5.2 - u * 0.6);
+          cameraLookTarget.set(0, 0.0, 0);
+        }
+        // PHASE 2 (3.5s - 5.4s): Cut 1 — Macro Close-Up on Kidney Grille & Laser Headlights
+        else if (elapsed < 5.4) {
+          updateClothShape(1, elapsed);
+          if (!triggeredCut1) {
+            triggeredCut1 = true;
+            soundEngine.revEngine(6200, 950);
+            cutTag.textContent = 'MACRO CUT 01 // FRONT FASCIA';
+            cutTitle.textContent = 'CSL YELLOW LASERLIGHT & CFRP SPLITTER';
+            camera.position.set(-0.9, -0.05, 3.1); // Instant whip-cut
+          }
+          const t = (elapsed - 3.5) / 1.9;
+          carPivot.rotation.y = 0.0;
+          cameraPosTarget.set(-0.9 + t * 1.8, -0.05 + t * 0.1, 2.95);
+          cameraLookTarget.set(0, -0.15, 1.8);
+        }
+        // PHASE 3 (5.4s - 7.3s): Cut 2 — Whip-Pan to Forged Rim & Carbon Ceramic Caliper
+        else if (elapsed < 7.3) {
+          if (!triggeredCut2) {
+            triggeredCut2 = true;
+            soundEngine.revEngine(6800, 1000);
+            cutTag.textContent = 'MACRO CUT 02 // CHASSIS HARDWARE';
+            cutTitle.textContent = 'M CARBON CERAMIC BRAKES // FORGED WHEELS';
+            camera.position.set(2.2, -0.25, 1.6);
+          }
+          const t = (elapsed - 5.4) / 1.9;
+          carPivot.rotation.y = 0.15;
+          cameraPosTarget.set(2.05, -0.22 + t * 0.15, 1.4 - t * 0.8);
+          cameraLookTarget.set(0.8, -0.35, 1.1);
+        }
+        // PHASE 4 (7.3s - 9.3s): Cut 3 — Rear Ducktail & Laser Tail Lights at 7,200 RPM Redline
+        else if (elapsed < 9.3) {
+          if (!triggeredCut3) {
+            triggeredCut3 = true;
+            soundEngine.revEngine(7200, 1300);
+            cutTag.textContent = 'MACRO CUT 03 // AERO & EXHAUST';
+            cutTitle.textContent = 'INTEGRATED DUCKTAIL & LASER TAIL LIGHTS';
+            camera.position.set(-1.6, 0.25, -3.4);
+          }
+          const t = (elapsed - 7.3) / 2.0;
+          carPivot.rotation.y = 0.2;
+          cameraPosTarget.set(-1.6 + t * 3.0, 0.22, -3.3);
+          cameraLookTarget.set(0, 0.05, -1.8);
+        }
+        // PHASE 5 (9.3s - 10.8s): Hero Pullback & Unlock Scroll
+        else if (elapsed < 10.8) {
+          cutTag.textContent = 'SYSTEM READY // INTERACTIVE MODE';
+          cutTitle.textContent = 'SCROLL TO INSPECT 360°';
+          carPivot.rotation.y += (-0.5 - carPivot.rotation.y) * 0.08;
+          cameraPosTarget.set(0, 1.25, 6.0);
+          cameraLookTarget.set(0, 0.0, 0);
+        } else {
+          finishIntroAndUnlockScroll();
+        }
+      } else if (appState === 'SCROLL') {
+        scrollSmooth += (scrollTarget - scrollSmooth) * 0.08;
+
+        // 360° scrub locked to scroll
+        const baseAngle = -0.5;
+        carPivot.rotation.y = baseAngle + scrollSmooth * Math.PI * 2;
+
+        // Dynamic camera elevation & zoom as you scroll through sections
+        const camY = 1.2 + Math.sin(scrollSmooth * Math.PI) * 0.65;
+        const camZ = 6.0 - Math.sin(scrollSmooth * Math.PI) * 0.9;
+        cameraPosTarget.set(0, camY, camZ);
+        cameraLookTarget.set(0, 0.0, 0);
+
+        const deg = Math.round(scrollSmooth * 360);
+        scrollAngleBadge.textContent = `ROTATION: ${deg}°`;
+
+        // Automatically activate X-Ray Chassis Scan between 75% and 100% scroll
+        if (!manualXRayLocked) {
+          setXRayMode(scrollSmooth > 0.74);
+        }
       }
 
-      playChime(currentEnv === 'midnight' ? 784 : 523);
-    };
+      // Smooth Camera Interpolation
+      camera.position.lerp(cameraPosTarget, 0.09);
+      currentLookAt.lerp(cameraLookTarget, 0.12);
+      camera.lookAt(currentLookAt);
 
+      renderer.render(scene, camera);
+    }
+    requestAnimationFrame(animate);
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
   </script>
 </body>
 </html>
