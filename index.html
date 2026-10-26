@@ -1,955 +1,1446 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BMW M4 CSL — Cinematic 3D Experience</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ZAP — True Liquid Glass Mobility Super-App</title>
   <style>
-    * { box-sizing: border-box; }
-    body {
+    :root {
+      --accent: #ff2d78;
+      --accent-rgb: 255, 45, 120;
+      --accent-secondary: #7928ca;
+      --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --spring-fluid: cubic-bezier(0.22, 1, 0.36, 1);
+      --mx: 50%;
+      --my: 25%;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      background-color: #000000;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 20%, #13182e 0%, #05070e 70%);
       color: #ffffff;
-      font-family: 'Inter', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
       overflow-x: hidden;
     }
-    body.locked-scroll {
+
+    /* ==========================================================
+       WWDC25 TRUE OPTICAL LIQUID GLASS SYSTEM & SLIDE ANIMATIONS
+       ========================================================== */
+    .liquid-glass {
+      position: relative;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.06) 45%,
+        rgba(var(--accent-rgb), 0.16) 100%
+      );
+      backdrop-filter: url(#liquid-lens-filter) blur(22px) saturate(225%) contrast(112%);
+      -webkit-backdrop-filter: blur(24px) saturate(225%) contrast(112%);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      box-shadow:
+        0 22px 50px -10px rgba(0, 0, 0, 0.62),
+        0 0 35px -4px rgba(var(--accent-rgb), 0.38),
+        inset 0 2px 4px 0 rgba(255, 255, 255, 0.88),
+        inset 0 -2px 6px 0 rgba(255, 255, 255, 0.32),
+        inset 2px 0 5px 0 rgba(255, 255, 255, 0.3);
+      transition:
+        transform 0.5s var(--spring-bounce),
+        border-radius 0.5s var(--spring-bounce),
+        background 0.4s var(--spring-fluid),
+        box-shadow 0.4s var(--spring-fluid),
+        opacity 0.4s var(--spring-fluid);
       overflow: hidden;
-      height: 100vh;
     }
-    h1, h2, .font-display {
-      font-family: 'Space Grotesk', sans-serif;
+
+    /* Pointer-Tracked Specular Caustic Sheen */
+    .liquid-glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        250px circle at var(--mx, 50%) var(--my, 20%),
+        rgba(255, 255, 255, 0.52),
+        transparent 65%
+      );
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: overlay;
     }
-    .glass-panel {
-      background: rgba(10, 10, 14, 0.65);
+
+    .liquid-glass::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .liquid-glass > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Slide Entrance / Exit Animation Classes */
+    .slide-in-up {
+      animation: slideInUp 0.55s var(--spring-bounce) forwards;
+    }
+    @keyframes slideInUp {
+      0% { opacity: 0; transform: translateY(35px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .slide-in-down {
+      animation: slideInDown 0.55s var(--spring-bounce) forwards;
+    }
+    @keyframes slideInDown {
+      0% { opacity: 0; transform: translateY(-35px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .slide-swap {
+      animation: slideSwap 0.45s var(--spring-bounce) forwards;
+    }
+    @keyframes slideSwap {
+      0% { opacity: 0; transform: scale(0.93) translateY(12px); }
+      50% { opacity: 0.5; transform: scale(1.02) translateY(-4px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Liquid Ripple Touch Effect */
+    .ripple-effect {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.88) 0%, rgba(var(--accent-rgb),0.45) 60%, transparent 100%);
+      transform: scale(0);
+      animation: rippleAnim 0.65s cubic-bezier(0.15, 0.85, 0.35, 1.2) forwards;
+      pointer-events: none;
+      z-index: 100;
+    }
+    @keyframes rippleAnim {
+      0% { transform: scale(0); opacity: 0.95; }
+      100% { transform: scale(5); opacity: 0; }
+    }
+
+    .jelly-btn {
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform 0.45s var(--spring-bounce),
+        border-radius 0.45s var(--spring-bounce),
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+    .jelly-btn:hover {
+      transform: scale(1.035) translateY(-1px);
+    }
+    .jelly-btn:active {
+      transform: scale(0.91, 1.07);
+    }
+
+    /* Crystal Droplet Switches */
+    .liquid-switch {
+      position: relative;
+      width: 68px;
+      height: 36px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.45);
+      cursor: pointer;
+      transition: background 0.4s var(--spring-fluid), box-shadow 0.4s var(--spring-fluid);
+      flex-shrink: 0;
+    }
+    .liquid-switch.active {
+      background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.95), #10b981);
+      box-shadow:
+        inset 0 2px 6px rgba(0, 0, 0, 0.25),
+        0 0 20px rgba(var(--accent-rgb), 0.55);
+    }
+    .liquid-switch-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: #ffffff;
+      box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.35),
+        inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
+      transition:
+        transform 0.5s var(--spring-bounce),
+        width 0.35s var(--spring-bounce),
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+    .liquid-switch:active .liquid-switch-thumb,
+    .liquid-switch.droplet-morph .liquid-switch-thumb {
+      width: 38px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(4px) saturate(240%) contrast(135%);
+      -webkit-backdrop-filter: blur(4px) saturate(240%) contrast(135%);
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.95),
+        inset 0 -3px 6px rgba(var(--accent-rgb), 0.6);
+    }
+    .liquid-switch.active .liquid-switch-thumb {
+      transform: translateX(32px);
+    }
+    .liquid-switch.active:active .liquid-switch-thumb,
+    .liquid-switch.active.droplet-morph .liquid-switch-thumb {
+      transform: translateX(22px) scale(1.08);
+    }
+
+    /* ==========================================================
+       TOP APP BAR & NAVIGATION
+       ========================================================== */
+    .top-bar {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      max-width: 1140px;
+      margin: 0 auto 14px auto;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-radius: 999px;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-orb {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: conic-gradient(from 45deg, #ff2d78, #f59e0b, #10b981, #06b6d4, #8b5cf6, #ff2d78);
+      box-shadow: 0 0 18px rgba(255, 45, 120, 0.6);
+      position: relative;
+    }
+    .brand-orb::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.3px;
+    }
+    .brand-sub {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .control-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill-btn {
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pill-btn.active {
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.8), rgba(121, 40, 202, 0.8));
+      border-color: rgba(255, 255, 255, 0.9);
+      box-shadow:
+        0 6px 20px rgba(var(--accent-rgb), 0.5),
+        inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
+    }
+
+    .mobile-app-switcher {
+      display: none;
+      margin: 0 auto 12px auto;
+      padding: 6px;
+      border-radius: 999px;
+      width: fit-content;
+      gap: 6px;
+    }
+
+    /* ==========================================================
+       STUDIO STAGE & DUAL PHONE FRAMES
+       ========================================================== */
+    .studio-stage {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 6px 16px 40px 16px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(320px, 420px));
+      justify-content: center;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .phone-shell {
+      width: 100%;
+      height: 800px;
+      border-radius: 50px;
+      position: relative;
+      overflow: hidden;
+      background: #080b14;
+      border: 2px solid rgba(255, 255, 255, 0.28);
+      box-shadow:
+        0 35px 75px rgba(0, 0, 0, 0.8),
+        0 0 45px rgba(var(--accent-rgb), 0.18),
+        inset 0 0 0 4px #03050a;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .status-bar {
+      position: relative;
+      z-index: 30;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 26px 8px 26px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .dynamic-island {
+      width: 118px;
+      height: 26px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.92);
+      transition: width 0.5s var(--spring-bounce), transform 0.5s var(--spring-bounce);
+    }
+    .dynamic-island.expanded {
+      width: 210px;
+      background: rgba(15, 20, 35, 0.94);
+      border-color: rgba(var(--accent-rgb), 0.75);
+      box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.5);
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulseDot 1.6s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.45); opacity: 0.6; }
+    }
+
+    /* MAP CANVAS & CHROMATIC ORBS */
+    .map-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 30% 35%, rgba(var(--accent-rgb), 0.36), transparent 52%),
+        radial-gradient(circle at 75% 65%, rgba(6, 182, 212, 0.3), transparent 55%),
+        linear-gradient(180deg, #0b1021 0%, #070b16 100%);
+      transition: background 0.5s ease;
+    }
+
+    .checkerboard-layer {
+      position: absolute;
+      inset: -40%;
+      z-index: 2;
+      opacity: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(45deg, rgba(255,255,255,0.24) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255,255,255,0.24) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.24) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.24) 75%);
+      background-size: 36px 36px;
+      background-position: 0 0, 0 18px, 18px -18px, -18px 0;
+      transition: opacity 0.4s ease;
+      animation: driftBoard 14s linear infinite;
+    }
+    .refract-test-mode .checkerboard-layer {
+      opacity: 1;
+    }
+    @keyframes driftBoard {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(36px, 36px, 0); }
+    }
+
+    .chromatic-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(18px);
+      opacity: 0.75;
+      pointer-events: none;
+      z-index: 2;
+      animation: floatOrb 8s ease-in-out infinite alternate;
+    }
+    .orb-1 {
+      width: 180px;
+      height: 180px;
+      top: 18%;
+      left: 12%;
+      background: conic-gradient(from 0deg, #ff2d78, #ffbe0b, #06b6d4, #8b5cf6, #ff2d78);
+    }
+    .orb-2 {
+      width: 160px;
+      height: 160px;
+      bottom: 26%;
+      right: 8%;
+      background: radial-gradient(circle, rgba(var(--accent-rgb), 0.95), rgba(16, 185, 129, 0.38));
+      animation-delay: -3s;
+    }
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      100% { transform: translate(28px, -26px) scale(1.2) rotate(60deg); }
+    }
+
+    .map-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+    }
+
+    /* CUSTOMER & PARTNER UI OVERLAYS */
+    .app-overlay-top {
+      position: relative;
+      z-index: 20;
+      padding: 4px 16px 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .top-glass-header {
+      padding: 12px 14px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .zone-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .zone-badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(var(--accent-rgb), 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.48);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .service-dock {
+      padding: 6px;
+      border-radius: 999px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+    }
+
+    .service-tab {
+      position: relative;
+      z-index: 2;
+      padding: 8px 4px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      transition: transform 0.45s var(--spring-bounce), color 0.3s ease;
+    }
+    .service-tab span.icon {
+      font-size: 15px;
+    }
+    .service-tab.active {
+      color: #ffffff;
+      transform: scale(1.06);
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px) saturate(220%);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.35),
+        inset 0 2px 3px rgba(255, 255, 255, 0.95),
+        inset 0 -2px 4px rgba(var(--accent-rgb), 0.6);
+    }
+
+    .app-overlay-bottom {
+      position: relative;
+      z-index: 20;
+      padding: 0 14px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .booking-glass-sheet {
+      padding: 16px;
+      border-radius: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .mode-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+    .mode-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.78);
+      margin-top: 2px;
+    }
+
+    .route-capsule {
+      padding: 10px 12px;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font-size: 12px;
+    }
+    .route-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .route-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .tier-card {
+      padding: 10px 12px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: all 0.45s var(--spring-bounce);
+    }
+    .tier-card.selected {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.26), rgba(var(--accent-rgb), 0.3));
+      border-color: rgba(255, 255, 255, 0.9);
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.35),
+        inset 0 1.5px 2px rgba(255, 255, 255, 0.92);
+      transform: translateY(-2px);
+    }
+    .tier-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .tier-price {
+      font-size: 15px;
+      font-weight: 900;
+      color: #fff;
+    }
+    .tier-meta {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* CIRCLE-TO-PILL MORPHING ACTION BUTTON */
+    .morph-cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .liquid-morph-cta {
+      position: relative;
+      height: 54px;
+      width: 100%;
+      border-radius: 999px;
+      border: 1.5px solid rgba(255, 255, 255, 0.88);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.32) 0%,
+        rgba(var(--accent-rgb), 0.7) 55%,
+        rgba(255, 255, 255, 0.24) 100%
+      );
+      backdrop-filter: blur(16px) saturate(230%);
+      -webkit-backdrop-filter: blur(16px) saturate(230%);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow:
+        0 14px 30px rgba(var(--accent-rgb), 0.48),
+        inset 0 2px 4px rgba(255, 255, 255, 0.95),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.25);
+      transition:
+        width 0.6s var(--spring-bounce),
+        border-radius 0.6s var(--spring-bounce),
+        transform 0.45s var(--spring-bounce),
+        background 0.4s ease;
+      overflow: hidden;
+    }
+
+    .liquid-morph-cta.circle-droplet {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      padding: 0;
+    }
+    .liquid-morph-cta.circle-droplet .cta-label {
+      display: none;
+    }
+
+    .droplet-icon-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 1.5px solid rgba(255, 255, 255, 0.8);
+      background: radial-gradient(
+        circle at 30% 25%,
+        rgba(255, 255, 255, 0.45),
+        rgba(255, 255, 255, 0.08) 70%
+      );
+      backdrop-filter: blur(14px) saturate(220%);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.95),
+        inset 0 -2px 5px rgba(255, 255, 255, 0.38);
+    }
+
+    /* PARTNER OLED SUNLIGHT ARMOR MODE */
+    .phone-shell.oled-armor .map-canvas {
+      background: #000000 !important;
+    }
+    .phone-shell.oled-armor .chromatic-orb {
+      opacity: 0.12;
+    }
+    .phone-shell.oled-armor .liquid-glass {
+      background: rgba(8, 12, 18, 0.95);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: 1.5px solid #10b981;
+      box-shadow: 0 0 22px rgba(16, 185, 129, 0.24);
+    }
+
+    .wallet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .metric-pill {
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      text-align: center;
+    }
+    .metric-val {
+      font-size: 15px;
+      font-weight: 900;
+    }
+    .metric-lbl {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.72);
+      margin-top: 2px;
+    }
+
+    /* ==========================================================
+       SOS EMERGENCY COMMAND MODAL OVERLAY
+       ========================================================== */
+    .sos-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 200;
+      background: rgba(5, 7, 15, 0.82);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
-    }
-    /* Ignition Button Pulse */
-    @keyframes pulse-ring {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 25px rgba(220, 38, 38, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
-    }
-    .ignition-btn {
-      animation: pulse-ring 2s infinite;
-      background: radial-gradient(circle at 30% 30%, #ef4444, #991b1b 70%, #450a0a 100%);
-    }
-    /* Cinematic Letterbox Bars */
-    .letterbox-top, .letterbox-bottom {
-      position: fixed;
-      left: 0;
-      right: 0;
-      height: 0vh;
-      background: #000;
-      z-index: 35;
-      transition: height 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
       pointer-events: none;
+      transition: opacity 0.35s ease;
     }
-    .letterbox-top { top: 0; }
-    .letterbox-bottom { bottom: 0; }
-    body.cinematic-mode .letterbox-top,
-    body.cinematic-mode .letterbox-bottom {
-      height: 9vh;
+    .sos-modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
     }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: #000; }
-    ::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 3px; }
-  </style>
+    .sos-modal-card {
+      width: 100%;
+      max-width: 330px;
+      padding: 24px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, rgba(255, 45, 120, 0.32) 0%, rgba(10, 14, 28, 0.94) 100%);
+      border: 2px solid rgba(255, 45, 120, 0.75);
+      box-shadow: 0 20px 50px rgba(255, 45, 120, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.45s var(--spring-bounce);
+    }
+    .sos-modal-backdrop.active .sos-modal-card {
+      transform: scale(1) translateY(0);
+    }
 
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    body.single-view-mode .studio-stage {
+      grid-template-columns: minmax(310px, 430px);
+    }
+    body.single-view-mode .mobile-app-switcher {
+      display: flex;
+    }
+    body.single-view-mode .phone-shell.hidden-on-single {
+      display: none;
+    }
+
+    @media (max-width: 890px) {
+      .studio-stage {
+        grid-template-columns: minmax(300px, 430px);
+        padding: 4px 10px 24px 10px;
+      }
+      .mobile-app-switcher {
+        display: flex;
+      }
+      .phone-shell.hidden-on-mobile {
+        display: none;
+      }
+      .phone-shell {
+        height: 760px;
+        border-radius: 44px;
+      }
+      .top-bar {
+        border-radius: 26px;
+        margin: 8px 10px 10px 10px;
       }
     }
-  </script>
+  </style>
 </head>
-<body class="locked-scroll select-none">
+<body>
 
-  <!-- CINEMATIC BLACK BARS (Active during Intro) -->
-  <div class="letterbox-top"></div>
-  <div class="letterbox-bottom"></div>
+  <!-- SVG OPTICAL REFRACTION DISPLACEMENT FILTER -->
+  <svg width="0" height="0" style="position:absolute; pointer-events:none;">
+    <defs>
+      <filter id="liquid-lens-filter" x="-25%" y="-25%" width="150%" height="150%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.014 0.014" numOctaves="2" result="noise" seed="9" />
+        <feGaussianBlur in="noise" stdDeviation="2.4" result="smoothNoise" />
+        <feDisplacementMap in="SourceGraphic" in2="smoothNoise" scale="15" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
 
-  <!-- 1. START IGNITION OVERLAY SCREEN -->
-  <div id="ignition-screen" class="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-between py-12 px-6 transition-opacity duration-700">
-    <!-- Top M Badge -->
-    <div class="flex items-center gap-3">
-      <div class="flex h-5">
-        <span class="w-2 bg-sky-400 skew-x-[-18deg]"></span>
-        <span class="w-2 bg-blue-700 skew-x-[-18deg]"></span>
-        <span class="w-2 bg-red-600 skew-x-[-18deg]"></span>
-      </div>
-      <span class="font-display font-bold tracking-[0.3em] text-xs md:text-sm text-zinc-300">BMW M4 CSL // STUDIO UNVEIL</span>
-    </div>
-
-    <!-- Center Ignition Button & Model Dropper -->
-    <div class="flex flex-col items-center text-center max-w-md">
-      <p id="model-status-badge" class="text-[11px] font-mono uppercase tracking-[0.25em] text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-4 py-1.5 rounded-full mb-8">
-        3D Showroom Ready — Drop .GLB or Load Below
-      </p>
-
-      <button id="start-ignition-btn" class="ignition-btn w-36 h-36 rounded-full border-4 border-zinc-700 flex flex-col items-center justify-center cursor-pointer active:scale-95 transition-transform">
-        <span class="text-[10px] font-mono tracking-[0.25em] text-red-200 uppercase mb-1">Push</span>
-        <span class="font-display font-extrabold text-xl tracking-widest text-white">START</span>
-        <span class="font-display font-bold text-xs tracking-[0.2em] text-red-100">ENGINE</span>
-      </button>
-
-      <p class="text-xs text-zinc-400 mt-6 tracking-wide">
-        Turn up your volume. Initiates 3D cloth uncover, dynamic macro camera cuts, and twin-turbo inline-6 exhaust audio.
-      </p>
-
-      <!-- Load Local .GLB before starting -->
-      <div class="mt-6 flex flex-wrap justify-center gap-3">
-        <label class="cursor-pointer px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-semibold uppercase tracking-wider transition flex items-center gap-2">
-          <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-          </svg>
-          <span id="pre-upload-text">Select Your BMW M4 CSL .GLB</span>
-          <input id="glb-input-splash" type="file" accept=".glb,.gltf" class="hidden" />
-        </label>
-      </div>
-    </div>
-
-    <div class="text-[11px] font-mono uppercase tracking-[0.25em] text-zinc-600">
-      S58 3.0L TWIN-TURBO // 543 HP // 7,200 RPM
-    </div>
-  </div>
-
-  <!-- 2. INTRO HUD OVERLAY (Shown during dynamic camera cuts) -->
-  <div id="intro-hud" class="fixed inset-0 z-40 pointer-events-none opacity-0 transition-opacity duration-500 flex flex-col justify-between p-8 md:p-16">
-    <div class="flex justify-between items-start mt-10">
+  <!-- TOP APP BAR -->
+  <header class="top-bar liquid-glass slide-in-down">
+    <div class="brand-cluster">
+      <div class="brand-orb"></div>
       <div>
-        <p id="cut-tag" class="text-xs font-mono uppercase tracking-[0.3em] text-red-500">SEQUENCE 01 // UNCOVERING</p>
-        <h2 id="cut-title" class="text-2xl md:text-4xl font-display font-bold tracking-wider uppercase mt-1">UNVEILING THE BEAST</h2>
+        <div class="brand-title">ZAP • Liquid Glass Super-App</div>
+        <div class="brand-sub">Optical Lens Refraction • Spring Physics • Ripple Touch</div>
       </div>
-      <button id="skip-intro-btn" class="pointer-events-auto px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-mono uppercase tracking-widest transition">
-        Skip Intro →
+    </div>
+
+    <div class="control-pills">
+      <button class="pill-btn jelly-btn active" onclick="spawnRipple(event); triggerLiveRideDemo()">
+        <span>▶</span> Live Dispatch Sync
       </button>
-    </div>
-
-    <!-- Live RPM Tachometer Bar -->
-    <div class="mb-10 max-w-md">
-      <div class="flex justify-between text-xs font-mono mb-1.5">
-        <span class="text-zinc-400">ENGINE TELEMETRY</span>
-        <span id="rpm-readout" class="text-red-400 font-bold">1,100 RPM</span>
-      </div>
-      <div class="w-full h-2 bg-zinc-900 rounded-full overflow-hidden border border-white/10">
-        <div id="rpm-bar" class="h-full bg-gradient-to-r from-sky-500 via-blue-600 to-red-600 w-[15%] transition-all duration-75"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. FIXED 3D CANVAS -->
-  <div id="canvas-container" class="fixed inset-0 z-0 pointer-events-none"></div>
-
-  <!-- 4. TOP NAVBAR (Visible after intro) -->
-  <header id="main-navbar" class="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 md:px-10 py-3.5 glass-panel border-t-0 border-x-0 opacity-0 transition-opacity duration-700">
-    <div class="flex items-center gap-3">
-      <div class="flex h-4">
-        <span class="w-1.5 bg-sky-400 skew-x-[-18deg]"></span>
-        <span class="w-1.5 bg-blue-700 skew-x-[-18deg]"></span>
-        <span class="w-1.5 bg-red-600 skew-x-[-18deg]"></span>
-      </div>
-      <span class="font-display font-bold tracking-[0.2em] text-xs md:text-sm">BMW M4 CSL</span>
-    </div>
-
-    <!-- Paint Color Swatches -->
-    <div class="hidden md:flex items-center gap-2 bg-black/50 px-3 py-1.5 rounded-full border border-white/10">
-      <span class="text-[10px] font-mono uppercase text-zinc-400 mr-1">Paint:</span>
-      <button data-color="#111318" title="Frozen Black Metallic" class="paint-btn w-4 h-4 rounded-full bg-zinc-900 border border-white/60 hover:scale-125 transition"></button>
-      <button data-color="#858a94" title="Brooklyn Grey" class="paint-btn w-4 h-4 rounded-full bg-zinc-400 border border-white/30 hover:scale-125 transition"></button>
-      <button data-color="#dc2626" title="Toronto Red" class="paint-btn w-4 h-4 rounded-full bg-red-600 border border-white/30 hover:scale-125 transition"></button>
-      <button data-color="#eab308" title="Sao Paulo Yellow" class="paint-btn w-4 h-4 rounded-full bg-yellow-500 border border-white/30 hover:scale-125 transition"></button>
-      <button data-color="#047857" title="Isle of Man Green" class="paint-btn w-4 h-4 rounded-full bg-emerald-700 border border-white/30 hover:scale-125 transition"></button>
-    </div>
-
-    <!-- Interactive Controls: Rev Engine, Replay Intro, Load GLB -->
-    <div class="flex items-center gap-2">
-      <button id="rev-btn" class="px-3.5 py-2 rounded-full bg-red-600/20 hover:bg-red-600 border border-red-500/50 text-xs font-mono uppercase tracking-wider text-white transition active:scale-95">
-        🔊 Rev Engine
+      <button class="pill-btn jelly-btn" id="btnCheckerboard" onclick="spawnRipple(event); toggleRefractionGrid()">
+        <span>🏁</span> Refraction Test
       </button>
-      <button id="replay-intro-btn" class="hidden sm:inline-block px-3 py-2 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-xs font-mono uppercase tracking-wider text-zinc-300 transition">
-        Replay Intro
+      <button class="pill-btn jelly-btn" id="btnMorphShape" onclick="spawnRipple(event); toggleCircleToPillMorph()">
+        <span>💧</span> Morph CTA
       </button>
-      <label class="cursor-pointer bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold tracking-wider uppercase px-3.5 py-2 rounded-full transition flex items-center gap-1.5">
-        <span id="nav-upload-label">Load .GLB</span>
-        <input id="glb-input-nav" type="file" accept=".glb,.gltf" class="hidden" />
-      </label>
+      <button class="pill-btn jelly-btn" id="btnLayoutMode" onclick="spawnRipple(event); toggleSingleOrDualView()">
+        <span>📱</span> PC / Mobile View
+      </button>
     </div>
   </header>
 
-  <!-- 5. SCROLLABLE 3D SHOWCASE SECTIONS (500vh total) -->
-  <main id="scroll-content" class="relative z-10 w-full opacity-0 transition-opacity duration-700">
+  <!-- MOBILE SWITCHER -->
+  <nav class="mobile-app-switcher liquid-glass">
+    <button class="pill-btn jelly-btn active" id="tabShowCustomer" onclick="spawnRipple(event); switchMobilePhone('customer')">
+      ✨ Customer App
+    </button>
+    <button class="pill-btn jelly-btn" id="tabShowPartner" onclick="spawnRipple(event); switchMobilePhone('partner')">
+      ⚡ Earner App
+    </button>
+  </nav>
 
-    <!-- SECTION 1: HERO (0% - 25% Scroll) -->
-    <section class="h-screen w-full flex flex-col justify-between pt-24 pb-12 px-6 md:px-16 max-w-7xl mx-auto">
-      <div class="max-w-2xl">
-        <p class="text-red-500 font-mono uppercase tracking-[0.35em] text-xs font-semibold mb-2">COMPETITION SPORT LIGHTWEIGHT</p>
-        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-none">
-          BMW M4 <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-white to-sky-400">CSL.</span>
-        </h1>
+  <!-- MAIN DUAL STAGE -->
+  <main class="studio-stage" id="studioStage">
+
+    <!-- =======================================================
+         CUSTOMER SUPER-APP
+         ======================================================= -->
+    <section class="phone-shell slide-in-up" id="customerPhone">
+      <div class="map-canvas">
+        <div class="checkerboard-layer"></div>
+        <div class="chromatic-orb orb-1"></div>
+        <div class="chromatic-orb orb-2"></div>
+
+        <svg class="map-svg" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice">
+          <g stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none">
+            <path d="M -20 180 Q 180 210 420 150" />
+            <path d="M -20 340 Q 210 300 420 370" />
+            <path d="M -20 510 Q 160 550 420 480" />
+            <path d="M 110 -20 Q 140 400 95 820" />
+            <path d="M 285 -20 Q 240 400 305 820" />
+          </g>
+          <path id="custRoutePath" d="M 95 470 C 145 390, 235 375, 285 255"
+                stroke="url(#routeGrad)" stroke-width="5" stroke-linecap="round" fill="none"
+                stroke-dasharray="10 6">
+            <animate attributeName="stroke-dashoffset" from="32" to="0" dur="1.2s" repeatCount="indefinite" />
+          </path>
+          <defs>
+            <linearGradient id="routeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ff2d78" />
+              <stop offset="50%" stop-color="#f59e0b" />
+              <stop offset="100%" stop-color="#06b6d4" />
+            </linearGradient>
+          </defs>
+          <circle cx="95" cy="470" r="8" fill="#10b981" stroke="#fff" stroke-width="2.5" />
+          <circle cx="285" cy="255" r="9" fill="#ff2d78" stroke="#fff" stroke-width="2.5" />
+          <g id="custVehicleMarker" transform="translate(175, 385)">
+            <circle r="16" fill="rgba(255, 45, 120, 0.28)">
+              <animate attributeName="r" values="13;22;13" dur="1.8s" repeatCount="indefinite" />
+            </circle>
+            <circle r="9" fill="#ffffff" stroke="#ff2d78" stroke-width="3" />
+          </g>
+        </svg>
       </div>
 
-      <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
-        <div class="glass-panel p-5 rounded-2xl max-w-md">
-          <p class="text-xs md:text-sm text-zinc-300 leading-relaxed">
-            Scroll down to scrub 360° around the bodywork, inspect track telemetry, and engage the <strong>X-Ray Chassis Breakdown</strong>.
-          </p>
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="dynamic-island" id="custIsland">
+          <span class="live-dot"></span>
+          <span id="custIslandText">Liquid Glass Ready</span>
         </div>
-        <div class="flex items-center gap-3 text-xs font-mono uppercase tracking-[0.25em] text-zinc-400">
-          <span id="scroll-angle-badge">ROTATION: 0°</span>
-          <div class="w-5 h-8 border border-white/30 rounded-full flex justify-center pt-1.5">
-            <div class="w-1 h-2 bg-red-500 rounded-full animate-bounce"></div>
-          </div>
-        </div>
+        <span>5G • 100%</span>
       </div>
-    </section>
 
-    <!-- SECTION 2: S58 POWERTRAIN SPECS (25% - 50% Scroll) -->
-    <section class="h-screen w-full flex items-center justify-start px-6 md:px-16 max-w-7xl mx-auto">
-      <div class="glass-panel p-8 md:p-10 rounded-3xl max-w-lg border-l-4 border-l-red-600">
-        <span class="text-xs font-mono uppercase tracking-widest text-red-400">01 // S58 TWIN-TURBO INLINE-6</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Track-Bred Brutality</h2>
-        <p class="text-zinc-300 text-sm md:text-base leading-relaxed mb-6">
-          Boost pressure increased to 30.5 psi with a forged lightweight crankshaft and 3D-printed cylinder head core, rocketing the M4 CSL to a 7:15.677 Nürburgring lap record.
-        </p>
-        <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-5">
-          <div>
-            <p class="text-[11px] font-mono text-zinc-400 uppercase">Output</p>
-            <p class="text-2xl font-display font-bold text-white mt-1">543 HP</p>
+      <div class="app-overlay-top">
+        <div class="top-glass-header liquid-glass">
+          <div class="zone-pill">
+            <span>📍</span>
+            <div>
+              <div>Secunderabad • Jonnabanda</div>
+              <div style="font-size:10px; color:rgba(255,255,255,0.7);">0% Commission Direct Fare</div>
+            </div>
           </div>
-          <div>
-            <p class="text-[11px] font-mono text-zinc-400 uppercase">0–100 KM/H</p>
-            <p class="text-2xl font-display font-bold text-red-500 mt-1">3.6s</p>
-          </div>
-          <div>
-            <p class="text-[11px] font-mono text-zinc-400 uppercase">Top Speed</p>
-            <p class="text-2xl font-display font-bold text-white mt-1">307 KM/H</p>
-          </div>
+          <span class="zone-badge" id="activeBadge">PINK SHIELD</span>
         </div>
-      </div>
-    </section>
 
-    <!-- SECTION 3: CARBON DIET & AERO (50% - 75% Scroll) -->
-    <section class="h-screen w-full flex items-center justify-end px-6 md:px-16 max-w-7xl mx-auto">
-      <div class="glass-panel p-8 md:p-10 rounded-3xl max-w-lg border-r-4 border-r-sky-400">
-        <span class="text-xs font-mono uppercase tracking-widest text-sky-400">02 // CARBON FIBER ARCHITECTURE</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">100 KG Lighter</h2>
-        <p class="text-zinc-300 text-sm md:text-base leading-relaxed mb-6">
-          CFRP hood, roof, integrated ducktail trunk lid, full M Carbon bucket seats, and a titanium exhaust silencer strip every gram of excess mass.
-        </p>
-        <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-5">
-          <div>
-            <p class="text-[11px] font-mono text-zinc-400 uppercase">Curb Weight</p>
-            <p class="text-2xl font-display font-bold text-white mt-1">1,625 KG</p>
-          </div>
-          <div>
-            <p class="text-[11px] font-mono text-zinc-400 uppercase">Braking System</p>
-            <p class="text-2xl font-display font-bold text-sky-400 mt-1">M Carbon Ceramic</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 4: X-RAY CHASSIS REVEAL (75% - 100% Scroll — Matches 00:00:08 in Video!) -->
-    <section class="h-screen w-full flex flex-col items-center justify-end pb-16 px-6 text-center max-w-4xl mx-auto">
-      <div class="glass-panel p-8 md:p-10 rounded-3xl w-full border border-sky-500/40">
-        <span class="text-xs font-mono uppercase tracking-[0.3em] text-sky-400">03 // X-RAY ENGINEERING SCAN ACTIVE</span>
-        <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-3">Exposed Structural Precision</h2>
-        <p class="text-zinc-300 text-sm md:text-base max-w-xl mx-auto mb-6">
-          Outer shell switched to translucent CAD wireframe to expose the internal geometry, drivetrain layout, and high-output laser optics.
-        </p>
-        <div class="flex flex-wrap items-center justify-center gap-4">
-          <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-7 py-3 rounded-full bg-red-600 hover:bg-red-500 text-white font-semibold text-xs tracking-widest uppercase transition">
-            Back to Top
+        <div class="service-dock liquid-glass">
+          <button class="service-tab jelly-btn active" onclick="spawnRipple(event); selectServiceMode('women', this)">
+            <span class="icon">🛡️</span>
+            <span>Women</span>
           </button>
-          <button id="manual-xray-btn" class="px-7 py-3 rounded-full border border-sky-400/60 hover:bg-sky-400/20 text-sky-300 font-semibold text-xs tracking-widest uppercase transition">
-            Toggle X-Ray Lock
+          <button class="service-tab jelly-btn" onclick="spawnRipple(event); selectServiceMode('driver', this)">
+            <span class="icon">🎩</span>
+            <span>Pro Driver</span>
           </button>
+          <button class="service-tab jelly-btn" onclick="spawnRipple(event); selectServiceMode('ride', this)">
+            <span class="icon">⚡</span>
+            <span>Pick/Drop</span>
+          </button>
+          <button class="service-tab jelly-btn" onclick="spawnRipple(event); selectServiceMode('parcel', this)">
+            <span class="icon">📦</span>
+            <span>Parcel</span>
+          </button>
+          <button class="service-tab jelly-btn" onclick="spawnRipple(event); selectServiceMode('metro', this)">
+            <span class="icon">🚇</span>
+            <span>Metro/Rent</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="app-overlay-bottom">
+        <div class="booking-glass-sheet liquid-glass slide-swap" id="custBookingSheet">
+          <div class="sheet-header">
+            <div>
+              <div class="mode-title" id="modeTitle">Women-Only Verified Fleet</div>
+              <div class="mode-desc" id="modeDesc">100% Female Earner • Live SOS Telemetry • PIN Lock</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:3px;">
+              <span style="font-size:9px; font-weight:700; opacity:0.85;">DROPLET LENS</span>
+              <div class="liquid-switch active" onclick="spawnRipple(event); toggleCrystalSwitch(this)">
+                <div class="liquid-switch-thumb"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="route-capsule">
+            <div class="route-row">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="route-dot" style="background:#10b981;"></span>
+                <span>Bolarum / Jonnabanda Cross Rd</span>
+              </div>
+              <span style="font-size:10px; opacity:0.75;">Pickup • 2m</span>
+            </div>
+            <div class="route-row">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="route-dot" style="background:var(--accent);"></span>
+                <span id="dropLocationText">T-Hub Phase 2 • Knowledge City</span>
+              </div>
+              <span style="font-size:10px; color:#10b981; font-weight:700;">Zero Surge</span>
+            </div>
+          </div>
+
+          <div class="tier-grid">
+            <div class="tier-card jelly-btn selected" onclick="spawnRipple(event); selectTierCard(this, '₹85', 'Pink Bike Express')">
+              <div class="tier-top">
+                <span id="tier1Name">🛵 Pink Bike</span>
+                <span class="tier-price" id="tier1Price">₹85</span>
+              </div>
+              <div class="tier-meta" id="tier1Meta">2 mins away • 100% to Driver</div>
+            </div>
+
+            <div class="tier-card jelly-btn" onclick="spawnRipple(event); selectTierCard(this, '₹165', 'Pink Cab Prime')">
+              <div class="tier-top">
+                <span id="tier2Name">🚗 Pink Cab</span>
+                <span class="tier-price" id="tier2Price">₹165</span>
+              </div>
+              <div class="tier-meta" id="tier2Meta">4 mins away • AC Verified</div>
+            </div>
+          </div>
+
+          <div class="morph-cta-row">
+            <button class="droplet-icon-btn jelly-btn" onclick="spawnRipple(event); toggleSOSModal(true)" title="SOS Shield">
+              🚨
+            </button>
+            <button class="liquid-morph-cta jelly-btn" id="mainBookBtn" onclick="spawnRipple(event); handleCustomerBooking()">
+              <span style="font-size:18px;">▶</span>
+              <span class="cta-label" id="mainBookLabel">Book Pink Bike • ₹85</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOS Emergency Modal Overlay -->
+      <div class="sos-modal-backdrop" id="sosModal">
+        <div class="sos-modal-card liquid-glass">
+          <div style="font-size:32px;">🚨</div>
+          <div style="font-size:18px; font-weight:900; color:#ff2d78;">Pink Shield SOS Active</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.85); line-height:1.4;" id="sosStatusText">
+            Live GPS telemetry streamed directly to emergency response. Tap below to cancel or connect instantly.
+          </div>
+          <div style="background:rgba(0,0,0,0.35); padding:12px; border-radius:18px; display:flex; justify-content:space-around; font-size:11px; font-weight:700;">
+            <div>PIN: <span style="color:#10b981; font-size:13px;">4829</span></div>
+            <div>Countdown: <span id="sosCountdown" style="color:#ff2d78; font-size:13px;">05s</span></div>
+          </div>
+          <button class="liquid-morph-cta jelly-btn" style="background:linear-gradient(135deg, #10b981, #06b6d4);" onclick="spawnRipple(event); triggerSosCall()">
+            📞 Call Emergency Line
+          </button>
+          <button class="liquid-morph-cta jelly-btn" style="background:linear-gradient(135deg, #ff2d78, #b91c1c);" onclick="spawnRipple(event); toggleSOSModal(false)">
+            Dismiss / Safe
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         PARTNER EARNER APP
+         ======================================================= -->
+    <section class="phone-shell slide-in-up hidden-on-mobile" id="partnerPhone">
+      <div class="map-canvas">
+        <div class="checkerboard-layer"></div>
+        <div class="chromatic-orb orb-1" style="background:conic-gradient(#10b981, #06b6d4, #3b82f6, #10b981);"></div>
+        <div class="chromatic-orb orb-2"></div>
+
+        <svg class="map-svg" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice">
+          <g stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none">
+            <path d="M -20 220 Q 190 190 420 250" />
+            <path d="M -20 420 Q 210 460 420 390" />
+            <path d="M 140 -20 Q 160 400 120 820" />
+            <path d="M 275 -20 Q 245 400 295 820" />
+          </g>
+          <path d="M 125 460 C 165 380, 230 340, 275 250"
+                stroke="#10b981" stroke-width="5" stroke-linecap="round" fill="none"
+                stroke-dasharray="8 6">
+            <animate attributeName="stroke-dashoffset" from="28" to="0" dur="1s" repeatCount="indefinite" />
+          </path>
+          <circle cx="125" cy="460" r="9" fill="#10b981" stroke="#fff" stroke-width="2.5" />
+          <circle cx="275" cy="250" r="9" fill="#06b6d4" stroke="#fff" stroke-width="2.5" />
+        </svg>
+      </div>
+
+      <div class="status-bar">
+        <span>9:41</span>
+        <div class="dynamic-island" id="partnerIsland">
+          <span class="live-dot"></span>
+          <span id="partnerIslandText">Partner Online • ₹30/day SaaS</span>
+        </div>
+        <span>36°C • Cool</span>
+      </div>
+
+      <div class="app-overlay-top">
+        <div class="top-glass-header liquid-glass">
+          <div>
+            <div style="font-size:13px; font-weight:800;">Ananya R. • Verified Partner</div>
+            <div style="font-size:10px; color:#10b981; font-weight:700;" id="gpuTempText">
+              Liquid Glass Lobby • 120fps Smooth
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:10px; font-weight:800;">OLED Armor</span>
+            <div class="liquid-switch" onclick="spawnRipple(event); toggleOledArmorMode(this)">
+              <div class="liquid-switch-thumb"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="top-glass-header liquid-glass" style="padding:10px 14px;">
+          <div style="font-size:11px; font-weight:700;">
+            💎 Daily Unlimited Pass Active (₹30 Paid)
+          </div>
+          <span class="zone-badge" style="background:rgba(16,185,129,0.3); border-color:#10b981;">
+            0% COMMISSION
+          </span>
+        </div>
+      </div>
+
+      <div class="app-overlay-bottom">
+        <div class="booking-glass-sheet liquid-glass">
+          <div class="sheet-header">
+            <div>
+              <div class="mode-title">Today's Take-Home Wallet</div>
+              <div class="mode-desc">You keep 100% of every customer fare</div>
+            </div>
+            <span class="zone-badge" id="partnerPingBadge">STANDBY</span>
+          </div>
+
+          <div class="wallet-grid">
+            <div class="metric-pill">
+              <div class="metric-val" id="partnerEarnings">₹1,420</div>
+              <div class="metric-lbl">Earned Today</div>
+            </div>
+            <div class="metric-pill">
+              <div class="metric-val" id="partnerTrips">11</div>
+              <div class="metric-lbl">Completed</div>
+            </div>
+            <div class="metric-pill">
+              <div class="metric-val" style="color:#10b981;">₹0</div>
+              <div class="metric-lbl">App Cut (0%)</div>
+            </div>
+          </div>
+
+          <div class="route-capsule">
+            <div class="route-row">
+              <span style="font-weight:800; color:#10b981;" id="incomingRequestTitle">
+                Radar Scanning Nearby Zones...
+              </span>
+              <span style="font-size:11px; font-weight:800;">PIN: 4829</span>
+            </div>
+            <div style="font-size:11px; color:rgba(255,255,255,0.8);" id="incomingRouteDesc">
+              Tap "Book" on the Customer phone or "Live Dispatch Sync" above to test real-time ride matching.
+            </div>
+          </div>
+
+          <div class="morph-cta-row">
+            <button class="liquid-morph-cta jelly-btn"
+                    style="background:linear-gradient(135deg, rgba(16,185,129,0.88), rgba(6,182,212,0.78));"
+                    onclick="spawnRipple(event); acceptOrCompletePartnerRide()">
+              <span style="font-size:18px;">⚡</span>
+              <span class="cta-label" id="partnerActionLabel">Simulate Instant Ride Ping</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- THREE.JS & WEB AUDIO ENGINE -->
-  <script type="module">
-    import * as THREE from 'three';
-    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-    import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-
-    // =========================================================================
-    // 1. PROCEDURAL WEB AUDIO ENGINE (Twin-Turbo Inline-6 + Dark Bass Beat)
-    // =========================================================================
-    class M4SoundEngine {
-      constructor() {
-        this.ctx = null;
-        this.isRunning = false;
-        this.rpm = 900;
-        this.targetRpm = 900;
-      }
-
-      init() {
-        if (this.ctx) return;
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        this.ctx = new AudioCtx();
-
-        // Master Gain
-        this.masterGain = this.ctx.createGain();
-        this.masterGain.gain.value = 0.45;
-        this.masterGain.connect(this.ctx.destination);
-
-        // Waveshaper Distortion for aggressive exhaust growl
-        this.distortion = this.ctx.createWaveShaper();
-        this.distortion.curve = this.makeDistortionCurve(85);
-        this.distortion.oversample = '4x';
-
-        // Lowpass Filter that opens up as RPM rises
-        this.exhaustFilter = this.ctx.createBiquadFilter();
-        this.exhaustFilter.type = 'lowpass';
-        this.exhaustFilter.frequency.value = 180;
-        this.exhaustFilter.Q.value = 4.5;
-
-        this.engineGain = this.ctx.createGain();
-        this.engineGain.gain.value = 0.01;
-
-        // 3 Detuned Oscillators simulating 6-cylinder firing harmonics
-        this.osc1 = this.ctx.createOscillator();
-        this.osc2 = this.ctx.createOscillator();
-        this.osc3 = this.ctx.createOscillator();
-        this.osc1.type = 'sawtooth';
-        this.osc2.type = 'sawtooth';
-        this.osc3.type = 'triangle';
-
-        this.osc1.connect(this.distortion);
-        this.osc2.connect(this.distortion);
-        this.osc3.connect(this.distortion);
-        this.distortion.connect(this.exhaustFilter);
-        this.exhaustFilter.connect(this.engineGain);
-        this.engineGain.connect(this.masterGain);
-
-        this.osc1.start();
-        this.osc2.start();
-        this.osc3.start();
-        this.isRunning = true;
-
-        this.startCinematicBassBeat();
-      }
-
-      makeDistortionCurve(amount) {
-        const n = 44100;
-        const curve = new Float32Array(n);
-        const deg = Math.PI / 180;
-        for (let i = 0; i < n; ++i) {
-          const x = (i * 2) / n - 1;
-          curve[i] = ((3 + amount) * x * 20 * deg) / (Math.PI + amount * Math.abs(x));
-        }
-        return curve;
-      }
-
-      // Starter crank + aggressive cold-start flare
-      playColdStart() {
-        this.init();
-        const now = this.ctx.currentTime;
-        this.engineGain.gain.setValueAtTime(0.05, now);
-        this.engineGain.gain.exponentialRampToValueAtTime(0.65, now + 0.6);
-        this.engineGain.gain.exponentialRampToValueAtTime(0.28, now + 2.5);
-
-        // Cold start RPM flare to 3,200 RPM then settle to idle
-        this.targetRpm = 3400;
-        setTimeout(() => { this.targetRpm = 1100; }, 900);
-      }
-
-      // Rev to specified RPM with turbo spool + exhaust crackle on overrun
-      revEngine(peakRpm = 6800, durationMs = 1100) {
-        if (!this.isRunning) this.init();
-        const now = this.ctx.currentTime;
-        this.targetRpm = peakRpm;
-        this.engineGain.gain.cancelScheduledValues(now);
-        this.engineGain.gain.setValueAtTime(this.engineGain.gain.value, now);
-        this.engineGain.gain.linearRampToValueAtTime(0.75, now + 0.25);
-
-        // Turbo blow-off / wastegate hiss
-        setTimeout(() => {
-          this.targetRpm = 1150;
-          const releaseTime = this.ctx.currentTime;
-          this.engineGain.gain.linearRampToValueAtTime(0.22, releaseTime + 0.9);
-          this.playExhaustBurbles();
-        }, durationMs);
-      }
-
-      playExhaustBurbles() {
-        if (!this.ctx) return;
-        for (let i = 0; i < 5; i++) {
-          setTimeout(() => {
-            const bufferSize = this.ctx.sampleRate * 0.06;
-            const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for (let j = 0; j < bufferSize; j++) {
-              data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufferSize * 0.3));
-            }
-            const noise = this.ctx.createBufferSource();
-            noise.buffer = buffer;
-
-            const bandpass = this.ctx.createBiquadFilter();
-            bandpass.type = 'bandpass';
-            bandpass.frequency.value = 160 + Math.random() * 120;
-
-            const popGain = this.ctx.createGain();
-            popGain.gain.value = 0.5;
-
-            noise.connect(bandpass);
-            bandpass.connect(popGain);
-            popGain.connect(this.masterGain);
-            noise.start();
-          }, i * 110 + Math.random() * 50);
-        }
-      }
-
-      // Dark cinematic sub-bass pulse during the intro
-      startCinematicBassBeat() {
-        let step = 0;
-        const notes = [41.2, 41.2, 49.0, 36.7]; // Deep E1, G1, D1 sub bass
-        setInterval(() => {
-          if (!this.ctx || !this.isRunning) return;
-          const now = this.ctx.currentTime;
-          const sub = this.ctx.createOscillator();
-          const subGain = this.ctx.createGain();
-          sub.type = 'sine';
-          sub.frequency.setValueAtTime(notes[step % notes.length] * 2, now);
-          sub.frequency.exponentialRampToValueAtTime(notes[step % notes.length], now + 0.12);
-
-          subGain.gain.setValueAtTime(0.35, now);
-          subGain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
-
-          sub.connect(subGain);
-          subGain.connect(this.masterGain);
-          sub.start(now);
-          sub.stop(now + 0.45);
-          step++;
-        }, 480);
-      }
-
-      update() {
-        if (!this.isRunning || !this.ctx) return;
-        this.rpm += (this.targetRpm - this.rpm) * 0.12;
-        const baseFreq = (this.rpm / 60) * 3; // 6-cylinder firing frequency
-        this.osc1.frequency.value = baseFreq;
-        this.osc2.frequency.value = baseFreq * 0.502;
-        this.osc3.frequency.value = baseFreq * 1.5;
-        this.exhaustFilter.frequency.value = 120 + (this.rpm / 7200) * 1400;
-
-        // Update HUD RPM bar
-        const rpmReadout = document.getElementById('rpm-readout');
-        const rpmBar = document.getElementById('rpm-bar');
-        if (rpmReadout && rpmBar) {
-          rpmReadout.textContent = `${Math.round(this.rpm).toLocaleString()} RPM`;
-          rpmBar.style.width = `${Math.min(100, (this.rpm / 7200) * 100)}%`;
-        }
-      }
-    }
-
-    const soundEngine = new M4SoundEngine();
-
-    // =========================================================================
-    // 2. THREE.JS SCENE, STUDIO HDRI ENVIRONMENT & LIGHTING
-    // =========================================================================
-    const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, 0.045);
-
-    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 1.4, 6.2);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
-    container.appendChild(renderer.domElement);
-
-    // Crucial for dark metallic BMW M4 CSL paint: generate Studio HDRI Reflections
-    const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
-
-    // Studio Lighting Rig
-    const topStripLight = new THREE.DirectionalLight(0xffffff, 3.2);
-    topStripLight.position.set(4, 9, 5);
-    scene.add(topStripLight);
-
-    const redRimLight = new THREE.SpotLight(0xdc2626, 5.0, 20, Math.PI / 3, 0.5);
-    redRimLight.position.set(-6, 3, -5);
-    scene.add(redRimLight);
-
-    const blueRimLight = new THREE.SpotLight(0x0284c7, 4.5, 20, Math.PI / 3, 0.5);
-    blueRimLight.position.set(6, 3, -4);
-    scene.add(blueRimLight);
-
-    // Overhead Physical Studio Light Bars (like in the YouTube Short)
-    const lightBarGroup = new THREE.Group();
-    for (let i = -1; i <= 1; i += 2) {
-      const barGeo = new THREE.BoxGeometry(0.12, 0.05, 5.2);
-      const barMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-      const bar = new THREE.Mesh(barGeo, barMat);
-      bar.position.set(i * 1.4, 2.8, 0);
-      lightBarGroup.add(bar);
-    }
-    scene.add(lightBarGroup);
-
-    // Glowing Turntable Floor Ring
-    const ringGeo = new THREE.RingGeometry(2.2, 2.26, 96);
-    ringGeo.rotateX(-Math.PI / 2);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0xdc2626, side: THREE.DoubleSide, transparent: true, opacity: 0.6 });
-    const floorRing = new THREE.Mesh(ringGeo, ringMat);
-    floorRing.position.y = -0.78;
-    scene.add(floorRing);
-
-    // =========================================================================
-    // 3. CAR PIVOT, PROCEDURAL M4 CSL FALLBACK & 3D SILK COVER CLOTH
-    // =========================================================================
-    const carPivot = new THREE.Group();
-    scene.add(carPivot);
-
-    let currentCarModel = null;
-    let paintMaterials = [];
-    let allCarMeshes = [];
-    let manualXRayLocked = false;
-    let isXRayActive = false;
-
-    // Build a sleek M4 CSL fallback mesh so the intro & cloth work immediately
-    function createM4CSLFallback() {
-      const group = new THREE.Group();
-      const paintMat = new THREE.MeshStandardMaterial({ color: 0x111318, metalness: 0.8, roughness: 0.2 });
-      const carbonMat = new THREE.MeshStandardMaterial({ color: 0x09090b, metalness: 0.4, roughness: 0.4 });
-      const redTrimMat = new THREE.MeshBasicMaterial({ color: 0xdc2626 });
-      const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x0f172a, transparent: true, opacity: 0.45, roughness: 0.05 });
-      const laserHeadlightMat = new THREE.MeshBasicMaterial({ color: 0xfef08a }); // CSL Yellow DRLs
-      const tailLightMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
-
-      paintMaterials.push(paintMat);
-
-      // Main Sculpted Body
-      const lowerBody = new THREE.Mesh(new THREE.BoxGeometry(1.92, 0.56, 4.55), paintMat);
-      lowerBody.position.y = -0.22;
-      group.add(lowerBody);
-
-      // Fastback Coupe Greenhouse
-      const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.58, 0.46, 2.1), glassMat);
-      cabin.position.set(0, 0.26, -0.15);
-      group.add(cabin);
-
-      // Carbon Roof
-      const roof = new THREE.Mesh(new THREE.BoxGeometry(1.54, 0.05, 1.9), carbonMat);
-      roof.position.set(0, 0.5, -0.15);
-      group.add(roof);
-
-      // M4 CSL Ducktail Spoiler
-      const ducktail = new THREE.Mesh(new THREE.BoxGeometry(1.78, 0.14, 0.25), paintMat);
-      ducktail.rotation.x = 0.35;
-      ducktail.position.set(0, 0.12, -2.22);
-      group.add(ducktail);
-
-      // Iconic Vertical M4 CSL Kidney Grille with Red Outline
-      [-0.22, 0.22].forEach(x => {
-        const kidneyBorder = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.42, 0.08), redTrimMat);
-        kidneyBorder.position.set(x, -0.22, 2.26);
-        const kidneyInner = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.38, 0.09), carbonMat);
-        kidneyInner.position.set(x, -0.22, 2.265);
-        group.add(kidneyBorder, kidneyInner);
+  <script>
+    // Specular Caustic Tracking
+    function updateSpecularLight(clientX, clientY) {
+      const cards = document.querySelectorAll('.liquid-glass');
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = ((clientX - rect.left) / Math.max(rect.width, 1)) * 100;
+        const y = ((clientY - rect.top) / Math.max(rect.height, 1)) * 100;
+        card.style.setProperty('--mx', `${Math.min(100, Math.max(0, x))}%`);
+        card.style.setProperty('--my', `${Math.min(100, Math.max(0, y))}%`);
       });
-
-      // CSL Yellow Laser Headlights
-      [-0.68, -0.52, 0.52, 0.68].forEach(x => {
-        const drl = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.06, 0.08), laserHeadlightMat);
-        drl.position.set(x, -0.08, 2.26);
-        group.add(drl);
-      });
-
-      // Laser Tail Lights
-      [-0.62, 0.62].forEach(x => {
-        const tail = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.1, 0.08), tailLightMat);
-        tail.position.set(x, 0.0, -2.26);
-        group.add(tail);
-      });
-
-      // 4 Forged Wheels + Red Brake Calipers
-      const wheelGeo = new THREE.CylinderGeometry(0.38, 0.38, 0.28, 32);
-      wheelGeo.rotateZ(Math.PI / 2);
-      [
-        [-0.95, -0.42, 1.42], [0.95, -0.42, 1.42],
-        [-0.95, -0.42, -1.42], [0.95, -0.42, -1.42]
-      ].forEach(([x, y, z]) => {
-        const wheel = new THREE.Mesh(wheelGeo, carbonMat);
-        wheel.position.set(x, y, z);
-        group.add(wheel);
-      });
-
-      group.traverse(c => { if (c.isMesh) allCarMeshes.push(c); });
-      return group;
     }
 
-    currentCarModel = createM4CSLFallback();
-    carPivot.add(currentCarModel);
-
-    // --- 3D SILK CAR COVER (For the Uncovering Intro!) ---
-    const clothGeo = new THREE.PlaneGeometry(3.4, 5.8, 60, 90);
-    clothGeo.rotateX(-Math.PI / 2);
-    const clothBasePositions = clothGeo.attributes.position.array.slice();
-
-    const clothMat = new THREE.MeshPhysicalMaterial({
-      color: 0x090a0f,
-      metalness: 0.35,
-      roughness: 0.25,
-      clearcoat: 0.6,
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 1.0
-    });
-    const carCoverMesh = new THREE.Mesh(clothGeo, clothMat);
-    scene.add(carCoverMesh);
-
-    function updateClothShape(unveilProgress, time) {
-      if (unveilProgress >= 1.0) {
-        carCoverMesh.visible = false;
-        return;
-      }
-      carCoverMesh.visible = true;
-      const pos = clothGeo.attributes.position;
-      for (let i = 0; i < pos.count; i++) {
-        const ix = i * 3;
-        const ox = clothBasePositions[ix];
-        const oz = clothBasePositions[ix + 2];
-
-        // Drape over the car silhouette
-        const carProfileY =
-          Math.exp(-((ox * ox) / 1.3 + (oz * oz) / 3.8)) * 0.95 +
-          Math.exp(-((ox * ox) / 1.1 + ((oz + 0.2) * (oz + 0.2)) / 1.2)) * 0.45 - 0.55;
-
-        // Billowing silk wave as the cover pulls backward (-Z) and lifts up (+Y)
-        const pullWave = Math.sin(oz * 2.5 - time * 8.0) * Math.sin(ox * 3.0 + time * 5.0) * (0.06 + unveilProgress * 0.35);
-        const liftY = Math.pow(unveilProgress, 1.6) * 3.2;
-        const pullBackZ = Math.pow(unveilProgress, 1.4) * -4.5;
-
-        pos.array[ix] = ox * (1 + unveilProgress * 0.15);
-        pos.array[ix + 1] = Math.max(-0.75, carProfileY) + pullWave + liftY;
-        pos.array[ix + 2] = oz + pullBackZ;
-      }
-      pos.needsUpdate = true;
-      clothGeo.computeVertexNormals();
-      clothMat.opacity = Math.max(0, 1.0 - Math.pow(unveilProgress, 2.2));
-    }
-    updateClothShape(0, 0);
-
-    // =========================================================================
-    // 4. GLTF / GLB LOADER (Tailored to Mpgs Studios BMW M4 CSL Materials)
-    // =========================================================================
-    const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
-    const gltfLoader = new GLTFLoader();
-    gltfLoader.setDRACOLoader(dracoLoader);
-
-    function loadUserGLB(url, fileName) {
-      const badge = document.getElementById('model-status-badge');
-      badge.textContent = `Loading ${fileName}...`;
-
-      gltfLoader.load(
-        url,
-        (gltf) => {
-          if (currentCarModel) carPivot.remove(currentCarModel);
-          paintMaterials = [];
-          allCarMeshes = [];
-
-          const model = gltf.scene;
-
-          // Optimize the exact materials from Mpgs Studios BMW M4 CSL .glb
-          model.traverse((child) => {
-            if (child.isMesh && child.material) {
-              allCarMeshes.push(child);
-              const mats = Array.isArray(child.material) ? child.material : [child.material];
-              mats.forEach((mat) => {
-                const mName = (mat.name || '').toLowerCase();
-
-                // Fix pitch-black Car_Paint so it gleams under studio HDRI
-                if (mName.includes('car_paint') && !mName.includes('.001')) {
-                  mat.color.setHex(0x14171f);
-                  mat.metalness = 0.78;
-                  mat.roughness = 0.18;
-                  mat.envMapIntensity = 2.2;
-                  paintMaterials.push(mat);
-                }
-                // Make laser headlights ('lightt') & tail lights ('Red_Light') glow brightly
-                if (mName.includes('red_light')) {
-                  mat.emissive = new THREE.Color(0xff1111);
-                  mat.emissiveIntensity = 4.5;
-                }
-                if (mName.includes('lightt')) {
-                  mat.emissive = new THREE.Color(0xfef08a);
-                  mat.emissiveIntensity = 5.0;
-                }
-                // Fix Glass.001 & glasss2222 transparency
-                if (mName.includes('glass')) {
-                  mat.transparent = true;
-                  mat.opacity = 0.35;
-                  mat.roughness = 0.05;
-                }
-                // Fix Chrome1111 & Car_chrome
-                if (mName.includes('chrome') || mName.includes('mirror')) {
-                  mat.metalness = 0.95;
-                  mat.roughness = 0.08;
-                }
-              });
-            }
-          });
-
-          // Auto-center & scale the 70MB model to fit the turntable
-          const box = new THREE.Box3().setFromObject(model);
-          const size = box.getSize(new THREE.Vector3());
-          const center = box.getCenter(new THREE.Vector3());
-          const maxDim = Math.max(size.x, size.y, size.z) || 1;
-          const scale = 4.6 / maxDim;
-
-          model.scale.setScalar(scale);
-          model.position.set(-center.x * scale, -center.y * scale - 0.12, -center.z * scale);
-
-          const wrapper = new THREE.Group();
-          wrapper.add(model);
-          currentCarModel = wrapper;
-          carPivot.add(currentCarModel);
-
-          badge.textContent = `✓ Loaded: ${fileName} (BMW M4 CSL Ready)`;
-          document.getElementById('pre-upload-text').textContent = fileName.slice(0, 22);
-          document.getElementById('nav-upload-label').textContent = 'Model Loaded';
-        },
-        (xhr) => {
-          if (xhr.total > 0) {
-            const pct = Math.round((xhr.loaded / xhr.total) * 100);
-            badge.textContent = `Loading 3D Model... ${pct}%`;
-          }
-        }
-      );
-    }
-
-    // Auto-load if user saved their file as "bmw.glb" in the same folder
-    fetch('./bmw.glb', { method: 'HEAD' })
-      .then(res => { if (res.ok) loadUserGLB('./bmw.glb', 'bmw.glb'); })
-      .catch(() => {});
-
-    // File Input & Drag-and-Drop Listeners
-    function onFilePicked(file) {
-      if (!file) return;
-      loadUserGLB(URL.createObjectURL(file), file.name);
-    }
-    document.getElementById('glb-input-splash').addEventListener('change', e => onFilePicked(e.target.files[0]));
-    document.getElementById('glb-input-nav').addEventListener('change', e => onFilePicked(e.target.files[0]));
-    window.addEventListener('dragover', e => e.preventDefault());
-    window.addEventListener('drop', e => {
-      e.preventDefault();
-      if (e.dataTransfer.files?.[0]) onFilePicked(e.dataTransfer.files[0]);
-    });
-
-    // =========================================================================
-    // 5. CINEMATIC INTRO SEQUENCER (Cloth Unveil + 3 Macro Cuts + Revs)
-    // =========================================================================
-    let appState = 'SPLASH'; // 'SPLASH' | 'INTRO' | 'SCROLL'
-    let introStartTime = 0;
-    let triggeredCut1 = false;
-    let triggeredCut2 = false;
-    let triggeredCut3 = false;
-
-    const cameraPosTarget = new THREE.Vector3(0, 1.4, 6.2);
-    const cameraLookTarget = new THREE.Vector3(0, 0.0, 0);
-    const currentLookAt = new THREE.Vector3(0, 0.0, 0);
-
-    function startCinematicIntro() {
-      document.getElementById('ignition-screen').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('ignition-screen').style.display = 'none';
-      }, 650);
-
-      document.body.classList.add('cinematic-mode', 'locked-scroll');
-      document.getElementById('intro-hud').style.opacity = '1';
-      document.getElementById('main-navbar').style.opacity = '0';
-      document.getElementById('scroll-content').style.opacity = '0';
-
-      appState = 'INTRO';
-      introStartTime = performance.now();
-      triggeredCut1 = triggeredCut2 = triggeredCut3 = false;
-      updateClothShape(0, 0);
-
-      soundEngine.playColdStart();
-    }
-
-    function finishIntroAndUnlockScroll() {
-      appState = 'SCROLL';
-      updateClothShape(1.0, 0);
-      document.body.classList.remove('cinematic-mode', 'locked-scroll');
-      document.getElementById('intro-hud').style.opacity = '0';
-      document.getElementById('main-navbar').style.opacity = '1';
-      document.getElementById('scroll-content').style.opacity = '1';
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }
-
-    document.getElementById('start-ignition-btn').addEventListener('click', startCinematicIntro);
-    document.getElementById('skip-intro-btn').addEventListener('click', finishIntroAndUnlockScroll);
-    document.getElementById('replay-intro-btn').addEventListener('click', startCinematicIntro);
-    document.getElementById('rev-btn').addEventListener('click', () => soundEngine.revEngine(7100, 1000));
-
-    // Paint Switcher Buttons
-    document.querySelectorAll('.paint-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const hex = btn.getAttribute('data-color');
-        paintMaterials.forEach(mat => mat.color.set(hex));
-      });
-    });
-
-    // X-Ray Wireframe Mode (Matches 00:00:08 in the video)
-    function setXRayMode(enabled) {
-      if (isXRayActive === enabled) return;
-      isXRayActive = enabled;
-      allCarMeshes.forEach(mesh => {
-        const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-        mats.forEach(m => {
-          const name = (m.name || '').toLowerCase();
-          if (!name.includes('light')) {
-            m.wireframe = enabled;
-          }
-        });
-      });
-      floorRing.material.color.setHex(enabled ? 0x38bdf8 : 0xdc2626);
-    }
-
-    document.getElementById('manual-xray-btn').addEventListener('click', () => {
-      manualXRayLocked = !manualXRayLocked;
-      setXRayMode(manualXRayLocked);
-    });
-
-    // =========================================================================
-    // 6. SCROLL TRACKING & MASTER RENDER LOOP
-    // =========================================================================
-    let scrollTarget = 0;
-    let scrollSmooth = 0;
-
-    window.addEventListener('scroll', () => {
-      if (appState !== 'SCROLL') return;
-      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      scrollTarget = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+    window.addEventListener('pointermove', (e) => {
+      updateSpecularLight(e.clientX, e.clientY);
     }, { passive: true });
 
-    const cutTag = document.getElementById('cut-tag');
-    const cutTitle = document.getElementById('cut-title');
-    const scrollAngleBadge = document.getElementById('scroll-angle-badge');
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) {
+        updateSpecularLight(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
 
-    function animate(now) {
-      requestAnimationFrame(animate);
-      soundEngine.update();
+    // Interactive Liquid Ripple Effect on Every Click & Booking
+    function spawnRipple(event) {
+      const target = event.currentTarget;
+      if (!target) return;
+      const rect = target.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple-effect';
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${(event.clientX || (rect.left + rect.width / 2)) - rect.left - size / 2}px`;
+      ripple.style.top = `${(event.clientY || (rect.top + rect.height / 2)) - rect.top - size / 2}px`;
+      target.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 680);
+    }
 
-      if (appState === 'INTRO') {
-        const elapsed = (now - introStartTime) / 1000;
+    // 5 Morphing Service Modes with Slide Swap Animation
+    const SERVICE_CONFIG = {
+      women: {
+        accent: '#ff2d78', rgb: '255, 45, 120', badge: 'PINK SHIELD',
+        title: 'Women-Only Verified Fleet',
+        desc: '100% Female Earner • Live SOS Telemetry • PIN Lock',
+        drop: 'T-Hub Phase 2 • Knowledge City',
+        t1Name: '🛵 Pink Bike', t1Price: '₹85', t1Meta: '2 mins away • 100% to Driver',
+        t2Name: '🚗 Pink Cab', t2Price: '₹165', t2Meta: '4 mins away • AC Verified'
+      },
+      driver: {
+        accent: '#f59e0b', rgb: '245, 158, 11', badge: 'PRO CHAUFFEUR',
+        title: 'Rent a Licensed Pro Driver',
+        desc: 'Background Checked • Drives Your Own Car Safely',
+        drop: '2-Hour City Chauffeur Package',
+        t1Name: '🎩 2 Hr Driver', t1Price: '₹299', t1Meta: 'Arrives in 8 mins • Manual/Auto',
+        t2Name: '🌙 Night Safe', t2Price: '₹449', t2Meta: '4 Hr Package • Luxury Verified'
+      },
+      ride: {
+        accent: '#06b6d4', rgb: '6, 182, 212', badge: '0% COMMISSION',
+        title: 'Normal Pick & Drop Express',
+        desc: 'Direct Customer-to-Driver Fare • Zero Surge Pricing',
+        drop: 'Secunderabad Junction Station',
+        t1Name: '⚡ Zippy Bike', t1Price: '₹65', t1Meta: '1 min away • Fastest',
+        t2Name: '🚕 Comfort Auto', t2Price: '₹110', t2Meta: '3 mins away • Direct Meter'
+      },
+      parcel: {
+        accent: '#10b981', rgb: '16, 185, 129', badge: 'HYPERLOCAL',
+        title: 'Instant Parcel & Courier',
+        desc: 'Live OTP Handover • Tamper-Proof Photo Proof',
+        drop: 'Banjara Hills Rd No. 12 (7.4 km)',
+        t1Name: '📦 2-Wheeler Box', t1Price: '₹75', t1Meta: 'Up to 10 kg • 22 mins delivery',
+        t2Name: '🚐 Mini Cargo', t2Price: '₹280', t2Meta: 'Up to 250 kg • Doorstep Load'
+      },
+      metro: {
+        accent: '#8b5cf6', rgb: '139, 92, 246', badge: 'ONDC MOBILITY',
+        title: 'Metro QR + Commercial Rentals',
+        desc: 'Single-Tap ONDC Metro Ticket & Yellow-Plate Rentals',
+        drop: 'Parade Ground ↔ Raidurg Metro QR',
+        t1Name: '🚇 Metro QR Pass', t1Price: '₹45', t1Meta: 'Instant Scan at Gate • No Queue',
+        t2Name: '🔑 Self-Drive Day', t2Price: '₹599', t2Meta: 'Licensed Commercial Fleet'
+      }
+    };
 
-        // PHASE 1 (0.0s - 3.5s): Uncovering the Silk Cloth
-        if (elapsed < 3.5) {
-          const u = Math.min(1, elapsed / 3.2);
-          updateClothShape(u, elapsed);
-          carPivot.rotation.y = -0.35 + elapsed * 0.08;
-          cameraPosTarget.set(2.4, 1.35 - u * 0.2, 5.2 - u * 0.6);
-          cameraLookTarget.set(0, 0.0, 0);
-        }
-        // PHASE 2 (3.5s - 5.4s): Cut 1 — Macro Close-Up on Kidney Grille & Laser Headlights
-        else if (elapsed < 5.4) {
-          updateClothShape(1, elapsed);
-          if (!triggeredCut1) {
-            triggeredCut1 = true;
-            soundEngine.revEngine(6200, 950);
-            cutTag.textContent = 'MACRO CUT 01 // FRONT FASCIA';
-            cutTitle.textContent = 'CSL YELLOW LASERLIGHT & CFRP SPLITTER';
-            camera.position.set(-0.9, -0.05, 3.1); // Instant whip-cut
-          }
-          const t = (elapsed - 3.5) / 1.9;
-          carPivot.rotation.y = 0.0;
-          cameraPosTarget.set(-0.9 + t * 1.8, -0.05 + t * 0.1, 2.95);
-          cameraLookTarget.set(0, -0.15, 1.8);
-        }
-        // PHASE 3 (5.4s - 7.3s): Cut 2 — Whip-Pan to Forged Rim & Carbon Ceramic Caliper
-        else if (elapsed < 7.3) {
-          if (!triggeredCut2) {
-            triggeredCut2 = true;
-            soundEngine.revEngine(6800, 1000);
-            cutTag.textContent = 'MACRO CUT 02 // CHASSIS HARDWARE';
-            cutTitle.textContent = 'M CARBON CERAMIC BRAKES // FORGED WHEELS';
-            camera.position.set(2.2, -0.25, 1.6);
-          }
-          const t = (elapsed - 5.4) / 1.9;
-          carPivot.rotation.y = 0.15;
-          cameraPosTarget.set(2.05, -0.22 + t * 0.15, 1.4 - t * 0.8);
-          cameraLookTarget.set(0.8, -0.35, 1.1);
-        }
-        // PHASE 4 (7.3s - 9.3s): Cut 3 — Rear Ducktail & Laser Tail Lights at 7,200 RPM Redline
-        else if (elapsed < 9.3) {
-          if (!triggeredCut3) {
-            triggeredCut3 = true;
-            soundEngine.revEngine(7200, 1300);
-            cutTag.textContent = 'MACRO CUT 03 // AERO & EXHAUST';
-            cutTitle.textContent = 'INTEGRATED DUCKTAIL & LASER TAIL LIGHTS';
-            camera.position.set(-1.6, 0.25, -3.4);
-          }
-          const t = (elapsed - 7.3) / 2.0;
-          carPivot.rotation.y = 0.2;
-          cameraPosTarget.set(-1.6 + t * 3.0, 0.22, -3.3);
-          cameraLookTarget.set(0, 0.05, -1.8);
-        }
-        // PHASE 5 (9.3s - 10.8s): Hero Pullback & Unlock Scroll
-        else if (elapsed < 10.8) {
-          cutTag.textContent = 'SYSTEM READY // INTERACTIVE MODE';
-          cutTitle.textContent = 'SCROLL TO INSPECT 360°';
-          carPivot.rotation.y += (-0.5 - carPivot.rotation.y) * 0.08;
-          cameraPosTarget.set(0, 1.25, 6.0);
-          cameraLookTarget.set(0, 0.0, 0);
-        } else {
-          finishIntroAndUnlockScroll();
-        }
-      } else if (appState === 'SCROLL') {
-        scrollSmooth += (scrollTarget - scrollSmooth) * 0.08;
+    let selectedFare = '₹85';
+    let selectedTierLabel = 'Pink Bike';
+    let partnerState = 'idle';
+    let currentEarnings = 1420;
+    let currentTrips = 11;
+    let sosTimer = null;
+    let sosSecondsLeft = 5;
 
-        // 360° scrub locked to scroll
-        const baseAngle = -0.5;
-        carPivot.rotation.y = baseAngle + scrollSmooth * Math.PI * 2;
+    function selectServiceMode(key, btnEl) {
+      const cfg = SERVICE_CONFIG[key];
+      if (!cfg) return;
 
-        // Dynamic camera elevation & zoom as you scroll through sections
-        const camY = 1.2 + Math.sin(scrollSmooth * Math.PI) * 0.65;
-        const camZ = 6.0 - Math.sin(scrollSmooth * Math.PI) * 0.9;
-        cameraPosTarget.set(0, camY, camZ);
-        cameraLookTarget.set(0, 0.0, 0);
+      document.documentElement.style.setProperty('--accent', cfg.accent);
+      document.documentElement.style.setProperty('--accent-rgb', cfg.rgb);
 
-        const deg = Math.round(scrollSmooth * 360);
-        scrollAngleBadge.textContent = `ROTATION: ${deg}°`;
+      document.querySelectorAll('.service-tab').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
 
-        // Automatically activate X-Ray Chassis Scan between 75% and 100% scroll
-        if (!manualXRayLocked) {
-          setXRayMode(scrollSmooth > 0.74);
-        }
+      const sheet = document.getElementById('custBookingSheet');
+      sheet.classList.remove('slide-swap');
+      void sheet.offsetWidth;
+      sheet.classList.add('slide-swap');
+
+      document.getElementById('activeBadge').textContent = cfg.badge;
+      document.getElementById('modeTitle').textContent = cfg.title;
+      document.getElementById('modeDesc').textContent = cfg.desc;
+      document.getElementById('dropLocationText').textContent = cfg.drop;
+
+      document.getElementById('tier1Name').textContent = cfg.t1Name;
+      document.getElementById('tier1Price').textContent = cfg.t1Price;
+      document.getElementById('tier1Meta').textContent = cfg.t1Meta;
+
+      document.getElementById('tier2Name').textContent = cfg.t2Name;
+      document.getElementById('tier2Price').textContent = cfg.t2Price;
+      document.getElementById('tier2Meta').textContent = cfg.t2Meta;
+
+      const cards = document.querySelectorAll('.tier-card');
+      cards.forEach(c => c.classList.remove('selected'));
+      if (cards[0]) cards[0].classList.add('selected');
+
+      selectedFare = cfg.t1Price;
+      selectedTierLabel = cfg.t1Name.replace(/^[^\s]+\s/, '');
+      document.getElementById('mainBookLabel').textContent = `Book ${selectedTierLabel} • ${selectedFare}`;
+    }
+
+    function selectTierCard(cardEl, price, label) {
+      document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('selected'));
+      cardEl.classList.add('selected');
+      selectedFare = price;
+      selectedTierLabel = label;
+      document.getElementById('mainBookLabel').textContent = `Book ${label} • ${price}`;
+    }
+
+    function toggleCrystalSwitch(switchEl) {
+      switchEl.classList.add('droplet-morph');
+      switchEl.classList.toggle('active');
+      setTimeout(() => {
+        switchEl.classList.remove('droplet-morph');
+      }, 420);
+    }
+
+    function toggleOledArmorMode(switchEl) {
+      toggleCrystalSwitch(switchEl);
+      const partnerPhone = document.getElementById('partnerPhone');
+      const isOled = partnerPhone.classList.toggle('oled-armor');
+      document.getElementById('gpuTempText').textContent = isOled
+        ? 'OLED Sunlight Armor • -42% GPU Thermal Load'
+        : 'Liquid Glass Lobby • 120fps Smooth';
+    }
+
+    function toggleCircleToPillMorph() {
+      const bookBtn = document.getElementById('mainBookBtn');
+      const morphBtn = document.getElementById('btnMorphShape');
+      const isCircle = bookBtn.classList.toggle('circle-droplet');
+      morphBtn.classList.toggle('active', isCircle);
+    }
+
+    function toggleRefractionGrid() {
+      const stage = document.getElementById('studioStage');
+      const btn = document.getElementById('btnCheckerboard');
+      const active = stage.classList.toggle('refract-test-mode');
+      btn.classList.toggle('active', active);
+    }
+
+    function handleCustomerBooking() {
+      const bookBtn = document.getElementById('mainBookBtn');
+      bookBtn.classList.add('circle-droplet');
+      setTimeout(() => {
+        bookBtn.classList.remove('circle-droplet');
+      }, 650);
+      triggerLiveRideDemo();
+    }
+
+    function triggerLiveRideDemo() {
+      const custIsland = document.getElementById('custIsland');
+      const partnerIsland = document.getElementById('partnerIsland');
+      custIsland.classList.add('expanded');
+      partnerIsland.classList.add('expanded');
+
+      document.getElementById('custIslandText').textContent = `Pinging ${selectedTierLabel}...`;
+      document.getElementById('partnerIslandText').textContent = `Incoming: ${selectedFare} (0% Cut)`;
+
+      partnerState = 'ringing';
+      document.getElementById('partnerPingBadge').textContent = 'NEW PING';
+      document.getElementById('partnerPingBadge').style.background = 'rgba(255, 45, 120, 0.48)';
+      document.getElementById('incomingRequestTitle').textContent = `${selectedTierLabel} • ${selectedFare} Direct`;
+      document.getElementById('incomingRouteDesc').textContent = 'Pickup: Jonnabanda Cross Rd → T-Hub Phase 2 • 100% Take-Home';
+      document.getElementById('partnerActionLabel').textContent = `Accept Ride (${selectedFare} Net)`;
+    }
+
+    function acceptOrCompletePartnerRide() {
+      if (partnerState === 'idle') {
+        triggerLiveRideDemo();
+        return;
       }
 
-      // Smooth Camera Interpolation
-      camera.position.lerp(cameraPosTarget, 0.09);
-      currentLookAt.lerp(cameraLookTarget, 0.12);
-      camera.lookAt(currentLookAt);
+      if (partnerState === 'ringing') {
+        partnerState = 'active';
+        document.getElementById('custIslandText').textContent = 'Partner Arriving • PIN 4829';
+        document.getElementById('partnerIslandText').textContent = 'En Route • PIN 4829 Verified';
+        document.getElementById('partnerPingBadge').textContent = 'ON TRIP';
+        document.getElementById('incomingRequestTitle').textContent = 'Trip In Progress • PIN 4829 Verified';
+        document.getElementById('incomingRouteDesc').textContent = 'Live GPS Telemetry Active • Tap below to complete & settle fare.';
+        document.getElementById('partnerActionLabel').textContent = `Complete Trip & Collect ${selectedFare}`;
 
-      renderer.render(scene, camera);
+        const marker = document.getElementById('custVehicleMarker');
+        marker.setAttribute('transform', 'translate(245, 295)');
+        return;
+      }
+
+      if (partnerState === 'active') {
+        partnerState = 'idle';
+        const numericFare = parseInt(selectedFare.replace(/[^\d]/g, ''), 10) || 85;
+        currentEarnings += numericFare;
+        currentTrips += 1;
+
+        document.getElementById('partnerEarnings').textContent = `₹${currentEarnings.toLocaleString('en-IN')}`;
+        document.getElementById('partnerTrips').textContent = String(currentTrips);
+        document.getElementById('custIslandText').textContent = `Paid ${selectedFare} • 0% Commission`;
+        document.getElementById('partnerIslandText').textContent = `+${selectedFare} Added to Wallet!`;
+        document.getElementById('partnerPingBadge').textContent = 'PAID 100%';
+        document.getElementById('incomingRequestTitle').textContent = `🎉 ${selectedFare} Settled Directly via UPI!`;
+        document.getElementById('incomingRouteDesc').textContent = 'Platform took ₹0 commission. Ready for next ping.';
+        document.getElementById('partnerActionLabel').textContent = 'Simulate Next Ride Ping';
+
+        const marker = document.getElementById('custVehicleMarker');
+        marker.setAttribute('transform', 'translate(175, 385)');
+      }
     }
-    requestAnimationFrame(animate);
 
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+    function toggleSOSModal(show) {
+      const modal = document.getElementById('sosModal');
+      if (show) {
+        modal.classList.add('active');
+        const custIsland = document.getElementById('custIsland');
+        custIsland.classList.add('expanded');
+        document.getElementById('custIslandText').textContent = '🚨 Pink Shield SOS Armed';
+        
+        sosSecondsLeft = 5;
+        document.getElementById('sosCountdown').textContent = '05s';
+        document.getElementById('sosStatusText').textContent = 'Live GPS telemetry streaming to emergency response. Tap below to connect.';
+        
+        if (sosTimer) clearInterval(sosTimer);
+        sosTimer = setInterval(() => {
+          sosSecondsLeft--;
+          if (sosSecondsLeft > 0) {
+            document.getElementById('sosCountdown').textContent = `0${sosSecondsLeft}s`;
+          } else {
+            document.getElementById('sosCountdown').textContent = 'CONNECTED';
+            document.getElementById('sosStatusText').textContent = '🚨 Emergency dispatch and trusted contacts alerted successfully!';
+            clearInterval(sosTimer);
+          }
+        }, 1000);
+      } else {
+        modal.classList.remove('active');
+        if (sosTimer) clearInterval(sosTimer);
+        const custIsland = document.getElementById('custIsland');
+        custIsland.classList.remove('expanded');
+        document.getElementById('custIslandText').textContent = 'Liquid Glass Ready';
+      }
+    }
+
+    function triggerSosCall() {
+      document.getElementById('sosStatusText').textContent = '📞 Connecting secure audio link to local emergency services...';
+      document.getElementById('sosCountdown').textContent = 'LIVE';
+      setTimeout(() => {
+        alert('Simulated emergency call placed. Dispatchers have your live GPS coordinates.');
+      }, 400);
+    }
+
+    function toggleSingleOrDualView() {
+      const isSingle = document.body.classList.toggle('single-view-mode');
+      document.getElementById('btnLayoutMode').classList.toggle('active', isSingle);
+      if (isSingle) {
+        switchMobilePhone('customer');
+      } else {
+        document.getElementById('customerPhone').classList.remove('hidden-on-single');
+        document.getElementById('partnerPhone').classList.remove('hidden-on-single');
+      }
+    }
+
+    function switchMobilePhone(which) {
+      const cust = document.getElementById('customerPhone');
+      const part = document.getElementById('partnerPhone');
+      const btnCust = document.getElementById('tabShowCustomer');
+      const btnPart = document.getElementById('tabShowPartner');
+
+      if (which === 'customer') {
+        cust.classList.remove('hidden-on-mobile', 'hidden-on-single');
+        part.classList.add('hidden-on-mobile', 'hidden-on-single');
+        btnCust.classList.add('active');
+        btnPart.classList.remove('active');
+      } else {
+        part.classList.remove('hidden-on-mobile', 'hidden-on-single');
+        cust.classList.add('hidden-on-mobile', 'hidden-on-single');
+        btnPart.classList.add('active');
+        btnCust.classList.remove('active');
+      }
+    }
   </script>
 </body>
 </html>
