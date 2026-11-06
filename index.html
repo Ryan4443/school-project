@@ -422,6 +422,136 @@
       box-shadow: 0 0 8px var(--ac);
     }
 
+    /* Per-Slide Read Aloud Header Row */
+    .card-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .card-top-bar .eb {
+      margin-bottom: 0;
+    }
+    .slide-tts-btn {
+      font: 600 11px 'JetBrains Mono', monospace;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--ac) 40%, var(--card-border));
+      background: color-mix(in srgb, var(--ac) 12%, transparent);
+      color: var(--fg);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .slide-tts-btn:hover {
+      background: var(--ac);
+      color: #03111c;
+      box-shadow: 0 0 16px var(--ac-glow);
+      transform: translateY(-1px);
+    }
+    .slide-tts-btn.playing {
+      background: linear-gradient(135deg, var(--warm), #f97316);
+      border-color: var(--warm);
+      color: #090d16;
+      box-shadow: 0 0 18px rgba(251, 191, 36, 0.45);
+    }
+
+    /* Active Speaking Card Glow */
+    .liquid-card.speaking-card {
+      border-color: var(--ac);
+      box-shadow:
+        0 28px 65px -20px rgba(0, 0, 0, 0.7),
+        0 0 32px var(--ac-glow),
+        inset 0 1px 2px var(--card-highlight);
+    }
+
+    /* Floating Liquid Glass AI Narrator HUD */
+    .ai-narrator-hud {
+      position: fixed;
+      bottom: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 42;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--card);
+      backdrop-filter: blur(var(--blur)) saturate(190%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(190%);
+      border: 1px solid var(--card-border);
+      box-shadow:
+        0 16px 40px -10px rgba(0, 0, 0, 0.65),
+        inset 0 1px 1px var(--card-highlight);
+      max-width: 95vw;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .ai-narrator-hud.active-speech {
+      border-color: var(--ac);
+      box-shadow:
+        0 16px 40px -10px rgba(0, 0, 0, 0.65),
+        0 0 24px var(--ac-glow),
+        inset 0 1px 1px var(--card-highlight);
+    }
+    .voice-waves {
+      display: inline-flex;
+      align-items: center;
+      gap: 2.5px;
+      height: 14px;
+      padding: 0 4px;
+    }
+    .voice-waves i {
+      display: block;
+      width: 2.5px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--ac);
+      transition: height 0.15s ease;
+    }
+    .ai-narrator-hud.active-speech .voice-waves i {
+      animation: waveBounce 0.6s ease-in-out infinite alternate;
+    }
+    .ai-narrator-hud.active-speech .voice-waves i:nth-child(2) { animation-delay: 0.15s; }
+    .ai-narrator-hud.active-speech .voice-waves i:nth-child(3) { animation-delay: 0.3s; }
+    .ai-narrator-hud.active-speech .voice-waves i:nth-child(4) { animation-delay: 0.1s; }
+    @keyframes waveBounce {
+      0% { height: 4px; }
+      100% { height: 14px; background: var(--warm); }
+    }
+    .narrator-status {
+      font: 500 11.5px 'Inter', sans-serif;
+      color: var(--fg);
+      max-width: 260px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hud-ctrl-btn {
+      font: 600 11px 'JetBrains Mono', monospace;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--fg);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .hud-ctrl-btn:hover {
+      border-color: var(--ac);
+      background: color-mix(in srgb, var(--ac) 16%, transparent);
+    }
+    .hud-ctrl-btn.on {
+      background: var(--ac);
+      border-color: var(--ac);
+      color: #03111c;
+    }
+
     h1, h2 {
       font-family: 'Space Grotesk', sans-serif;
       letter-spacing: -0.03em;
@@ -647,6 +777,9 @@
         <span id="perf-dot" style="width:7px;height:7px;border-radius:50%;background:var(--ok);"></span>
         <span id="perf-label">MAX 3D</span>
       </button>
+      <button class="pill-btn" id="header-tour-btn" title="AI Narrate All Slides Out Loud">
+        🔊 AI Read All
+      </button>
       <button class="pill-btn" id="theme-btn" title="Toggle Dark / Light Glass Theme">☀/☾</button>
     </div>
 
@@ -663,6 +796,17 @@
     <a href="#sec-reactions"><span>06 · Extraction &amp; Tarnish</span></a>
     <a href="#sec-conserve"><span>07 · Uses, Alloys &amp; Quiz</span></a>
   </nav>
+
+  <!-- Floating AI Voice Narrator Controller -->
+  <div class="ai-narrator-hud" id="ai-narrator-hud" role="region" aria-label="AI Voice Narrator Controls">
+    <div class="voice-waves" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="narrator-status" id="narrator-status">AI Narrator Ready · Click any slide to listen</div>
+    <button class="hud-ctrl-btn" id="hud-play-slide" title="Read Current Slide Aloud">▶ Read Slide</button>
+    <button class="hud-ctrl-btn" id="hud-tour-btn" title="Auto-Narrate & Scroll All 7 Chapters">🎬 Auto-Tour All</button>
+    <button class="hud-ctrl-btn" id="hud-autoscroll-read" title="Automatically read slide when scrolling">Auto-Read: OFF</button>
+    <button class="hud-ctrl-btn" id="hud-engine-btn" title="Switch between Instant Neural Voice and Gemini 2.5 AI Studio Voice">⚡ Instant Voice</button>
+    <button class="hud-ctrl-btn" id="hud-stop-btn" title="Stop Reading" style="display:none;color:var(--bad);">⏹ Stop</button>
+  </div>
 
   <!-- 5. Bottom Center 3D Model Switcher Dock -->
   <div class="bottom-dock" role="toolbar" aria-label="3D Specimen Switcher">
@@ -1832,6 +1976,420 @@
     const sections = $$('.s');
     const railDots = $$('.rail a');
 
+    // ---------------------------------------------------------
+    // 8. AI VOICE NARRATOR & AUTO-TOUR ENGINE (READS EVERY SLIDE)
+    // ---------------------------------------------------------
+    const apiKey = ""; // Canvas runtime injects Gemini API key automatically
+    let currentSlideIndex = 0;
+    let isSpeaking = false;
+    let autoTourActive = false;
+    let autoReadOnScroll = false;
+    let useGeminiVoice = false; // Instant Web Speech by default for zero latency, toggleable to Gemini 2.5 TTS
+    let activeAudioEl = null;
+    let speechQueueToken = 0;
+
+    // Inject "🔊 Read Slide Aloud" button into the top of every chapter card
+    sections.forEach((sec, idx) => {
+      const card = sec.querySelector('.liquid-card');
+      const eb = card.querySelector('.eb');
+      if (card && eb) {
+        const topBar = document.createElement('div');
+        topBar.className = 'card-top-bar';
+        eb.parentNode.insertBefore(topBar, eb);
+        topBar.appendChild(eb);
+
+        const btn = document.createElement('button');
+        btn.className = 'slide-tts-btn';
+        btn.dataset.slideIdx = idx;
+        btn.innerHTML = `<span>🔊 Read Slide 0${idx + 1}</span>`;
+        btn.addEventListener('click', () => {
+          if (isSpeaking && currentSlideIndex === idx && !autoTourActive) {
+            stopNarration();
+          } else {
+            autoTourActive = false;
+            updateNarratorUI();
+            speakSlideByIndex(idx, false);
+          }
+        });
+        topBar.appendChild(btn);
+      }
+    });
+
+    // Clean chemical formulas & symbols so the AI reads them naturally like a teacher
+    function cleanTextForSpeech(raw) {
+      return raw
+        .replace(/Ag₂S/g, 'Silver Sulfide, A G 2 S,')
+        .replace(/AgNO₃/g, 'Silver Nitrate, A G N O 3,')
+        .replace(/Cu\(NO₃\)₂/g, 'Copper Nitrate')
+        .replace(/Na\[Ag\(CN\)₂\]/g, 'Sodium Dicyano-argentate')
+        .replace(/Na₂\[Zn\(CN\)₄\]/g, 'Sodium Tetracyano-zincate')
+        .replace(/NaCN/g, 'Sodium Cyanide')
+        .replace(/Na₂S/g, 'Sodium Sulfide')
+        .replace(/H₂S/g, 'Hydrogen Sulfide')
+        .replace(/H₂O/g, 'water')
+        .replace(/O₂/g, 'oxygen')
+        .replace(/Cl₂/g, 'chlorine gas')
+        .replace(/Br₂/g, 'bromine')
+        .replace(/AgBr/g, 'Silver Bromide')
+        .replace(/AgCl/g, 'Silver Chloride')
+        .replace(/AgI/g, 'Silver Iodide')
+        .replace(/PbS/g, 'Lead Sulfide')
+        .replace(/ZnS/g, 'Zinc Sulfide')
+        .replace(/5s¹/g, '5 s 1')
+        .replace(/4d¹⁰/g, '4 d 10')
+        .replace(/e⁻/g, ' electrons')
+        .replace(/¹⁰⁷Ag/g, 'Silver 107')
+        .replace(/¹⁰⁹Ag/g, 'Silver 109')
+        .replace(/6\.3×10⁷ S\/m/g, '6.3 times 10 to the power 7 Siemens per meter')
+        .replace(/→|—\(Sunlight\)→/g, ' reacts to form ')
+        .replace(/↓/g, ' precipitate ')
+        .replace(/&gt;|>/g, ' is more reactive than ')
+        .replace(/·/g, ', ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    // Build complete spoken narration for any slide (including active tabs, tiles, formulas & quiz)
+    function buildSlideScript(idx) {
+      const sec = sections[idx];
+      if (!sec) return '';
+      const card = sec.querySelector('.liquid-card');
+      const parts = [];
+
+      const eb = card.querySelector('.eb');
+      if (eb) parts.push(`Slide ${idx + 1}. ${eb.textContent}.`);
+
+      const heading = card.querySelector('h1, h2');
+      if (heading) parts.push(heading.textContent + '.');
+
+      // Main paragraphs and info boxes
+      card.querySelectorAll('p:not(.hint), .info-box, .formula, .tile').forEach(el => {
+        if (el.offsetParent !== null && el.textContent.trim()) {
+          parts.push(el.textContent.trim() + '.');
+        }
+      });
+
+      // If on Slide 7 (Quiz), also read the options out loud
+      if (idx === 6) {
+        const opts = [...card.querySelectorAll('.opt-btn')].map((b, i) => `Option ${i + 1}: ${b.firstElementChild?.textContent || b.textContent}`);
+        if (opts.length) parts.push('Your options are: ' + opts.join('. '));
+      }
+
+      return cleanTextForSpeech(parts.join(' '));
+    }
+
+    // PCM16 to WAV Converter for Gemini 2.5 Flash Preview TTS
+    function base64ToArrayBuffer(base64) {
+      const binaryString = window.atob(base64);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) bytes[i] = binaryString.charCodeAt(i);
+      return bytes.buffer;
+    }
+
+    function pcmToWav(pcm16, sampleRate = 24000) {
+      const buffer = new ArrayBuffer(44 + pcm16.length * 2);
+      const view = new DataView(buffer);
+      const writeString = (offset, str) => {
+        for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+      };
+      writeString(0, 'RIFF');
+      view.setUint32(4, 36 + pcm16.length * 2, true);
+      writeString(8, 'WAVE');
+      writeString(12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, 1, true);
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, sampleRate * 2, true);
+      view.setUint16(32, 2, true);
+      view.setUint16(34, 16, true);
+      writeString(36, 'data');
+      view.setUint32(40, pcm16.length * 2, true);
+      for (let i = 0; i < pcm16.length; i++) {
+        view.setInt16(44 + i * 2, pcm16[i], true);
+      }
+      return new Blob([buffer], { type: 'audio/wav' });
+    }
+
+    async function fetchGeminiTTS(text) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+      const payload = {
+        contents: [{ parts: [{ text: `Read clearly and engagingly like a Class 10 Science and Geography teacher: ${text}` }] }],
+        generationConfig: {
+          responseModalities: ["AUDIO"],
+          speechConfig: {
+            voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } }
+          }
+        },
+        model: "gemini-2.5-flash-preview-tts"
+      };
+
+      let delay = 1000;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) throw new Error('TTS HTTP ' + res.status);
+          const data = await res.json();
+          const part = data?.candidates?.[0]?.content?.parts?.[0];
+          const audioData = part?.inlineData?.data;
+          const mimeType = part?.inlineData?.mimeType || 'audio/L16;rate=24000';
+          if (audioData) {
+            const rateMatch = mimeType.match(/rate=(\d+)/);
+            const sampleRate = rateMatch ? parseInt(rateMatch[1], 10) : 24000;
+            const pcm16 = new Int16Array(base64ToArrayBuffer(audioData));
+            const wavBlob = pcmToWav(pcm16, sampleRate);
+            return URL.createObjectURL(wavBlob);
+          }
+        } catch (e) {
+          if (attempt === 2) throw e;
+          await new Promise(r => setTimeout(r, delay));
+          delay *= 2;
+        }
+      }
+      throw new Error('Gemini TTS unavailable');
+    }
+
+    function stopNarration() {
+      speechQueueToken++;
+      isSpeaking = false;
+      autoTourActive = false;
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      if (activeAudioEl) {
+        activeAudioEl.pause();
+        activeAudioEl = null;
+      }
+      $$('.liquid-card').forEach(c => c.classList.remove('speaking-card'));
+      $$('.slide-tts-btn').forEach((b, i) => {
+        b.classList.remove('playing');
+        b.innerHTML = `<span>🔊 Read Slide 0${i + 1}</span>`;
+      });
+      updateNarratorUI('AI Narrator Ready · Click any slide to listen');
+    }
+
+    function updateNarratorUI(statusText) {
+      const hud = $('#ai-narrator-hud');
+      hud.classList.toggle('active-speech', isSpeaking);
+      if (statusText) $('#narrator-status').textContent = statusText;
+      $('#hud-play-slide').textContent = isSpeaking && !autoTourActive ? '⏸ Pause / Restart' : `▶ Read Slide 0${currentSlideIndex + 1}`;
+      $('#hud-tour-btn').classList.toggle('on', autoTourActive);
+      $('#hud-tour-btn').textContent = autoTourActive ? '🎬 Touring Slides...' : '🎬 Auto-Tour All';
+      $('#hud-stop-btn').style.display = isSpeaking ? 'inline-block' : 'none';
+    }
+
+    // Trigger 3D physics matching the narrated slide so the visual experience comes alive
+    function triggerSlideVisualAction(idx) {
+      const sec = sections[idx];
+      if (!sec) return;
+      setActiveMode(sec.dataset.m);
+      spinVelY += 0.03;
+      if (idx === 0) jellyImpulse = 0.9;
+      if (idx === 1) { split = 0.85; $('#split').value = 85; }
+      if (idx === 3) atomExcite = 0.95;
+      if (idx === 4) { hammerShear = 0.85; voltageFlow = 0.9; }
+    }
+
+    async function speakText(text, label, onDoneCallback) {
+      const myToken = ++speechQueueToken;
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      if (activeAudioEl) {
+        activeAudioEl.pause();
+        activeAudioEl = null;
+      }
+
+      isSpeaking = true;
+      updateNarratorUI(label || text.slice(0, 68) + '...');
+
+      // Subtle 3D pulse interval while speaking
+      const pulseTimer = setInterval(() => {
+        if (!isSpeaking || myToken !== speechQueueToken) {
+          clearInterval(pulseTimer);
+          return;
+        }
+        jellyImpulse = Math.max(jellyImpulse, 0.16);
+      }, 450);
+
+      // Option A: Gemini 2.5 Flash TTS API (with automatic fallback to Web Speech)
+      if (useGeminiVoice) {
+        try {
+          updateNarratorUI('✨ Generating Gemini AI Voice...');
+          const wavUrl = await fetchGeminiTTS(text);
+          if (myToken !== speechQueueToken) return;
+          const audio = new Audio(wavUrl);
+          activeAudioEl = audio;
+          updateNarratorUI('🔊 ' + text.slice(0, 65) + '...');
+          audio.onended = () => {
+            if (myToken !== speechQueueToken) return;
+            clearInterval(pulseTimer);
+            onSpeechComplete(myToken, onDoneCallback);
+          };
+          audio.onerror = () => fallbackWebSpeech(text, myToken, pulseTimer, onDoneCallback);
+          await audio.play();
+          return;
+        } catch (err) {
+          if (myToken !== speechQueueToken) return;
+          fallbackWebSpeech(text, myToken, pulseTimer, onDoneCallback);
+          return;
+        }
+      }
+
+      // Option B: Instant Browser Neural TTS (Zero latency, live word-by-word captions)
+      fallbackWebSpeech(text, myToken, pulseTimer, onDoneCallback);
+    }
+
+    function fallbackWebSpeech(text, myToken, pulseTimer, onDoneCallback) {
+      if (!('speechSynthesis' in window)) {
+        clearInterval(pulseTimer);
+        updateNarratorUI('Speech not supported on this browser');
+        isSpeaking = false;
+        return;
+      }
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 1.02;
+      utter.pitch = 1.0;
+
+      // Pick a clear English voice if available
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v => /Google.*English|Natural|Samantha|Daniel|Microsoft.*Online/i.test(v.name)) || voices.find(v => v.lang.startsWith('en'));
+      if (preferred) utter.voice = preferred;
+
+      // Live real-time caption tracking as each word is spoken
+      utter.onboundary = e => {
+        if (myToken !== speechQueueToken) return;
+        if (e.name === 'word') {
+          const snippet = text.slice(e.charIndex, e.charIndex + 62);
+          $('#narrator-status').textContent = '🔊 ' + snippet + '...';
+        }
+      };
+
+      utter.onend = () => {
+        if (myToken !== speechQueueToken) return;
+        clearInterval(pulseTimer);
+        onSpeechComplete(myToken, onDoneCallback);
+      };
+
+      utter.onerror = () => {
+        if (myToken !== speechQueueToken) return;
+        clearInterval(pulseTimer);
+        onSpeechComplete(myToken, onDoneCallback);
+      };
+
+      window.speechSynthesis.speak(utter);
+    }
+
+    function onSpeechComplete(myToken, onDoneCallback) {
+      if (myToken !== speechQueueToken) return;
+      $$('.liquid-card').forEach(c => c.classList.remove('speaking-card'));
+      $$('.slide-tts-btn').forEach((b, i) => {
+        b.classList.remove('playing');
+        b.innerHTML = `<span>🔊 Read Slide 0${i + 1}</span>`;
+      });
+
+      if (onDoneCallback) {
+        onDoneCallback();
+      } else {
+        isSpeaking = false;
+        updateNarratorUI(`✓ Finished Slide 0${currentSlideIndex + 1}`);
+      }
+    }
+
+    function speakSlideByIndex(idx, isPartOfTour = false) {
+      currentSlideIndex = idx;
+      const sec = sections[idx];
+      if (!sec) return;
+
+      // Smoothly scroll slide into view
+      sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      triggerSlideVisualAction(idx);
+
+      $$('.liquid-card').forEach((c, i) => c.classList.toggle('speaking-card', i === idx));
+      $$('.slide-tts-btn').forEach((b, i) => {
+        const active = i === idx;
+        b.classList.toggle('playing', active);
+        b.innerHTML = active ? `<span>⏹ Reading Slide 0${i + 1}...</span>` : `<span>🔊 Read Slide 0${i + 1}</span>`;
+      });
+
+      const fullScript = buildSlideScript(idx);
+      speakText(fullScript, `🔊 Slide 0${idx + 1}: Reading aloud...`, () => {
+        if (isPartOfTour && autoTourActive) {
+          if (idx + 1 < sections.length) {
+            setTimeout(() => {
+              if (autoTourActive) speakSlideByIndex(idx + 1, true);
+            }, 900);
+          } else {
+            autoTourActive = false;
+            isSpeaking = false;
+            updateNarratorUI('🎉 Complete! All 7 Slides Narrated.');
+          }
+        } else {
+          isSpeaking = false;
+          updateNarratorUI(`✓ Finished Slide 0${idx + 1}`);
+        }
+      });
+    }
+
+    // Also read newly clicked sub-tabs aloud if Auto-Read or Narration is active
+    document.querySelectorAll('#class-tabs button, #occ-tabs button, #tabs button, #shells button, #exc-tabs button, #rxn-tabs button, #lab-hammer, #lab-voltage, #lab-heat').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!autoReadOnScroll && !isSpeaking) return;
+        setTimeout(() => {
+          const card = btn.closest('.liquid-card');
+          const box = card?.querySelector('.info-box, #rxn-content');
+          if (box) {
+            speakText(cleanTextForSpeech(box.textContent), '🔊 ' + box.textContent.slice(0, 50) + '...');
+          }
+        }, 60);
+      });
+    });
+
+    // HUD & Header Button Bindings
+    $('#hud-play-slide').addEventListener('click', () => {
+      if (isSpeaking && !autoTourActive) {
+        stopNarration();
+      } else {
+        autoTourActive = false;
+        speakSlideByIndex(currentSlideIndex, false);
+      }
+    });
+
+    const toggleFullTour = () => {
+      if (autoTourActive) {
+        stopNarration();
+        $('#header-tour-btn').textContent = '🔊 AI Read All';
+      } else {
+        autoTourActive = true;
+        $('#header-tour-btn').textContent = '⏹ Stop Tour';
+        speakSlideByIndex(currentSlideIndex, true);
+      }
+    };
+
+    $('#hud-tour-btn').addEventListener('click', toggleFullTour);
+    $('#header-tour-btn').addEventListener('click', toggleFullTour);
+
+    $('#hud-stop-btn').addEventListener('click', () => {
+      stopNarration();
+      $('#header-tour-btn').textContent = '🔊 AI Read All';
+    });
+
+    $('#hud-autoscroll-read').addEventListener('click', e => {
+      autoReadOnScroll = !autoReadOnScroll;
+      e.currentTarget.classList.toggle('on', autoReadOnScroll);
+      e.currentTarget.textContent = `Auto-Read: ${autoReadOnScroll ? 'ON' : 'OFF'}`;
+      if (autoReadOnScroll && !isSpeaking) {
+        speakSlideByIndex(currentSlideIndex, false);
+      }
+    });
+
+    $('#hud-engine-btn').addEventListener('click', e => {
+      useGeminiVoice = !useGeminiVoice;
+      e.currentTarget.classList.toggle('on', useGeminiVoice);
+      e.currentTarget.textContent = useGeminiVoice ? '✨ Gemini AI Voice' : '⚡ Instant Voice';
+    });
+
     const revealObserver = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) e.target.classList.add('in');
@@ -1843,7 +2401,14 @@
         if (e.isIntersecting) {
           setActiveMode(e.target.dataset.m);
           const idx = sections.indexOf(e.target);
+          currentSlideIndex = idx;
           railDots.forEach((d, j) => d.classList.toggle('active', j === idx));
+          if (!isSpeaking) {
+            $('#hud-play-slide').textContent = `▶ Read Slide 0${idx + 1}`;
+          }
+          if (autoReadOnScroll && !autoTourActive) {
+            speakSlideByIndex(idx, false);
+          }
         }
       });
     }, { rootMargin: '-42% 0px -42% 0px' });
