@@ -1,314 +1,1874 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Silver (Ag 47) — Class 10 3D Explorer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<style>
-*{box-sizing:border-box;margin:0}
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---bg:#e9edf4;--fg:#0b1220;--mut:#475467;--card:rgba(255,255,255,.7);--line:rgba(11,18,32,.14);--ac:#0369a1;--warm:#b45309;--bad:#be123c;--ok:#047857;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#05070d;--fg:#e8edf6;--mut:#9aa6b8;--card:rgba(14,20,34,.66);--line:rgba(255,255,255,.14);--ac:#38bdf8;--warm:#fbbf24;--bad:#fb7185;--ok:#34d399;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#05070d;--fg:#e8edf6;--mut:#9aa6b8;--card:rgba(14,20,34,.66);--line:rgba(255,255,255,.14);--ac:#38bdf8;--warm:#fbbf24;--bad:#fb7185;--ok:#34d399;color-scheme:dark}
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{font:16px/1.6 Inter,system-ui,sans-serif;color:var(--fg);background:radial-gradient(60% 50% at 85% 15%,color-mix(in srgb,var(--ac) 20%,transparent),transparent),radial-gradient(50% 50% at 10% 90%,color-mix(in srgb,var(--warm) 14%,transparent),transparent),var(--bg);overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--card);backdrop-filter:blur(18px)}
-#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;touch-action:pan-y;cursor:grab}
-.nogl #gl{display:none}
-header{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 10px) 20px 10px;background:var(--card);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-.brand{display:flex;align-items:center;gap:10px;font:700 14px 'Space Grotesk',sans-serif;letter-spacing:.04em}
-.brand i{font-style:normal;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,#fff,#94a3b8);color:#0b1220}
-.sw{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--mut)}
-.sw button{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);cursor:pointer}
-.sw button[aria-pressed=true]{outline:2px solid var(--ac);outline-offset:2px}
-#bar{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:linear-gradient(90deg,var(--ac),var(--warm))}
-.rail{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:20;display:flex;flex-direction:column;gap:14px}
-.rail a{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--mut);transition:.3s}
-.rail a.a{background:var(--ac);border-color:var(--ac);transform:scale(1.4)}
-main{position:relative;z-index:5;pointer-events:none}
-.s{min-height:100vh;display:flex;align-items:center;padding:96px 6vw}.s.r{justify-content:flex-end}
-.card{pointer-events:auto;width:100%;max-width:520px;padding:28px;border-radius:24px;background:var(--card);backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--line);box-shadow:0 24px 60px -24px rgba(0,0,0,.5);opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
-.s.in .card{opacity:1;transform:none}
-.eb{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);font-weight:600;margin-bottom:12px}
-h1,h2{font-family:'Space Grotesk',sans-serif;letter-spacing:-.03em;line-height:1.04;margin-bottom:14px}
-h1{font-size:clamp(46px,7vw,84px)}h2{font-size:clamp(30px,4vw,48px)}
-h1 em{font-style:normal;background:linear-gradient(100deg,var(--ac),var(--fg),var(--warm));-webkit-background-clip:text;background-clip:text;color:transparent}
-p{color:var(--mut);margin-bottom:14px}p b{color:var(--fg)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
-.t{padding:10px;border:1px solid var(--line);border-radius:14px;font-size:13px}.t small{display:block;color:var(--mut);font-size:10px;letter-spacing:.1em;text-transform:uppercase}.t strong{font-family:'Space Grotesk',sans-serif}
-.row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.row button,.opt{font:500 13px Inter,sans-serif;color:var(--fg);padding:9px 13px;border-radius:12px;border:1px solid var(--line);background:transparent;cursor:pointer;transition:.2s;text-align:left}
-.row button:hover,.opt:hover{border-color:var(--ac)}
-.row button[aria-pressed=true]{background:var(--ac);border-color:var(--ac);color:#04121f}
-.f{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:color-mix(in srgb,var(--bg) 60%,transparent);color:var(--fg);margin:8px 0;overflow-x:auto;white-space:nowrap}
-.box{font-size:13px;padding:12px;border-radius:12px;border:1px solid var(--line);color:var(--mut);min-height:64px}.box b{color:var(--fg)}
-.lab{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin:12px 0 4px}.lab b{color:var(--warm)}
-input[type=range]{width:100%;accent-color:var(--ac)}
-ul{padding-left:18px;color:var(--mut);font-size:14px;margin-bottom:14px}li{margin-bottom:4px}li b{color:var(--fg)}
-.opt{display:block;width:100%;margin-bottom:8px}.opt.ok{border-color:var(--ok);color:var(--ok)}.opt.no{border-color:var(--bad);color:var(--bad)}
-.hint{font-size:12px;color:var(--mut)}
-@media (max-width:819px){.rail{display:none}.s,.s.r{align-items:flex-end;justify-content:center;padding:90px 14px 28px}.card{padding:20px;max-width:none}h1{font-size:44px}}
-.card{background:radial-gradient(380px circle at var(--mx,50%) var(--my,-30%),color-mix(in srgb,var(--ac) 18%,transparent),transparent),var(--card)}
-@keyframes up{from{opacity:0;transform:translateY(16px)}}
-.s.in .card>*{animation:up .8s calc(var(--i,0)*70ms + .15s) cubic-bezier(.2,.8,.2,1) both}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{50%{transform:scale(1.08);opacity:.7}}
-@keyframes sh{to{background-position:100% 0}}
-h1 em{background-size:220% 100%;animation:sh 7s ease-in-out infinite alternate}
-#ld{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:var(--bg);transition:opacity .9s .3s,visibility 0s 1.2s}
-.ready #ld{opacity:0;visibility:hidden}
-#ld div{position:relative;width:84px;height:84px;display:grid;place-items:center;font:700 26px 'Space Grotesk',sans-serif;animation:pulse 1.6s infinite}
-#ld div::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid transparent;border-top-color:var(--ac);border-right-color:var(--warm);animation:spin 1s linear infinite}
-.row button:active,.opt:active{transform:scale(.96)}
-.t{transition:transform .3s,border-color .3s}.t:hover{transform:translateY(-3px);border-color:var(--ac)}
-@media (prefers-reduced-motion:reduce){.card,.card>*,h1 em{transition:none;animation:none!important}html{scroll-behavior:auto}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ARGENTUM 47 // Class 10 Geography & Science 3D Liquid Glass Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #04060c;
+      --fg: #f1f5f9;
+      --mut: #94a3b8;
+      --card: rgba(15, 23, 42, 0.52);
+      --card-border: rgba(255, 255, 255, 0.16);
+      --card-highlight: rgba(255, 255, 255, 0.34);
+      --ac: #38bdf8;
+      --ac-glow: rgba(56, 189, 248, 0.28);
+      --warm: #fbbf24;
+      --purple: #c084fc;
+      --ok: #34d399;
+      --bad: #fb7185;
+      --blur: 26px;
+      color-scheme: dark;
+    }
+
+    :root[data-theme="light"] {
+      --bg: #eef2f8;
+      --fg: #0f172a;
+      --mut: #475569;
+      --card: rgba(255, 255, 255, 0.68);
+      --card-border: rgba(15, 23, 42, 0.12);
+      --card-highlight: rgba(255, 255, 255, 0.9);
+      --ac: #0284c7;
+      --ac-glow: rgba(2, 132, 199, 0.2);
+      --warm: #d97706;
+      --purple: #9333ea;
+      --ok: #059669;
+      --bad: #e11d48;
+      color-scheme: light;
+    }
+
+    /* Low-end Device Lite Mode */
+    body.lite-mode {
+      --blur: 8px;
+    }
+    body.lite-mode .liquid-card,
+    body.lite-mode header,
+    body.lite-mode .bottom-dock {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(60% 50% at 80% 15%, color-mix(in srgb, var(--ac) 16%, transparent), transparent),
+        radial-gradient(50% 50% at 15% 85%, color-mix(in srgb, var(--purple) 14%, transparent), transparent),
+        radial-gradient(40% 40% at 50% 50%, color-mix(in srgb, var(--warm) 8%, transparent), transparent);
+      background-attachment: fixed;
+      color: var(--fg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Fixed 3D WebGL Canvas */
+    #gl {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      touch-action: pan-y;
+      cursor: grab;
+    }
+    #gl:active {
+      cursor: grabbing;
+    }
+
+    /* Interactive 3D Cursor Ring Tooltip */
+    #cursor-pill {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 25;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font: 600 11px 'JetBrains Mono', monospace;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(15, 23, 42, 0.78);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      transform: translate(-50%, -140%) scale(0.85);
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    #cursor-pill.show {
+      opacity: 1;
+      transform: translate(-50%, -140%) scale(1);
+    }
+
+    /* Loading Overlay */
+    #ld {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      transition: opacity 0.65s ease, visibility 0.65s ease;
+    }
+    body.ready #ld {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-core {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      display: grid;
+      place-items: center;
+      font: 700 26px 'Space Grotesk', sans-serif;
+      color: var(--fg);
+    }
+    .loader-core::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2.5px solid transparent;
+      border-top-color: var(--ac);
+      border-right-color: var(--warm);
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Top Sticky Liquid Glass Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      background: var(--card);
+      backdrop-filter: blur(var(--blur)) saturate(190%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(190%);
+      border-bottom: 1px solid var(--card-border);
+      box-shadow: inset 0 1px 0 var(--card-highlight);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font: 700 13px 'Space Grotesk', sans-serif;
+      letter-spacing: 0.04em;
+    }
+    .brand-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #64748b 100%);
+      color: #090d16;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Metal Color Swatches */
+    .swatches {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(128, 128, 128, 0.1);
+      border: 1px solid var(--card-border);
+      font: 500 11px 'JetBrains Mono', monospace;
+      color: var(--mut);
+    }
+    .swatch-btn {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s;
+    }
+    .swatch-btn:hover {
+      transform: scale(1.18);
+    }
+    .swatch-btn[aria-pressed="true"] {
+      outline: 2px solid var(--ac);
+      outline-offset: 2px;
+      transform: scale(1.15);
+    }
+
+    .pill-btn {
+      font: 600 11px 'JetBrains Mono', monospace;
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--card-border);
+      background: rgba(128, 128, 128, 0.12);
+      color: var(--fg);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .pill-btn:hover {
+      border-color: var(--ac);
+      box-shadow: 0 0 14px var(--ac-glow);
+    }
+
+    #bar {
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      height: 2.5px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--ac), var(--purple), var(--warm));
+      transition: width 0.08s linear;
+    }
+
+    /* Right Chapter Navigation Rail */
+    .rail {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 35;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .rail a {
+      position: relative;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 1.5px solid var(--mut);
+      background: transparent;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .rail a.active {
+      background: var(--ac);
+      border-color: var(--ac);
+      transform: scale(1.4);
+      box-shadow: 0 0 12px var(--ac);
+    }
+    .rail a span {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      color: var(--fg);
+      font: 500 10px 'JetBrains Mono', monospace;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .rail a:hover span {
+      opacity: 1;
+    }
+
+    /* Bottom Interactive 3D Mode Switcher Dock */
+    .bottom-dock {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 20px;
+      background: var(--card);
+      backdrop-filter: blur(var(--blur)) saturate(190%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(190%);
+      border: 1px solid var(--card-border);
+      box-shadow:
+        0 20px 50px -10px rgba(0, 0, 0, 0.65),
+        inset 0 1px 1px var(--card-highlight);
+      max-width: 96vw;
+      overflow-x: auto;
+    }
+    .dock-btn {
+      font: 600 11px 'JetBrains Mono', monospace;
+      padding: 8px 13px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--mut);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .dock-btn:hover {
+      color: var(--fg);
+      background: rgba(255, 255, 255, 0.07);
+    }
+    .dock-btn.active {
+      background: linear-gradient(135deg, var(--ac), #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 16px var(--ac-glow);
+    }
+
+    /* Scrollytelling Main Layout */
+    main {
+      position: relative;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .s {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 104px 6vw 96px;
+    }
+    .s.r {
+      justify-content: flex-end;
+    }
+
+    /* Liquid Glass Specular Card */
+    .liquid-card {
+      pointer-events: auto;
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      padding: 30px;
+      border-radius: 28px;
+      background:
+        radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--ac) 20%, transparent), transparent 70%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, var(--card) 55%, rgba(15, 23, 42, 0.72) 100%);
+      backdrop-filter: blur(var(--blur)) saturate(190%);
+      -webkit-backdrop-filter: blur(var(--blur)) saturate(190%);
+      border: 1px solid var(--card-border);
+      border-top: 1px solid var(--card-highlight);
+      border-left: 1px solid var(--card-highlight);
+      box-shadow:
+        0 28px 65px -20px rgba(0, 0, 0, 0.65),
+        inset 0 1px 2px var(--card-highlight),
+        inset 0 -1px 12px color-mix(in srgb, var(--ac) 10%, transparent);
+      opacity: 0;
+      transform: translateY(32px) scale(0.98);
+      transition:
+        opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.3s ease;
+    }
+    .s.in .liquid-card {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .liquid-card:hover {
+      border-color: color-mix(in srgb, var(--ac) 50%, var(--card-border));
+    }
+
+    /* Eyebrow Badge - Well Spaced so it NEVER overlaps headings */
+    .eb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--ac) 14%, transparent);
+      border: 1px solid color-mix(in srgb, var(--ac) 35%, transparent);
+      font: 600 11px 'JetBrains Mono', monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ac);
+      margin-bottom: 16px;
+    }
+    .eb-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ac);
+      box-shadow: 0 0 8px var(--ac);
+    }
+
+    h1, h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    h1 {
+      font-size: clamp(40px, 6vw, 72px);
+    }
+    h2 {
+      font-size: clamp(28px, 4vw, 44px);
+    }
+    .shimmer {
+      font-style: normal;
+      background: linear-gradient(110deg, var(--ac) 0%, #ffffff 35%, var(--purple) 65%, var(--warm) 100%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmerAnim 6s ease-in-out infinite alternate;
+    }
+    @keyframes shimmerAnim {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    p {
+      color: var(--mut);
+      font-size: 14.5px;
+      margin-bottom: 14px;
+    }
+    p b, li b {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* Info Grids & Tiles */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin: 14px 0;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .tile {
+      padding: 11px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.03);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .tile:hover {
+      transform: translateY(-2px);
+      border-color: var(--ac);
+    }
+    .tile small {
+      display: block;
+      font: 600 10px 'JetBrains Mono', monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mut);
+      margin-bottom: 3px;
+    }
+    .tile strong {
+      font: 700 14px 'Space Grotesk', sans-serif;
+      color: var(--fg);
+    }
+
+    /* Interactive Button Rows */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 12px 0;
+    }
+    .btn-row button, .action-btn, .opt-btn {
+      font: 500 12.5px 'Inter', sans-serif;
+      color: var(--fg);
+      padding: 8px 13px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .btn-row button:hover, .action-btn:hover, .opt-btn:hover {
+      border-color: var(--ac);
+      background: color-mix(in srgb, var(--ac) 12%, transparent);
+      transform: translateY(-1px);
+    }
+    .btn-row button:active, .action-btn:active, .opt-btn:active {
+      transform: scale(0.96);
+    }
+    .btn-row button[aria-pressed="true"] {
+      background: var(--ac);
+      border-color: var(--ac);
+      color: #03111c;
+      font-weight: 600;
+      box-shadow: 0 4px 14px var(--ac-glow);
+    }
+
+    /* Chemical Equations & Info Boxes */
+    .formula {
+      font: 500 12px 'JetBrains Mono', monospace;
+      padding: 10px 13px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: rgba(0, 0, 0, 0.32);
+      color: var(--fg);
+      margin: 8px 0;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .info-box {
+      font-size: 13.5px;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      background: rgba(0, 0, 0, 0.22);
+      color: var(--mut);
+      margin: 10px 0;
+    }
+    .info-box b {
+      color: var(--fg);
+    }
+
+    /* Sliders */
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font: 500 12px 'JetBrains Mono', monospace;
+      color: var(--mut);
+      margin: 12px 0 6px;
+    }
+    .slider-label b {
+      color: var(--warm);
+    }
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      accent-color: var(--ac);
+      cursor: pointer;
+    }
+
+    /* Quiz Styling */
+    .opt-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+    .opt-btn.ok {
+      border-color: var(--ok);
+      background: color-mix(in srgb, var(--ok) 18%, transparent);
+      color: var(--ok);
+      font-weight: 600;
+    }
+    .opt-btn.no {
+      border-color: var(--bad);
+      background: color-mix(in srgb, var(--bad) 15%, transparent);
+      color: var(--bad);
+    }
+
+    .hint {
+      font-size: 12px;
+      color: var(--mut);
+      margin-top: 8px;
+    }
+
+    @media (max-width: 860px) {
+      .rail { display: none; }
+      .s, .s.r {
+        align-items: flex-end;
+        justify-content: center;
+        padding: 86px 14px 92px;
+      }
+      .liquid-card {
+        padding: 22px;
+        max-width: 100%;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-<canvas id="gl" aria-label="Interactive 3D specimen of native silver. Drag to rotate."></canvas>
-<div id="ld" aria-hidden="true"><div>Ag</div></div>
 
-<header>
-  <div class="brand"><i>Ag</i><span>SILVER · ARGENTUM 47</span></div>
-  <div class="sw" id="sw"><span>Specimen</span></div>
-  <div id="bar"></div>
-</header>
+  <!-- 1. Fixed 3D Viewport -->
+  <canvas id="gl" aria-label="Interactive 3D Silver Specimen & Atomic Physics Lab"></canvas>
+  <div id="cursor-pill">Poke Crystal</div>
 
-<nav class="rail" aria-label="Chapters">
-  <a href="#classification" title="Classification"></a><a href="#veins-lodes" title="Veins and lodes"></a><a href="#india" title="India"></a><a href="#atom" title="Atom"></a><a href="#reactions" title="Reactions"></a><a href="#conserve" title="Conservation and quiz"></a>
-</nav>
+  <!-- 2. Initial Loader -->
+  <div id="ld" aria-hidden="true">
+    <div class="loader-core">Ag</div>
+  </div>
 
-<main>
-<section class="s" id="classification" data-m="native"><div class="card">
-  <div class="eb">Class 10 · Geography Ch. 5 + Science Ch. 1 &amp; 3</div>
-  <h1>Silver,<br><em>up close.</em></h1>
-  <p>In Geography, silver (<b>Ag</b>, atomic number 47) is a <b>metallic mineral</b>: a non-ferrous <b>precious metal</b>, grouped with gold and platinum. Scroll to travel from the rock it hides in to the atom that makes it shine. Drag the specimen to rotate it.</p>
-  <div class="grid"><div class="t"><small>Family</small><strong>Metallic</strong></div><div class="t"><small>Iron content</small><strong>Non-ferrous</strong></div><div class="t"><small>Class</small><strong>Precious</strong></div></div>
-  <p class="hint">Chief ore: argentite (Ag₂S), usually found with galena (PbS) and zinc blende (ZnS). Scroll ↓</p>
-</div></section>
+  <!-- 3. Top Liquid Glass Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-badge" id="brand-symbol">Ag</div>
+      <div>
+        <div style="font-size: 10px; color: var(--ac); font-family: 'JetBrains Mono', monospace;">CLASS 10 GEO CH.5 &amp; SCI CH.3</div>
+        <div id="brand-title">SILVER · ARGENTUM 47</div>
+      </div>
+    </div>
 
-<section class="s r" id="veins-lodes" data-m="veins"><div class="card">
-  <div class="eb">Chapter 02 · Mode of occurrence</div>
-  <h2>Veins &amp; lodes</h2>
-  <p>In <b>igneous and metamorphic rocks</b>, minerals fill cracks, faults and joints. <b>Smaller</b> occurrences are called <b>veins</b>; <b>larger</b> ones are <b>lodes</b>. Hot, mineral-rich fluids rise through these gaps and cool into solid deposits.</p>
-  <p>Silver is rarely alone. It is mined together with <b>lead, zinc and copper</b> ores.</p>
-  <div class="lab"><span>Open the host rock</span><b id="splitLab">Open lode</b></div>
-  <input id="split" type="range" min="0" max="100" value="80" aria-label="Open the host rock">
-</div></section>
+    <div class="header-controls">
+      <div class="swatches" id="swatches-wrap">
+        <span>Metal:</span>
+      </div>
+      <button class="pill-btn" id="perf-btn" title="Switch Lite/Max graphics for low-end devices">
+        <span id="perf-dot" style="width:7px;height:7px;border-radius:50%;background:var(--ok);"></span>
+        <span id="perf-label">MAX 3D</span>
+      </button>
+      <button class="pill-btn" id="theme-btn" title="Toggle Dark / Light Glass Theme">☀/☾</button>
+    </div>
 
-<section class="s" id="india" data-m="native"><div class="card">
-  <div class="eb">Chapter 03 · Distribution</div>
-  <h2>Where India gets its silver</h2>
-  <p>India has few primary silver mines. Most of its silver is a <b>by-product</b> of smelting lead-zinc, copper and gold ores. Pick a belt:</p>
-  <div class="row" id="tabs"></div>
-  <div class="box" id="belt"></div>
-  <p class="hint" style="margin-top:12px">Top world producers include Mexico, China and Peru.</p>
-</div></section>
+    <div id="bar"></div>
+  </header>
 
-<section class="s r" id="atom" data-m="atom"><div class="card">
-  <div class="eb">Chapter 04 · Inside the atom</div>
-  <h2>Atom 47</h2>
-  <p>Silver has <b>47 protons</b> and 47 electrons arranged <b>2, 8, 18, 18, 1</b>. The lone outer <b>5s¹</b> electron moves freely, which is why silver conducts electricity and heat better than any other metal.</p>
-  <div class="row" id="sub"><button aria-pressed="true">Atom</button><button aria-pressed="false">FCC crystal</button></div>
-  <div class="row" id="shells"></div>
-  <div class="box" id="shellBox"></div>
-  <div class="grid"><div class="t"><small>Protons</small><strong>47</strong></div><div class="t"><small>Neutrons</small><strong>60 / 62</strong></div><div class="t"><small>Atomic mass</small><strong>107.87 u</strong></div></div>
-  <p class="hint">Natural silver is a mix of isotopes Ag-107 (60 neutrons) and Ag-109 (62).</p>
-</div></section>
+  <!-- 4. Right Chapter Dots -->
+  <nav class="rail" aria-label="Chapters">
+    <a href="#sec-classify" class="active"><span>01 · Classification</span></a>
+    <a href="#sec-veins"><span>02 · Veins &amp; Occurrence</span></a>
+    <a href="#sec-india"><span>03 · India Mining Belts</span></a>
+    <a href="#sec-atom"><span>04 · Atom 47 &amp; Shells</span></a>
+    <a href="#sec-lattice"><span>05 · 3D Lattice &amp; Properties</span></a>
+    <a href="#sec-reactions"><span>06 · Extraction &amp; Tarnish</span></a>
+    <a href="#sec-conserve"><span>07 · Uses, Alloys &amp; Quiz</span></a>
+  </nav>
 
-<section class="s" id="reactions" data-m="native"><div class="card">
-  <div class="eb">Chapter 05 · Chemical behaviour</div>
-  <h2>Extraction &amp; tarnish</h2>
-  <p><b>Extraction:</b> a more reactive metal displaces silver from solution.</p>
-  <div class="f">Ag₂S + 4NaCN → 2Na[Ag(CN)₂] + Na₂S</div>
-  <div class="f">2Na[Ag(CN)₂] + Zn → Na₂[Zn(CN)₄] + 2Ag</div>
-  <p style="margin-top:14px"><b>Corrosion:</b> in air, silver reacts with hydrogen sulfide and turns black.</p>
-  <div class="f">4Ag + 2H₂S + O₂ → 2Ag₂S + 2H₂O</div>
-  <div class="lab"><span>Simulate H₂S exposure</span><b id="tarLab">0% · lustrous Ag</b></div>
-  <input id="tar" type="range" min="0" max="100" value="0" aria-label="Tarnish level">
-  <p class="hint" style="margin-top:10px">Silver ranks first for electrical conductivity (6.3 × 10⁷ S/m) and melts at 961.8 °C.</p>
-</div></section>
+  <!-- 5. Bottom Center 3D Model Switcher Dock -->
+  <div class="bottom-dock" role="toolbar" aria-label="3D Specimen Switcher">
+    <button class="dock-btn active" data-mode="native">01 · Liquid Crystal</button>
+    <button class="dock-btn" data-mode="veins">02 · Veins &amp; Lodes</button>
+    <button class="dock-btn" data-mode="atom">03 · Quantum Atom</button>
+    <button class="dock-btn" data-mode="lattice">04 · FCC Lattice Lab</button>
+    <button class="dock-btn" data-mode="uses">05 · Uses &amp; Bullion</button>
+  </div>
 
-<section class="s r" id="conserve" data-m="uses"><div class="card" style="max-width:560px">
-  <div class="eb">Chapter 06 · Uses, conservation &amp; quiz</div>
-  <h2>Use it. Save it.</h2>
-  <ul>
-    <li><b>Solar cells:</b> silver paste carries the current.</li>
-    <li><b>Photography:</b> 2AgBr → 2Ag + Br₂ in light (photolytic decomposition).</li>
-    <li><b>Cloud seeding:</b> silver iodide (AgI) helps make rain.</li>
-    <li><b>Conserve:</b> workable minerals are only about 1% of the crust, so recycle e-waste and old jewellery, and cut smelting waste.</li>
-  </ul>
-  <div class="lab"><span id="qn">Question 1 / 4</span><b id="qs"></b></div>
-  <p id="qq" style="color:var(--fg);font-weight:600"></p>
-  <div id="qo"></div>
-  <div class="box" id="qf" style="display:none;min-height:0"></div>
-</div></section>
-</main>
+  <!-- 6. SCROLLYTELLING CHAPTERS -->
+  <main>
 
-<script>
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const mob=()=>innerWidth<820, reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-let mode='native',split=.8,tarnish=0,kick=0,ux=0,drag=null,hl=-1;
-const metals={Silver:0xf1f5f9,Gold:0xfbbf24,Copper:0xea7a3a,Platinum:0xcfd8e3};
-const metalCol=new THREE.Color(metals.Silver),dark=new THREE.Color(0x14151c);
-// z, x, y, scale, tilt per chapter (specimen sits opposite the card)
-const W=[[5.8,1.3,0,1,0],[5.4,-1.3,0,1.05,.35],[5.6,1.3,.1,1,-.25],[3.5,-1,0,1.25,.15],[4.9,1.3,0,1.1,.2],[5.8,-1.3,0,1,-.1]];
-let R,S,C,root,mat,shards=[],atomG,nuc,rings=[],veinW,lat,uses,flow,glow,hud,sub='atom',px=0,py=0,ly=0;
-const tints={native:new THREE.Color(0x7dd3fc),veins:new THREE.Color(0xfbbf24),atom:new THREE.Color(0xc084fc),lattice:new THREE.Color(0x38bdf8),uses:new THREE.Color(0x34d399)};
-addEventListener('pointermove',e=>{px=e.clientX/innerWidth-.5;py=e.clientY/innerHeight-.5});
+    <!-- CHAPTER 01: MINERAL CLASSIFICATION (GEOGRAPHY CH. 5) -->
+    <section class="s in" id="sec-classify" data-m="native">
+      <div class="liquid-card">
+        <div class="eb"><span class="eb-dot"></span>01 · Geography Ch. 5 + Science Ch. 3</div>
+        <h1>Silver,<br><em class="shimmer">up close.</em></h1>
+        <p>
+          In <b>Class 10 Geography (Minerals and Energy Resources)</b>, a mineral is a <i>"homogenous, naturally occurring substance with a definable internal structure."</i> Silver (<b>Ag</b>, atomic number 47) is a <b>Non-Ferrous Precious Metallic Mineral</b> grouped alongside gold and platinum.
+        </p>
 
-function build(){
-  const cv=$('#gl');
-  R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
-  R.setPixelRatio(Math.min(devicePixelRatio,2));R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.3;
-  S=new THREE.Scene();C=new THREE.PerspectiveCamera(42,1,.1,100);C.position.z=10;
-  const pm=new THREE.PMREMGenerator(R),es=new THREE.Scene();es.background=new THREE.Color(0x0a0e18);
-  [[0xffffff,12,12,0,10,2],[0x38bdf8,15,7,-10,4,6],[0xc084fc,12,8,-8,-6,-6],[0xfde047,11,11,10,-3,-5],[0xf1f5f9,16,4,2,-6,10]].forEach(([c,w,h,x,y,z])=>{
-    const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:c,side:THREE.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);es.add(m)});
-  S.environment=pm.fromScene(es,.03).texture;pm.dispose();
-  S.add(new THREE.AmbientLight(0x8899aa,.8));
-  const dl=new THREE.DirectionalLight(0xffffff,2.6);dl.position.set(5,8,6);S.add(dl);
-  root=new THREE.Group();S.add(root);root.scale.setScalar(.2);
+        <div class="grid-3">
+          <div class="tile"><small>Family</small><strong>Metallic</strong></div>
+          <div class="tile"><small>Iron Content</small><strong>Non-Ferrous</strong></div>
+          <div class="tile"><small>Sub-Class</small><strong>Precious</strong></div>
+        </div>
 
-  // native silver specimen
-  mat=new THREE.MeshStandardMaterial({color:metals.Silver,metalness:.98,roughness:.12,flatShading:true,transparent:true});
-  const g=new THREE.IcosahedronGeometry(1.3,3),p=g.attributes.position;
-  for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),s=1+Math.sin(x*3.1)*Math.cos(y*2.9)*Math.sin(z*3.3)*.24+Math.cos(x*6.5+y*5.2)*.07;p.setXYZ(i,x*s,y*s,z*s)}
-  g.computeVertexNormals();root.add(new THREE.Mesh(g,mat));
-  const og=new THREE.OctahedronGeometry(.42,0);
-  for(let i=0;i<12;i++){const m=new THREE.Mesh(og,mat),ph=Math.acos(1-2*(i+.5)/12),th=Math.PI*(1+Math.sqrt(5))*i,r=1.1+(i%3)*.14;
-    m.position.set(r*Math.sin(ph)*Math.cos(th),r*Math.sin(ph)*Math.sin(th),r*Math.cos(ph));m.rotation.set(i*.7,i*1.2,i*.4);const k=.55+(i%4)*.22;m.scale.set(k,k*1.35,k);root.add(m)}
-  for(let w=0;w<4;w++){const pts=[];for(let j=0;j<=12;j++){const t=j/12,a=w*1.57+t*1.4,rd=1.1+t*.7;pts.push(new THREE.Vector3(Math.cos(a)*rd,(t-.5)*1.6+Math.sin(t*6.28)*.2,Math.sin(a)*rd))}
-    root.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),32,.04,8,false),mat))}
+        <div class="btn-row" id="class-tabs">
+          <button aria-pressed="true" data-c="precious">Precious</button>
+          <button aria-pressed="false" data-c="ferrous">Ferrous</button>
+          <button aria-pressed="false" data-c="nonferrous">Non-Ferrous</button>
+          <button aria-pressed="false" data-c="nonmetallic">Non-Metallic</button>
+        </div>
+        <div class="info-box" id="class-box">
+          <b>Precious Metallic Minerals:</b> Silver, Gold, and Platinum. They contain no iron, have high economic value, extraordinary metallic luster, and resist atmospheric oxidation.
+        </div>
 
-  // host rock shards (veins & lodes)
-  const rm=new THREE.MeshStandardMaterial({color:0x2a3040,metalness:.2,roughness:.85,flatShading:true});
-  [[1,.6,.6],[-1,.6,.6],[1,-.6,.6],[-1,-.6,.6],[.8,.7,-.8],[-.8,.7,-.8],[.8,-.7,-.8],[-.8,-.7,-.8]].forEach((d,i)=>{
-    const rg=new THREE.DodecahedronGeometry(.82,1),q=rg.attributes.position;
-    for(let j=0;j<q.count;j++){const n=1+Math.sin(q.getX(j)*4+i)*.18;q.setXYZ(j,q.getX(j)*n,q.getY(j)*n*.85,q.getZ(j)*n)}
-    rg.computeVertexNormals();const m=new THREE.Mesh(rg,rm);m.userData.dir=new THREE.Vector3(...d).normalize();m.scale.setScalar(.001);root.add(m);shards.push(m)});
-  veinW=new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.5,2)),new THREE.LineBasicMaterial({color:0xfbbf24,transparent:true,opacity:.6}));veinW.scale.setScalar(.001);root.add(veinW);
+        <div class="btn-row">
+          <button class="action-btn" id="poke-crystal-btn">💧 Poke Crystal (Jelly Ripple)</button>
+          <span class="hint">Drag the 3D crystal to spin · Click model to ripple</span>
+        </div>
+      </div>
+    </section>
 
-  // atom: nucleus + shells 2,8,18,18,1
-  atomG=new THREE.Group();atomG.scale.setScalar(.001);root.add(atomG);nuc=new THREE.Group();atomG.add(nuc);
-  const ng=new THREE.SphereGeometry(.07,14,14),pr=new THREE.MeshStandardMaterial({color:0xf43f5e,emissive:0xe11d48,emissiveIntensity:.8}),nt=new THREE.MeshStandardMaterial({color:0xa855f7,emissive:0x7e22ce,emissiveIntensity:.6});
-  for(let i=0;i<30;i++){const m=new THREE.Mesh(ng,i%2?nt:pr),ph=Math.acos(1-2*(i+.5)/30),th=Math.PI*(1+Math.sqrt(5))*i,r=.08+(i%3)*.05;m.position.set(r*Math.sin(ph)*Math.cos(th),r*Math.sin(ph)*Math.sin(th),r*Math.cos(ph));nuc.add(m)}
-  const cnt=[2,8,18,18,1],rad=[.42,.7,1,1.32,1.66],col=[0x94a3b8,0xc084fc,0x818cf8,0x38bdf8,0xfde047];
-  cnt.forEach((n,s)=>{const h=new THREE.Group(),tm=new THREE.MeshBasicMaterial({color:col[s],side:THREE.DoubleSide,transparent:true,opacity:.4});
-    h.add(new THREE.Mesh(new THREE.RingGeometry(rad[s]-.008,rad[s]+.008,64),tm));
-    const eg=new THREE.SphereGeometry(s==4?.08:.045,14,14),em=new THREE.MeshBasicMaterial({color:col[s]});
-    for(let e=0;e<n;e++){const m=new THREE.Mesh(eg,em),a=e/n*6.283;m.position.set(Math.cos(a)*rad[s],Math.sin(a)*rad[s],0);h.add(m)}
-    h.rotation.set(.55+s*.42,s*.65,0);h.userData={sp:(.9-s*.12)*(s%2?-1:1),tm};atomG.add(h);rings.push(h)});
+    <!-- CHAPTER 02: MODES OF OCCURRENCE (VEINS & LODES) -->
+    <section class="s r" id="sec-veins" data-m="veins">
+      <div class="liquid-card">
+        <div class="eb"><span class="eb-dot"></span>02 · Mode of Occurrence of Minerals</div>
+        <h2>Veins, Lodes &amp;<br><em class="shimmer">Host Rocks.</em></h2>
+        <p>
+          Minerals are usually found in <b>"ores"</b>—accumulations of any mineral mixed with other elements. In <b>igneous and metamorphic rocks</b>, liquid and gaseous minerals are forced upward through cracks, faults, and joints.
+        </p>
 
-  // glow, HUD rings, FCC cell, uses, hydrothermal flow
-  const gt=(()=>{const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d'),g=x.createRadialGradient(64,64,0,64,64,64);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.3,'rgba(255,255,255,.3)');g.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=g;x.fillRect(0,0,128,128);return new THREE.CanvasTexture(c)})();
-  const spr=(c,s,o)=>{const m=new THREE.Sprite(new THREE.SpriteMaterial({map:gt,color:c,blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,opacity:o}));m.scale.setScalar(s);return m};
-  glow=spr(0x7dd3fc,6,.5);root.add(glow);atomG.add(spr(0xfb7185,1.3,.9));
-  hud=new THREE.Group();[[2.3,0x94a3b8,.3],[2.6,0x38bdf8,.25]].forEach(([r,c,o],i)=>{const m=new THREE.Mesh(new THREE.RingGeometry(r,r+.014,96),new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:o,side:THREE.DoubleSide}));m.rotation.set(1.2-i*.6,i*1.1,0);hud.add(m)});root.add(hud);
-  lat=new THREE.Group();lat.scale.setScalar(.001);root.add(lat);const h=1.1;
-  lat.add(new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(2*h,2*h,2*h)),new THREE.LineBasicMaterial({color:0x38bdf8})));
-  const ag=new THREE.SphereGeometry(.3,24,24),cm=new THREE.MeshStandardMaterial({color:0xffffff,metalness:.95,roughness:.08}),fm=new THREE.MeshStandardMaterial({color:0x38bdf8,emissive:0x0284c7,emissiveIntensity:.5,metalness:.9,roughness:.1});
-  for(let x=-1;x<2;x+=2)for(let y=-1;y<2;y+=2)for(let z=-1;z<2;z+=2){const m=new THREE.Mesh(ag,cm);m.position.set(x*h,y*h,z*h);lat.add(m)}
-  [[0,0,1],[0,0,-1],[0,1,0],[0,-1,0],[1,0,0],[-1,0,0]].forEach(d=>{const m=new THREE.Mesh(ag,fm);m.position.set(d[0]*h,d[1]*h,d[2]*h);lat.add(m)});
-  lat.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-h,-h,h),new THREE.Vector3(h,h,h)]),new THREE.LineBasicMaterial({color:0xfbbf24})));
-  uses=new THREE.Group();uses.scale.setScalar(.001);root.add(uses);
-  const coin=new THREE.Group(),rim=new THREE.Mesh(new THREE.TorusGeometry(.5,.03,8,48),mat);rim.rotation.x=Math.PI/2;rim.position.y=.05;coin.add(new THREE.Mesh(new THREE.CylinderGeometry(.55,.55,.09,48),mat),rim);
-  const ing=new THREE.Mesh(new THREE.CylinderGeometry(.38,.62,.34,4),mat);ing.rotation.y=Math.PI/4;ing.scale.x=1.6;
-  const sc=document.createElement('canvas');sc.width=sc.height=128;const sx=sc.getContext('2d');sx.fillStyle='#14357a';sx.fillRect(0,0,128,128);sx.strokeStyle='#cbd5e1';sx.lineWidth=2;for(let i=8;i<128;i+=16){sx.beginPath();sx.moveTo(i,0);sx.lineTo(i,128);sx.stroke()}sx.lineWidth=5;for(let i=32;i<128;i+=64){sx.beginPath();sx.moveTo(0,i);sx.lineTo(128,i);sx.stroke()}
-  const sol=new THREE.Mesh(new THREE.BoxGeometry(1.1,1.1,.05),new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(sc),metalness:.6,roughness:.25}));
-  [coin,ing,sol].forEach((o,i)=>{o.userData.a=i*2.094;uses.add(o)});
-  const fa=new Float32Array(450);for(let i=0;i<150;i++)fa.set([(Math.random()-.5)*2.4,Math.random()*5-2.5,(Math.random()-.5)*2.4],i*3);
-  flow=new THREE.Points(new THREE.BufferGeometry().setAttribute('position',new THREE.BufferAttribute(fa,3)),new THREE.PointsMaterial({map:gt,color:0xfbbf24,size:.22,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false}));root.add(flow);
-  // dust
-  const pg=new THREE.BufferGeometry(),pa=new Float32Array(600);
-  for(let i=0;i<200;i++){const r=3+Math.random()*5,t=Math.random()*6.28,f=Math.acos(2*Math.random()-1);pa.set([r*Math.sin(f)*Math.cos(t),r*Math.sin(f)*Math.sin(t),r*Math.cos(f)],i*3)}
-  pg.setAttribute('position',new THREE.BufferAttribute(pa,3));S.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0x94a3b8,size:.035,transparent:true,opacity:.6})));
+        <div class="btn-row" id="occ-tabs">
+          <button aria-pressed="true" data-o="veins">1. Veins &amp; Lodes</button>
+          <button aria-pressed="false" data-o="beds">2. Beds &amp; Seams</button>
+          <button aria-pressed="false" data-o="placer">3. Placer Deposits</button>
+          <button aria-pressed="false" data-o="residual">4. Residual &amp; Ocean</button>
+        </div>
+        <div class="info-box" id="occ-box">
+          <b>Veins (Smaller) &amp; Lodes (Larger):</b> Formed when hot hydrothermal solutions cool and solidify inside rock crevices. Examples: <b>Silver, Tin, Copper, Zinc, and Lead</b>.
+        </div>
 
-  cv.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY};cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing'};
-  cv.onpointermove=e=>{if(!drag)return;kick+=(e.clientX-drag.x)*.0007;ux=Math.max(-.8,Math.min(.8,ux+(e.clientY-drag.y)*.004));drag={x:e.clientX,y:e.clientY}};
-  cv.onpointerup=cv.onpointercancel=()=>{drag=null;cv.style.cursor='grab'};
-  const rs=()=>{R.setSize(innerWidth,innerHeight);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix()};rs();addEventListener('resize',rs);
-  requestAnimationFrame(tick);
-}
+        <div class="slider-label">
+          <span>Fracture Host Rock Cutaway</span>
+          <b id="splitLab">Open Lode · 80%</b>
+        </div>
+        <input id="split" type="range" min="0" max="100" value="80" aria-label="Fracture Host Rock">
+        <p class="hint">Chief silver ore: <b>Argentite (Ag₂S)</b>, co-occurring with Galena (PbS) and Sphalerite (ZnS).</p>
+      </div>
+    </section>
 
-function tick(ms){
-  requestAnimationFrame(tick);const t=ms*.001;
-  const mx=document.documentElement.scrollHeight-innerHeight,pr=mx>0?scrollY/mx:0,f=pr*(W.length-1),i=Math.min(f|0,W.length-2),k=f-i,e=k*k*(3-2*k),a=W[i],b=W[i+1],L=j=>a[j]+(b[j]-a[j])*e,m=mob();
-  $('#bar').style.width=pr*100+'%';
-  C.position.z+=(L(0)+(m?1.2:0)-C.position.z)*.06;
-  root.position.x+=((m?0:L(1))-root.position.x)*.06;root.position.y+=((m?.85:L(2))-root.position.y)*.06;
-  const sc=L(3)*(m?.7:1);root.scale.setScalar(root.scale.x+(sc-root.scale.x)*.06);
-  root.rotation.x+=(L(4)+ux+Math.sin(t*.6)*.06-root.rotation.x)*.06;
-  root.rotation.y+=(reduce?0:.003)+kick;kick*=.93;ux*=.995;
-  const v=mode==='veins',at=mode==='atom',sl=(o,s)=>{const n=o.scale.x+(s-o.scale.x)*.08;o.scale.setScalar(Math.max(n,.001));o.visible=n>.01};
-  shards.forEach(s=>{sl(s,v?1:0);s.position.lerp(s.userData.dir.clone().multiplyScalar(1.05+1.45*split),.1)});
-  sl(veinW,v?1:0);sl(atomG,at?1.1:0);sl(lat,mode==='lattice'?.8:0);sl(uses,mode==='uses'?1:0);
-  lat.rotation.set(.4,t*.3,0);
-  uses.children.forEach((o,i)=>{const a=o.userData.a+t*.6;o.position.set(Math.cos(a)*2.6,Math.sin(t*1.2+i)*.3,Math.sin(a)*2.6);o.rotation.set(t*.8+i,t*.5,i)});
-  const fp=flow.geometry.attributes.position;for(let i=0;i<150;i++){let y=fp.getY(i)+.02+(i%5)*.004;if(y>2.5)y=-2.5;fp.setY(i,y)}fp.needsUpdate=true;flow.material.opacity+=((v?.9:0)-flow.material.opacity)*.06;
-  glow.material.color.lerp(tints[mode]||tints.native,.05);glow.material.opacity=.4+Math.sin(t*1.5)*.08;hud.rotation.z=-t*.15;hud.rotation.x=Math.sin(t*.3)*.25;
-  C.position.x+=(px*.8-C.position.x)*.04;C.position.y+=(-py*.5-C.position.y)*.04;C.lookAt(0,0,0);kick+=Math.max(-.05,Math.min(.05,(scrollY-ly)*.00012));ly=scrollY;
-  mat.opacity+=((at||mode==='lattice'?.12:1)-mat.opacity)*.08;
-  mat.color.copy(metalCol).lerp(dark,tarnish*.92);mat.roughness=.12+tarnish*.6;mat.metalness=.98-tarnish*.45;mat.envMapIntensity=1.7-tarnish*1.2;
-  if(at){rings.forEach((h,j)=>h.rotation.z+=h.userData.sp*.02);nuc.scale.setScalar(1+Math.sin(t*5)*.045);nuc.rotation.y=-t*.6}
-  R.render(S,C);
-}
+    <!-- CHAPTER 03: DISTRIBUTION IN INDIA (GEOGRAPHY MAP WORK) -->
+    <section class="s" id="sec-india" data-m="native">
+      <div class="liquid-card">
+        <div class="eb"><span class="eb-dot"></span>03 · Geographical Distribution</div>
+        <h2>Where India<br><em class="shimmer">mines Silver.</em></h2>
+        <p>
+          India has very few native silver mines; over <b>95% of India's silver</b> is recovered as a precious <b>by-product</b> while smelting lead-zinc, copper, and gold ores. Select a mining belt:
+        </p>
 
-// metal swatches
-Object.entries(metals).forEach(([n,c],j)=>{const b=document.createElement('button');b.title=n;b.setAttribute('aria-label',n);b.setAttribute('aria-pressed',j==0);b.style.background='#'+c.toString(16).padStart(6,'0');
-  b.onclick=()=>{metalCol.set(c);$$('#sw button').forEach(x=>x.setAttribute('aria-pressed',x===b))};$('#sw').appendChild(b)});
+        <div class="btn-row" id="tabs"></div>
+        <div class="info-box" id="belt"></div>
 
-// veins slider
-$('#split').oninput=e=>{split=e.target.value/100;$('#splitLab').textContent=(split>.5?'Open lode · ':'Enclosed vein · ')+e.target.value+'%'};
+        <div class="grid-3">
+          <div class="tile"><small>India Leader</small><strong>Rajasthan (~92%)</strong></div>
+          <div class="tile"><small>World #1</small><strong>Mexico</strong></div>
+          <div class="tile"><small>World #2 &amp; #3</small><strong>China · Peru</strong></div>
+        </div>
+      </div>
+    </section>
 
-// India belts
-const belts={Rajasthan:['Aravalli belt · largest producer','Zawar, Rajpura-Dariba &amp; Sindesar Khurd','Lead-zinc mines in Udaipur and Rajsamand (run by Hindustan Zinc) give most of India’s silver as a by-product.','Udaipur, Rajsamand','Lead-zinc sulfide lodes'],
- Karnataka:['Dharwar gold belt','Hutti &amp; Kolar gold fields','Silver is recovered while refining gold ore at Hutti (Raichur district). Kolar is the historic field.','Raichur, Kolar','Gold-bearing quartz reefs'],
- Jharkhand:['Singhbhum copper belt','Singhbhum region','Silver is recovered as a by-product of copper ore processing and refining.','East Singhbhum','Copper sulfides'],
- 'Andhra Pradesh':['Cuddapah basin','Agnigundala','A lead-zinc-copper belt in Guntur district where silver occurs as a minor associate.','Guntur','Galena &amp; copper sulfide veins']};
-function belt(n){$$('#tabs button').forEach(b=>b.setAttribute('aria-pressed',b.textContent===n));const d=belts[n];
-  $('#belt').innerHTML=`<b style="color:var(--ac);font-size:11px;letter-spacing:.1em;text-transform:uppercase">${d[0]}</b><br><b style="font:700 18px 'Space Grotesk',sans-serif">${d[1]}</b><br>${d[2]}<br><b>Districts:</b> ${d[3]} · <b>Ore:</b> ${d[4]}`;kick+=.03}
-Object.keys(belts).forEach(n=>{const b=document.createElement('button');b.textContent=n;b.onclick=()=>belt(n);$('#tabs').appendChild(b)});belt('Rajasthan');kick=0;
+    <!-- CHAPTER 04: INSIDE ATOM 47 & ELECTRONIC CONFIGURATION -->
+    <section class="s r" id="sec-atom" data-m="atom">
+      <div class="liquid-card">
+        <div class="eb"><span class="eb-dot"></span>04 · Sub-Nanometer Quantum Dive</div>
+        <h2>Inside Atom 47<br><em class="shimmer">&amp; 5s¹ Electron.</em></h2>
+        <p>
+          Silver has <b>47 protons</b> and 47 electrons arranged across 5 shells: <b>2, 8, 18, 18, 1</b> (<span style="font-family:'JetBrains Mono',monospace;color:var(--ac)">[Kr] 4d¹⁰ 5s¹</span>). Its single outer <b>5s¹ valence electron</b> detaches easily into a mobile electron sea, making silver the best conductor of heat and electricity.
+        </p>
 
-// shells
-const sh=[['K (n=1)','2','Innermost shell, 2 electrons held tightly by the 47 protons.'],['L (n=2)','8','Second shell is full with 8 electrons.'],['M (n=3)','18','Third shell holds 18 electrons, including a full 3d subshell.'],['N (n=4)','18','A full 4d¹⁰ subshell makes silver stable and unreactive.'],['O (n=5)','1','The single <b>5s¹</b> valence electron roams freely, giving silver its record conductivity.']];
-sh.forEach((s,i)=>{const b=document.createElement('button');b.innerHTML=`${s[0]} · ${s[1]}e⁻`;b.onclick=()=>{$$('#shells button').forEach((x,j)=>x.setAttribute('aria-pressed',i===j));$('#shellBox').innerHTML=`<b>${s[0]}:</b> ${s[2]}`;
-  rings.forEach((h,j)=>h.userData.tm.opacity=j===i?1:.18)};$('#shells').appendChild(b)});
-$('#shells button:last-child').click();
-const lt='<b>Face-centred cubic (FCC):</b> 8 corner + 6 face atoms, 4 atoms per cell. Atoms touch along the face diagonal (gold line). Close packing makes silver dense, malleable and ductile.';
-function setSub(k){sub=k;mode=k;$$('#sub button').forEach((b,i)=>b.setAttribute('aria-pressed',(i?'lattice':'atom')===k));if(k==='lattice'){$('#shellBox').innerHTML=lt;rings.forEach(r=>r.userData.tm.opacity=.4)}}
-$$('#sub button').forEach((b,i)=>b.onclick=()=>{setSub(i?'lattice':'atom');if(!i)$('#shells button:last-child').click()});
-$$('#shells button').forEach(b=>b.addEventListener('click',()=>{if(sub!=='atom')setSub('atom')}));
+        <div class="btn-row" id="shells"></div>
+        <div class="info-box" id="shellBox"></div>
 
-// tarnish
-$('#tar').oninput=e=>{tarnish=e.target.value/100;$('#tarLab').textContent=e.target.value+'% · '+(tarnish>.45?'Ag₂S tarnish film':'lustrous Ag')};
+        <div class="grid-3">
+          <div class="tile"><small>Protons / e⁻</small><strong>47</strong></div>
+          <div class="tile"><small>Isotopes</small><strong>¹⁰⁷Ag / ¹⁰⁹Ag</strong></div>
+          <div class="tile"><small>Atomic Mass</small><strong>107.87 u</strong></div>
+        </div>
 
-// quiz
-const Q=[['Larger occurrences of minerals in cracks and faults of igneous and metamorphic rocks are called:',['Placers','Lodes','Seams','Nodules'],1,'Smaller occurrences are veins; larger ones are lodes.'],
- ['Which state produces most of India’s silver, mainly from Zawar and Sindesar Khurd?',['Karnataka','Jharkhand','Rajasthan','Odisha'],2,'Rajasthan’s lead-zinc mines dominate India’s silver output.'],
- ['Silver turns black in air because it forms:',['Ag₂O','Ag₂CO₃','Ag₂S','AgCl'],2,'Hydrogen sulfide in air forms black silver sulfide, a form of corrosion.'],
- ['In the Class 10 classification of minerals, silver is a:',['Ferrous metallic mineral','Non-metallic mineral','Non-ferrous precious metal','Energy mineral'],2,'Silver, gold and platinum are precious, non-ferrous metals.']];
-let qi=0,score=0,tried=false;
-function quiz(){const q=Q[qi];$('#qn').textContent=`Question ${qi+1} / ${Q.length}`;$('#qs').textContent=`Score ${score}`;$('#qq').textContent=q[0];$('#qf').style.display='none';tried=false;
-  const o=$('#qo');o.innerHTML='';q[1].forEach((t,j)=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.onclick=()=>{
-    if(j===q[2]){if(!tried)score++;b.className='opt ok';$$('.opt').forEach(x=>x.disabled=true);$('#qs').textContent=`Score ${score}`;const f=$('#qf');f.style.display='block';
-      f.innerHTML=`<b>Correct.</b> ${q[3]} <button class="opt" style="margin:10px 0 0;width:auto" id="nx">${qi<Q.length-1?'Next →':'Finish'}</button>`;$('#nx').onclick=()=>{if(qi<Q.length-1){qi++;quiz()}else done()}}
-    else{tried=true;b.className='opt no';b.disabled=true}};o.appendChild(b)})}
-function done(){$('#qq').textContent=`You scored ${score} / ${Q.length} on the first try.`;$('#qo').innerHTML='';$('#qf').style.display='block';$('#qf').innerHTML='<button class="opt" style="width:auto" id="rs">Try again</button>';$('#rs').onclick=()=>{qi=0;score=0;quiz()}}
-quiz();
+        <div class="btn-row">
+          <button class="action-btn" id="excite-atom-btn">⚡ Excite 5s¹ Electron (Quantum Jump)</button>
+          <button class="action-btn" id="pause-atom-btn">⏸ Pause Orbits</button>
+        </div>
+      </div>
+    </section>
 
-// reveal + chapter mode
-const secs=$$('.s'),dots=$$('.rail a');
-const io1=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.15});
-const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){mode=e.target.dataset.m==='atom'?sub:e.target.dataset.m;const i=secs.indexOf(e.target);dots.forEach((d,j)=>d.classList.toggle('a',j===i))}}),{rootMargin:'-45% 0px -45% 0px'});
-secs.forEach(s=>{io1.observe(s);io2.observe(s)});
-$$('.card').forEach(c=>{[...c.children].forEach((e,i)=>e.style.setProperty('--i',i));c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')})});
-try{build();kick=.09}catch(err){document.body.classList.add('nogl')}
-setTimeout(()=>document.body.classList.add('ready'),700);
-</script>
+    <!-- CHAPTER 05: 3D LATTICE PHYSICS LAB & PHYSICAL PROPERTIES (SCIENCE CH. 3) -->
+    <section class="s" id="sec-lattice" data-m="lattice">
+      <div class="liquid-card">
+        <div class="eb"><span class="eb-dot"></span>05 · Science Ch. 3 — Physical Properties Lab</div>
+        <h2>FCC Crystal<br><em class="shimmer">&amp; Exceptions.</em></h2>
+        <p>
+          Silver crystallizes in a <b>Face-Centred Cubic (FCC)</b> lattice (8 corner + 6 face atoms = 4 atoms/unit cell). Test metallic physics directly on the 3D crystal lattice:
+        </p>
+
+        <!-- Interactive 3D Physics Lab Controls -->
+        <div class="btn-row">
+          <button class="action-btn" id="lab-hammer">🔨 Hammer (Malleability)</button>
+          <button class="action-btn" id="lab-voltage">⚡ Apply Voltage (Electron Sea)</button>
+          <button class="action-btn" id="lab-heat">🔥 Heat Lattice (961.8°C)</button>
+        </div>
+        <div class="info-box" id="lab-status">
+          <b>Interactive Lattice Lab:</b> Click <b>Hammer</b> to see atomic layers slide without breaking (malleability), <b>Apply Voltage</b> to stream free electrons, or <b>Heat</b> to vibrate cations.
+        </div>
+
+        <!-- NCERT Science Ch. 3 Exceptions Explorer -->
+        <div class="btn-row" id="exc-tabs">
+          <button aria-pressed="true" data-x="record">Ag Records</button>
+          <button aria-pressed="false" data-x="liquid">Hg, Ga &amp; Cs</button>
+          <button aria-pressed="false" data-x="soft">Na &amp; K</button>
+          <button aria-pressed="false" data-x="nonmetal">C &amp; I₂ Exceptions</button>
+        </div>
+        <div class="info-box" id="exc-box">
+          <b>Silver Super-Records:</b> #1 Electrical Conductivity (6.3×10⁷ S/m), #1 Thermal Conductivity (429 W/m·K), #1 Optical Reflectivity (95%). 1g of metal can be drawn into a 2km wire (ductility)!
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 06: METALLURGY, REACTIVITY SERIES & TARNISH LAB -->
+    <section class="s r" id="sec-reactions" data-m="native">
+      <div class="liquid-card">
+        <div class="eb"><span class="eb-dot"></span>06 · Metallurgy, Reactivity &amp; Corrosion</div>
+        <h2>Extraction &amp;<br><em class="shimmer">Sulfide Tarnish.</em></h2>
+
+        <div class="btn-row" id="rxn-tabs">
+          <button aria-pressed="true" data-r="cyanide">1. Cyanide Extraction</button>
+          <button aria-pressed="false" data-r="displace">2. Cu + AgNO₃ Beaker</button>
+          <button aria-pressed="false" data-r="photo">3. Photolytic AgBr</button>
+          <button aria-pressed="false" data-r="series">4. Reactivity Series</button>
+        </div>
+
+        <div id="rxn-content">
+          <div class="formula">Ag₂S + 4NaCN → 2Na[Ag(CN)₂] + Na₂S</div>
+          <div class="formula">2Na[Ag(CN)₂] + Zn → Na₂[Zn(CN)₄] + 2Ag↓</div>
+          <p class="hint">MacArthur-Forrest Process: More reactive Zinc displaces silver from soluble sodium dicyanoargentate.</p>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--card-border);margin:14px 0;">
+
+        <p style="margin-bottom:6px;">
+          <b>Atmospheric Corrosion (Tarnishing):</b> Silver does not react with oxygen even at red heat, but reacts with airborne <b>Hydrogen Sulfide (H₂S)</b> to form a black coating of <b>Silver Sulfide (Ag₂S)</b>:
+        </p>
+        <div class="formula">4Ag(s) + 2H₂S(g) + O₂(g) → 2Ag₂S(s) [Black] + 2H₂O(l)</div>
+
+        <div class="slider-label">
+          <span>Simulate H₂S Tarnish Film</span>
+          <b id="tarLab">0% · Lustrous Ag</b>
+        </div>
+        <input id="tar" type="range" min="0" max="100" value="0" aria-label="Tarnish slider">
+
+        <div class="btn-row" style="margin-top:10px;">
+          <button class="action-btn" id="polish-btn">✨ Polish Specimen (Restore Shine)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 07: USES, ALLOYS, CONSERVATION & 8-QUESTION BOARD QUIZ -->
+    <section class="s" id="sec-conserve" data-m="uses">
+      <div class="liquid-card" style="max-width: 600px;">
+        <div class="eb"><span class="eb-dot"></span>07 · Uses, Alloys, Conservation &amp; Board Quiz</div>
+        <h2>Use it.<br><em class="shimmer">Conserve it.</em></h2>
+
+        <!-- Wide, Clean 2-Column Uses Grid (No narrow cramped wrapping) -->
+        <div class="grid-2">
+          <div class="tile">
+            <small>Solar &amp; Electronics</small>
+            <strong>Photovoltaic Paste</strong>
+            <p style="font-size:12px;margin:4px 0 0;">Conductive silver grid lines collect current in solar panels &amp; 5G circuits.</p>
+          </div>
+          <div class="tile">
+            <small>Alloys &amp; Jewellery</small>
+            <strong>Sterling Silver (92.5%)</strong>
+            <p style="font-size:12px;margin:4px 0 0;">Alloyed with 7.5% Copper for hardness; 22K Gold uses Ag/Cu to strengthen 24K Gold.</p>
+          </div>
+          <div class="tile">
+            <small>Weather &amp; Mirrors</small>
+            <strong>Cloud Seeding (AgI)</strong>
+            <p style="font-size:12px;margin:4px 0 0;">Silver Iodide seeds artificial rain; silvered glass makes high-precision mirrors.</p>
+          </div>
+          <div class="tile">
+            <small>Geo Ch.5 Conservation</small>
+            <strong>1% Workable Crust</strong>
+            <p style="font-size:12px;margin:4px 0 0;">Ores take millions of years to form. Urban e-waste recycling &amp; zero-waste smelting are vital.</p>
+          </div>
+        </div>
+
+        <!-- 8-Question Class 10 Master Quiz -->
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--card-border);">
+          <div class="slider-label">
+            <span id="qn">Question 1 / 8</span>
+            <b id="qs">Score: 0</b>
+          </div>
+          <p id="qq" style="color:var(--fg);font-weight:600;margin-bottom:10px;"></p>
+          <div id="qo"></div>
+          <div class="info-box" id="qf" style="display:none;"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 7. THREE.JS + SPRING PHYSICS + ADAPTIVE PERFORMANCE ENGINE -->
+  <script>
+    const $ = s => document.querySelector(s);
+    const $$ = s => [...document.querySelectorAll(s)];
+    const isMob = () => window.innerWidth < 860;
+
+    // ---------------------------------------------------------
+    // 1. STATE & METAL PALETTES
+    // ---------------------------------------------------------
+    let mode = 'native';
+    let split = 0.8;
+    let tarnish = 0;
+    let orbitPaused = false;
+    let liteMode = false;
+
+    // Physics Impulses
+    let spinVelY = 0.004;
+    let userTiltX = 0;
+    let dragState = null;
+    let jellyImpulse = 0;       // Poke / scroll liquid wobble
+    let hammerShear = 0;        // FCC lattice hammer displacement
+    let voltageFlow = 0;        // Free electron stream intensity
+    let thermalHeat = 0;        // Lattice atomic vibration heat
+    let atomExcite = 0;         // Quantum jump expansion
+
+    const metals = {
+      Silver:   { hex: 0xf1f5f9, sym: 'Ag', title: 'SILVER · ARGENTUM 47' },
+      Gold:     { hex: 0xfbbf24, sym: 'Au', title: '24K GOLD · AURUM 79' },
+      Copper:   { hex: 0xea7a3a, sym: 'Cu', title: 'COPPER · CUPRUM 29' },
+      Platinum: { hex: 0xcfd8e3, sym: 'Pt', title: 'PLATINUM · PLATINA 78' },
+      RoseGold: { hex: 0xf4a28c, sym: 'Au+', title: 'ROSE GOLD · ALLOY' }
+    };
+
+    const baseMetalColor = new THREE.Color(metals.Silver.hex);
+    const rainbowFilmColor = new THREE.Color(0x6366f1);
+    const sulfideBlackColor = new THREE.Color(0x12131a);
+
+    // 7 Chapter Camera & Specimen Waypoints: [camZ, rootX, rootY, scale, tiltX]
+    const WAYPOINTS = [
+      [5.7,  1.35, 0.0, 1.02,  0.05], // 01 Classification
+      [5.4, -1.35, 0.0, 1.06,  0.32], // 02 Veins & Lodes
+      [5.6,  1.35, 0.1, 1.00, -0.22], // 03 India Distribution
+      [3.6, -1.05, 0.0, 1.24,  0.15], // 04 Atom 47
+      [4.7,  1.30, 0.0, 1.12,  0.24], // 05 FCC Lattice Lab
+      [4.9, -1.30, 0.0, 1.10,  0.18], // 06 Metallurgy & Tarnish
+      [5.7,  1.35, 0.0, 1.00, -0.10]  // 07 Uses & Quiz
+    ];
+
+    let renderer, scene, camera, root;
+    let coreMesh, coreBasePositions, crystalTwins = [], wireMeshes = [];
+    let matMetal, matRock, veinLines;
+    let rockShards = [];
+    let atomGroup, nucleusGroup, electronRings = [];
+    let latticeGroup, latticeAtoms = [], electronSeaPoints;
+    let usesGroup, hydroFlowPoints, glowSprite, hudRings;
+
+    let pointerNormX = 0, pointerNormY = 0, lastScrollY = window.scrollY;
+
+    const modeTints = {
+      native:  new THREE.Color(0x38bdf8),
+      veins:   new THREE.Color(0xfbbf24),
+      atom:    new THREE.Color(0xc084fc),
+      lattice: new THREE.Color(0x22d3ee),
+      uses:    new THREE.Color(0x34d399)
+    };
+
+    // ---------------------------------------------------------
+    // 2. INITIALIZE THREE.JS SCENE & ALL 5 MODELS
+    // ---------------------------------------------------------
+    function initWebGL() {
+      const canvas = $('#gl');
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+
+      // Auto-detect low-end hardware
+      const lowConcurrency = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+      setPerformanceMode(lowConcurrency);
+
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.35;
+
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.set(0, 0, 7.5);
+
+      // Studio Reflection Environment Map
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      const envScene = new THREE.Scene();
+      envScene.background = new THREE.Color(0x080b14);
+      [
+        [0xffffff, 12, 12,  0, 10,  2],
+        [0x38bdf8, 15,  7, -10,  4,  6],
+        [0xc084fc, 12,  8,  -8, -6, -6],
+        [0xfde047, 11, 11,  10, -3, -5],
+        [0xf1f5f9, 16,  4,   2, -6, 10]
+      ].forEach(([c, w, h, x, y, z]) => {
+        const panel = new THREE.Mesh(
+          new THREE.PlaneGeometry(w, h),
+          new THREE.MeshBasicMaterial({ color: c, side: THREE.DoubleSide })
+        );
+        panel.position.set(x, y, z);
+        panel.lookAt(0, 0, 0);
+        envScene.add(panel);
+      });
+      scene.environment = pmrem.fromScene(envScene, 0.03).texture;
+      pmrem.dispose();
+
+      scene.add(new THREE.AmbientLight(0x94a3b8, 0.9));
+      const dirLight = new THREE.DirectionalLight(0xffffff, 2.8);
+      dirLight.position.set(5, 8, 6);
+      scene.add(dirLight);
+
+      root = new THREE.Group();
+      root.scale.setScalar(0.25);
+      scene.add(root);
+
+      // Shared Metallic PBR Material
+      matMetal = new THREE.MeshStandardMaterial({
+        color: metals.Silver.hex,
+        metalness: 0.98,
+        roughness: 0.11,
+        flatShading: true,
+        transparent: true,
+        opacity: 1
+      });
+
+      // --- MODEL 1: NATIVE LIQUID-CHROME CRYSTAL + DENDRITIC WIRES ---
+      const coreGeo = new THREE.IcosahedronGeometry(1.32, 3);
+      const posAttr = coreGeo.attributes.position;
+      coreBasePositions = new Float32Array(posAttr.count * 3);
+
+      for (let i = 0; i < posAttr.count; i++) {
+        const x = posAttr.getX(i), y = posAttr.getY(i), z = posAttr.getZ(i);
+        const s = 1 + Math.sin(x * 3.1) * Math.cos(y * 2.9) * Math.sin(z * 3.3) * 0.24 + Math.cos(x * 6.5 + y * 5.2) * 0.07;
+        const nx = x * s, ny = y * s, nz = z * s;
+        posAttr.setXYZ(i, nx, ny, nz);
+        coreBasePositions[i * 3] = nx;
+        coreBasePositions[i * 3 + 1] = ny;
+        coreBasePositions[i * 3 + 2] = nz;
+      }
+      coreGeo.computeVertexNormals();
+      coreMesh = new THREE.Mesh(coreGeo, matMetal);
+      root.add(coreMesh);
+
+      const octGeo = new THREE.OctahedronGeometry(0.42, 0);
+      for (let i = 0; i < 12; i++) {
+        const m = new THREE.Mesh(octGeo, matMetal);
+        const ph = Math.acos(1 - 2 * (i + 0.5) / 12);
+        const th = Math.PI * (1 + Math.sqrt(5)) * i;
+        const r = 1.1 + (i % 3) * 0.14;
+        m.position.set(r * Math.sin(ph) * Math.cos(th), r * Math.sin(ph) * Math.sin(th), r * Math.cos(ph));
+        m.rotation.set(i * 0.7, i * 1.2, i * 0.4);
+        const k = 0.55 + (i % 4) * 0.22;
+        m.scale.set(k, k * 1.35, k);
+        root.add(m);
+        crystalTwins.push(m);
+      }
+
+      for (let w = 0; w < 4; w++) {
+        const pts = [];
+        for (let j = 0; j <= 12; j++) {
+          const t = j / 12, a = w * 1.57 + t * 1.4, rd = 1.1 + t * 0.7;
+          pts.push(new THREE.Vector3(Math.cos(a) * rd, (t - 0.5) * 1.6 + Math.sin(t * 6.28) * 0.2, Math.sin(a) * rd));
+        }
+        const wire = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 28, 0.042, 8, false), matMetal);
+        root.add(wire);
+        wireMeshes.push(wire);
+      }
+
+      // --- MODEL 2: IGNEOUS HOST ROCK VEINS & LODES ---
+      matRock = new THREE.MeshStandardMaterial({ color: 0x262d3d, metalness: 0.22, roughness: 0.85, flatShading: true });
+      [
+        [1, 0.6, 0.6], [-1, 0.6, 0.6], [1, -0.6, 0.6], [-1, -0.6, 0.6],
+        [0.8, 0.7, -0.8], [-0.8, 0.7, -0.8], [0.8, -0.7, -0.8], [-0.8, -0.7, -0.8]
+      ].forEach((d, i) => {
+        const rg = new THREE.DodecahedronGeometry(0.82, 1);
+        const q = rg.attributes.position;
+        for (let j = 0; j < q.count; j++) {
+          const n = 1 + Math.sin(q.getX(j) * 4 + i) * 0.18;
+          q.setXYZ(j, q.getX(j) * n, q.getY(j) * n * 0.85, q.getZ(j) * n);
+        }
+        rg.computeVertexNormals();
+        const shard = new THREE.Mesh(rg, matRock);
+        shard.userData.dir = new THREE.Vector3(...d).normalize();
+        shard.scale.setScalar(0.001);
+        root.add(shard);
+        rockShards.push(shard);
+      });
+
+      veinLines = new THREE.LineSegments(
+        new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.52, 2)),
+        new THREE.LineBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.68 })
+      );
+      veinLines.scale.setScalar(0.001);
+      root.add(veinLines);
+
+      // --- MODEL 3: QUANTUM ATOM 47 (NUCLEUS + 5 SHELLS: 2, 8, 18, 18, 1) ---
+      atomGroup = new THREE.Group();
+      atomGroup.scale.setScalar(0.001);
+      root.add(atomGroup);
+
+      nucleusGroup = new THREE.Group();
+      atomGroup.add(nucleusGroup);
+      const nucGeo = new THREE.SphereGeometry(0.072, 14, 14);
+      const protonMat = new THREE.MeshStandardMaterial({ color: 0xf43f5e, emissive: 0xe11d48, emissiveIntensity: 0.85 });
+      const neutronMat = new THREE.MeshStandardMaterial({ color: 0xa855f7, emissive: 0x7e22ce, emissiveIntensity: 0.65 });
+      for (let i = 0; i < 32; i++) {
+        const m = new THREE.Mesh(nucGeo, i % 2 ? neutronMat : protonMat);
+        const ph = Math.acos(1 - 2 * (i + 0.5) / 32), th = Math.PI * (1 + Math.sqrt(5)) * i, r = 0.08 + (i % 3) * 0.052;
+        m.position.set(r * Math.sin(ph) * Math.cos(th), r * Math.sin(ph) * Math.sin(th), r * Math.cos(ph));
+        nucleusGroup.add(m);
+      }
+
+      const shellCounts = [2, 8, 18, 18, 1];
+      const shellRadii = [0.42, 0.70, 1.00, 1.32, 1.66];
+      const shellColors = [0x94a3b8, 0xc084fc, 0x818cf8, 0x38bdf8, 0xfde047];
+      shellCounts.forEach((n, s) => {
+        const ringHolder = new THREE.Group();
+        const trackMat = new THREE.MeshBasicMaterial({ color: shellColors[s], side: THREE.DoubleSide, transparent: true, opacity: s === 4 ? 0.9 : 0.36 });
+        ringHolder.add(new THREE.Mesh(new THREE.RingGeometry(shellRadii[s] - 0.009, shellRadii[s] + 0.009, 64), trackMat));
+
+        const eGeo = new THREE.SphereGeometry(s === 4 ? 0.085 : 0.044, 14, 14);
+        const eMat = new THREE.MeshBasicMaterial({ color: shellColors[s] });
+        for (let e = 0; e < n; e++) {
+          const em = new THREE.Mesh(eGeo, eMat);
+          const a = (e / n) * Math.PI * 2;
+          em.position.set(Math.cos(a) * shellRadii[s], Math.sin(a) * shellRadii[s], 0);
+          ringHolder.add(em);
+        }
+        ringHolder.rotation.set(0.55 + s * 0.42, s * 0.65, 0);
+        ringHolder.userData = { sp: (0.9 - s * 0.12) * (s % 2 ? -1 : 1), trackMat, baseRadius: 1 };
+        atomGroup.add(ringHolder);
+        electronRings.push(ringHolder);
+      });
+
+      // --- MODEL 4: INTERACTIVE FCC CRYSTAL LATTICE LAB ---
+      latticeGroup = new THREE.Group();
+      latticeGroup.scale.setScalar(0.001);
+      root.add(latticeGroup);
+
+      const h = 1.05;
+      latticeGroup.add(new THREE.LineSegments(
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(2 * h, 2 * h, 2 * h)),
+        new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.75 })
+      ));
+
+      const atomSphereGeo = new THREE.SphereGeometry(0.27, 22, 22);
+      const cornerAtomMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.95, roughness: 0.08 });
+      const faceAtomMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.55, metalness: 0.9, roughness: 0.12 });
+
+      // 8 Corner Atoms
+      for (let x = -1; x <= 1; x += 2) {
+        for (let y = -1; y <= 1; y += 2) {
+          for (let z = -1; z <= 1; z += 2) {
+            const m = new THREE.Mesh(atomSphereGeo, cornerAtomMat.clone());
+            m.userData.basePos = new THREE.Vector3(x * h, y * h, z * h);
+            m.position.copy(m.userData.basePos);
+            latticeGroup.add(m);
+            latticeAtoms.push(m);
+          }
+        }
+      }
+      // 6 Face-Centred Atoms
+      [[0, 0, 1], [0, 0, -1], [0, 1, 0], [0, -1, 0], [1, 0, 0], [-1, 0, 0]].forEach(d => {
+        const m = new THREE.Mesh(atomSphereGeo, faceAtomMat.clone());
+        m.userData.basePos = new THREE.Vector3(d[0] * h, d[1] * h, d[2] * h);
+        m.position.copy(m.userData.basePos);
+        latticeGroup.add(m);
+        latticeAtoms.push(m);
+      });
+
+      // Close-packed face diagonal line
+      latticeGroup.add(new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-h, -h, h), new THREE.Vector3(h, h, h)]),
+        new THREE.LineBasicMaterial({ color: 0xfbbf24 })
+      ));
+
+      // Free Electron Sea Particles inside Lattice
+      const seaCoords = new Float32Array(90 * 3);
+      for (let i = 0; i < 90; i++) {
+        seaCoords[i * 3]     = (Math.random() - 0.5) * 2.2;
+        seaCoords[i * 3 + 1] = (Math.random() - 0.5) * 2.2;
+        seaCoords[i * 3 + 2] = (Math.random() - 0.5) * 2.2;
+      }
+      electronSeaPoints = new THREE.Points(
+        new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(seaCoords, 3)),
+        new THREE.PointsMaterial({ color: 0xfde047, size: 0.08, transparent: true, opacity: 0.85 })
+      );
+      latticeGroup.add(electronSeaPoints);
+
+      // --- MODEL 5: ORBITING INDUSTRIAL USES (COIN, INGOT, SOLAR CELL) ---
+      usesGroup = new THREE.Group();
+      usesGroup.scale.setScalar(0.001);
+      root.add(usesGroup);
+
+      const coin = new THREE.Group();
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.035, 8, 48), matMetal);
+      rim.rotation.x = Math.PI / 2;
+      rim.position.y = 0.05;
+      coin.add(new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.09, 48), matMetal), rim);
+
+      const ingot = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.62, 0.34, 4), matMetal);
+      ingot.rotation.y = Math.PI / 4;
+      ingot.scale.x = 1.6;
+
+      const solarCanvas = document.createElement('canvas');
+      solarCanvas.width = solarCanvas.height = 128;
+      const sx = solarCanvas.getContext('2d');
+      sx.fillStyle = '#0f2d6b';
+      sx.fillRect(0, 0, 128, 128);
+      sx.strokeStyle = '#e2e8f0';
+      sx.lineWidth = 2;
+      for (let i = 8; i < 128; i += 16) { sx.beginPath(); sx.moveTo(i, 0); sx.lineTo(i, 128); sx.stroke(); }
+      sx.lineWidth = 5;
+      for (let i = 32; i < 128; i += 64) { sx.beginPath(); sx.moveTo(0, i); sx.lineTo(128, i); sx.stroke(); }
+      const solarCell = new THREE.Mesh(
+        new THREE.BoxGeometry(1.1, 1.1, 0.06),
+        new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(solarCanvas), metalness: 0.65, roughness: 0.2 })
+      );
+      [coin, ingot, solarCell].forEach((o, i) => {
+        o.userData.angle = i * 2.094;
+        usesGroup.add(o);
+      });
+
+      // Radial Glow Sprite & HUD Rings
+      const glowTex = (() => {
+        const c = document.createElement('canvas');
+        c.width = c.height = 128;
+        const ctx = c.getContext('2d');
+        const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+        g.addColorStop(0, 'rgba(255,255,255,1)');
+        g.addColorStop(0.32, 'rgba(255,255,255,0.28)');
+        g.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, 128, 128);
+        return new THREE.CanvasTexture(c);
+      })();
+
+      glowSprite = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: glowTex,
+        color: 0x38bdf8,
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        depthWrite: false,
+        opacity: 0.48
+      }));
+      glowSprite.scale.setScalar(5.8);
+      root.add(glowSprite);
+
+      hudRings = new THREE.Group();
+      [[2.3, 0x94a3b8, 0.26], [2.62, 0x38bdf8, 0.2]].forEach(([r, col, op], i) => {
+        const rm = new THREE.Mesh(
+          new THREE.RingGeometry(r, r + 0.015, 84),
+          new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: op, side: THREE.DoubleSide })
+        );
+        rm.rotation.set(1.2 - i * 0.6, i * 1.1, 0);
+        hudRings.add(rm);
+      });
+      root.add(hudRings);
+
+      // Rising Hydrothermal Fluid Particles
+      const flowArr = new Float32Array(120 * 3);
+      for (let i = 0; i < 120; i++) {
+        flowArr.set([(Math.random() - 0.5) * 2.4, Math.random() * 5 - 2.5, (Math.random() - 0.5) * 2.4], i * 3);
+      }
+      hydroFlowPoints = new THREE.Points(
+        new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(flowArr, 3)),
+        new THREE.PointsMaterial({ map: glowTex, color: 0xfbbf24, size: 0.2, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })
+      );
+      root.add(hydroFlowPoints);
+
+      // Canvas Pointer Drag & Click Physics
+      const pill = $('#cursor-pill');
+      canvas.addEventListener('pointerenter', () => pill.classList.add('show'));
+      canvas.addEventListener('pointerleave', () => pill.classList.remove('show'));
+
+      canvas.addEventListener('pointerdown', e => {
+        dragState = { x: e.clientX, y: e.clientY, moved: false };
+        canvas.setPointerCapture(e.pointerId);
+      });
+
+      canvas.addEventListener('pointermove', e => {
+        pill.style.left = e.clientX + 'px';
+        pill.style.top = e.clientY + 'px';
+        if (!dragState) return;
+        const dx = e.clientX - dragState.x;
+        const dy = e.clientY - dragState.y;
+        if (Math.abs(dx) > 4 || Math.abs(dy) > 4) dragState.moved = true;
+        spinVelY += dx * 0.00075;
+        userTiltX = Math.max(-0.85, Math.min(0.85, userTiltX + dy * 0.004));
+        dragState.x = e.clientX;
+        dragState.y = e.clientY;
+      });
+
+      canvas.addEventListener('pointerup', () => {
+        if (dragState && !dragState.moved) {
+          triggerModelClickPhysics();
+        }
+        dragState = null;
+      });
+
+      const onResize = () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+      };
+      onResize();
+      window.addEventListener('resize', onResize);
+
+      requestAnimationFrame(animateLoop);
+    }
+
+    // ---------------------------------------------------------
+    // 3. CLICK / INTERACTION PHYSICS DISPATCHER
+    // ---------------------------------------------------------
+    function triggerModelClickPhysics() {
+      spinVelY += 0.035;
+      if (mode === 'native' || mode === 'uses') {
+        jellyImpulse = 1.0;
+      } else if (mode === 'veins') {
+        split = split > 0.5 ? 0.15 : 0.9;
+        $('#split').value = Math.round(split * 100);
+        $('#splitLab').textContent = (split > 0.5 ? 'Open Lode · ' : 'Enclosed Vein · ') + Math.round(split * 100) + '%';
+      } else if (mode === 'atom') {
+        atomExcite = 1.0;
+      } else if (mode === 'lattice') {
+        hammerShear = 1.0;
+      }
+    }
+
+    function setActiveMode(newMode) {
+      mode = newMode;
+      $$('.dock-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === newMode));
+      const labels = {
+        native: '💧 Click to Ripple · Drag to Spin',
+        veins: '⛰ Click to Fracture Lode',
+        atom: '⚡ Click to Excite 5s¹ Electron',
+        lattice: '🔨 Click to Shear FCC Lattice',
+        uses: '🪙 Drag to Inspect Uses'
+      };
+      $('#cursor-pill').textContent = labels[newMode] || 'Drag to Spin';
+    }
+
+    $$('.dock-btn').forEach(btn => {
+      btn.addEventListener('click', () => setActiveMode(btn.dataset.mode));
+    });
+
+    // ---------------------------------------------------------
+    // 4. LITE / MAX PERFORMANCE OPTIMIZER FOR LOW-END DEVICES
+    // ---------------------------------------------------------
+    function setPerformanceMode(enableLite) {
+      liteMode = enableLite;
+      document.body.classList.toggle('lite-mode', liteMode);
+      if (renderer) {
+        renderer.setPixelRatio(liteMode ? 1 : Math.min(window.devicePixelRatio, 2));
+      }
+      const dot = $('#perf-dot');
+      const lbl = $('#perf-label');
+      if (dot && lbl) {
+        dot.style.background = liteMode ? 'var(--warm)' : 'var(--ok)';
+        lbl.textContent = liteMode ? 'LITE FPS' : 'MAX 3D';
+      }
+    }
+
+    $('#perf-btn').addEventListener('click', () => setPerformanceMode(!liteMode));
+
+    // ---------------------------------------------------------
+    // 5. MAIN 3D ANIMATION & PHYSICS LOOP
+    // ---------------------------------------------------------
+    function animateLoop(ms) {
+      requestAnimationFrame(animateLoop);
+      if (document.hidden) return; // Save battery when tab hidden
+
+      const t = ms * 0.001;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const scrollRatio = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+
+      // Scroll velocity adds subtle liquid jelly wobble
+      const scrollDelta = Math.abs(window.scrollY - lastScrollY);
+      if (scrollDelta > 2) {
+        jellyImpulse = Math.min(1.0, jellyImpulse + scrollDelta * 0.003);
+        spinVelY += Math.max(-0.04, Math.min(0.04, (window.scrollY - lastScrollY) * 0.0001));
+      }
+      lastScrollY = window.scrollY;
+
+      $('#bar').style.width = (scrollRatio * 100) + '%';
+
+      // Interpolate 7 Chapter Waypoints smoothly
+      const segFloat = scrollRatio * (WAYPOINTS.length - 1);
+      const idx = Math.min(segFloat | 0, WAYPOINTS.length - 2);
+      const frac = segFloat - idx;
+      const smoothFrac = frac * frac * (3 - 2 * frac);
+      const wA = WAYPOINTS[idx], wB = WAYPOINTS[idx + 1];
+      const lerpW = k => wA[k] + (wB[k] - wA[k]) * smoothFrac;
+      const mobile = isMob();
+
+      camera.position.z += (lerpW(0) + (mobile ? 1.25 : 0) - camera.position.z) * 0.065;
+      camera.position.x += (pointerNormX * 0.75 - camera.position.x) * 0.045;
+      camera.position.y += (-pointerNormY * 0.45 - camera.position.y) * 0.045;
+      camera.lookAt(0, 0, 0);
+
+      root.position.x += ((mobile ? 0 : lerpW(1)) - root.position.x) * 0.065;
+      root.position.y += ((mobile ? 0.85 : lerpW(2)) - root.position.y) * 0.065;
+      const targetScale = lerpW(3) * (mobile ? 0.74 : 1);
+      root.scale.setScalar(root.scale.x + (targetScale - root.scale.x) * 0.065);
+
+      root.rotation.x += (lerpW(4) + userTiltX + Math.sin(t * 0.65) * 0.06 - root.rotation.x) * 0.065;
+      root.rotation.y += 0.003 + spinVelY;
+      spinVelY *= 0.93;
+      userTiltX *= 0.992;
+
+      // Liquid Jelly Vertex Ripple when poked or scrolled
+      if (jellyImpulse > 0.005) {
+        const pos = coreMesh.geometry.attributes.position;
+        for (let i = 0; i < pos.count; i++) {
+          const bx = coreBasePositions[i * 3];
+          const by = coreBasePositions[i * 3 + 1];
+          const bz = coreBasePositions[i * 3 + 2];
+          const wave = 1 + Math.sin(t * 18 + bx * 4 + by * 4) * 0.14 * jellyImpulse;
+          pos.setXYZ(i, bx * wave, by * wave, bz * wave);
+        }
+        pos.needsUpdate = true;
+        jellyImpulse *= 0.91;
+      }
+
+      // Smooth Scale Morph Helper — ensures EVERY model is cleanly visible when active!
+      const scaleTo = (obj, target) => {
+        const next = obj.scale.x + (target - obj.scale.x) * 0.09;
+        obj.scale.setScalar(Math.max(next, 0.001));
+        obj.visible = next > 0.012;
+      };
+
+      const isVeins   = mode === 'veins';
+      const isAtom    = mode === 'atom';
+      const isLattice = mode === 'lattice';
+      const isUses    = mode === 'uses';
+
+      // Core crystal ghosts slightly during Atom or Lattice mode so internal structures shine clearly
+      const targetCoreScale = (isAtom || isLattice) ? 0.72 : (isUses ? 0.55 : 1.0);
+      coreMesh.scale.setScalar(coreMesh.scale.x + (targetCoreScale - coreMesh.scale.x) * 0.08);
+      matMetal.opacity += (((isAtom || isLattice) ? 0.13 : 1.0) - matMetal.opacity) * 0.09;
+
+      // Veins & Lodes Rock Shards
+      rockShards.forEach(s => {
+        scaleTo(s, isVeins ? 1 : 0);
+        if (isVeins) {
+          s.position.lerp(s.userData.dir.clone().multiplyScalar(1.02 + 1.45 * split), 0.1);
+        }
+      });
+      scaleTo(veinLines, isVeins ? 1 : 0);
+
+      // Quantum Atom
+      scaleTo(atomGroup, isAtom ? 1.12 : 0);
+      if (atomGroup.visible) {
+        if (!orbitPaused) {
+          electronRings.forEach((ring, j) => {
+            ring.rotation.z += ring.userData.sp * (0.022 + atomExcite * 0.06);
+            const jumpScale = 1 + (j === 4 ? atomExcite * 0.32 : atomExcite * 0.12);
+            ring.scale.setScalar(jumpScale);
+          });
+        }
+        nucleusGroup.scale.setScalar(1 + Math.sin(t * 5) * 0.05 + atomExcite * 0.15);
+        nucleusGroup.rotation.y = -t * 0.65;
+        atomExcite *= 0.93;
+      }
+
+      // FCC Lattice + Interactive Physics (Hammer, Voltage, Heat)
+      scaleTo(latticeGroup, isLattice ? 0.88 : 0);
+      if (latticeGroup.visible) {
+        latticeGroup.rotation.set(0.35, t * 0.25, 0);
+        latticeAtoms.forEach((atom, i) => {
+          const bp = atom.userData.basePos;
+          // Hammering shears top layer (bp.y > 0) horizontally!
+          const shearOffset = bp.y > 0.1 ? Math.sin(hammerShear * Math.PI) * 0.65 : 0;
+          // Thermal vibration jitters atoms and glows warm orange
+          const jitterX = thermalHeat > 0.01 ? Math.sin(t * 42 + i * 3.1) * 0.09 * thermalHeat : 0;
+          const jitterY = thermalHeat > 0.01 ? Math.cos(t * 39 + i * 2.7) * 0.09 * thermalHeat : 0;
+          atom.position.set(bp.x + shearOffset + jitterX, bp.y + jitterY, bp.z);
+
+          if (thermalHeat > 0.02) {
+            atom.material.emissive.setHex(0xf97316);
+            atom.material.emissiveIntensity = 0.3 + thermalHeat * 1.2;
+          } else {
+            atom.material.emissive.setHex(0x0284c7);
+            atom.material.emissiveIntensity = 0.45;
+          }
+        });
+
+        // Electron Sea Drift (accelerates when Voltage is applied!)
+        const seaPos = electronSeaPoints.geometry.attributes.position;
+        const driftSpeed = 0.015 + voltageFlow * 0.14;
+        for (let i = 0; i < 90; i++) {
+          let x = seaPos.getX(i) + driftSpeed;
+          if (x > 1.1) x = -1.1;
+          seaPos.setX(i, x);
+        }
+        seaPos.needsUpdate = true;
+
+        hammerShear *= 0.92;
+        voltageFlow *= 0.985;
+        thermalHeat *= 0.988;
+      }
+
+      // Industrial Uses Orbit
+      scaleTo(usesGroup, isUses ? 1 : 0);
+      if (usesGroup.visible) {
+        usesGroup.children.forEach((o, i) => {
+          const a = o.userData.angle + t * 0.65;
+          o.position.set(Math.cos(a) * 2.55, Math.sin(t * 1.3 + i) * 0.3, Math.sin(a) * 2.55);
+          o.rotation.set(t * 0.8 + i, t * 0.5, i);
+        });
+      }
+
+      // Hydrothermal Upwelling Particles
+      const fp = hydroFlowPoints.geometry.attributes.position;
+      for (let i = 0; i < 120; i++) {
+        let y = fp.getY(i) + 0.022 + (i % 5) * 0.004;
+        if (y > 2.5) y = -2.5;
+        fp.setY(i, y);
+      }
+      fp.needsUpdate = true;
+      hydroFlowPoints.material.opacity += ((isVeins ? 0.88 : 0) - hydroFlowPoints.material.opacity) * 0.07;
+
+      // Tarnish Shader: Pure Metal -> Rainbow Thin-Film Interference -> Black Ag2S
+      if (tarnish < 0.45) {
+        matMetal.color.copy(baseMetalColor).lerp(rainbowFilmColor, (tarnish / 0.45) * 0.45);
+      } else {
+        matMetal.color.copy(baseMetalColor).lerp(rainbowFilmColor, 0.45).lerp(sulfideBlackColor, (tarnish - 0.45) / 0.55);
+      }
+      matMetal.roughness = 0.11 + tarnish * 0.62;
+      matMetal.metalness = 0.98 - tarnish * 0.45;
+      matMetal.envMapIntensity = 1.75 - tarnish * 1.25;
+
+      glowSprite.material.color.lerp(modeTints[mode] || modeTints.native, 0.06);
+      hudRings.rotation.z = -t * 0.14;
+      hudRings.rotation.x = Math.sin(t * 0.3) * 0.25;
+
+      renderer.render(scene, camera);
+    }
+
+    // ---------------------------------------------------------
+    // 6. UI CONTROLS, TABS, LAB SIMULATORS & 8-QUESTION QUIZ
+    // ---------------------------------------------------------
+    window.addEventListener('pointermove', e => {
+      pointerNormX = e.clientX / window.innerWidth - 0.5;
+      pointerNormY = e.clientY / window.innerHeight - 0.5;
+    });
+
+    // Theme Switcher
+    $('#theme-btn').addEventListener('click', () => {
+      const rootEl = document.documentElement;
+      rootEl.dataset.theme = rootEl.dataset.theme === 'light' ? 'dark' : 'light';
+    });
+
+    // Metal Swatches (Silver, 24K Gold, Copper, Platinum, Rose Gold)
+    Object.entries(metals).forEach(([name, info], idx) => {
+      const b = document.createElement('button');
+      b.className = 'swatch-btn';
+      b.title = name;
+      b.setAttribute('aria-label', name);
+      b.setAttribute('aria-pressed', idx === 0);
+      b.style.background = '#' + info.hex.toString(16).padStart(6, '0');
+      b.addEventListener('click', () => {
+        baseMetalColor.setHex(info.hex);
+        $('#brand-symbol').textContent = info.sym;
+        $('#brand-title').textContent = info.title;
+        $$('.swatch-btn').forEach(x => x.setAttribute('aria-pressed', x === b));
+        jellyImpulse = 0.7;
+      });
+      $('#swatches-wrap').appendChild(b);
+    });
+
+    // Chapter 01: Classification Tabs
+    const classData = {
+      precious: '<b>Precious Metallic Minerals:</b> Silver, Gold, and Platinum. Devoid of iron, high economic value, ductile, malleable, and corrosion-resistant.',
+      ferrous: '<b>Ferrous Minerals (Contain Iron):</b> Account for ~75% of the value of metallic mineral production in India. Examples: <b>Iron Ore, Manganese, Nickel, Cobalt</b>.',
+      nonferrous: '<b>Non-Ferrous Minerals (No Iron):</b> Vital for metallurgical, engineering, and electrical industries. Examples: <b>Copper, Bauxite, Lead, Zinc, Silver, Gold</b>.',
+      nonmetallic: '<b>Non-Metallic &amp; Energy Minerals:</b> Non-metallic: <b>Mica</b> (insulator in electronics), <b>Limestone</b> (cement). Energy: <b>Coal, Petroleum, Natural Gas, Uranium</b>.'
+    };
+    $$('#class-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('#class-tabs button').forEach(b => b.setAttribute('aria-pressed', b === btn));
+        $('#class-box').innerHTML = classData[btn.dataset.c];
+      });
+    });
+
+    $('#poke-crystal-btn').addEventListener('click', () => {
+      setActiveMode('native');
+      jellyImpulse = 1.0;
+      spinVelY += 0.04;
+    });
+
+    // Chapter 02: Modes of Occurrence Tabs
+    const occData = {
+      veins: '<b>Veins (Smaller) &amp; Lodes (Larger):</b> In igneous and metamorphic rocks, hot mineral solutions rise through faults and solidify. Examples: <b>Silver, Tin, Copper, Zinc, Lead</b>.',
+      beds: '<b>Beds or Seams (Sedimentary Rocks):</b> Formed by deposition, accumulation, and concentration in horizontal strata over long periods. Examples: <b>Coal, Iron Ore, Gypsum, Potash Salt</b>.',
+      placer: '<b>Alluvial / Placer Deposits:</b> Found in sands of valley floors and the base of hills. Contains minerals that are <b>not corroded by water</b>: <b>Gold, Silver, Tin, and Platinum</b>.',
+      residual: '<b>Residual Mass &amp; Ocean Waters:</b> Decomposition of surface rocks leaving weathered residue forms <b>Bauxite</b>. Ocean waters give Common Salt, Magnesium, and Bromine.'
+    };
+    $$('#occ-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('#occ-tabs button').forEach(b => b.setAttribute('aria-pressed', b === btn));
+        $('#occ-box').innerHTML = occData[btn.dataset.o];
+      });
+    });
+
+    $('#split').addEventListener('input', e => {
+      setActiveMode('veins');
+      split = e.target.value / 100;
+      $('#splitLab').textContent = (split > 0.5 ? 'Open Lode · ' : 'Enclosed Vein · ') + e.target.value + '%';
+    });
+
+    // Chapter 03: India Mining Belts
+    const belts = {
+      Rajasthan: [
+        'Aravalli Polymetallic Belt · Rank #1 (~92% of India)',
+        'Zawar, Sindesar Khurd &amp; Rajpura-Dariba Mines',
+        'Operated by Hindustan Zinc Ltd. in Udaipur &amp; Rajsamand districts. Silver is extracted from Precambrian dolomitic rocks rich in lead-zinc galena.',
+        'Udaipur, Rajsamand, Bhilwara',
+        'Argentiferous Galena (PbS) &amp; Sphalerite (ZnS)'
+      ],
+      Karnataka: [
+        'Dharwar Schist Gold Belt · Rank #2',
+        'Hutti &amp; Kolar Gold Fields (KGF)',
+        'Silver is recovered as an important precious by-product while refining gold ore at Hutti Gold Mines (Raichur district) and historically Kolar.',
+        'Raichur (Hutti), Kolar',
+        'Auriferous Quartz Reefs'
+      ],
+      Jharkhand: [
+        'Singhbhum Shear Zone · Smelting Hub',
+        'Tundoo &amp; Singhbhum Copper-Lead Belt',
+        'Silver is recovered during the smelting and electrolytic refining of copper and lead concentrates in East Singhbhum and Dhanbad.',
+        'East Singhbhum, Dhanbad',
+        'Chalcopyrite &amp; Galena Sulfides'
+      ],
+      'Andhra Pradesh': [
+        'Cuddapah Basin · Eastern Deposits',
+        'Agnigundala Lead-Copper Belt',
+        'Silver occurs as a minor associate in lead-zinc-copper sulfide veins in the Guntur and Kurnool districts.',
+        'Guntur, Kurnool',
+        'Galena-Chalcopyrite Veins'
+      ]
+    };
+
+    function selectBelt(name) {
+      $$('#tabs button').forEach(b => b.setAttribute('aria-pressed', b.textContent === name));
+      const d = belts[name];
+      $('#belt').innerHTML = `
+        <div style="color:var(--ac);font:600 10.5px 'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:3px;">${d[0]}</div>
+        <div style="font:700 16px 'Space Grotesk',sans-serif;color:var(--fg);margin-bottom:4px;">${d[1]}</div>
+        <div style="margin-bottom:6px;">${d[2]}</div>
+        <div style="font-size:12px;"><b>Districts:</b> ${d[3]} · <b>Host Ore:</b> ${d[4]}</div>
+      `;
+      spinVelY += 0.03;
+    }
+
+    Object.keys(belts).forEach(n => {
+      const b = document.createElement('button');
+      b.textContent = n;
+      b.addEventListener('click', () => selectBelt(n));
+      $('#tabs').appendChild(b);
+    });
+    selectBelt('Rajasthan');
+
+    // Chapter 04: Electron Shells & Quantum Jump
+    const shellInfo = [
+      ['K (n=1)', '2', 'Innermost core shell (1s²): 2 electrons held tightly by the +47 nuclear charge.'],
+      ['L (n=2)', '8', 'Second shell (2s² 2p⁶): Complete octet of 8 core electrons.'],
+      ['M (n=3)', '18', 'Third shell (3s² 3p⁶ 3d¹⁰): Holds 18 electrons including a filled 3d subshell.'],
+      ['N (n=4)', '18', 'Fourth shell (4s² 4p⁶ 4d¹⁰): Filled 4d¹⁰ subshell gives Silver its high stability and noble character.'],
+      ['O (n=5)', '1', '<b>Valence Shell (5s¹):</b> 1 single loosely held outer electron! It detaches into a mobile electron sea, giving Silver record electrical and thermal conductivity.']
+    ];
+
+    shellInfo.forEach((s, idx) => {
+      const b = document.createElement('button');
+      b.innerHTML = `${s[0]} · ${s[1]}e⁻`;
+      b.addEventListener('click', () => {
+        setActiveMode('atom');
+        $$('#shells button').forEach((x, j) => x.setAttribute('aria-pressed', idx === j));
+        $('#shellBox').innerHTML = `<b>${s[0]}:</b> ${s[2]}`;
+        electronRings.forEach((r, j) => {
+          r.userData.trackMat.opacity = j === idx ? 1.0 : 0.16;
+        });
+      });
+      $('#shells').appendChild(b);
+    });
+    $('#shells button:last-child').click();
+
+    $('#excite-atom-btn').addEventListener('click', () => {
+      setActiveMode('atom');
+      atomExcite = 1.0;
+    });
+    $('#pause-atom-btn').addEventListener('click', e => {
+      orbitPaused = !orbitPaused;
+      e.currentTarget.textContent = orbitPaused ? '▶ Resume Orbits' : '⏸ Pause Orbits';
+    });
+
+    // Chapter 05: 3D Lattice Physics Lab Buttons & Science Ch.3 Exceptions
+    $('#lab-hammer').addEventListener('click', () => {
+      setActiveMode('lattice');
+      hammerShear = 1.0;
+      $('#lab-status').innerHTML = '<b>🔨 Malleability in Action:</b> Notice how the top atomic plane slides over the lower plane without breaking metallic bonds! Delocalized electrons act as a flexible cushion.';
+    });
+    $('#lab-voltage').addEventListener('click', () => {
+      setActiveMode('lattice');
+      voltageFlow = 1.0;
+      $('#lab-status').innerHTML = '<b>⚡ Electrical Conductivity:</b> Applying voltage drives the golden 5s¹ free electrons rapidly from the negative to positive terminal with minimal resistance.';
+    });
+    $('#lab-heat').addEventListener('click', () => {
+      setActiveMode('lattice');
+      thermalHeat = 1.0;
+      $('#lab-status').innerHTML = '<b>🔥 Thermal Vibration:</b> Heating the lattice makes silver cations vibrate intensely and glow orange, transferring kinetic energy rapidly across the crystal.';
+    });
+
+    const excData = {
+      record: '<b>Silver Super-Records:</b> #1 Electrical Conductivity (6.3×10⁷ S/m), #1 Thermal Conductivity (429 W/m·K), #1 Optical Reflectivity (95%). 1g can be drawn into a 2km wire!',
+      liquid: '<b>Melting Point Exceptions:</b> <b>Mercury (Hg)</b> is a liquid metal at room temperature. <b>Gallium (Ga)</b> and <b>Caesium (Cs)</b> have such low melting points (~30°C) that they melt on your palm!',
+      soft: '<b>Alkali Metal Exceptions:</b> <b>Lithium, Sodium (Na), and Potassium (K)</b> are so soft they can be cut with a knife, and have low densities and low melting points.',
+      nonmetal: '<b>Non-Metal Exceptions:</b> <b>Iodine (I₂)</b> is a lustrous non-metal. <b>Carbon</b> allotropes: <b>Diamond</b> is the hardest natural substance; <b>Graphite</b> is a good conductor of electricity!'
+    };
+    $$('#exc-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('#exc-tabs button').forEach(b => b.setAttribute('aria-pressed', b === btn));
+        $('#exc-box').innerHTML = excData[btn.dataset.x];
+      });
+    });
+
+    // Chapter 06: Reactions Tabs + Tarnish Slider + Polish Button
+    const rxnData = {
+      cyanide: `
+        <div class="formula">Ag₂S + 4NaCN → 2Na[Ag(CN)₂] + Na₂S</div>
+        <div class="formula">2Na[Ag(CN)₂] + Zn → Na₂[Zn(CN)₄] + 2Ag↓</div>
+        <p class="hint">MacArthur-Forrest Process: More reactive Zinc displaces pure Silver from soluble sodium dicyanoargentate.</p>
+      `,
+      displace: `
+        <div class="formula">Cu(s) + 2AgNO₃(aq) [Colourless] → Cu(NO₃)₂(aq) [Blue] + 2Ag(s)↓</div>
+        <p class="hint">Because Copper lies above Silver in the reactivity series, a copper wire dipped in silver nitrate turns the solution blue and grows glittering silver needles!</p>
+      `,
+      photo: `
+        <div class="formula">2AgCl(s) [White] —(Sunlight)→ 2Ag(s) [Grey] + Cl₂(g)</div>
+        <div class="formula">2AgBr(s) [Pale Yellow] —(Sunlight)→ 2Ag(s) + Br₂(g)</div>
+        <p class="hint">Class 10 Science Ch. 1: Endothermic photolytic decomposition reaction used in black-and-white photography.</p>
+      `,
+      series: `
+        <div class="formula">K &gt; Na &gt; Ca &gt; Mg &gt; Al &gt; Zn &gt; Fe &gt; Pb &gt; [H] &gt; Cu &gt; Hg &gt; Ag &gt; Au</div>
+        <p class="hint">Silver (Ag) and Gold (Au) sit at the bottom (least reactive), so they occur in the native state and do not react with dilute HCl or H₂SO₄.</p>
+      `
+    };
+    $$('#rxn-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('#rxn-tabs button').forEach(b => b.setAttribute('aria-pressed', b === btn));
+        $('#rxn-content').innerHTML = rxnData[btn.dataset.r];
+      });
+    });
+
+    $('#tar').addEventListener('input', e => {
+      setActiveMode('native');
+      tarnish = e.target.value / 100;
+      const stage = tarnish < 0.15 ? 'Lustrous Ag' : (tarnish < 0.55 ? 'Iridescent Thin-Film' : 'Black Ag₂S Sulfide Coating');
+      $('#tarLab').textContent = `${e.target.value}% · ${stage}`;
+    });
+
+    $('#polish-btn').addEventListener('click', () => {
+      setActiveMode('native');
+      tarnish = 0;
+      $('#tar').value = 0;
+      $('#tarLab').textContent = '0% · Polished Lustrous Ag';
+      jellyImpulse = 0.85;
+      spinVelY += 0.05;
+    });
+
+    // Chapter 07: 8-Question Class 10 Geography + Science Master Quiz
+    const QUIZ = [
+      ['1. [Geo Ch.5] In igneous and metamorphic rocks, larger occurrences of minerals in faults and crevices are called:', ['Placer deposits', 'Lodes', 'Beds or seams', 'Nodules'], 1, 'Smaller occurrences are called veins; larger occurrences are called lodes.'],
+      ['2. [Geo Ch.5] Which Indian state accounts for over 90% of silver production from the Zawar and Sindesar Khurd mines?', ['Karnataka', 'Jharkhand', 'Rajasthan', 'Andhra Pradesh'], 2, 'Rajasthan’s Aravalli lead-zinc belt (Zawar & Sindesar Khurd) dominates India’s silver production.'],
+      ['3. [Geo Ch.5] Gold, silver, tin, and platinum found in valley sands that are not corroded by water are called:', ['Rat-hole minerals', 'Placer (alluvial) deposits', 'Ferrous beds', 'Sedimentary seams'], 1, 'Alluvial or placer deposits contain noble metals resistant to water corrosion.'],
+      ['4. [Sci Ch.3] Silver articles turn black on exposure to air because silver reacts with airborne H₂S to form:', ['Ag₂O', 'Ag₂CO₃', 'Ag₂S (Silver sulfide)', 'AgCl'], 2, 'Hydrogen sulfide in air reacts with silver to form a black coating of silver sulfide (Ag₂S).'],
+      ['5. [Sci Ch.3] Which pair of metals has such low melting points that they melt if kept on your palm?', ['Sodium & Potassium', 'Gallium & Caesium', 'Silver & Copper', 'Lead & Mercury'], 1, 'Gallium (Ga) and Caesium (Cs) melt at ~30°C, just below human body temperature.'],
+      ['6. [Sci Ch.3] When a copper coin is dipped in colourless silver nitrate (AgNO₃) solution, the solution turns:', ['Green due to FeSO₄', 'Blue due to Cu(NO₃)₂ & shiny Ag deposits', 'Black due to Ag₂S', 'Remains colourless'], 1, 'Copper is more reactive than silver and displaces Ag from AgNO₃, forming blue copper nitrate.'],
+      ['7. [Sci Ch.1] Which silver salt undergoes photolytic decomposition in sunlight and is used in black-and-white photography?', ['Silver Nitrate (AgNO₃)', 'Silver Bromide (AgBr)', 'Silver Sulfide (Ag₂S)', 'Silver Cyanide (AgCN)'], 1, '2AgBr(s) → 2Ag(s) + Br₂(g) in the presence of light.'],
+      ['8. [Geo Ch.5] Under the Class 10 Geography classification of minerals, Silver is categorized as a:', ['Ferrous metallic mineral', 'Non-metallic mineral', 'Precious non-ferrous metallic mineral', 'Energy mineral'], 2, 'Silver, gold, and platinum are non-ferrous precious metallic minerals.']
+    ];
+
+    let qIdx = 0, score = 0, tried = false;
+    function renderQuiz() {
+      const q = QUIZ[qIdx];
+      $('#qn').textContent = `Question ${qIdx + 1} / ${QUIZ.length}`;
+      $('#qs').textContent = `Score: ${score} / ${QUIZ.length}`;
+      $('#qq').textContent = q[0];
+      $('#qf').style.display = 'none';
+      tried = false;
+
+      const optsWrap = $('#qo');
+      optsWrap.innerHTML = '';
+      q[1].forEach((txt, j) => {
+        const b = document.createElement('button');
+        b.className = 'opt-btn';
+        b.innerHTML = `<span>${txt}</span><span style="font:600 11px 'JetBrains Mono',monospace;opacity:0.55">[${j + 1}]</span>`;
+        b.addEventListener('click', () => {
+          if (j === q[2]) {
+            if (!tried) score++;
+            b.className = 'opt-btn ok';
+            $$('.opt-btn').forEach(x => x.disabled = true);
+            $('#qs').textContent = `Score: ${score} / ${QUIZ.length}`;
+            const f = $('#qf');
+            f.style.display = 'block';
+            f.innerHTML = `<b>✓ Correct!</b> ${q[3]} <div style="margin-top:8px;"><button class="action-btn" id="nx-btn">${qIdx < QUIZ.length - 1 ? 'Next Question →' : 'See Final Score'}</button></div>`;
+            $('#nx-btn').addEventListener('click', () => {
+              if (qIdx < QUIZ.length - 1) { qIdx++; renderQuiz(); }
+              else finishQuiz();
+            });
+          } else {
+            tried = true;
+            b.className = 'opt-btn no';
+            b.disabled = true;
+          }
+        });
+        optsWrap.appendChild(b);
+      });
+    }
+
+    function finishQuiz() {
+      $('#qq').textContent = `Board Prep Complete! You scored ${score} / ${QUIZ.length} on the first try.`;
+      $('#qo').innerHTML = '';
+      const f = $('#qf');
+      f.style.display = 'block';
+      f.innerHTML = `<button class="action-btn" id="rs-btn">↻ Restart 8-Question Quiz</button>`;
+      $('#rs-btn').addEventListener('click', () => { qIdx = 0; score = 0; renderQuiz(); });
+    }
+    renderQuiz();
+
+    // ---------------------------------------------------------
+    // 7. SCROLL INTERSECTION OBSERVERS & LIQUID GLASS CURSOR SHINE
+    // ---------------------------------------------------------
+    const sections = $$('.s');
+    const railDots = $$('.rail a');
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('in');
+      });
+    }, { threshold: 0.14 });
+
+    const chapterObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          setActiveMode(e.target.dataset.m);
+          const idx = sections.indexOf(e.target);
+          railDots.forEach((d, j) => d.classList.toggle('active', j === idx));
+        }
+      });
+    }, { rootMargin: '-42% 0px -42% 0px' });
+
+    sections.forEach(s => {
+      revealObserver.observe(s);
+      chapterObserver.observe(s);
+    });
+
+    // Cursor-Tracking Liquid Glass Specular Shine on Cards
+    $$('.liquid-card').forEach(card => {
+      card.addEventListener('pointermove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+      });
+    });
+
+    try {
+      initWebGL();
+      spinVelY = 0.06;
+    } catch (err) {
+      console.error(err);
+    }
+    setTimeout(() => document.body.classList.add('ready'), 450);
+  </script>
 </body>
 </html>
