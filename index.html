@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>ARGENTUM 47 // Class 10 Geography & Science 3D Liquid Glass Explorer</title>
+  <title>SOLAR INDIA // Class 10 Social Science (Geography Ch. 5) 3D Explorer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -17,33 +17,33 @@
     }
 
     :root {
-      --bg: #04060c;
-      --fg: #f1f5f9;
+      --bg: #040711;
+      --fg: #f8fafc;
       --mut: #94a3b8;
-      --card: rgba(15, 23, 42, 0.52);
+      --card: rgba(15, 23, 42, 0.54);
       --card-border: rgba(255, 255, 255, 0.16);
-      --card-highlight: rgba(255, 255, 255, 0.34);
-      --ac: #38bdf8;
-      --ac-glow: rgba(56, 189, 248, 0.28);
-      --warm: #fbbf24;
-      --purple: #c084fc;
+      --card-highlight: rgba(255, 255, 255, 0.36);
+      --ac: #f59e0b;
+      --ac-glow: rgba(245, 158, 11, 0.32);
+      --warm: #38bdf8;
+      --purple: #fb7185;
       --ok: #34d399;
-      --bad: #fb7185;
+      --bad: #f43f5e;
       --blur: 26px;
       color-scheme: dark;
     }
 
     :root[data-theme="light"] {
-      --bg: #eef2f8;
+      --bg: #f0f6ff;
       --fg: #0f172a;
       --mut: #475569;
-      --card: rgba(255, 255, 255, 0.68);
+      --card: rgba(255, 255, 255, 0.72);
       --card-border: rgba(15, 23, 42, 0.12);
-      --card-highlight: rgba(255, 255, 255, 0.9);
-      --ac: #0284c7;
-      --ac-glow: rgba(2, 132, 199, 0.2);
-      --warm: #d97706;
-      --purple: #9333ea;
+      --card-highlight: rgba(255, 255, 255, 0.92);
+      --ac: #d97706;
+      --ac-glow: rgba(217, 119, 6, 0.22);
+      --warm: #0284c7;
+      --purple: #e11d48;
       --ok: #059669;
       --bad: #e11d48;
       color-scheme: light;
@@ -138,8 +138,8 @@
       height: 88px;
       display: grid;
       place-items: center;
-      font: 700 26px 'Space Grotesk', sans-serif;
-      color: var(--fg);
+      font: 700 28px 'Space Grotesk', sans-serif;
+      color: var(--ac);
     }
     .loader-core::before {
       content: "";
@@ -187,11 +187,11 @@
       border-radius: 10px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #64748b 100%);
+      background: linear-gradient(135deg, #fde047 0%, #f59e0b 55%, #ea580c 100%);
       color: #090d16;
       font-weight: 700;
-      font-size: 15px;
-      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+      font-size: 16px;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
     }
 
     .header-controls {
@@ -751,27 +751,27 @@
 <body>
 
   <!-- 1. Fixed 3D Viewport -->
-  <canvas id="gl" aria-label="Interactive 3D Silver Specimen & Atomic Physics Lab"></canvas>
-  <div id="cursor-pill">Poke Crystal</div>
+  <canvas id="gl" aria-label="Interactive 3D Solar Energy & Photovoltaics Lab"></canvas>
+  <div id="cursor-pill">Pulse Solar Flare</div>
 
   <!-- 2. Initial Loader -->
   <div id="ld" aria-hidden="true">
-    <div class="loader-core">Ag</div>
+    <div class="loader-core">☀</div>
   </div>
 
   <!-- 3. Top Liquid Glass Header -->
   <header>
     <div class="brand">
-      <div class="brand-badge" id="brand-symbol">Ag</div>
+      <div class="brand-badge" id="brand-symbol">☀</div>
       <div>
-        <div style="font-size: 10px; color: var(--ac); font-family: 'JetBrains Mono', monospace;">CLASS 10 GEO CH.5 &amp; SCI CH.3</div>
-        <div id="brand-title">SILVER · ARGENTUM 47</div>
+        <div style="font-size: 10px; color: var(--ac); font-family: 'JetBrains Mono', monospace;">CLASS 10 SOCIAL SCIENCE · GEOGRAPHY CH. 5</div>
+        <div id="brand-title">SOLAR ENERGY · NON-CONVENTIONAL RESOURCE</div>
       </div>
     </div>
 
     <div class="header-controls">
       <div class="swatches" id="swatches-wrap">
-        <span>Metal:</span>
+        <span>Solar Zone:</span>
       </div>
       <button class="pill-btn" id="perf-btn" title="Switch Lite/Max graphics for low-end devices">
         <span id="perf-dot" style="width:7px;height:7px;border-radius:50%;background:var(--ok);"></span>
@@ -788,13 +788,13 @@
 
   <!-- 4. Right Chapter Dots -->
   <nav class="rail" aria-label="Chapters">
-    <a href="#sec-classify" class="active"><span>01 · Classification</span></a>
-    <a href="#sec-veins"><span>02 · Veins &amp; Occurrence</span></a>
-    <a href="#sec-india"><span>03 · India Mining Belts</span></a>
-    <a href="#sec-atom"><span>04 · Atom 47 &amp; Shells</span></a>
-    <a href="#sec-lattice"><span>05 · 3D Lattice &amp; Properties</span></a>
-    <a href="#sec-reactions"><span>06 · Extraction &amp; Tarnish</span></a>
-    <a href="#sec-conserve"><span>07 · Uses, Alloys &amp; Quiz</span></a>
+    <a href="#sec-classify" class="active"><span>01 · Conventional vs Non-Conventional</span></a>
+    <a href="#sec-veins"><span>02 · PV Tech (+ Hint of Science)</span></a>
+    <a href="#sec-india"><span>03 · India Solar Parks &amp; Map Work</span></a>
+    <a href="#sec-atom"><span>04 · Tropical Geography &amp; Sun Belts</span></a>
+    <a href="#sec-lattice"><span>05 · Rural Impact: Firewood &amp; Manure</span></a>
+    <a href="#sec-reactions"><span>06 · National Missions &amp; Arid Care</span></a>
+    <a href="#sec-conserve"><span>07 · Energy Conservation &amp; Geo Quiz</span></a>
   </nav>
 
   <!-- Floating AI Voice Narrator Controller -->
@@ -809,223 +809,224 @@
   </div>
 
   <!-- 5. Bottom Center 3D Model Switcher Dock -->
-  <div class="bottom-dock" role="toolbar" aria-label="3D Specimen Switcher">
-    <button class="dock-btn active" data-mode="native">01 · Liquid Crystal</button>
-    <button class="dock-btn" data-mode="veins">02 · Veins &amp; Lodes</button>
-    <button class="dock-btn" data-mode="atom">03 · Quantum Atom</button>
-    <button class="dock-btn" data-mode="lattice">04 · FCC Lattice Lab</button>
-    <button class="dock-btn" data-mode="uses">05 · Uses &amp; Bullion</button>
+  <div class="bottom-dock" role="toolbar" aria-label="3D Solar Model Switcher">
+    <button class="dock-btn active" data-mode="native">01 · Tropical Sun</button>
+    <button class="dock-btn" data-mode="veins">02 · PV Panel Cutaway</button>
+    <button class="dock-btn" data-mode="atom">03 · Insolation Orbits</button>
+    <button class="dock-btn" data-mode="lattice">04 · Rural Solar Grid</button>
+    <button class="dock-btn" data-mode="uses">05 · Solar Applications</button>
   </div>
 
   <!-- 6. SCROLLYTELLING CHAPTERS -->
   <main>
 
-    <!-- CHAPTER 01: MINERAL CLASSIFICATION (GEOGRAPHY CH. 5) -->
+    <!-- CHAPTER 01: ENERGY CLASSIFICATION (SOCIAL SCIENCE GEOGRAPHY CH. 5) -->
     <section class="s in" id="sec-classify" data-m="native">
       <div class="liquid-card">
-        <div class="eb"><span class="eb-dot"></span>01 · Geography Ch. 5 + Science Ch. 3</div>
-        <h1>Silver,<br><em class="shimmer">up close.</em></h1>
+        <div class="eb"><span class="eb-dot"></span>01 · Class 10 Geography Ch. 5 — Energy Resources</div>
+        <h1>Solar Energy,<br><em class="shimmer">India's Future.</em></h1>
         <p>
-          In <b>Class 10 Geography (Minerals and Energy Resources)</b>, a mineral is a <i>"homogenous, naturally occurring substance with a definable internal structure."</i> Silver (<b>Ag</b>, atomic number 47) is a <b>Non-Ferrous Precious Metallic Mineral</b> grouped alongside gold and platinum.
+          In <b>Class 10 Social Science (Contemporary India – II, Chapter 5)</b>, energy resources are classified into <b>Conventional</b> and <b>Non-Conventional</b> sources. Rising prices of coal, oil, and gas—along with environmental damage—make renewable <b>Solar Energy</b> the cornerstone of India's sustainable economic development.
         </p>
 
         <div class="grid-3">
-          <div class="tile"><small>Family</small><strong>Metallic</strong></div>
-          <div class="tile"><small>Iron Content</small><strong>Non-Ferrous</strong></div>
-          <div class="tile"><small>Sub-Class</small><strong>Precious</strong></div>
+          <div class="tile"><small>Geo Classification</small><strong>Non-Conventional</strong></div>
+          <div class="tile"><small>Resource Nature</small><strong>Renewable &amp; Clean</strong></div>
+          <div class="tile"><small>India Potential</small><strong>20 MW / sq. km / yr</strong></div>
         </div>
 
         <div class="btn-row" id="class-tabs">
-          <button aria-pressed="true" data-c="precious">Precious</button>
-          <button aria-pressed="false" data-c="ferrous">Ferrous</button>
-          <button aria-pressed="false" data-c="nonferrous">Non-Ferrous</button>
-          <button aria-pressed="false" data-c="nonmetallic">Non-Metallic</button>
+          <button aria-pressed="true" data-c="precious">Solar Energy</button>
+          <button aria-pressed="false" data-c="ferrous">Non-Conventional</button>
+          <button aria-pressed="false" data-c="nonferrous">Conventional</button>
+          <button aria-pressed="false" data-c="nonmetallic">Why Shift Now?</button>
         </div>
         <div class="info-box" id="class-box">
-          <b>Precious Metallic Minerals:</b> Silver, Gold, and Platinum. They contain no iron, have high economic value, extraordinary metallic luster, and resist atmospheric oxidation.
+          <b>Solar Energy (Flagship Non-Conventional Resource):</b> India is a tropical country with enormous possibilities for tapping solar energy. It is inexhaustible, pollution-free, and brings electricity to remote villages where power lines cannot easily reach.
         </div>
 
         <div class="btn-row">
-          <button class="action-btn" id="poke-crystal-btn">💧 Poke Crystal (Jelly Ripple)</button>
-          <span class="hint">Drag the 3D crystal to spin · Click model to ripple</span>
+          <button class="action-btn" id="poke-crystal-btn">☀ Pulse Tropical Sun Wave</button>
+          <span class="hint">Drag the 3D Sun to spin · Click model to pulse</span>
         </div>
       </div>
     </section>
 
-    <!-- CHAPTER 02: MODES OF OCCURRENCE (VEINS & LODES) -->
+    <!-- CHAPTER 02: PHOTOVOLTAIC PANEL CUTAWAY + A HINT OF SCIENCE -->
     <section class="s r" id="sec-veins" data-m="veins">
       <div class="liquid-card">
-        <div class="eb"><span class="eb-dot"></span>02 · Mode of Occurrence of Minerals</div>
-        <h2>Veins, Lodes &amp;<br><em class="shimmer">Host Rocks.</em></h2>
+        <div class="eb"><span class="eb-dot"></span>02 · How It Works (+ A Hint of Science)</div>
+        <h2>Photovoltaic<br><em class="shimmer">&amp; Thermal Tech.</em></h2>
         <p>
-          Minerals are usually found in <b>"ores"</b>—accumulations of any mineral mixed with other elements. In <b>igneous and metamorphic rocks</b>, liquid and gaseous minerals are forced upward through cracks, faults, and joints.
+          As stated in your <b>NCERT Geography textbook</b>, <b>Photovoltaic (PV) technology</b> converts sunlight <b>directly into electricity</b>.
+          <br><span style="color:var(--ac);font-weight:600;">🔬 Just a Hint of Science:</span> Inside each solar panel is a wafer of <b>Silicon (Si)</b>—made from ordinary sand—printed with fine <b>Silver (Ag)</b> grid lines. When sunlight particles (photons) hit the silicon, they nudge electrons into a steady flow of electric current!
         </p>
 
         <div class="btn-row" id="occ-tabs">
-          <button aria-pressed="true" data-o="veins">1. Veins &amp; Lodes</button>
-          <button aria-pressed="false" data-o="beds">2. Beds &amp; Seams</button>
-          <button aria-pressed="false" data-o="placer">3. Placer Deposits</button>
-          <button aria-pressed="false" data-o="residual">4. Residual &amp; Ocean</button>
+          <button aria-pressed="true" data-o="veins">1. Photovoltaic (PV)</button>
+          <button aria-pressed="false" data-o="beds">2. Solar Thermal</button>
+          <button aria-pressed="false" data-o="placer">3. Floating &amp; Canal PV</button>
+          <button aria-pressed="false" data-o="residual">4. Solar Cookers</button>
         </div>
         <div class="info-box" id="occ-box">
-          <b>Veins (Smaller) &amp; Lodes (Larger):</b> Formed when hot hydrothermal solutions cool and solidify inside rock crevices. Examples: <b>Silver, Tin, Copper, Zinc, and Lead</b>.
+          <b>1. Photovoltaic (PV) Technology:</b> Converts sunlight directly into electricity using silicon solar cells with zero moving parts, zero smoke, and zero fuel cost.
         </div>
 
         <div class="slider-label">
-          <span>Fracture Host Rock Cutaway</span>
-          <b id="splitLab">Open Lode · 80%</b>
+          <span>Inspect 5-Layer Solar Panel Cutaway</span>
+          <b id="splitLab">Exploded View · 80%</b>
         </div>
-        <input id="split" type="range" min="0" max="100" value="80" aria-label="Fracture Host Rock">
-        <p class="hint">Chief silver ore: <b>Argentite (Ag₂S)</b>, co-occurring with Galena (PbS) and Sphalerite (ZnS).</p>
+        <input id="split" type="range" min="0" max="100" value="80" aria-label="Explode Solar Panel Layers">
+        <p class="hint">Layers: <b>1. Toughened Glass</b> · <b>2. Protective Film</b> · <b>3. Silicon Solar Wafer</b> · <b>4. Weatherproof Backsheet</b> · <b>5. Aluminium Frame</b>.</p>
       </div>
     </section>
 
     <!-- CHAPTER 03: DISTRIBUTION IN INDIA (GEOGRAPHY MAP WORK) -->
     <section class="s" id="sec-india" data-m="native">
       <div class="liquid-card">
-        <div class="eb"><span class="eb-dot"></span>03 · Geographical Distribution</div>
-        <h2>Where India<br><em class="shimmer">mines Silver.</em></h2>
+        <div class="eb"><span class="eb-dot"></span>03 · Spatial Distribution &amp; Map Work in India</div>
+        <h2>Where India<br><em class="shimmer">harnesses the Sun.</em></h2>
         <p>
-          India has very few native silver mines; over <b>95% of India's silver</b> is recovered as a precious <b>by-product</b> while smelting lead-zinc, copper, and gold ores. Select a mining belt:
+          Western and Southern states with arid land and <b>300+ clear sunny days</b> lead India's solar output. Explore the key locations for your <b>Class 10 Social Science Exam &amp; Map Work</b>:
         </p>
 
         <div class="btn-row" id="tabs"></div>
         <div class="info-box" id="belt"></div>
 
         <div class="grid-3">
-          <div class="tile"><small>India Leader</small><strong>Rajasthan (~92%)</strong></div>
-          <div class="tile"><small>World #1</small><strong>Mexico</strong></div>
-          <div class="tile"><small>World #2 &amp; #3</small><strong>China · Peru</strong></div>
+          <div class="tile"><small>India #1 Producer</small><strong>Rajasthan</strong></div>
+          <div class="tile"><small>World's #1 Park</small><strong>Bhadla (Jodhpur)</strong></div>
+          <div class="tile"><small>NCERT Fact</small><strong>Madhapur (Bhuj)</strong></div>
         </div>
       </div>
     </section>
 
-    <!-- CHAPTER 04: INSIDE ATOM 47 & ELECTRONIC CONFIGURATION -->
+    <!-- CHAPTER 04: TROPICAL GEOGRAPHY & INSOLATION ZONES -->
     <section class="s r" id="sec-atom" data-m="atom">
       <div class="liquid-card">
-        <div class="eb"><span class="eb-dot"></span>04 · Sub-Nanometer Quantum Dive</div>
-        <h2>Inside Atom 47<br><em class="shimmer">&amp; 5s¹ Electron.</em></h2>
+        <div class="eb"><span class="eb-dot"></span>04 · Geographical Factors &amp; Insolation Zones</div>
+        <h2>Why India is a<br><em class="shimmer">Solar Superpower.</em></h2>
         <p>
-          Silver has <b>47 protons</b> and 47 electrons arranged across 5 shells: <b>2, 8, 18, 18, 1</b> (<span style="font-family:'JetBrains Mono',monospace;color:var(--ac)">[Kr] 4d¹⁰ 5s¹</span>). Its single outer <b>5s¹ valence electron</b> detaches easily into a mobile electron sea, making silver the best conductor of heat and electricity.
+          Why does Geography favour India? Because the <b>Tropic of Cancer (23°30' N)</b> divides India into two halves, giving the country overhead tropical sun for most of the year and <b>5,000 trillion kWh</b> of annual solar radiation.
         </p>
 
         <div class="btn-row" id="shells"></div>
         <div class="info-box" id="shellBox"></div>
 
         <div class="grid-3">
-          <div class="tile"><small>Protons / e⁻</small><strong>47</strong></div>
-          <div class="tile"><small>Isotopes</small><strong>¹⁰⁷Ag / ¹⁰⁹Ag</strong></div>
-          <div class="tile"><small>Atomic Mass</small><strong>107.87 u</strong></div>
+          <div class="tile"><small>Latitude Key</small><strong>Tropic of Cancer</strong></div>
+          <div class="tile"><small>Sunny Days / Yr</small><strong>~300 Clear Days</strong></div>
+          <div class="tile"><small>Silicon Hint</small><strong>Si-14 (Sand → Cell)</strong></div>
         </div>
 
         <div class="btn-row">
-          <button class="action-btn" id="excite-atom-btn">⚡ Excite 5s¹ Electron (Quantum Jump)</button>
-          <button class="action-btn" id="pause-atom-btn">⏸ Pause Orbits</button>
+          <button class="action-btn" id="excite-atom-btn">☀ Boost Summer Solstice Radiation</button>
+          <button class="action-btn" id="pause-atom-btn">⏸ Pause Solar Rings</button>
         </div>
       </div>
     </section>
 
-    <!-- CHAPTER 05: 3D LATTICE PHYSICS LAB & PHYSICAL PROPERTIES (SCIENCE CH. 3) -->
+    <!-- CHAPTER 05: RURAL TRANSFORMATION — FIREWOOD & DUNG CAKE CONSERVATION -->
     <section class="s" id="sec-lattice" data-m="lattice">
       <div class="liquid-card">
-        <div class="eb"><span class="eb-dot"></span>05 · Science Ch. 3 — Physical Properties Lab</div>
-        <h2>FCC Crystal<br><em class="shimmer">&amp; Exceptions.</em></h2>
+        <div class="eb"><span class="eb-dot"></span>05 · NCERT Core Topic — Rural Impact &amp; Agriculture</div>
+        <h2>Save Forests<br><em class="shimmer">&amp; Farm Manure.</em></h2>
         <p>
-          Silver crystallizes in a <b>Face-Centred Cubic (FCC)</b> lattice (8 corner + 6 face atoms = 4 atoms/unit cell). Test metallic physics directly on the 3D crystal lattice:
+          In rural India, over 70% of household energy traditionally came from <b>firewood and cattle dung cakes</b>. NCERT highlights that solar power <b>minimises dependence on firewood and dung cakes</b>—which directly <b>conserves trees</b> and saves <b>valuable dung manure for agriculture!</b>
         </p>
 
-        <!-- Interactive 3D Physics Lab Controls -->
+        <!-- Interactive 3D Rural Solar Grid Controls -->
         <div class="btn-row">
-          <button class="action-btn" id="lab-hammer">🔨 Hammer (Malleability)</button>
-          <button class="action-btn" id="lab-voltage">⚡ Apply Voltage (Electron Sea)</button>
-          <button class="action-btn" id="lab-heat">🔥 Heat Lattice (961.8°C)</button>
+          <button class="action-btn" id="lab-hammer">☀ Capture Sunlight (Daytime PV)</button>
+          <button class="action-btn" id="lab-voltage">⚡ Power Village &amp; Irrigation Pumps</button>
+          <button class="action-btn" id="lab-heat">🔥 Compare Firewood Smoke Loss</button>
         </div>
         <div class="info-box" id="lab-status">
-          <b>Interactive Lattice Lab:</b> Click <b>Hammer</b> to see atomic layers slide without breaking (malleability), <b>Apply Voltage</b> to stream free electrons, or <b>Heat</b> to vibrate cations.
+          <b>Interactive Village Solar Grid:</b> Click <b>Capture Sunlight</b> to energize the solar grid, <b>Power Village</b> to send clean electricity to homes and farm pumps, or <b>Compare Firewood Smoke</b> to see heat loss from traditional fuels.
         </div>
 
-        <!-- NCERT Science Ch. 3 Exceptions Explorer -->
+        <!-- NCERT Social Science Key Takeaways -->
         <div class="btn-row" id="exc-tabs">
-          <button aria-pressed="true" data-x="record">Ag Records</button>
-          <button aria-pressed="false" data-x="liquid">Hg, Ga &amp; Cs</button>
-          <button aria-pressed="false" data-x="soft">Na &amp; K</button>
-          <button aria-pressed="false" data-x="nonmetal">C &amp; I₂ Exceptions</button>
+          <button aria-pressed="true" data-x="record">Saves Dung Manure</button>
+          <button aria-pressed="false" data-x="liquid">Stops Deforestation</button>
+          <button aria-pressed="false" data-x="soft">Women's Health &amp; Time</button>
+          <button aria-pressed="false" data-x="nonmetal">Challenges to Solve</button>
         </div>
         <div class="info-box" id="exc-box">
-          <b>Silver Super-Records:</b> #1 Electrical Conductivity (6.3×10⁷ S/m), #1 Thermal Conductivity (429 W/m·K), #1 Optical Reflectivity (95%). 1g of metal can be drawn into a 2km wire (ductility)!
+          <b>Preserves Organic Manure for Farming:</b> Burning cattle dung cakes destroys rich soil nutrients. Replacing dung cakes with solar cookers and solar electricity allows farmers to use cattle dung as natural organic manure, boosting crop yields!
         </div>
       </div>
     </section>
 
-    <!-- CHAPTER 06: METALLURGY, REACTIVITY SERIES & TARNISH LAB -->
-    <section class="s r" id="sec-reactions" data-m="native">
+    <!-- CHAPTER 06: NATIONAL MISSIONS, ECONOMICS & DESERT DUST CARE -->
+    <section class="s r" id="sec-reactions" data-m="veins">
       <div class="liquid-card">
-        <div class="eb"><span class="eb-dot"></span>06 · Metallurgy, Reactivity &amp; Corrosion</div>
-        <h2>Extraction &amp;<br><em class="shimmer">Sulfide Tarnish.</em></h2>
+        <div class="eb"><span class="eb-dot"></span>06 · Government Initiatives &amp; Geographical Maintenance</div>
+        <h2>National Policy &amp;<br><em class="shimmer">Desert Care Lab.</em></h2>
 
         <div class="btn-row" id="rxn-tabs">
-          <button aria-pressed="true" data-r="cyanide">1. Cyanide Extraction</button>
-          <button aria-pressed="false" data-r="displace">2. Cu + AgNO₃ Beaker</button>
-          <button aria-pressed="false" data-r="photo">3. Photolytic AgBr</button>
-          <button aria-pressed="false" data-r="series">4. Reactivity Series</button>
+          <button aria-pressed="true" data-r="cyanide">1. National Solar Mission</button>
+          <button aria-pressed="false" data-r="displace">2. PM-KUSUM (Farmers)</button>
+          <button aria-pressed="false" data-r="photo">3. International Solar Alliance</button>
+          <button aria-pressed="false" data-r="series">4. Hint of Science: DC → AC</button>
         </div>
 
         <div id="rxn-content">
-          <div class="formula">Ag₂S + 4NaCN → 2Na[Ag(CN)₂] + Na₂S</div>
-          <div class="formula">2Na[Ag(CN)₂] + Zn → Na₂[Zn(CN)₄] + 2Ag↓</div>
-          <p class="hint">MacArthur-Forrest Process: More reactive Zinc displaces silver from soluble sodium dicyanoargentate.</p>
+          <div class="formula">National Solar Mission (JNNSM) + PM Surya Ghar Muft Bijli Yojana</div>
+          <div class="formula">Target: 500 GW Non-Fossil Energy Capacity across India by 2030</div>
+          <p class="hint">Government subsidies help millions of Indian households install rooftop solar panels and cut electricity bills to zero.</p>
         </div>
 
         <hr style="border:none;border-top:1px solid var(--card-border);margin:14px 0;">
 
         <p style="margin-bottom:6px;">
-          <b>Atmospheric Corrosion (Tarnishing):</b> Silver does not react with oxygen even at red heat, but reacts with airborne <b>Hydrogen Sulfide (H₂S)</b> to form a black coating of <b>Silver Sulfide (Ag₂S)</b>:
+          <b>Geographical Challenge in Thar Desert:</b> Sandstorms in Rajasthan and monsoon clouds reduce solar output by <b>15% to 40%</b>. Because water is scarce in deserts, solar parks use <b>waterless robotic brushes</b>:
         </p>
-        <div class="formula">4Ag(s) + 2H₂S(g) + O₂(g) → 2Ag₂S(s) [Black] + 2H₂O(l)</div>
+        <div class="formula">Sunlight + Clean Panel = 100% Village Power (Waterless Dry-Cleaning)</div>
 
         <div class="slider-label">
-          <span>Simulate H₂S Tarnish Film</span>
-          <b id="tarLab">0% · Lustrous Ag</b>
+          <span>Simulate Thar Desert Sandstorm &amp; Monsoon Clouds</span>
+          <b id="tarLab">0% Dust · 100% Peak Output</b>
         </div>
-        <input id="tar" type="range" min="0" max="100" value="0" aria-label="Tarnish slider">
+        <input id="tar" type="range" min="0" max="100" value="0" aria-label="Dust and cloud slider">
 
         <div class="btn-row" style="margin-top:10px;">
-          <button class="action-btn" id="polish-btn">✨ Polish Specimen (Restore Shine)</button>
+          <button class="action-btn" id="polish-btn">🧹 Dry-Clean Panel with Desert Robot (Save Water)</button>
         </div>
       </div>
     </section>
 
-    <!-- CHAPTER 07: USES, ALLOYS, CONSERVATION & 8-QUESTION BOARD QUIZ -->
+    <!-- CHAPTER 07: CONSERVATION OF ENERGY RESOURCES & 8-QUESTION SOCIAL SCIENCE QUIZ -->
     <section class="s" id="sec-conserve" data-m="uses">
       <div class="liquid-card" style="max-width: 600px;">
-        <div class="eb"><span class="eb-dot"></span>07 · Uses, Alloys, Conservation &amp; Board Quiz</div>
-        <h2>Use it.<br><em class="shimmer">Conserve it.</em></h2>
+        <div class="eb"><span class="eb-dot"></span>07 · Conservation of Energy &amp; Class 10 Social Science Quiz</div>
+        <h2>"Energy Saved is<br><em class="shimmer">Energy Produced."</em></h2>
 
-        <!-- Wide, Clean 2-Column Uses Grid (No narrow cramped wrapping) -->
+        <!-- Wide, Clean 2-Column Social Science Summary Grid -->
         <div class="grid-2">
           <div class="tile">
-            <small>Solar &amp; Electronics</small>
-            <strong>Photovoltaic Paste</strong>
-            <p style="font-size:12px;margin:4px 0 0;">Conductive silver grid lines collect current in solar panels &amp; 5G circuits.</p>
+            <small>NCERT Geo Ch.5 Core</small>
+            <strong>Saves Firewood &amp; Dung</strong>
+            <p style="font-size:12px;margin:4px 0 0;">Reduces rural dependence on firewood and dung cakes, protecting forests and saving rich manure for Indian agriculture.</p>
           </div>
           <div class="tile">
-            <small>Alloys &amp; Jewellery</small>
-            <strong>Sterling Silver (92.5%)</strong>
-            <p style="font-size:12px;margin:4px 0 0;">Alloyed with 7.5% Copper for hardness; 22K Gold uses Ag/Cu to strengthen 24K Gold.</p>
+            <small>NCERT Geo Landmark</small>
+            <strong>Madhapur near Bhuj</strong>
+            <p style="font-size:12px;margin:4px 0 0;">Famous solar plant in Gujarat established to sterilise milk cans using clean solar thermal steam instead of coal.</p>
           </div>
           <div class="tile">
-            <small>Weather &amp; Mirrors</small>
-            <strong>Cloud Seeding (AgI)</strong>
-            <p style="font-size:12px;margin:4px 0 0;">Silver Iodide seeds artificial rain; silvered glass makes high-precision mirrors.</p>
+            <small>Citizen Duty</small>
+            <strong>Conserve Electricity</strong>
+            <p style="font-size:12px;margin:4px 0 0;">Use public transport, switch off appliances when not in use, and adopt rooftop solar and power-saving LED bulbs.</p>
           </div>
           <div class="tile">
-            <small>Geo Ch.5 Conservation</small>
-            <strong>1% Workable Crust</strong>
-            <p style="font-size:12px;margin:4px 0 0;">Ores take millions of years to form. Urban e-waste recycling &amp; zero-waste smelting are vital.</p>
+            <small>Economic Self-Reliance</small>
+            <strong>Cuts Oil &amp; Coal Imports</strong>
+            <p style="font-size:12px;margin:4px 0 0;">Generating solar power domestically saves billions in foreign exchange spent on importing crude oil and coal.</p>
           </div>
         </div>
 
-        <!-- 8-Question Class 10 Master Quiz -->
+        <!-- 8-Question Class 10 Social Science Master Quiz -->
         <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--card-border);">
           <div class="slider-label">
             <span id="qn">Question 1 / 8</span>
@@ -1047,11 +1048,11 @@
     const isMob = () => window.innerWidth < 860;
 
     // ---------------------------------------------------------
-    // 1. STATE & METAL PALETTES
+    // 1. STATE & SOLAR GEOGRAPHY PALETTES
     // ---------------------------------------------------------
     let mode = 'native';
     let split = 0.8;
-    let tarnish = 0;
+    let tarnish = 0; // Represents Thar Desert Dust / Monsoon Cloud Cover
     let orbitPaused = false;
     let liteMode = false;
 
@@ -1059,38 +1060,38 @@
     let spinVelY = 0.004;
     let userTiltX = 0;
     let dragState = null;
-    let jellyImpulse = 0;       // Poke / scroll liquid wobble
-    let hammerShear = 0;        // FCC lattice hammer displacement
-    let voltageFlow = 0;        // Free electron stream intensity
-    let thermalHeat = 0;        // Lattice atomic vibration heat
-    let atomExcite = 0;         // Quantum jump expansion
+    let jellyImpulse = 0;       // Tropical sun corona wave
+    let hammerShear = 0;        // Sunlight capture pulse in village grid
+    let voltageFlow = 0;        // Clean electricity flow to homes/pumps
+    let thermalHeat = 0;        // Firewood smoke/heat loss comparison
+    let atomExcite = 0;         // Summer solstice insolation boost
 
     const metals = {
-      Silver:   { hex: 0xf1f5f9, sym: 'Ag', title: 'SILVER · ARGENTUM 47' },
-      Gold:     { hex: 0xfbbf24, sym: 'Au', title: '24K GOLD · AURUM 79' },
-      Copper:   { hex: 0xea7a3a, sym: 'Cu', title: 'COPPER · CUPRUM 29' },
-      Platinum: { hex: 0xcfd8e3, sym: 'Pt', title: 'PLATINUM · PLATINA 78' },
-      RoseGold: { hex: 0xf4a28c, sym: 'Au+', title: 'ROSE GOLD · ALLOY' }
+      TharDesertGold:  { hex: 0x1e3a8a, sunHex: 0xf59e0b, sym: '☀', title: 'THAR DESERT BELT · RAJASTHAN' },
+      KutchCanalBlue:  { hex: 0x0284c7, sunHex: 0xfbbf24, sym: 'GJ', title: 'KUTCH & MADHAPUR · GUJARAT' },
+      DeccanPlateau:   { hex: 0x7c3aed, sunHex: 0xf43f5e, sym: 'KA', title: 'DECCAN PLATEAU · PAVAGADA' },
+      FloatingReservoir:{ hex: 0x0f766e, sunHex: 0x38bdf8, sym: 'TG', title: 'FLOATING SOLAR · RAMAGUNDAM' },
+      HimalayanCold:   { hex: 0xd97706, sunHex: 0xfde047, sym: 'LA', title: 'LADAKH HIGH-ALTITUDE SOLAR' }
     };
 
-    const baseMetalColor = new THREE.Color(metals.Silver.hex);
-    const rainbowFilmColor = new THREE.Color(0x6366f1);
-    const sulfideBlackColor = new THREE.Color(0x12131a);
+    const baseMetalColor = new THREE.Color(metals.TharDesertGold.hex);
+    const baseSunColor = new THREE.Color(metals.TharDesertGold.sunHex);
+    const sulfideBlackColor = new THREE.Color(0x57534e); // Desert sandstorm dust coat
 
     // 7 Chapter Camera & Specimen Waypoints: [camZ, rootX, rootY, scale, tiltX]
     const WAYPOINTS = [
-      [5.7,  1.35, 0.0, 1.02,  0.05], // 01 Classification
-      [5.4, -1.35, 0.0, 1.06,  0.32], // 02 Veins & Lodes
-      [5.6,  1.35, 0.1, 1.00, -0.22], // 03 India Distribution
-      [3.6, -1.05, 0.0, 1.24,  0.15], // 04 Atom 47
-      [4.7,  1.30, 0.0, 1.12,  0.24], // 05 FCC Lattice Lab
-      [4.9, -1.30, 0.0, 1.10,  0.18], // 06 Metallurgy & Tarnish
-      [5.7,  1.35, 0.0, 1.00, -0.10]  // 07 Uses & Quiz
+      [5.7,  1.35, 0.0, 1.02,  0.08], // 01 Solar Corona & Non-Conventional Energy
+      [5.4, -1.35, 0.0, 1.06,  0.38], // 02 5-Layer PV Panel Cutaway
+      [5.6,  1.35, 0.1, 1.00, -0.20], // 03 India Solar Parks
+      [3.6, -1.05, 0.0, 1.24,  0.15], // 04 Silicon Atom 14
+      [4.7,  1.30, 0.0, 1.12,  0.24], // 05 P-N Junction Photon Lab
+      [4.9, -1.30, 0.0, 1.10,  0.32], // 06 Equations, Inverter & Dust Lab
+      [5.7,  1.35, 0.0, 1.00, -0.10]  // 07 Rural Uses & Quiz
     ];
 
     let renderer, scene, camera, root;
     let coreMesh, coreBasePositions, crystalTwins = [], wireMeshes = [];
-    let matMetal, matRock, veinLines;
+    let matMetal, matSun, matRock, veinLines;
     let rockShards = [];
     let atomGroup, nucleusGroup, electronRings = [];
     let latticeGroup, latticeAtoms = [], electronSeaPoints;
@@ -1099,21 +1100,20 @@
     let pointerNormX = 0, pointerNormY = 0, lastScrollY = window.scrollY;
 
     const modeTints = {
-      native:  new THREE.Color(0x38bdf8),
-      veins:   new THREE.Color(0xfbbf24),
+      native:  new THREE.Color(0xf59e0b),
+      veins:   new THREE.Color(0x38bdf8),
       atom:    new THREE.Color(0xc084fc),
-      lattice: new THREE.Color(0x22d3ee),
-      uses:    new THREE.Color(0x34d399)
+      lattice: new THREE.Color(0x34d399),
+      uses:    new THREE.Color(0xfbbf24)
     };
 
     // ---------------------------------------------------------
-    // 2. INITIALIZE THREE.JS SCENE & ALL 5 MODELS
+    // 2. INITIALIZE THREE.JS SCENE & ALL 5 SOLAR MODELS
     // ---------------------------------------------------------
     function initWebGL() {
       const canvas = $('#gl');
       renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
 
-      // Auto-detect low-end hardware
       const lowConcurrency = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
       setPerformanceMode(lowConcurrency);
 
@@ -1130,8 +1130,8 @@
       envScene.background = new THREE.Color(0x080b14);
       [
         [0xffffff, 12, 12,  0, 10,  2],
-        [0x38bdf8, 15,  7, -10,  4,  6],
-        [0xc084fc, 12,  8,  -8, -6, -6],
+        [0xf59e0b, 15,  7, -10,  4,  6],
+        [0x38bdf8, 12,  8,  -8, -6, -6],
         [0xfde047, 11, 11,  10, -3, -5],
         [0xf1f5f9, 16,  4,   2, -6, 10]
       ].forEach(([c, w, h, x, y, z]) => {
@@ -1146,8 +1146,8 @@
       scene.environment = pmrem.fromScene(envScene, 0.03).texture;
       pmrem.dispose();
 
-      scene.add(new THREE.AmbientLight(0x94a3b8, 0.9));
-      const dirLight = new THREE.DirectionalLight(0xffffff, 2.8);
+      scene.add(new THREE.AmbientLight(0x94a3b8, 0.95));
+      const dirLight = new THREE.DirectionalLight(0xfffbeb, 2.8);
       dirLight.position.set(5, 8, 6);
       scene.add(dirLight);
 
@@ -1155,24 +1155,35 @@
       root.scale.setScalar(0.25);
       scene.add(root);
 
-      // Shared Metallic PBR Material
+      // Shared Photovoltaic Silicon Wafer Material
       matMetal = new THREE.MeshStandardMaterial({
-        color: metals.Silver.hex,
-        metalness: 0.98,
-        roughness: 0.11,
+        color: metals.TharDesertGold.hex,
+        metalness: 0.88,
+        roughness: 0.15,
+        transparent: true,
+        opacity: 1
+      });
+
+      // Glowing Solar Corona Plasma Material
+      matSun = new THREE.MeshStandardMaterial({
+        color: 0xf59e0b,
+        emissive: 0xea580c,
+        emissiveIntensity: 1.15,
+        roughness: 0.25,
+        metalness: 0.1,
         flatShading: true,
         transparent: true,
         opacity: 1
       });
 
-      // --- MODEL 1: NATIVE LIQUID-CHROME CRYSTAL + DENDRITIC WIRES ---
-      const coreGeo = new THREE.IcosahedronGeometry(1.32, 3);
+      // --- MODEL 1: 3D SOLAR CORONA SPHERE + SOLAR FLARE LOOPS ---
+      const coreGeo = new THREE.IcosahedronGeometry(1.28, 4);
       const posAttr = coreGeo.attributes.position;
       coreBasePositions = new Float32Array(posAttr.count * 3);
 
       for (let i = 0; i < posAttr.count; i++) {
         const x = posAttr.getX(i), y = posAttr.getY(i), z = posAttr.getZ(i);
-        const s = 1 + Math.sin(x * 3.1) * Math.cos(y * 2.9) * Math.sin(z * 3.3) * 0.24 + Math.cos(x * 6.5 + y * 5.2) * 0.07;
+        const s = 1 + Math.sin(x * 3.5) * Math.cos(y * 3.5) * Math.sin(z * 3.5) * 0.09;
         const nx = x * s, ny = y * s, nz = z * s;
         posAttr.setXYZ(i, nx, ny, nz);
         coreBasePositions[i * 3] = nx;
@@ -1180,87 +1191,118 @@
         coreBasePositions[i * 3 + 2] = nz;
       }
       coreGeo.computeVertexNormals();
-      coreMesh = new THREE.Mesh(coreGeo, matMetal);
+      coreMesh = new THREE.Mesh(coreGeo, matSun);
       root.add(coreMesh);
 
-      const octGeo = new THREE.OctahedronGeometry(0.42, 0);
+      // Solar Prominence Spikes
+      const rayGeo = new THREE.ConeGeometry(0.14, 0.55, 6);
       for (let i = 0; i < 12; i++) {
-        const m = new THREE.Mesh(octGeo, matMetal);
+        const m = new THREE.Mesh(rayGeo, matSun);
         const ph = Math.acos(1 - 2 * (i + 0.5) / 12);
         const th = Math.PI * (1 + Math.sqrt(5)) * i;
-        const r = 1.1 + (i % 3) * 0.14;
+        const r = 1.32;
         m.position.set(r * Math.sin(ph) * Math.cos(th), r * Math.sin(ph) * Math.sin(th), r * Math.cos(ph));
-        m.rotation.set(i * 0.7, i * 1.2, i * 0.4);
-        const k = 0.55 + (i % 4) * 0.22;
-        m.scale.set(k, k * 1.35, k);
+        m.lookAt(0, 0, 0);
+        m.rotateX(-Math.PI / 2);
         root.add(m);
         crystalTwins.push(m);
       }
 
+      // Magnetic Solar Flare Loops
       for (let w = 0; w < 4; w++) {
         const pts = [];
-        for (let j = 0; j <= 12; j++) {
-          const t = j / 12, a = w * 1.57 + t * 1.4, rd = 1.1 + t * 0.7;
-          pts.push(new THREE.Vector3(Math.cos(a) * rd, (t - 0.5) * 1.6 + Math.sin(t * 6.28) * 0.2, Math.sin(a) * rd));
+        for (let j = 0; j <= 16; j++) {
+          const t = j / 16;
+          const a = w * 1.57 + (t - 0.5) * 1.1;
+          const arch = 1.15 + Math.sin(t * Math.PI) * 0.65;
+          pts.push(new THREE.Vector3(Math.cos(a) * arch, (t - 0.5) * 1.2, Math.sin(a) * arch));
         }
-        const wire = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 28, 0.042, 8, false), matMetal);
-        root.add(wire);
-        wireMeshes.push(wire);
+        const flareTube = new THREE.Mesh(
+          new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 28, 0.036, 8, false),
+          new THREE.MeshBasicMaterial({ color: 0xfde047, transparent: true, opacity: 0.85 })
+        );
+        root.add(flareTube);
+        wireMeshes.push(flareTube);
       }
 
-      // --- MODEL 2: IGNEOUS HOST ROCK VEINS & LODES ---
-      matRock = new THREE.MeshStandardMaterial({ color: 0x262d3d, metalness: 0.22, roughness: 0.85, flatShading: true });
-      [
-        [1, 0.6, 0.6], [-1, 0.6, 0.6], [1, -0.6, 0.6], [-1, -0.6, 0.6],
-        [0.8, 0.7, -0.8], [-0.8, 0.7, -0.8], [0.8, -0.7, -0.8], [-0.8, -0.7, -0.8]
-      ].forEach((d, i) => {
-        const rg = new THREE.DodecahedronGeometry(0.82, 1);
-        const q = rg.attributes.position;
-        for (let j = 0; j < q.count; j++) {
-          const n = 1 + Math.sin(q.getX(j) * 4 + i) * 0.18;
-          q.setXYZ(j, q.getX(j) * n, q.getY(j) * n * 0.85, q.getZ(j) * n);
-        }
-        rg.computeVertexNormals();
-        const shard = new THREE.Mesh(rg, matRock);
-        shard.userData.dir = new THREE.Vector3(...d).normalize();
-        shard.scale.setScalar(0.001);
-        root.add(shard);
-        rockShards.push(shard);
+      // --- MODEL 2: 5-LAYER EXPLODED SOLAR PV MODULE ---
+      // Create procedural silicon cell grid texture with silver busbars
+      const cellCanvas = document.createElement('canvas');
+      cellCanvas.width = cellCanvas.height = 256;
+      const cx = cellCanvas.getContext('2d');
+      cx.fillStyle = '#0f296b';
+      cx.fillRect(0, 0, 256, 256);
+      cx.strokeStyle = '#38bdf8';
+      cx.lineWidth = 3;
+      for (let i = 0; i <= 256; i += 64) {
+        cx.beginPath(); cx.moveTo(i, 0); cx.lineTo(i, 256); cx.stroke();
+        cx.beginPath(); cx.moveTo(0, i); cx.lineTo(256, i); cx.stroke();
+      }
+      cx.strokeStyle = '#e2e8f0';
+      cx.lineWidth = 1.5;
+      for (let i = 16; i < 256; i += 16) {
+        cx.beginPath(); cx.moveTo(i, 0); cx.lineTo(i, 256); cx.stroke();
+      }
+      const cellGridTex = new THREE.CanvasTexture(cellCanvas);
+
+      const pvLayersConfig = [
+        { yOff:  1.0, h: 0.04, mat: new THREE.MeshPhysicalMaterial({ color: 0xbae6fd, transparent: true, opacity: 0.45, roughness: 0.05, metalness: 0.1 }) }, // 1. Tempered Anti-Reflective Glass
+        { yOff:  0.5, h: 0.03, mat: new THREE.MeshBasicMaterial({ color: 0x7dd3fc, wireframe: true, transparent: true, opacity: 0.45 }) },                      // 2. Top EVA Encapsulant
+        { yOff:  0.0, h: 0.06, mat: new THREE.MeshStandardMaterial({ map: cellGridTex, color: 0xffffff, metalness: 0.85, roughness: 0.18 }) },                  // 3. Silicon Solar Wafer Matrix
+        { yOff: -0.5, h: 0.03, mat: new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.6, metalness: 0.2 }) },                                      // 4. Tedlar Polymer Backsheet
+        { yOff: -1.0, h: 0.08, mat: new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.9, roughness: 0.25, wireframe: false }) }                    // 5. Anodized Aluminium Frame
+      ];
+
+      pvLayersConfig.forEach(cfg => {
+        const layerGeo = new THREE.BoxGeometry(2.35, cfg.h, 1.55);
+        const layerMesh = new THREE.Mesh(layerGeo, cfg.mat);
+        layerMesh.userData.dir = new THREE.Vector3(0, cfg.yOff, 0);
+        layerMesh.scale.setScalar(0.001);
+        root.add(layerMesh);
+        rockShards.push(layerMesh);
       });
+      // Keep reference to middle wafer layer so swatches & dust slider tint it
+      matRock = pvLayersConfig[2].mat;
 
       veinLines = new THREE.LineSegments(
-        new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.52, 2)),
-        new THREE.LineBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.68 })
+        new THREE.EdgesGeometry(new THREE.BoxGeometry(2.42, 2.2, 1.62)),
+        new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.55 })
       );
       veinLines.scale.setScalar(0.001);
       root.add(veinLines);
 
-      // --- MODEL 3: QUANTUM ATOM 47 (NUCLEUS + 5 SHELLS: 2, 8, 18, 18, 1) ---
+      // --- MODEL 3: SILICON ATOM 14 (NUCLEUS + 3 SHELLS: 2, 8, 4) ---
       atomGroup = new THREE.Group();
       atomGroup.scale.setScalar(0.001);
       root.add(atomGroup);
 
       nucleusGroup = new THREE.Group();
       atomGroup.add(nucleusGroup);
-      const nucGeo = new THREE.SphereGeometry(0.072, 14, 14);
-      const protonMat = new THREE.MeshStandardMaterial({ color: 0xf43f5e, emissive: 0xe11d48, emissiveIntensity: 0.85 });
-      const neutronMat = new THREE.MeshStandardMaterial({ color: 0xa855f7, emissive: 0x7e22ce, emissiveIntensity: 0.65 });
-      for (let i = 0; i < 32; i++) {
+      const nucGeo = new THREE.SphereGeometry(0.085, 14, 14);
+      const protonMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0xd97706, emissiveIntensity: 0.85 });
+      const neutronMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.65 });
+      for (let i = 0; i < 28; i++) {
         const m = new THREE.Mesh(nucGeo, i % 2 ? neutronMat : protonMat);
-        const ph = Math.acos(1 - 2 * (i + 0.5) / 32), th = Math.PI * (1 + Math.sqrt(5)) * i, r = 0.08 + (i % 3) * 0.052;
+        const ph = Math.acos(1 - 2 * (i + 0.5) / 28), th = Math.PI * (1 + Math.sqrt(5)) * i, r = 0.08 + (i % 3) * 0.055;
         m.position.set(r * Math.sin(ph) * Math.cos(th), r * Math.sin(ph) * Math.sin(th), r * Math.cos(ph));
         nucleusGroup.add(m);
       }
 
-      const shellCounts = [2, 8, 18, 18, 1];
-      const shellRadii = [0.42, 0.70, 1.00, 1.32, 1.66];
-      const shellColors = [0x94a3b8, 0xc084fc, 0x818cf8, 0x38bdf8, 0xfde047];
+      // Silicon (Si 14) shells: K=2, L=8, M=4 (+ 4th P-N Doping/Conduction ring for interactive tabs)
+      const shellCounts = [2, 8, 4, 5, 3];
+      const shellRadii = [0.48, 0.88, 1.32, 1.58, 1.78];
+      const shellColors = [0x94a3b8, 0x38bdf8, 0xfde047, 0x34d399, 0xf43f5e];
       shellCounts.forEach((n, s) => {
         const ringHolder = new THREE.Group();
-        const trackMat = new THREE.MeshBasicMaterial({ color: shellColors[s], side: THREE.DoubleSide, transparent: true, opacity: s === 4 ? 0.9 : 0.36 });
-        ringHolder.add(new THREE.Mesh(new THREE.RingGeometry(shellRadii[s] - 0.009, shellRadii[s] + 0.009, 64), trackMat));
+        const trackMat = new THREE.MeshBasicMaterial({
+          color: shellColors[s],
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: s <= 2 ? (s === 2 ? 0.95 : 0.42) : 0.12
+        });
+        ringHolder.add(new THREE.Mesh(new THREE.RingGeometry(shellRadii[s] - 0.01, shellRadii[s] + 0.01, 64), trackMat));
 
-        const eGeo = new THREE.SphereGeometry(s === 4 ? 0.085 : 0.044, 14, 14);
+        const eGeo = new THREE.SphereGeometry(s === 2 ? 0.09 : 0.052, 14, 14);
         const eMat = new THREE.MeshBasicMaterial({ color: shellColors[s] });
         for (let e = 0; e < n; e++) {
           const em = new THREE.Mesh(eGeo, eMat);
@@ -1268,32 +1310,41 @@
           em.position.set(Math.cos(a) * shellRadii[s], Math.sin(a) * shellRadii[s], 0);
           ringHolder.add(em);
         }
-        ringHolder.rotation.set(0.55 + s * 0.42, s * 0.65, 0);
-        ringHolder.userData = { sp: (0.9 - s * 0.12) * (s % 2 ? -1 : 1), trackMat, baseRadius: 1 };
+        ringHolder.rotation.set(0.5 + s * 0.42, s * 0.65, 0);
+        ringHolder.userData = { sp: (0.95 - s * 0.14) * (s % 2 ? -1 : 1), trackMat, baseRadius: 1 };
         atomGroup.add(ringHolder);
         electronRings.push(ringHolder);
       });
 
-      // --- MODEL 4: INTERACTIVE FCC CRYSTAL LATTICE LAB ---
+      // --- MODEL 4: INTERACTIVE P-N JUNCTION SEMICONDUCTOR LAB ---
       latticeGroup = new THREE.Group();
       latticeGroup.scale.setScalar(0.001);
       root.add(latticeGroup);
 
       const h = 1.05;
+      // N-Type (Top Cyan Box) & P-Type (Bottom Rose Box)
       latticeGroup.add(new THREE.LineSegments(
         new THREE.EdgesGeometry(new THREE.BoxGeometry(2 * h, 2 * h, 2 * h)),
-        new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.75 })
+        new THREE.LineBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.8 })
       ));
 
-      const atomSphereGeo = new THREE.SphereGeometry(0.27, 22, 22);
-      const cornerAtomMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.95, roughness: 0.08 });
-      const faceAtomMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.55, metalness: 0.9, roughness: 0.12 });
+      // Central Depletion Zone Electric Field Plane
+      const depletionPlane = new THREE.Mesh(
+        new THREE.PlaneGeometry(2.15, 2.15),
+        new THREE.MeshBasicMaterial({ color: 0xfde047, transparent: true, opacity: 0.22, side: THREE.DoubleSide })
+      );
+      depletionPlane.rotation.x = Math.PI / 2;
+      latticeGroup.add(depletionPlane);
 
-      // 8 Corner Atoms
+      const atomSphereGeo = new THREE.SphereGeometry(0.24, 22, 22);
+      const nTypeMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.5, metalness: 0.85, roughness: 0.15 });
+      const pTypeMat = new THREE.MeshStandardMaterial({ color: 0xf43f5e, emissive: 0xbe123c, emissiveIntensity: 0.5, metalness: 0.85, roughness: 0.15 });
+
+      // Top Layer = N-Type Silicon (Donor Phosphorus), Bottom Layer = P-Type Silicon (Acceptor Boron)
       for (let x = -1; x <= 1; x += 2) {
         for (let y = -1; y <= 1; y += 2) {
           for (let z = -1; z <= 1; z += 2) {
-            const m = new THREE.Mesh(atomSphereGeo, cornerAtomMat.clone());
+            const m = new THREE.Mesh(atomSphereGeo, (y > 0 ? nTypeMat : pTypeMat).clone());
             m.userData.basePos = new THREE.Vector3(x * h, y * h, z * h);
             m.position.copy(m.userData.basePos);
             latticeGroup.add(m);
@@ -1301,22 +1352,15 @@
           }
         }
       }
-      // 6 Face-Centred Atoms
       [[0, 0, 1], [0, 0, -1], [0, 1, 0], [0, -1, 0], [1, 0, 0], [-1, 0, 0]].forEach(d => {
-        const m = new THREE.Mesh(atomSphereGeo, faceAtomMat.clone());
+        const m = new THREE.Mesh(atomSphereGeo, (d[1] >= 0 ? nTypeMat : pTypeMat).clone());
         m.userData.basePos = new THREE.Vector3(d[0] * h, d[1] * h, d[2] * h);
         m.position.copy(m.userData.basePos);
         latticeGroup.add(m);
         latticeAtoms.push(m);
       });
 
-      // Close-packed face diagonal line
-      latticeGroup.add(new THREE.Line(
-        new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-h, -h, h), new THREE.Vector3(h, h, h)]),
-        new THREE.LineBasicMaterial({ color: 0xfbbf24 })
-      ));
-
-      // Free Electron Sea Particles inside Lattice
+      // Photo-excited Electrons & Incoming Photons inside P-N Junction
       const seaCoords = new Float32Array(90 * 3);
       for (let i = 0; i < 90; i++) {
         seaCoords[i * 3]     = (Math.random() - 0.5) * 2.2;
@@ -1325,40 +1369,47 @@
       }
       electronSeaPoints = new THREE.Points(
         new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(seaCoords, 3)),
-        new THREE.PointsMaterial({ color: 0xfde047, size: 0.08, transparent: true, opacity: 0.85 })
+        new THREE.PointsMaterial({ color: 0xfde047, size: 0.09, transparent: true, opacity: 0.9 })
       );
       latticeGroup.add(electronSeaPoints);
 
-      // --- MODEL 5: ORBITING INDUSTRIAL USES (COIN, INGOT, SOLAR CELL) ---
+      // --- MODEL 5: ORBITING SOLAR TECH (PARABOLIC COOKER, SOLAR SATELLITE, TRACKER PANEL) ---
       usesGroup = new THREE.Group();
       usesGroup.scale.setScalar(0.001);
       root.add(usesGroup);
 
-      const coin = new THREE.Group();
-      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.035, 8, 48), matMetal);
-      rim.rotation.x = Math.PI / 2;
-      rim.position.y = 0.05;
-      coin.add(new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.09, 48), matMetal), rim);
-
-      const ingot = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.62, 0.34, 4), matMetal);
-      ingot.rotation.y = Math.PI / 4;
-      ingot.scale.x = 1.6;
-
-      const solarCanvas = document.createElement('canvas');
-      solarCanvas.width = solarCanvas.height = 128;
-      const sx = solarCanvas.getContext('2d');
-      sx.fillStyle = '#0f2d6b';
-      sx.fillRect(0, 0, 128, 128);
-      sx.strokeStyle = '#e2e8f0';
-      sx.lineWidth = 2;
-      for (let i = 8; i < 128; i += 16) { sx.beginPath(); sx.moveTo(i, 0); sx.lineTo(i, 128); sx.stroke(); }
-      sx.lineWidth = 5;
-      for (let i = 32; i < 128; i += 64) { sx.beginPath(); sx.moveTo(0, i); sx.lineTo(128, i); sx.stroke(); }
-      const solarCell = new THREE.Mesh(
-        new THREE.BoxGeometry(1.1, 1.1, 0.06),
-        new THREE.MeshStandardMaterial({ map: new THREE.CanvasTexture(solarCanvas), metalness: 0.65, roughness: 0.2 })
+      // 1. Parabolic Solar Concentrator Dish
+      const dish = new THREE.Group();
+      const dishBowl = new THREE.Mesh(
+        new THREE.SphereGeometry(0.62, 28, 16, 0, Math.PI * 2, 0, Math.PI * 0.42),
+        new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.96, roughness: 0.08, side: THREE.DoubleSide })
       );
-      [coin, ingot, solarCell].forEach((o, i) => {
+      const receiver = new THREE.Mesh(
+        new THREE.SphereGeometry(0.11, 14, 14),
+        new THREE.MeshBasicMaterial({ color: 0xf59e0b })
+      );
+      receiver.position.y = 0.25;
+      dish.add(dishBowl, receiver);
+
+      // 2. Solar Satellite with Dual PV Wings
+      const sat = new THREE.Group();
+      const satBody = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.22, 0.22, 0.55, 16),
+        new THREE.MeshStandardMaterial({ color: 0xfbbf24, metalness: 0.9, roughness: 0.2 })
+      );
+      const satWings = new THREE.Mesh(
+        new THREE.BoxGeometry(1.75, 0.04, 0.42),
+        new THREE.MeshStandardMaterial({ map: cellGridTex, metalness: 0.8, roughness: 0.2 })
+      );
+      sat.add(satBody, satWings);
+
+      // 3. Solar Tracker Panel Array
+      const trackerPanel = new THREE.Mesh(
+        new THREE.BoxGeometry(1.15, 1.15, 0.06),
+        new THREE.MeshStandardMaterial({ map: cellGridTex, metalness: 0.75, roughness: 0.2 })
+      );
+
+      [dish, sat, trackerPanel].forEach((o, i) => {
         o.userData.angle = i * 2.094;
         usesGroup.add(o);
       });
@@ -1370,7 +1421,7 @@
         const ctx = c.getContext('2d');
         const g = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
         g.addColorStop(0, 'rgba(255,255,255,1)');
-        g.addColorStop(0.32, 'rgba(255,255,255,0.28)');
+        g.addColorStop(0.32, 'rgba(255,220,120,0.38)');
         g.addColorStop(1, 'rgba(255,255,255,0)');
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, 128, 128);
@@ -1379,17 +1430,17 @@
 
       glowSprite = new THREE.Sprite(new THREE.SpriteMaterial({
         map: glowTex,
-        color: 0x38bdf8,
+        color: 0xf59e0b,
         blending: THREE.AdditiveBlending,
         transparent: true,
         depthWrite: false,
-        opacity: 0.48
+        opacity: 0.62
       }));
-      glowSprite.scale.setScalar(5.8);
+      glowSprite.scale.setScalar(6.2);
       root.add(glowSprite);
 
       hudRings = new THREE.Group();
-      [[2.3, 0x94a3b8, 0.26], [2.62, 0x38bdf8, 0.2]].forEach(([r, col, op], i) => {
+      [[2.3, 0xf59e0b, 0.28], [2.62, 0x38bdf8, 0.22]].forEach(([r, col, op], i) => {
         const rm = new THREE.Mesh(
           new THREE.RingGeometry(r, r + 0.015, 84),
           new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: op, side: THREE.DoubleSide })
@@ -1399,14 +1450,14 @@
       });
       root.add(hudRings);
 
-      // Rising Hydrothermal Fluid Particles
+      // Incoming Golden Solar Photon Rays (falling onto the PV Panel!)
       const flowArr = new Float32Array(120 * 3);
       for (let i = 0; i < 120; i++) {
-        flowArr.set([(Math.random() - 0.5) * 2.4, Math.random() * 5 - 2.5, (Math.random() - 0.5) * 2.4], i * 3);
+        flowArr.set([(Math.random() - 0.5) * 2.4, Math.random() * 5 - 2.5, (Math.random() - 0.5) * 2.0], i * 3);
       }
       hydroFlowPoints = new THREE.Points(
         new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(flowArr, 3)),
-        new THREE.PointsMaterial({ map: glowTex, color: 0xfbbf24, size: 0.2, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })
+        new THREE.PointsMaterial({ map: glowTex, color: 0xfde047, size: 0.22, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false })
       );
       root.add(hydroFlowPoints);
 
@@ -1459,13 +1510,14 @@
       if (mode === 'native' || mode === 'uses') {
         jellyImpulse = 1.0;
       } else if (mode === 'veins') {
-        split = split > 0.5 ? 0.15 : 0.9;
+        split = split > 0.5 ? 0.1 : 0.85;
         $('#split').value = Math.round(split * 100);
-        $('#splitLab').textContent = (split > 0.5 ? 'Open Lode · ' : 'Enclosed Vein · ') + Math.round(split * 100) + '%';
+        $('#splitLab').textContent = (split > 0.5 ? 'Exploded Layers · ' : 'Assembled Module · ') + Math.round(split * 100) + '%';
       } else if (mode === 'atom') {
         atomExcite = 1.0;
       } else if (mode === 'lattice') {
         hammerShear = 1.0;
+        voltageFlow = 1.0;
       }
     }
 
@@ -1473,11 +1525,11 @@
       mode = newMode;
       $$('.dock-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === newMode));
       const labels = {
-        native: '💧 Click to Ripple · Drag to Spin',
-        veins: '⛰ Click to Fracture Lode',
-        atom: '⚡ Click to Excite 5s¹ Electron',
-        lattice: '🔨 Click to Shear FCC Lattice',
-        uses: '🪙 Drag to Inspect Uses'
+        native: '☀ Click to Pulse Tropical Sun · Drag to Spin',
+        veins: '🔋 Click to Explode 5-Layer PV Panel',
+        atom: '🌍 Click to Boost Tropical Insolation Rings',
+        lattice: '🏘 Click to Power Rural Village Solar Grid',
+        uses: '🛰 Drag to Inspect Solar Cookers & Satellites'
       };
       $('#cursor-pill').textContent = labels[newMode] || 'Drag to Spin';
     }
@@ -1510,13 +1562,12 @@
     // ---------------------------------------------------------
     function animateLoop(ms) {
       requestAnimationFrame(animateLoop);
-      if (document.hidden) return; // Save battery when tab hidden
+      if (document.hidden) return;
 
       const t = ms * 0.001;
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       const scrollRatio = Math.min(1, Math.max(0, window.scrollY / maxScroll));
 
-      // Scroll velocity adds subtle liquid jelly wobble
       const scrollDelta = Math.abs(window.scrollY - lastScrollY);
       if (scrollDelta > 2) {
         jellyImpulse = Math.min(1.0, jellyImpulse + scrollDelta * 0.003);
@@ -1550,21 +1601,20 @@
       spinVelY *= 0.93;
       userTiltX *= 0.992;
 
-      // Liquid Jelly Vertex Ripple when poked or scrolled
-      if (jellyImpulse > 0.005) {
-        const pos = coreMesh.geometry.attributes.position;
-        for (let i = 0; i < pos.count; i++) {
-          const bx = coreBasePositions[i * 3];
-          const by = coreBasePositions[i * 3 + 1];
-          const bz = coreBasePositions[i * 3 + 2];
-          const wave = 1 + Math.sin(t * 18 + bx * 4 + by * 4) * 0.14 * jellyImpulse;
-          pos.setXYZ(i, bx * wave, by * wave, bz * wave);
-        }
-        pos.needsUpdate = true;
-        jellyImpulse *= 0.91;
+      // Solar Corona Plasma Surface Boil + Flare Wave
+      const pos = coreMesh.geometry.attributes.position;
+      const waveAmp = 0.035 + jellyImpulse * 0.14;
+      for (let i = 0; i < pos.count; i++) {
+        const bx = coreBasePositions[i * 3];
+        const by = coreBasePositions[i * 3 + 1];
+        const bz = coreBasePositions[i * 3 + 2];
+        const wave = 1 + Math.sin(t * 8 + bx * 3.5 + by * 3.5) * waveAmp;
+        pos.setXYZ(i, bx * wave, by * wave, bz * wave);
       }
+      pos.needsUpdate = true;
+      jellyImpulse *= 0.92;
 
-      // Smooth Scale Morph Helper — ensures EVERY model is cleanly visible when active!
+      // Smooth Scale Morph Helper
       const scaleTo = (obj, target) => {
         const next = obj.scale.x + (target - obj.scale.x) * 0.09;
         obj.scale.setScalar(Math.max(next, 0.001));
@@ -1576,147 +1626,142 @@
       const isLattice = mode === 'lattice';
       const isUses    = mode === 'uses';
 
-      // Core crystal ghosts slightly during Atom or Lattice mode so internal structures shine clearly
-      const targetCoreScale = (isAtom || isLattice) ? 0.72 : (isUses ? 0.55 : 1.0);
-      coreMesh.scale.setScalar(coreMesh.scale.x + (targetCoreScale - coreMesh.scale.x) * 0.08);
-      matMetal.opacity += (((isAtom || isLattice) ? 0.13 : 1.0) - matMetal.opacity) * 0.09;
+      // Sun sphere shrinks into a mini sun-core or hides when inspecting the PV panel cutaway
+      const targetCoreScale = isVeins ? 0.001 : ((isAtom || isLattice) ? 0.42 : (isUses ? 0.68 : 1.0));
+      coreMesh.scale.setScalar(coreMesh.scale.x + (targetCoreScale - coreMesh.scale.x) * 0.09);
+      coreMesh.visible = coreMesh.scale.x > 0.02;
+      crystalTwins.forEach(tw => scaleTo(tw, mode === 'native' ? 1 : 0));
+      wireMeshes.forEach(wm => scaleTo(wm, mode === 'native' ? 1 : 0));
+      matSun.opacity += (((isAtom || isLattice) ? 0.16 : 1.0) - matSun.opacity) * 0.09;
 
-      // Veins & Lodes Rock Shards
+      // 5-Layer PV Solar Module Cutaway
       rockShards.forEach(s => {
         scaleTo(s, isVeins ? 1 : 0);
         if (isVeins) {
-          s.position.lerp(s.userData.dir.clone().multiplyScalar(1.02 + 1.45 * split), 0.1);
+          s.position.lerp(s.userData.dir.clone().multiplyScalar(0.14 + 0.95 * split), 0.1);
         }
       });
       scaleTo(veinLines, isVeins ? 1 : 0);
 
-      // Quantum Atom
+      // Silicon Atom 14
       scaleTo(atomGroup, isAtom ? 1.12 : 0);
       if (atomGroup.visible) {
         if (!orbitPaused) {
           electronRings.forEach((ring, j) => {
             ring.rotation.z += ring.userData.sp * (0.022 + atomExcite * 0.06);
-            const jumpScale = 1 + (j === 4 ? atomExcite * 0.32 : atomExcite * 0.12);
+            const jumpScale = 1 + (j === 2 ? atomExcite * 0.34 : atomExcite * 0.1);
             ring.scale.setScalar(jumpScale);
           });
         }
-        nucleusGroup.scale.setScalar(1 + Math.sin(t * 5) * 0.05 + atomExcite * 0.15);
+        nucleusGroup.scale.setScalar(1 + Math.sin(t * 5) * 0.05 + atomExcite * 0.18);
         nucleusGroup.rotation.y = -t * 0.65;
-        atomExcite *= 0.93;
       }
+      atomExcite *= 0.94;
 
-      // FCC Lattice + Interactive Physics (Hammer, Voltage, Heat)
-      scaleTo(latticeGroup, isLattice ? 0.88 : 0);
+      // Rural Village Solar Grid / P-N Semiconductor Lab
+      scaleTo(latticeGroup, isLattice ? 0.85 : 0);
       if (latticeGroup.visible) {
         latticeGroup.rotation.set(0.35, t * 0.25, 0);
         latticeAtoms.forEach((atom, i) => {
           const bp = atom.userData.basePos;
-          // Hammering shears top layer (bp.y > 0) horizontally!
-          const shearOffset = bp.y > 0.1 ? Math.sin(hammerShear * Math.PI) * 0.65 : 0;
-          // Thermal vibration jitters atoms and glows warm orange
-          const jitterX = thermalHeat > 0.01 ? Math.sin(t * 42 + i * 3.1) * 0.09 * thermalHeat : 0;
-          const jitterY = thermalHeat > 0.01 ? Math.cos(t * 39 + i * 2.7) * 0.09 * thermalHeat : 0;
-          atom.position.set(bp.x + shearOffset + jitterX, bp.y + jitterY, bp.z);
-
-          if (thermalHeat > 0.02) {
-            atom.material.emissive.setHex(0xf97316);
-            atom.material.emissiveIntensity = 0.3 + thermalHeat * 1.2;
-          } else {
-            atom.material.emissive.setHex(0x0284c7);
-            atom.material.emissiveIntensity = 0.45;
-          }
+          const shearX = bp.y > 0 ? hammerShear * 0.55 * Math.sin(t * 18) : 0;
+          const jitter = thermalHeat * 0.12;
+          atom.position.set(
+            bp.x + shearX + (Math.random() - 0.5) * jitter,
+            bp.y + (Math.random() - 0.5) * jitter,
+            bp.z + (Math.random() - 0.5) * jitter
+          );
+          atom.material.emissiveIntensity = 0.45 + voltageFlow * 0.8 + thermalHeat * 1.1;
         });
 
-        // Electron Sea Drift (accelerates when Voltage is applied!)
         const seaPos = electronSeaPoints.geometry.attributes.position;
-        const driftSpeed = 0.015 + voltageFlow * 0.14;
+        const speed = 0.025 + voltageFlow * 0.14;
         for (let i = 0; i < 90; i++) {
-          let x = seaPos.getX(i) + driftSpeed;
+          let x = seaPos.getX(i) + speed;
           if (x > 1.1) x = -1.1;
           seaPos.setX(i, x);
         }
         seaPos.needsUpdate = true;
-
-        hammerShear *= 0.92;
-        voltageFlow *= 0.985;
-        thermalHeat *= 0.988;
       }
+      hammerShear *= 0.93;
+      voltageFlow *= 0.96;
+      thermalHeat *= 0.95;
 
-      // Industrial Uses Orbit
+      // Orbiting Solar Applications (Parabolic Dish, Satellite, Solar Tracker)
       scaleTo(usesGroup, isUses ? 1 : 0);
       if (usesGroup.visible) {
         usesGroup.children.forEach((o, i) => {
           const a = o.userData.angle + t * 0.65;
-          o.position.set(Math.cos(a) * 2.55, Math.sin(t * 1.3 + i) * 0.3, Math.sin(a) * 2.55);
-          o.rotation.set(t * 0.8 + i, t * 0.5, i);
+          o.position.set(Math.cos(a) * 2.55, Math.sin(t * 1.3 + i) * 0.28, Math.sin(a) * 2.55);
+          o.rotation.set(t * 0.7 + i, t * 0.5, i * 0.4);
         });
       }
 
-      // Hydrothermal Upwelling Particles
+      // Falling Solar Photon Rays on PV Cutaway & Grid
       const fp = hydroFlowPoints.geometry.attributes.position;
       for (let i = 0; i < 120; i++) {
-        let y = fp.getY(i) + 0.022 + (i % 5) * 0.004;
-        if (y > 2.5) y = -2.5;
+        let y = fp.getY(i) - (0.03 + (i % 5) * 0.005);
+        if (y < -2.4) y = 2.4;
         fp.setY(i, y);
       }
       fp.needsUpdate = true;
-      hydroFlowPoints.material.opacity += ((isVeins ? 0.88 : 0) - hydroFlowPoints.material.opacity) * 0.07;
+      hydroFlowPoints.material.opacity += (((isVeins || isLattice) ? 0.88 : 0) - hydroFlowPoints.material.opacity) * 0.07;
 
-      // Tarnish Shader: Pure Metal -> Rainbow Thin-Film Interference -> Black Ag2S
-      if (tarnish < 0.45) {
-        matMetal.color.copy(baseMetalColor).lerp(rainbowFilmColor, (tarnish / 0.45) * 0.45);
-      } else {
-        matMetal.color.copy(baseMetalColor).lerp(rainbowFilmColor, 0.45).lerp(sulfideBlackColor, (tarnish - 0.45) / 0.55);
-      }
-      matMetal.roughness = 0.11 + tarnish * 0.62;
-      matMetal.metalness = 0.98 - tarnish * 0.45;
-      matMetal.envMapIntensity = 1.75 - tarnish * 1.25;
-
+      // Ambient Glow, HUD Rings & Desert Dust Coating
       glowSprite.material.color.lerp(modeTints[mode] || modeTints.native, 0.06);
-      hudRings.rotation.z = -t * 0.14;
-      hudRings.rotation.x = Math.sin(t * 0.3) * 0.25;
+      glowSprite.material.opacity = (0.52 - tarnish * 0.28) + Math.sin(t * 1.6) * 0.08;
+      hudRings.rotation.z = -t * 0.16;
+      hudRings.rotation.x = Math.sin(t * 0.35) * 0.24;
+
+      if (matRock) {
+        matRock.color.copy(baseMetalColor).lerp(sulfideBlackColor, tarnish * 0.85);
+        matRock.roughness = 0.18 + tarnish * 0.65;
+        matRock.metalness = 0.85 - tarnish * 0.45;
+      }
+      matSun.color.copy(baseSunColor);
 
       renderer.render(scene, camera);
     }
 
     // ---------------------------------------------------------
-    // 6. UI CONTROLS, TABS, LAB SIMULATORS & 8-QUESTION QUIZ
+    // 6. UI BINDINGS, SOLAR ZONE SWATCHES & CHAPTER TABS
     // ---------------------------------------------------------
     window.addEventListener('pointermove', e => {
       pointerNormX = e.clientX / window.innerWidth - 0.5;
       pointerNormY = e.clientY / window.innerHeight - 0.5;
     });
 
-    // Theme Switcher
-    $('#theme-btn').addEventListener('click', () => {
-      const rootEl = document.documentElement;
-      rootEl.dataset.theme = rootEl.dataset.theme === 'light' ? 'dark' : 'light';
-    });
-
-    // Metal Swatches (Silver, 24K Gold, Copper, Platinum, Rose Gold)
-    Object.entries(metals).forEach(([name, info], idx) => {
-      const b = document.createElement('button');
-      b.className = 'swatch-btn';
-      b.title = name;
-      b.setAttribute('aria-label', name);
-      b.setAttribute('aria-pressed', idx === 0);
-      b.style.background = '#' + info.hex.toString(16).padStart(6, '0');
-      b.addEventListener('click', () => {
-        baseMetalColor.setHex(info.hex);
-        $('#brand-symbol').textContent = info.sym;
-        $('#brand-title').textContent = info.title;
-        $$('.swatch-btn').forEach(x => x.setAttribute('aria-pressed', x === b));
-        jellyImpulse = 0.7;
+    // Top Header Solar Zone Swatches
+    Object.entries(metals).forEach(([key, cfg], idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'swatch-btn';
+      btn.title = cfg.title;
+      btn.setAttribute('aria-label', cfg.title);
+      btn.setAttribute('aria-pressed', idx === 0);
+      btn.style.background = '#' + cfg.sunHex.toString(16).padStart(6, '0');
+      btn.addEventListener('click', () => {
+        baseMetalColor.setHex(cfg.hex);
+        baseSunColor.setHex(cfg.sunHex);
+        $('#brand-symbol').textContent = cfg.sym;
+        $('#brand-title').textContent = cfg.title;
+        $$('.swatch-btn').forEach(b => b.setAttribute('aria-pressed', b === btn));
+        jellyImpulse = 0.6;
       });
-      $('#swatches-wrap').appendChild(b);
+      $('#swatches-wrap').appendChild(btn);
     });
 
-    // Chapter 01: Classification Tabs
+    // Dark / Light Theme Switcher
+    $('#theme-btn').addEventListener('click', () => {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'light' ? 'dark' : 'light';
+    });
+
+    // Chapter 01: Classification Tabs (Social Science Geography Ch. 5)
     const classData = {
-      precious: '<b>Precious Metallic Minerals:</b> Silver, Gold, and Platinum. Devoid of iron, high economic value, ductile, malleable, and corrosion-resistant.',
-      ferrous: '<b>Ferrous Minerals (Contain Iron):</b> Account for ~75% of the value of metallic mineral production in India. Examples: <b>Iron Ore, Manganese, Nickel, Cobalt</b>.',
-      nonferrous: '<b>Non-Ferrous Minerals (No Iron):</b> Vital for metallurgical, engineering, and electrical industries. Examples: <b>Copper, Bauxite, Lead, Zinc, Silver, Gold</b>.',
-      nonmetallic: '<b>Non-Metallic &amp; Energy Minerals:</b> Non-metallic: <b>Mica</b> (insulator in electronics), <b>Limestone</b> (cement). Energy: <b>Coal, Petroleum, Natural Gas, Uranium</b>.'
+      precious: '<b>Solar Energy (Flagship Non-Conventional Resource):</b> India is a tropical country with enormous possibilities for tapping solar energy. It is clean, inexhaustible, and empowers both rural villages and urban cities.',
+      ferrous: '<b>Non-Conventional Sources of Energy:</b> Include <b>Solar, Wind, Tidal, Geothermal, Biogas, and Atomic Energy</b>. They are renewable, eco-friendly, and vital for India’s sustainable future.',
+      nonferrous: '<b>Conventional Sources of Energy:</b> Include <b>Firewood, Cattle Dung Cake, Coal, Petroleum, Natural Gas, and Electricity (Hydel &amp; Thermal)</b>. Fossil fuels are exhaustible and cause severe pollution.',
+      nonmetallic: '<b>Why India Needs Non-Conventional Energy:</b> Growing energy consumption, rising prices of oil and gas, potential shortages of coal, and environmental degradation make renewable energy an urgent national priority.'
     };
     $$('#class-tabs button').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1728,15 +1773,15 @@
     $('#poke-crystal-btn').addEventListener('click', () => {
       setActiveMode('native');
       jellyImpulse = 1.0;
-      spinVelY += 0.04;
+      spinVelY += 0.045;
     });
 
-    // Chapter 02: Modes of Occurrence Tabs
+    // Chapter 02: Modes of Solar Utilization (+ A Hint of Science)
     const occData = {
-      veins: '<b>Veins (Smaller) &amp; Lodes (Larger):</b> In igneous and metamorphic rocks, hot mineral solutions rise through faults and solidify. Examples: <b>Silver, Tin, Copper, Zinc, Lead</b>.',
-      beds: '<b>Beds or Seams (Sedimentary Rocks):</b> Formed by deposition, accumulation, and concentration in horizontal strata over long periods. Examples: <b>Coal, Iron Ore, Gypsum, Potash Salt</b>.',
-      placer: '<b>Alluvial / Placer Deposits:</b> Found in sands of valley floors and the base of hills. Contains minerals that are <b>not corroded by water</b>: <b>Gold, Silver, Tin, and Platinum</b>.',
-      residual: '<b>Residual Mass &amp; Ocean Waters:</b> Decomposition of surface rocks leaving weathered residue forms <b>Bauxite</b>. Ocean waters give Common Salt, Magnesium, and Bromine.'
+      veins: '<b>1. Photovoltaic (PV) Technology:</b> Converts sunlight directly into electricity. <i>Hint of Science:</i> Sunlight hits a <b>Silicon (Si)</b> semiconductor cell, freeing electrons to flow through fine <b>Silver (Ag)</b> grid lines as direct current.',
+      beds: '<b>2. Solar Thermal Technology:</b> Uses mirrors or collectors to concentrate solar heat to boil water into steam—used for industrial milk-can sterilisation (Madhapur, Bhuj) and solar water heaters.',
+      placer: '<b>3. Canal-Top &amp; Floating Solar Plants:</b> Installed over irrigation canals (Gujarat) and dam reservoirs (Ramagundam, Telangana) to save scarce agricultural land and reduce water evaporation!',
+      residual: '<b>4. Box-Type &amp; Parabolic Solar Cookers:</b> Trap solar heat under a glass sheet cover (Greenhouse Effect) to cook food cleanly without burning firewood or LPG gas.'
     };
     $$('#occ-tabs button').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1748,38 +1793,38 @@
     $('#split').addEventListener('input', e => {
       setActiveMode('veins');
       split = e.target.value / 100;
-      $('#splitLab').textContent = (split > 0.5 ? 'Open Lode · ' : 'Enclosed Vein · ') + e.target.value + '%';
+      $('#splitLab').textContent = (split > 0.5 ? 'Exploded View · ' : 'Assembled Panel · ') + e.target.value + '%';
     });
 
-    // Chapter 03: India Mining Belts
+    // Chapter 03: India Solar Parks & Distribution (Social Science Map Work)
     const belts = {
-      Rajasthan: [
-        'Aravalli Polymetallic Belt · Rank #1 (~92% of India)',
-        'Zawar, Sindesar Khurd &amp; Rajpura-Dariba Mines',
-        'Operated by Hindustan Zinc Ltd. in Udaipur &amp; Rajsamand districts. Silver is extracted from Precambrian dolomitic rocks rich in lead-zinc galena.',
-        'Udaipur, Rajsamand, Bhilwara',
-        'Argentiferous Galena (PbS) &amp; Sphalerite (ZnS)'
+      'Gujarat (Madhapur)': [
+        'NCERT Geography Ch.5 Textbook Landmark · Kutch &amp; Patan',
+        'Madhapur near Bhuj · Charanka &amp; Khavda Hybrid Park',
+        'NCERT Highlight: Some big solar power plants are being established in different parts of India—the largest solar plant of its kind was established at Madhapur near Bhuj to sterilise milk cans!',
+        'Kutch (Bhuj / Madhapur / Khavda), Patan',
+        'Solar Milk-Can Steriliser &amp; Canal-Top Solar'
       ],
-      Karnataka: [
-        'Dharwar Schist Gold Belt · Rank #2',
-        'Hutti &amp; Kolar Gold Fields (KGF)',
-        'Silver is recovered as an important precious by-product while refining gold ore at Hutti Gold Mines (Raichur district) and historically Kolar.',
-        'Raichur (Hutti), Kolar',
-        'Auriferous Quartz Reefs'
+      'Rajasthan (Bhadla)': [
+        'Thar Desert Super-Belt · Rank #1 Solar State in India',
+        'Bhadla Solar Park (2,245 MW · World’s Largest)',
+        'Spread across 14,000 acres in Phalodi (Jodhpur). Arid wasteland, low cloud cover, and over 325 sunny days a year make Rajasthan India’s leading solar power producer.',
+        'Jodhpur (Bhadla), Jaisalmer, Bikaner',
+        'Arid Land Utilization &amp; Mega Solar Parks'
       ],
-      Jharkhand: [
-        'Singhbhum Shear Zone · Smelting Hub',
-        'Tundoo &amp; Singhbhum Copper-Lead Belt',
-        'Silver is recovered during the smelting and electrolytic refining of copper and lead concentrates in East Singhbhum and Dhanbad.',
-        'East Singhbhum, Dhanbad',
-        'Chalcopyrite &amp; Galena Sulfides'
+      'Karnataka (Pavagada)': [
+        'Deccan Plateau Corridor · Farmer-Inclusive Model',
+        'Pavagada Solar Park (Shakti Sthala · 2,050 MW)',
+        'Developed in drought-hit Tumakuru district where thousands of local farmers leased their dry land for solar panels—receiving guaranteed annual income without losing land ownership.',
+        'Tumakuru (Pavagada), Koppal, Vijayapura',
+        'Drought-Prone Farmer Land-Leasing Model'
       ],
-      'Andhra Pradesh': [
-        'Cuddapah Basin · Eastern Deposits',
-        'Agnigundala Lead-Copper Belt',
-        'Silver occurs as a minor associate in lead-zinc-copper sulfide veins in the Guntur and Kurnool districts.',
-        'Guntur, Kurnool',
-        'Galena-Chalcopyrite Veins'
+      'Telangana & Andhra': [
+        'Southern Plateau &amp; Reservoir Floating Solar Belt',
+        'Ramagundam Floating Solar (100 MW) &amp; Kurnool Park',
+        'Ramagundam (Peddapalli, Telangana) hosts one of India’s largest floating solar plants on a reservoir—saving land and preventing 3.25 million cubic meters of water evaporation every year!',
+        'Peddapalli (Ramagundam), Kurnool, Anantapur',
+        'Floating Reservoir PV &amp; Ultra Mega Solar Parks'
       ]
     };
 
@@ -1790,7 +1835,7 @@
         <div style="color:var(--ac);font:600 10.5px 'JetBrains Mono',monospace;text-transform:uppercase;margin-bottom:3px;">${d[0]}</div>
         <div style="font:700 16px 'Space Grotesk',sans-serif;color:var(--fg);margin-bottom:4px;">${d[1]}</div>
         <div style="margin-bottom:6px;">${d[2]}</div>
-        <div style="font-size:12px;"><b>Districts:</b> ${d[3]} · <b>Host Ore:</b> ${d[4]}</div>
+        <div style="font-size:12px;"><b>Map Districts:</b> ${d[3]} · <b>Geo Importance:</b> ${d[4]}</div>
       `;
       spinVelY += 0.03;
     }
@@ -1801,20 +1846,20 @@
       b.addEventListener('click', () => selectBelt(n));
       $('#tabs').appendChild(b);
     });
-    selectBelt('Rajasthan');
+    selectBelt('Gujarat (Madhapur)');
 
-    // Chapter 04: Electron Shells & Quantum Jump
+    // Chapter 04: Tropical Geography & Insolation Belts (+ Small Hint of Silicon Science)
     const shellInfo = [
-      ['K (n=1)', '2', 'Innermost core shell (1s²): 2 electrons held tightly by the +47 nuclear charge.'],
-      ['L (n=2)', '8', 'Second shell (2s² 2p⁶): Complete octet of 8 core electrons.'],
-      ['M (n=3)', '18', 'Third shell (3s² 3p⁶ 3d¹⁰): Holds 18 electrons including a filled 3d subshell.'],
-      ['N (n=4)', '18', 'Fourth shell (4s² 4p⁶ 4d¹⁰): Filled 4d¹⁰ subshell gives Silver its high stability and noble character.'],
-      ['O (n=5)', '1', '<b>Valence Shell (5s¹):</b> 1 single loosely held outer electron! It detaches into a mobile electron sea, giving Silver record electrical and thermal conductivity.']
+      ['Zone 1 · Arid West', 'Peak Sun', '<b>Thar Desert &amp; Kutch (Rajasthan / Gujarat):</b> Highest solar insolation in India (~6 to 7 kWh/m²/day) due to cloudless skies and dry desert climate.'],
+      ['Zone 2 · Deccan', 'High Sun', '<b>Peninsular Plateau (Maharashtra, Karnataka, Telangana, AP, TN):</b> ~300 sunny days and vast rocky plateau terrain ideal for solar parks.'],
+      ['Tropic of Cancer', '23°30′ N', '<b>Geographical Secret:</b> The Tropic of Cancer passes right through the middle of India (8 states), ensuring intense vertical sun rays throughout the year!'],
+      ['Zone 3 · Ladakh', 'Cold Desert', '<b>High-Altitude Cold Desert (Leh–Ladakh):</b> Thin, clean mountain air and 320+ sunny days give Ladakh extraordinary solar potential despite freezing temperatures.'],
+      ['Hint of Science', 'Si-14 Cell', '<b>🔬 Tiny Hint of Science:</b> At the heart of every solar cell is <b>Silicon (Atomic No. 14, shells 2, 8, 4)</b> made from quartz sand—its 4 outer electrons jump into electric current when struck by tropical sunlight!']
     ];
 
     shellInfo.forEach((s, idx) => {
       const b = document.createElement('button');
-      b.innerHTML = `${s[0]} · ${s[1]}e⁻`;
+      b.innerHTML = `${s[0]} · ${s[1]}`;
       b.addEventListener('click', () => {
         setActiveMode('atom');
         $$('#shells button').forEach((x, j) => x.setAttribute('aria-pressed', idx === j));
@@ -1825,7 +1870,7 @@
       });
       $('#shells').appendChild(b);
     });
-    $('#shells button:last-child').click();
+    $('#shells button:nth-child(3)').click();
 
     $('#excite-atom-btn').addEventListener('click', () => {
       setActiveMode('atom');
@@ -1833,31 +1878,31 @@
     });
     $('#pause-atom-btn').addEventListener('click', e => {
       orbitPaused = !orbitPaused;
-      e.currentTarget.textContent = orbitPaused ? '▶ Resume Orbits' : '⏸ Pause Orbits';
+      e.currentTarget.textContent = orbitPaused ? '▶ Resume Solar Rings' : '⏸ Pause Solar Rings';
     });
 
-    // Chapter 05: 3D Lattice Physics Lab Buttons & Science Ch.3 Exceptions
+    // Chapter 05: Rural Transformation & Village Grid Lab
     $('#lab-hammer').addEventListener('click', () => {
       setActiveMode('lattice');
       hammerShear = 1.0;
-      $('#lab-status').innerHTML = '<b>🔨 Malleability in Action:</b> Notice how the top atomic plane slides over the lower plane without breaking metallic bonds! Delocalized electrons act as a flexible cushion.';
+      $('#lab-status').innerHTML = '<b>☀ Daytime Solar Harvesting:</b> Village rooftop and community solar panels absorb tropical sunlight and generate clean electricity with zero smoke!';
     });
     $('#lab-voltage').addEventListener('click', () => {
       setActiveMode('lattice');
       voltageFlow = 1.0;
-      $('#lab-status').innerHTML = '<b>⚡ Electrical Conductivity:</b> Applying voltage drives the golden 5s¹ free electrons rapidly from the negative to positive terminal with minimal resistance.';
+      $('#lab-status').innerHTML = '<b>⚡ Rural Electrification &amp; Irrigation:</b> Electricity flows directly to village homes, schools, streetlights, and agricultural solar water pumps!';
     });
     $('#lab-heat').addEventListener('click', () => {
       setActiveMode('lattice');
       thermalHeat = 1.0;
-      $('#lab-status').innerHTML = '<b>🔥 Thermal Vibration:</b> Heating the lattice makes silver cations vibrate intensely and glow orange, transferring kinetic energy rapidly across the crystal.';
+      $('#lab-status').innerHTML = '<b>🔥 Why Replace Firewood &amp; Dung Cakes:</b> Burning wood and dung wastes 85% of energy as smoke, causes indoor pollution, destroys trees, and burns up valuable farm manure!';
     });
 
     const excData = {
-      record: '<b>Silver Super-Records:</b> #1 Electrical Conductivity (6.3×10⁷ S/m), #1 Thermal Conductivity (429 W/m·K), #1 Optical Reflectivity (95%). 1g can be drawn into a 2km wire!',
-      liquid: '<b>Melting Point Exceptions:</b> <b>Mercury (Hg)</b> is a liquid metal at room temperature. <b>Gallium (Ga)</b> and <b>Caesium (Cs)</b> have such low melting points (~30°C) that they melt on your palm!',
-      soft: '<b>Alkali Metal Exceptions:</b> <b>Lithium, Sodium (Na), and Potassium (K)</b> are so soft they can be cut with a knife, and have low densities and low melting points.',
-      nonmetal: '<b>Non-Metal Exceptions:</b> <b>Iodine (I₂)</b> is a lustrous non-metal. <b>Carbon</b> allotropes: <b>Diamond</b> is the hardest natural substance; <b>Graphite</b> is a good conductor of electricity!'
+      record: '<b>Preserves Cattle Dung as Manure (NCERT Core Point):</b> When rural households switch from dung cakes to solar energy, cattle dung is returned to agricultural fields as rich organic manure, improving soil fertility naturally!',
+      liquid: '<b>Environmental Conservation &amp; Forest Protection:</b> Cutting trees for kitchen firewood leads to deforestation and soil erosion. Solar cookers, heaters, and lanterns protect India’s forest cover.',
+      soft: '<b>Improves Rural Health &amp; Standard of Living:</b> Eliminates toxic indoor smoke from traditional chulhas, provides bright study light for students at night, and powers village health centres.',
+      nonmetal: '<b>Geographical &amp; Economic Challenges:</b> 1. No generation at night or during heavy monsoon clouds without battery storage. 2. High initial installation cost of solar panels for small farmers.'
     };
     $$('#exc-tabs button').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1866,25 +1911,25 @@
       });
     });
 
-    // Chapter 06: Reactions Tabs + Tarnish Slider + Polish Button
+    // Chapter 06: National Missions & Desert Dust Maintenance Lab
     const rxnData = {
       cyanide: `
-        <div class="formula">Ag₂S + 4NaCN → 2Na[Ag(CN)₂] + Na₂S</div>
-        <div class="formula">2Na[Ag(CN)₂] + Zn → Na₂[Zn(CN)₄] + 2Ag↓</div>
-        <p class="hint">MacArthur-Forrest Process: More reactive Zinc displaces pure Silver from soluble sodium dicyanoargentate.</p>
+        <div class="formula">Jawaharlal Nehru National Solar Mission (JNNSM) + PM Surya Ghar Yojana</div>
+        <div class="formula">Goal: 1 Crore Rooftop Solar Homes · Up to 300 Units Free Electricity / Month</div>
+        <p class="hint">Government subsidies turn household rooftops into mini power stations, reducing burden on coal thermal plants.</p>
       `,
       displace: `
-        <div class="formula">Cu(s) + 2AgNO₃(aq) [Colourless] → Cu(NO₃)₂(aq) [Blue] + 2Ag(s)↓</div>
-        <p class="hint">Because Copper lies above Silver in the reactivity series, a copper wire dipped in silver nitrate turns the solution blue and grows glittering silver needles!</p>
+        <div class="formula">PM-KUSUM Scheme: Diesel Pump → Solar Agricultural Water Pump</div>
+        <div class="formula">Barren Farm Land → Solar Power Plant → Extra Income for Farmers</div>
+        <p class="hint">Farmers use solar power for daytime irrigation and sell surplus solar electricity back to the state grid.</p>
       `,
       photo: `
-        <div class="formula">2AgCl(s) [White] —(Sunlight)→ 2Ag(s) [Grey] + Cl₂(g)</div>
-        <div class="formula">2AgBr(s) [Pale Yellow] —(Sunlight)→ 2Ag(s) + Br₂(g)</div>
-        <p class="hint">Class 10 Science Ch. 1: Endothermic photolytic decomposition reaction used in black-and-white photography.</p>
+        <div class="formula">International Solar Alliance (ISA) · Headquarters: Gurugram, Haryana (India)</div>
+        <p class="hint">Launched by India and France ("One Sun, One World, One Grid") uniting 120+ sunshine nations between the Tropics.</p>
       `,
       series: `
-        <div class="formula">K &gt; Na &gt; Ca &gt; Mg &gt; Al &gt; Zn &gt; Fe &gt; Pb &gt; [H] &gt; Cu &gt; Hg &gt; Ag &gt; Au</div>
-        <p class="hint">Silver (Ag) and Gold (Au) sit at the bottom (least reactive), so they occur in the native state and do not react with dilute HCl or H₂SO₄.</p>
+        <div class="formula">🔬 Hint of Science: Sunlight → Silicon Cell (DC Power) → Inverter (AC Power for Homes)</div>
+        <p class="hint">Solar panels generate Direct Current (DC), which a small box called a Solar Inverter converts into Alternating Current (AC) for household fans and lights.</p>
       `
     };
     $$('#rxn-tabs button').forEach(btn => {
@@ -1895,31 +1940,32 @@
     });
 
     $('#tar').addEventListener('input', e => {
-      setActiveMode('native');
+      setActiveMode('veins');
       tarnish = e.target.value / 100;
-      const stage = tarnish < 0.15 ? 'Lustrous Ag' : (tarnish < 0.55 ? 'Iridescent Thin-Film' : 'Black Ag₂S Sulfide Coating');
-      $('#tarLab').textContent = `${e.target.value}% · ${stage}`;
+      const eff = Math.round(100 - tarnish * 42);
+      const stage = tarnish < 0.15 ? 'Clear Sky & Clean Panel' : (tarnish < 0.55 ? 'Monsoon Haze & Light Dust' : 'Heavy Thar Sandstorm Layer');
+      $('#tarLab').textContent = `${e.target.value}% Dust · ${eff}% Output (${stage})`;
     });
 
     $('#polish-btn').addEventListener('click', () => {
-      setActiveMode('native');
+      setActiveMode('veins');
       tarnish = 0;
       $('#tar').value = 0;
-      $('#tarLab').textContent = '0% · Polished Lustrous Ag';
+      $('#tarLab').textContent = '0% Dust · 100% Output Restored (Zero Water Used!)';
       jellyImpulse = 0.85;
       spinVelY += 0.05;
     });
 
-    // Chapter 07: 8-Question Class 10 Geography + Science Master Quiz
+    // Chapter 07: 8-Question Class 10 Social Science (Geography Ch. 5) Quiz
     const QUIZ = [
-      ['1. [Geo Ch.5] In igneous and metamorphic rocks, larger occurrences of minerals in faults and crevices are called:', ['Placer deposits', 'Lodes', 'Beds or seams', 'Nodules'], 1, 'Smaller occurrences are called veins; larger occurrences are called lodes.'],
-      ['2. [Geo Ch.5] Which Indian state accounts for over 90% of silver production from the Zawar and Sindesar Khurd mines?', ['Karnataka', 'Jharkhand', 'Rajasthan', 'Andhra Pradesh'], 2, 'Rajasthan’s Aravalli lead-zinc belt (Zawar & Sindesar Khurd) dominates India’s silver production.'],
-      ['3. [Geo Ch.5] Gold, silver, tin, and platinum found in valley sands that are not corroded by water are called:', ['Rat-hole minerals', 'Placer (alluvial) deposits', 'Ferrous beds', 'Sedimentary seams'], 1, 'Alluvial or placer deposits contain noble metals resistant to water corrosion.'],
-      ['4. [Sci Ch.3] Silver articles turn black on exposure to air because silver reacts with airborne H₂S to form:', ['Ag₂O', 'Ag₂CO₃', 'Ag₂S (Silver sulfide)', 'AgCl'], 2, 'Hydrogen sulfide in air reacts with silver to form a black coating of silver sulfide (Ag₂S).'],
-      ['5. [Sci Ch.3] Which pair of metals has such low melting points that they melt if kept on your palm?', ['Sodium & Potassium', 'Gallium & Caesium', 'Silver & Copper', 'Lead & Mercury'], 1, 'Gallium (Ga) and Caesium (Cs) melt at ~30°C, just below human body temperature.'],
-      ['6. [Sci Ch.3] When a copper coin is dipped in colourless silver nitrate (AgNO₃) solution, the solution turns:', ['Green due to FeSO₄', 'Blue due to Cu(NO₃)₂ & shiny Ag deposits', 'Black due to Ag₂S', 'Remains colourless'], 1, 'Copper is more reactive than silver and displaces Ag from AgNO₃, forming blue copper nitrate.'],
-      ['7. [Sci Ch.1] Which silver salt undergoes photolytic decomposition in sunlight and is used in black-and-white photography?', ['Silver Nitrate (AgNO₃)', 'Silver Bromide (AgBr)', 'Silver Sulfide (Ag₂S)', 'Silver Cyanide (AgCN)'], 1, '2AgBr(s) → 2Ag(s) + Br₂(g) in the presence of light.'],
-      ['8. [Geo Ch.5] Under the Class 10 Geography classification of minerals, Silver is categorized as a:', ['Ferrous metallic mineral', 'Non-metallic mineral', 'Precious non-ferrous metallic mineral', 'Energy mineral'], 2, 'Silver, gold, and platinum are non-ferrous precious metallic minerals.']
+      ['1. [Geography Ch.5] Under the NCERT classification of energy resources, Solar Energy belongs to which category?', ['Conventional exhaustible fuel', 'Non-conventional (renewable) energy resource', 'Ferrous metallic mineral', 'Fossil thermal resource'], 1, 'Solar, wind, tidal, geothermal, and biogas are non-conventional (renewable and eco-friendly) energy resources.'],
+      ['2. [Geography Ch.5] Which technology converts sunlight directly into electricity?', ['Photovoltaic (PV) technology', 'Blast furnace smelting', 'Hydro-turbine technology', 'Bituminous coal combustion'], 0, 'NCERT Geography states that Photovoltaic (PV) technology converts sunlight directly into electricity.'],
+      ['3. [Geography Ch.5] According to NCERT, a major solar plant in India was established to sterilise milk cans at:', ['Madhapur near Bhuj (Gujarat)', 'Digboi in Assam', 'Jharia in Jharkhand', 'Kalpakkam in Tamil Nadu'], 0, 'Madhapur near Bhuj (Gujarat) is specifically cited in NCERT Class 10 Geography for sterilising milk cans with solar energy.'],
+      ['4. [Geography Ch.5] How does introducing solar energy in rural India help both environment and agriculture?', ['Increases coal consumption', 'Minimises dependence on firewood & dung cakes—conserving trees and saving manure', 'Replaces organic farming with diesel', 'Increases forest cutting'], 1, 'NCERT highlights that solar energy reduces rural dependence on firewood and dung cakes, which conserves trees and ensures adequate supply of manure in agriculture.'],
+      ['5. [Geography Ch.5] Why does India have enormous possibilities for tapping solar energy?', ['India is a polar country', 'India is a tropical country crossed by the Tropic of Cancer with ~300 sunny days', 'India has no rivers', 'India has no coal reserves'], 1, 'As a tropical country, India receives abundant vertical sunlight (~5,000 trillion kWh per year) across most parts of the nation.'],
+      ['6. [Geography Map Work] Which Indian state leads in solar energy production and hosts the 2,245 MW Bhadla Solar Park?', ['Rajasthan', 'Sikkim', 'Meghalaya', 'Goa'], 0, 'Rajasthan’s Thar Desert (Jodhpur/Phalodi) hosts the Bhadla Solar Park, enjoying clear skies and vast arid land.'],
+      ['7. [Hint of Science] Which abundant element refined from sand forms the semiconductor wafer inside almost all solar cells?', ['Silicon (Si)', 'Mercury (Hg)', 'Sodium (Na)', 'Chlorine (Cl)'], 0, 'Silicon (Si) semiconductor wafers absorb sunlight photons and release electrons to generate electricity.'],
+      ['8. [Geography Ch.5] Which of the following is an example of a Conventional source of energy used in rural households?', ['Solar photovoltaic lantern', 'Firewood and cattle dung cakes', 'Tidal energy', 'Geothermal energy'], 1, 'Firewood and cattle dung cakes are conventional sources; replacing them with solar and biogas is key to rural conservation.']
     ];
 
     let qIdx = 0, score = 0, tried = false;
@@ -2015,35 +2061,25 @@
       }
     });
 
-    // Clean chemical formulas & symbols so the AI reads them naturally like a teacher
+    // Clean geographical terms, abbreviations & formulas so the AI reads them naturally like a Social Science teacher
     function cleanTextForSpeech(raw) {
       return raw
-        .replace(/Ag₂S/g, 'Silver Sulfide, A G 2 S,')
-        .replace(/AgNO₃/g, 'Silver Nitrate, A G N O 3,')
-        .replace(/Cu\(NO₃\)₂/g, 'Copper Nitrate')
-        .replace(/Na\[Ag\(CN\)₂\]/g, 'Sodium Dicyano-argentate')
-        .replace(/Na₂\[Zn\(CN\)₄\]/g, 'Sodium Tetracyano-zincate')
-        .replace(/NaCN/g, 'Sodium Cyanide')
-        .replace(/Na₂S/g, 'Sodium Sulfide')
-        .replace(/H₂S/g, 'Hydrogen Sulfide')
-        .replace(/H₂O/g, 'water')
-        .replace(/O₂/g, 'oxygen')
-        .replace(/Cl₂/g, 'chlorine gas')
-        .replace(/Br₂/g, 'bromine')
-        .replace(/AgBr/g, 'Silver Bromide')
-        .replace(/AgCl/g, 'Silver Chloride')
-        .replace(/AgI/g, 'Silver Iodide')
-        .replace(/PbS/g, 'Lead Sulfide')
-        .replace(/ZnS/g, 'Zinc Sulfide')
-        .replace(/5s¹/g, '5 s 1')
-        .replace(/4d¹⁰/g, '4 d 10')
+        .replace(/SiO₂/g, 'Silicon Dioxide')
+        .replace(/kWh\/m²\/day/g, 'kilowatt hours per square meter per day')
+        .replace(/kWh\/m²/g, 'kilowatt hours per square meter')
+        .replace(/kWh/g, 'kilowatt hours')
+        .replace(/sq\.\s*km/gi, 'square kilometer')
+        .replace(/MW/g, 'Megawatts')
+        .replace(/GW/g, 'Gigawatts')
+        .replace(/23°30′\s*N|23°30'\s*N/g, '23 degrees 30 minutes North')
+        .replace(/Ch\.5|Ch\.\s*5/g, 'Chapter 5')
+        .replace(/Geo\s/g, 'Geography ')
+        .replace(/PV/g, 'Photovoltaic')
+        .replace(/Si-14/g, 'Silicon 14')
         .replace(/e⁻/g, ' electrons')
-        .replace(/¹⁰⁷Ag/g, 'Silver 107')
-        .replace(/¹⁰⁹Ag/g, 'Silver 109')
-        .replace(/6\.3×10⁷ S\/m/g, '6.3 times 10 to the power 7 Siemens per meter')
-        .replace(/→|—\(Sunlight\)→/g, ' reacts to form ')
-        .replace(/↓/g, ' precipitate ')
-        .replace(/&gt;|>/g, ' is more reactive than ')
+        .replace(/→/g, ' leads to ')
+        .replace(/&gt;|>/g, ' is greater than ')
+        .replace(/&lt;|</g, ' is less than ')
         .replace(/·/g, ', ')
         .replace(/\s+/g, ' ')
         .trim();
