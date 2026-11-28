@@ -39,7 +39,10 @@
     #touch-ui { position: fixed; inset: 0; pointer-events: none; z-index: 25; }
     #touch-actions { position: fixed; right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); pointer-events: auto; }
     #hud-tl, #hud-tr, #hud-bc { z-index: 30; }
-    #hud-tc { z-index: 40; }
+    #hud-tl { top: max(8px, env(safe-area-inset-top)); left: max(8px, env(safe-area-inset-left)); }
+    #hud-tr { top: max(8px, env(safe-area-inset-top)); right: max(8px, env(safe-area-inset-right)); }
+    #hud-tc { z-index: 40; top: max(8px, env(safe-area-inset-top)); }
+    #hud-bc { bottom: max(10px, env(safe-area-inset-bottom)); }
     #modal { z-index: 50; }
     #title { z-index: 70; }
     #land-guard { z-index: 90; }
@@ -57,6 +60,15 @@
       #hud-tr { transform: scale(0.84); transform-origin: top right; }
       #hud-tc { transform: translateX(-50%) scale(0.86); transform-origin: top center; }
       #joy-base { width: 90px; height: 90px; }
+      #touch-actions { transform: scale(0.9); transform-origin: bottom right; }
+    }
+    @media (max-width: 600px) {
+      #hud-tl { transform: scale(0.78); transform-origin: top left; }
+      #hud-tr { transform: scale(0.78); transform-origin: top right; }
+      #hud-tc { top: calc(max(8px, env(safe-area-inset-top)) + 74px); transform: translateX(-50%) scale(0.9); transform-origin: top center; }
+      #hud-bc { bottom: calc(max(12px, env(safe-area-inset-bottom)) + 112px); }
+      #joy-base { width: 88px; height: 88px; }
+      #touch-actions { transform: scale(0.84); transform-origin: bottom right; }
     }
   </style>
 </head>
@@ -378,8 +390,16 @@
   function load() {
     try {
       const d = JSON.parse(localStorage.getItem('mc_min_v1') || 'null');
-      if (!d) return;
-      Object.keys(d).forEach(k => { if (k === 'attrs') Object.assign(S.attrs, d.attrs); else if (d[k] !== undefined) S[k] = d[k]; });
+      if (!d || typeof d !== 'object') return;
+      Object.keys(d).forEach(k => {
+        if (k === 'attrs' && d.attrs && typeof d.attrs === 'object') Object.assign(S.attrs, d.attrs);
+        else if (d[k] !== undefined && d[k] !== null) S[k] = d[k];
+      });
+      if (!Array.isArray(S.ownW) || !S.ownW.length) S.ownW = ['w01','w02'];
+      if (!Array.isArray(S.ownA) || !S.ownA.length) S.ownA = ['a01','a02'];
+      if (!Array.isArray(S.ownM) || !S.ownM.length) S.ownM = ['m01','m03'];
+      if (!Array.isArray(S.eqS) || S.eqS.length < 4) S.eqS = ['s01','s02','s03','s05'];
+      if (!S.upg || typeof S.upg !== 'object') S.upg = {};
       stats(); S.hp = S.maxHp; S.mp = S.maxMp;
     } catch (_) {}
   }
@@ -646,11 +666,24 @@
   }
 
   /* 6. SCENE & MAPS (OPEN WORLD + 20-WAVE VIOLET CITADEL) */
+  function getViewSize() {
+    const wrap = document.getElementById('wrap');
+    const w = Math.max(1, (wrap && wrap.clientWidth) || window.innerWidth || 320);
+    const h = Math.max(1, (wrap && wrap.clientHeight) || window.innerHeight || 240);
+    return { w, h };
+  }
+
   function initScene() {
-    renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('cv'), antialias: false, powerPreference: 'high-performance' });
-    renderer.setSize(window.innerWidth, window.innerHeight); renderer.toneMapping = THREE.NoToneMapping;
+    const cv = document.getElementById('cv');
+    const { w, h } = getViewSize();
+    renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: false, powerPreference: 'high-performance' });
+    renderer.setSize(w, h, false);
+    cv.style.width = '100%'; cv.style.height = '100%';
+    renderer.toneMapping = THREE.NoToneMapping;
+    cv.addEventListener('webglcontextlost', e => { e.preventDefault(); toast('Graphics paused — resuming...'); }, false);
+    cv.addEventListener('webglcontextrestored', () => { applyPS2(); toast('Graphics restored!'); }, false);
     scene = new THREE.Scene(); scene.background = new THREE.Color(0x09081b); scene.fog = new THREE.FogExp2(0x120d26, 0.01);
-    camera = new THREE.PerspectiveCamera(64, window.innerWidth / window.innerHeight, 0.12, 340); scene.add(camera);
+    camera = new THREE.PerspectiveCamera(64, w / h, 0.12, 340); scene.add(camera);
     clock = new THREE.Clock();
 
     scene.add(new THREE.HemisphereLight(0x7c72c8, 0x161e2e, 0.9));
@@ -673,11 +706,18 @@
   }
 
   function applyPS2() {
-    document.getElementById('cv').classList.toggle('ps2', S.ps2);
+    const cv = document.getElementById('cv');
+    cv.classList.toggle('ps2', S.ps2);
     document.getElementById('ps2-fx').classList.toggle('hidden', !S.ps2);
     document.getElementById('btn-ps2').textContent = S.ps2 ? 'PS2' : 'HD';
-    const dpr = S.ps2 ? Math.min(0.62, 480 / Math.max(480, window.innerHeight)) : Math.min(window.devicePixelRatio || 1, 1.75);
-    if (renderer) { renderer.setPixelRatio(Math.max(0.45, dpr)); renderer.setSize(window.innerWidth, window.innerHeight, false); }
+    const { w, h } = getViewSize();
+    const dpr = S.ps2 ? Math.min(0.62, 480 / Math.max(480, h)) : Math.min(window.devicePixelRatio || 1, 1.5);
+    if (renderer) {
+      renderer.setPixelRatio(Math.max(0.45, dpr));
+      renderer.setSize(w, h, false);
+      cv.style.width = '100%'; cv.style.height = '100%';
+    }
+    if (camera) { camera.aspect = w / h; camera.updateProjectionMatrix(); }
   }
 
   function clearMap() {
@@ -821,6 +861,7 @@
 
   function buildCitadel() {
     clearMap(); S.map = 'citadel'; S.mounted = false; horse.visible = false; S.raidOn = false;
+    if (fpG && fpG.userData && fpG.userData.fpH) fpG.userData.fpH.visible = false;
     scene.fog = new THREE.FogExp2(0x160a2e, 0.0115);
     document.getElementById('zone-bar').textContent = 'Violet Citadel';
     document.getElementById('raid-bar').classList.remove('hidden'); updateRaidUI();
@@ -833,9 +874,10 @@
     for (let i = 0; i < 16; i++) {
       const a = (i / 16) * Math.PI * 2;
       const w = new THREE.Mesh(new THREE.BoxGeometry(15.2, 16, 1.8), wlM); w.position.set(Math.sin(a) * 36.5, 8, Math.cos(a) * 36.5); w.rotation.y = a; mapG.add(w);
-      if (i % 2 === 0) {
+      if (i % 2 === 0 && i !== 0) {
         const wn = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 8.2), new THREE.MeshBasicMaterial({ color: 0xd8b4fe }));
         wn.position.set(Math.sin(a) * 35.4, 7.6, Math.cos(a) * 35.4); wn.rotation.y = a + Math.PI; mapG.add(wn);
+      } else if (i % 2 === 1) {
         const p = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.3, 16, 7), wlM); p.position.set(Math.sin(a) * 23, 8, Math.cos(a) * 23); mapG.add(p);
         cols.push({ x0: p.position.x - 1.3, x1: p.position.x + 1.3, z0: p.position.z - 1.3, z1: p.position.z + 1.3 });
         addTorch(Math.sin(a) * 21.4, 3.6, Math.cos(a) * 21.4, 0xc084fc, 1.8, 22, false);
@@ -1048,7 +1090,8 @@
       const r = sp.kind === 'eclipse' ? 11 : 7.2; ring(S.pos, sp.col, r, 0.45); burst(orig, sp.col, 18, 7.5);
       foes.forEach(e => { if (e.alive && Math.hypot(e.rig.root.position.x - S.pos.x, e.rig.root.position.z - S.pos.z) <= r) hitFoe(e, dmg, hx, e.rig.root.position.clone().sub(S.pos).setY(0).normalize(), sp.kind === 'eclipse'); });
     } else if (sp.kind === 'dash') {
-      moveCol(fwd.clone().multiplyScalar(7.5)); ring(S.pos, sp.col, 4.6, 0.35);
+      for (let i = 0; i < 5; i++) moveCol(fwd.clone().multiplyScalar(1.5));
+      ring(S.pos, sp.col, 4.6, 0.35);
       foes.forEach(e => { if (e.alive && e.rig.root.position.distanceTo(S.pos) < 5.5) hitFoe(e, dmg, hx, fwd); });
     } else if (sp.kind === 'heal') {
       const h = Math.round(dmg * 1.45); S.hp = Math.min(S.maxHp, S.hp + h); ring(S.pos, sp.col, 3.8, 0.45); pop(S.pos, `+${h} HP`, '#4ade80');
@@ -1063,6 +1106,16 @@
       if (S.pos.x + r > c.x0 && S.pos.x - r < c.x1 && nz + r > c.z0 && nz - r < c.z1) bz = true;
     }
     if (!bx) S.pos.x = nx; if (!bz) S.pos.z = nz;
+    // Automatic push-out safeguard so the player can never get trapped inside a pillar or wall
+    for (const c of cols) {
+      if (S.pos.x + r > c.x0 && S.pos.x - r < c.x1 && S.pos.z + r > c.z0 && S.pos.z - r < c.z1) {
+        const cx = (c.x0 + c.x1) * 0.5, cz = (c.z0 + c.z1) * 0.5;
+        const ox = (c.x1 - c.x0) * 0.5 + r - Math.abs(S.pos.x - cx);
+        const oz = (c.z1 - c.z0) * 0.5 + r - Math.abs(S.pos.z - cz);
+        if (ox < oz) S.pos.x += S.pos.x < cx ? -(ox + 0.02) : (ox + 0.02);
+        else S.pos.z += S.pos.z < cz ? -(oz + 0.02) : (oz + 0.02);
+      }
+    }
     if (S.map === 'citadel') { const d = Math.hypot(S.pos.x, S.pos.z); if (d > 33.8) { S.pos.x = S.pos.x / d * 33.8; S.pos.z = S.pos.z / d * 33.8; } }
     else { S.pos.x = THREE.MathUtils.clamp(S.pos.x, -76, 76); S.pos.z = THREE.MathUtils.clamp(S.pos.z, -66, 70); }
   }
@@ -1087,9 +1140,18 @@
   async function toggleFS() {
     try {
       const d = document, el = d.documentElement;
-      if (d.fullscreenElement || d.webkitFullscreenElement) (d.exitFullscreen || d.webkitExitFullscreen).call(d);
-      else { await (el.requestFullscreen || el.webkitRequestFullscreen).call(el); if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {}); }
-    } catch (_) { toast('Fullscreen blocked by preview frame'); }
+      const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+      const ext = d.exitFullscreen || d.webkitExitFullscreen || d.msExitFullscreen;
+      if (d.fullscreenElement || d.webkitFullscreenElement) {
+        if (ext) await ext.call(d);
+      } else if (req) {
+        await req.call(el);
+        if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {});
+      } else {
+        toast('Rotate device sideways for fullscreen');
+      }
+      setTimeout(applyPS2, 180);
+    } catch (_) { toast('Fullscreen unavailable here — rotate sideways'); }
   }
 
   function setupInputs() {
@@ -1164,8 +1226,11 @@
       document.getElementById('pc-bar').classList.toggle('hidden', S.touch);
     };
     bindTap(document.getElementById('btn-touch'), () => { S.touch = !S.touch; syncTouchUI(); });
-    bindTap(document.getElementById('btn-fs'), toggleFS);
-    bindTap(document.getElementById('btn-title-fs'), toggleFS);
+    // Fullscreen buttons use native click so mobile browsers allow requestFullscreen()
+    ['btn-fs', 'btn-title-fs'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('click', e => { e.stopPropagation(); toggleFS(); });
+    });
     bindTap(document.getElementById('btn-mclose'), closeModal);
     document.getElementById('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
     document.querySelectorAll('.sp-btn').forEach(b => bindTap(b, () => castSpell(Number(b.dataset.sp))));
@@ -1175,17 +1240,27 @@
     if (isT) { S.touch = true; syncTouchUI(); }
     window.addEventListener('touchstart', () => { if (!S.touch) { S.touch = true; syncTouchUI(); } }, { once: true, passive: true });
     let skipL = false;
-    const chkL = () => document.getElementById('land-guard').classList.toggle('hidden', !(isT && window.innerHeight > window.innerWidth && !skipL));
+    const chkL = () => {
+      const { w, h } = getViewSize();
+      document.getElementById('land-guard').classList.toggle('hidden', !(isT && h > w && !skipL));
+    };
+    const handleResize = () => { applyPS2(); chkL(); };
     chkL();
-    bindTap(document.getElementById('btn-fs-land'), async () => { await toggleFS(); chkL(); });
-    bindTap(document.getElementById('btn-land-skip'), () => { skipL = true; chkL(); });
-    window.addEventListener('resize', () => { if (camera && renderer) { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); applyPS2(); } chkL(); });
+    document.getElementById('btn-fs-land').addEventListener('click', async e => { e.stopPropagation(); await toggleFS(); setTimeout(handleResize, 220); });
+    document.getElementById('btn-land-skip').addEventListener('click', e => { e.stopPropagation(); skipL = true; chkL(); handleResize(); });
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', () => { handleResize(); setTimeout(handleResize, 220); });
+    document.addEventListener('fullscreenchange', () => { handleResize(); setTimeout(handleResize, 160); });
+    document.addEventListener('webkitfullscreenchange', () => { handleResize(); setTimeout(handleResize, 160); });
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', handleResize);
   }
 
   /* 9. COMPACT GRIMOIRE MODAL */
   function closeModal() { S.modalOpen = false; document.getElementById('modal').classList.add('hidden'); }
   function openModal(tab) {
-    S.modalOpen = true; S.tab = tab || S.tab; S.joy.on = false; S.joy.dx = S.joy.dy = 0;
+    S.modalOpen = true; S.tab = tab || S.tab;
+    S.joy.on = false; S.joy.dx = S.joy.dy = 0; S.look.on = false; S.drag = false; S.keys = {};
+    const jk = document.getElementById('joy-knob'); if (jk) jk.style.transform = 'translate(0,0)';
     document.getElementById('modal').classList.remove('hidden'); renderModal();
   }
 
@@ -1445,16 +1520,28 @@
 
   window.onload = () => {
     try {
+      if (typeof THREE === 'undefined') throw new Error('3D engine failed to load — check connection and reload');
       load(); initTex(); initScene(); buildWorld(); setupInputs();
       if (S.lv > 1 || S.rb > 0 || S.wave > 0) {
         const sb = document.getElementById('save-badge'); sb.textContent = `Lv.${S.lv} • R${S.rb} • Wave ${S.wave}/20`; sb.classList.remove('hidden');
       }
-      bindTap(document.getElementById('btn-play'), () => {
-        SFX.init(); S.started = true; document.getElementById('title').classList.add('hidden'); document.getElementById('hud').classList.remove('hidden');
+      document.getElementById('btn-play').addEventListener('click', e => {
+        e.stopPropagation();
+        SFX.init(); S.started = true;
+        document.getElementById('title').classList.add('hidden');
+        document.getElementById('hud').classList.remove('hidden');
+        applyPS2();
         toast('Head north to Whispering Village & the Citadel Gate!');
       });
       loop();
-    } catch (err) { console.error(err); toast('Error: ' + err.message); }
+    } catch (err) {
+      console.error(err);
+      const box = document.createElement('div');
+      box.style.cssText = 'position:fixed;inset:16px;z-index:999;display:flex;align-items:center;justify-content:center;pointer-events:auto;';
+      box.innerHTML = `<div class="pnl rounded-2xl p-5 max-w-sm text-center"><div class="ff text-rose-300 font-bold mb-2">Screen Error</div><div class="text-xs text-slate-200 mb-3">${err.message}</div><button id="btn-reset-err" class="btn px-4 py-2 rounded-xl text-xs font-bold">Reset Save &amp; Reload</button></div>`;
+      document.body.appendChild(box);
+      document.getElementById('btn-reset-err').onclick = () => { try { localStorage.removeItem('mc_min_v1'); } catch (_) {} location.reload(); };
+    }
   };
 })();
 </script>
